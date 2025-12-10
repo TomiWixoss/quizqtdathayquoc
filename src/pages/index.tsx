@@ -1,7 +1,6 @@
 import { useNavigate } from "zmp-ui";
 import { Page } from "zmp-ui";
 import { Flame, Zap, BookOpen, Shuffle, Play } from "lucide-react";
-import { motion } from "framer-motion";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect } from "react";
@@ -31,13 +30,30 @@ function HomePage() {
     navigate("/quiz");
   };
 
+  // Colors for chapters
+  const colors = [
+    "#ff9600",
+    "#ffc800",
+    "#58cc02",
+    "#1cb0f6",
+    "#ce82ff",
+    "#ff4b4b",
+    "#ff9600",
+    "#ffc800",
+    "#58cc02",
+    "#1cb0f6",
+    "#ce82ff",
+    "#ff4b4b",
+    "#ff9600",
+  ];
+
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header - Fixed spacing for Zalo app bar */}
+      {/* Header */}
       <div className="pt-14 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-[var(--duo-green)] flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-2xl bg-[var(--duo-green)] flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -47,7 +63,6 @@ function HomePage() {
               </p>
             </div>
           </div>
-          {/* Level Badge */}
           {user && (
             <div className="bg-[var(--duo-yellow)] px-3 py-1.5 rounded-xl">
               <span className="text-sm font-bold text-[#1a2c35]">
@@ -76,29 +91,27 @@ function HomePage() {
         )}
       </div>
 
-      {/* Content - with bottom padding for nav bar */}
+      {/* Content */}
       <div
         className="px-4 py-4 pb-28 overflow-y-auto"
         style={{ height: "calc(100vh - 140px)" }}
       >
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 mb-6">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={handleRandom}
             className="btn-3d btn-3d-orange py-4 px-4 flex flex-col items-center gap-2"
           >
             <Shuffle className="w-8 h-8" />
             <span className="text-sm">Ngẫu nhiên</span>
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
+          </button>
+          <button
             onClick={handleAll}
             className="btn-3d btn-3d-purple py-4 px-4 flex flex-col items-center gap-2"
           >
             <Play className="w-8 h-8" />
             <span className="text-sm">Tất cả</span>
-          </motion.button>
+          </button>
         </div>
 
         {/* Chapter List */}
@@ -112,70 +125,45 @@ function HomePage() {
               ? Math.round((progress.completed / chapter.totalQuestions) * 100)
               : 0;
 
-            // Color based on chapter id
-            const colors = [
-              "#ff9600",
-              "#ffc800",
-              "#58cc02",
-              "#1cb0f6",
-              "#ce82ff",
-              "#ff4b4b",
-              "#ff9600",
-              "#ffc800",
-              "#58cc02",
-              "#1cb0f6",
-              "#ce82ff",
-              "#ff4b4b",
-              "#ff9600",
-            ];
-            const bgColor = colors[index % colors.length];
-
             return (
-              <motion.div
+              <button
                 key={chapter.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.03 }}
+                onClick={() => handleChapter(chapter.id)}
+                className="card-3d w-full p-4 text-left"
               >
-                <button
-                  onClick={() => handleChapter(chapter.id)}
-                  className="card-3d w-full p-4 text-left"
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shrink-0"
-                      style={{ background: bgColor }}
-                    >
-                      {chapter.id}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-sm text-foreground line-clamp-1">
-                        {chapter.name}
-                      </h3>
-                      <p className="text-xs text-[var(--muted-foreground)] mb-2">
-                        {chapter.totalQuestions} câu hỏi
-                      </p>
-                      {/* Progress bar */}
-                      <div className="progress-duo h-2">
-                        <div
-                          className="progress-duo-fill"
-                          style={{ width: `${percent}%` }}
-                        />
-                      </div>
-                    </div>
-                    {progress && progress.bestScore > 0 && (
-                      <div className="text-right shrink-0">
-                        <div className="text-xs text-[var(--muted-foreground)]">
-                          Best
-                        </div>
-                        <div className="font-bold text-[var(--duo-green)]">
-                          {progress.bestScore}
-                        </div>
-                      </div>
-                    )}
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shrink-0"
+                    style={{ background: colors[index % colors.length] }}
+                  >
+                    {chapter.id}
                   </div>
-                </button>
-              </motion.div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-sm text-foreground line-clamp-1">
+                      {chapter.name}
+                    </h3>
+                    <p className="text-xs text-[var(--muted-foreground)] mb-2">
+                      {chapter.totalQuestions} câu hỏi
+                    </p>
+                    <div className="progress-duo h-2">
+                      <div
+                        className="progress-duo-fill"
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
+                  </div>
+                  {progress && progress.bestScore > 0 && (
+                    <div className="text-right shrink-0">
+                      <div className="text-xs text-[var(--muted-foreground)]">
+                        Best
+                      </div>
+                      <div className="font-bold text-[var(--duo-green)]">
+                        {progress.bestScore}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </button>
             );
           })}
         </div>

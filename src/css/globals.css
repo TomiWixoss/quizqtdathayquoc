@@ -91,14 +91,24 @@
 @layer base {
   * {
     @apply border-border;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-background text-foreground;
     font-family: "Nunito", "Inter", system-ui, sans-serif;
   }
+
+  /* Hide all scrollbars */
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-/* Duolingo 3D Button Styles */
+/* Duolingo 3D Button Styles - NO animation, instant press */
 .btn-3d {
   position: relative;
   border: none;
@@ -106,99 +116,107 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: all 0.1s ease;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .btn-3d-green {
   background: var(--duo-green);
-  box-shadow: 0 4px 0 var(--duo-green-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 0 var(--duo-green-dark);
   color: white;
 }
 
-.btn-3d-green:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 var(--duo-green-dark), 0 8px 12px rgba(0, 0, 0, 0.25);
-}
-
 .btn-3d-green:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 var(--duo-green-dark), 0 3px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--duo-green-dark);
 }
 
 .btn-3d-blue {
   background: var(--duo-blue);
-  box-shadow: 0 4px 0 var(--duo-blue-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 0 var(--duo-blue-dark);
   color: white;
+}
+
+.btn-3d-blue:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--duo-blue-dark);
 }
 
 .btn-3d-orange {
   background: var(--duo-orange);
-  box-shadow: 0 4px 0 var(--duo-orange-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 0 var(--duo-orange-dark);
   color: white;
+}
+
+.btn-3d-orange:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--duo-orange-dark);
 }
 
 .btn-3d-purple {
   background: var(--duo-purple);
-  box-shadow: 0 4px 0 var(--duo-purple-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 0 var(--duo-purple-dark);
   color: white;
 }
 
-/* Card 3D Effect */
+.btn-3d-purple:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--duo-purple-dark);
+}
+
+/* Card 3D Effect - NO animation, instant press */
 .card-3d {
   background: var(--card);
   border-radius: 16px;
   border: 2px solid var(--border);
-  box-shadow: 0 2px 0 var(--border);
-  transition: all 0.2s ease;
-}
-
-.card-3d:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 0 var(--border);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .card-3d:active {
-  transform: translateY(1px);
-  box-shadow: 0 1px 0 var(--border);
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--border);
 }
 
-/* Option Button Styles */
+/* Option Button Styles - NO animation, instant press */
 .option-btn {
   background: var(--card);
   border: 2px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 2px 0 var(--border);
-  transition: all 0.15s ease;
+  box-shadow: 0 4px 0 var(--border);
   cursor: pointer;
-}
-
-.option-btn:hover {
-  border-color: var(--duo-blue);
-  background: rgba(28, 176, 246, 0.1);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .option-btn:active {
-  transform: translateY(2px);
-  box-shadow: none;
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--border);
 }
 
 .option-btn.selected {
   border-color: var(--duo-blue);
   background: rgba(28, 176, 246, 0.15);
-  box-shadow: 0 2px 0 var(--duo-blue-dark);
+  box-shadow: 0 4px 0 var(--duo-blue-dark);
+}
+
+.option-btn.selected:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--duo-blue-dark);
 }
 
 .option-btn.correct {
   border-color: var(--duo-green);
   background: rgba(88, 204, 2, 0.15);
-  box-shadow: 0 2px 0 var(--duo-green-dark);
+  box-shadow: 0 4px 0 var(--duo-green-dark);
 }
 
 .option-btn.wrong {
   border-color: var(--duo-red);
   background: rgba(255, 75, 75, 0.15);
-  box-shadow: 0 2px 0 var(--duo-red-dark);
+  box-shadow: 0 4px 0 var(--duo-red-dark);
 }
 
 /* Progress Bar */

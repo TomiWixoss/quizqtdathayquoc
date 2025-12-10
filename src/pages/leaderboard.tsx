@@ -1,6 +1,5 @@
 import { Page } from "zmp-ui";
 import { Trophy, Crown, Medal, Flame, Zap } from "lucide-react";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -41,7 +40,7 @@ function LeaderboardPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header - Fixed spacing */}
+      {/* Header */}
       <div className="pt-14 pb-4 px-4 bg-gradient-to-r from-[var(--duo-yellow)] to-[var(--duo-orange)]">
         <div className="flex items-center gap-2">
           <Trophy className="w-6 h-6 text-white" />
@@ -49,7 +48,7 @@ function LeaderboardPage() {
         </div>
       </div>
 
-      {/* Content - with bottom padding for nav bar */}
+      {/* Content */}
       <div className="px-4 py-4 pb-28">
         {loading ? (
           <div className="text-center py-12">
@@ -70,11 +69,8 @@ function LeaderboardPage() {
               const RankIcon = rankStyle.icon;
 
               return (
-                <motion.div
+                <div
                   key={leader.oderId}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.03 }}
                   className={`card-3d p-3 ${
                     isCurrentUser ? "border-[var(--duo-green)] border-2" : ""
                   }`}
@@ -140,7 +136,7 @@ function LeaderboardPage() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>

@@ -1,6 +1,5 @@
 import { Page } from "zmp-ui";
 import { Sun, Moon, User, Info } from "lucide-react";
-import { motion } from "framer-motion";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
 
@@ -19,11 +18,7 @@ function SettingsPage() {
       <div className="px-4 py-4 pb-32">
         {/* User Info */}
         {user && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="card-3d p-4 mb-6"
-          >
+          <div className="card-3d p-4 mb-6">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-2xl bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-2xl overflow-hidden">
                 {user.avatar ? (
@@ -45,7 +40,7 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* Settings List */}
@@ -55,10 +50,7 @@ function SettingsPage() {
           </h3>
 
           {/* Theme Toggle */}
-          <motion.button
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+          <button
             onClick={toggleTheme}
             className="card-3d w-full p-4 flex items-center justify-between"
           >
@@ -79,31 +71,28 @@ function SettingsPage() {
             </div>
             {/* Toggle Switch */}
             <div
-              className={`w-14 h-8 rounded-full p-1 transition-colors ${
+              className={`w-14 h-8 rounded-full p-1 ${
                 theme === "dark"
                   ? "bg-[var(--duo-green)]"
                   : "bg-[var(--secondary)]"
               }`}
             >
-              <motion.div
+              <div
                 className="w-6 h-6 rounded-full bg-white shadow-md"
-                animate={{ x: theme === "dark" ? 24 : 0 }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                style={{
+                  transform:
+                    theme === "dark" ? "translateX(24px)" : "translateX(0)",
+                }}
               />
             </div>
-          </motion.button>
+          </button>
 
           <h3 className="text-sm font-semibold text-[var(--muted-foreground)] mt-6 mb-2">
             Thông tin
           </h3>
 
           {/* App Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="card-3d p-4"
-          >
+          <div className="card-3d p-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[var(--duo-blue)]/20 flex items-center justify-center">
                 <Info className="w-5 h-5 text-[var(--duo-blue)]" />
@@ -115,16 +104,11 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Stats */}
           {user && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="card-3d p-4 mt-3"
-            >
+            <div className="card-3d p-4 mt-3">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl bg-[var(--duo-purple)]/20 flex items-center justify-center">
                   <User className="w-5 h-5 text-[var(--duo-purple)]" />
@@ -167,7 +151,7 @@ function SettingsPage() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           )}
         </div>
       </div>

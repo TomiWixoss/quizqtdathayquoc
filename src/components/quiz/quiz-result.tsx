@@ -1,5 +1,4 @@
 import { useNavigate } from "zmp-ui";
-import { motion } from "framer-motion";
 import {
   Trophy,
   Star,
@@ -31,7 +30,6 @@ export function QuizResult() {
   const percentage = Math.round((correctCount / totalQuestions) * 100);
 
   useEffect(() => {
-    // Update chapter progress
     if (currentChapter && user) {
       const currentProgress = user.chapterProgress[currentChapter];
       updateChapterProgress(currentChapter, {
@@ -42,7 +40,6 @@ export function QuizResult() {
       });
     }
 
-    // Celebration
     if (percentage >= 80) {
       const duration = percentage === 100 ? 3000 : 1500;
       const end = Date.now() + duration;
@@ -93,34 +90,16 @@ export function QuizResult() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4">
-      {/* Trophy/Emoji */}
-      <motion.div
-        initial={{ scale: 0, rotate: -180 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: "spring", duration: 0.8 }}
-        className="text-8xl mb-4"
-      >
-        {grade.emoji}
-      </motion.div>
+      {/* Emoji */}
+      <div className="text-8xl mb-4">{grade.emoji}</div>
 
       {/* Grade Label */}
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="text-3xl font-bold mb-2"
-        style={{ color: grade.color }}
-      >
+      <h1 className="text-3xl font-bold mb-2" style={{ color: grade.color }}>
         {grade.label}
-      </motion.h1>
+      </h1>
 
       {/* Score Circle */}
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.5, type: "spring" }}
-        className="relative w-40 h-40 mb-6"
-      >
+      <div className="relative w-40 h-40 mb-6">
         <svg className="w-full h-full -rotate-90">
           <circle
             cx="80"
@@ -130,7 +109,7 @@ export function QuizResult() {
             stroke="var(--secondary)"
             strokeWidth="12"
           />
-          <motion.circle
+          <circle
             cx="80"
             cy="80"
             r="70"
@@ -138,9 +117,7 @@ export function QuizResult() {
             stroke={grade.color}
             strokeWidth="12"
             strokeLinecap="round"
-            initial={{ strokeDasharray: "0 440" }}
-            animate={{ strokeDasharray: `${(percentage / 100) * 440} 440` }}
-            transition={{ delay: 0.7, duration: 1 }}
+            strokeDasharray={`${(percentage / 100) * 440} 440`}
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -151,15 +128,10 @@ export function QuizResult() {
             Chính xác
           </span>
         </div>
-      </motion.div>
+      </div>
 
       {/* Stats */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8 }}
-        className="w-full max-w-sm card-3d p-4 mb-6"
-      >
+      <div className="w-full max-w-sm card-3d p-4 mb-6">
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
             <div className="w-10 h-10 mx-auto rounded-xl bg-[var(--duo-green)]/20 flex items-center justify-center mb-1">
@@ -190,7 +162,6 @@ export function QuizResult() {
           </div>
         </div>
 
-        {/* Streak info */}
         {user && (
           <div className="mt-4 pt-4 border-t border-[var(--border)] flex items-center justify-center gap-4">
             <div className="flex items-center gap-1">
@@ -205,15 +176,10 @@ export function QuizResult() {
             </div>
           </div>
         )}
-      </motion.div>
+      </div>
 
       {/* Actions */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-        className="w-full max-w-sm space-y-3"
-      >
+      <div className="w-full max-w-sm space-y-3">
         <button
           onClick={handleRetry}
           className="btn-3d btn-3d-green w-full py-4 flex items-center justify-center gap-2"
@@ -231,7 +197,7 @@ export function QuizResult() {
           <Home className="w-5 h-5" />
           Trang chủ
         </button>
-      </motion.div>
+      </div>
     </div>
   );
 }

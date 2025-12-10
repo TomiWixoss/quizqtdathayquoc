@@ -3,6 +3,8 @@ import { Page } from "zmp-ui";
 import { ArrowLeft, Shuffle, Infinity, Clock, Skull } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
+import { useState } from "react";
+import { NoHeartsModal } from "@/components/ui/custom-modal";
 
 const gameModes = [
   {
@@ -43,14 +45,11 @@ function BattlePage() {
   const navigate = useNavigate();
   const { startRandomQuiz, startAllQuiz, startTimeAttack, startSurvival } =
     useQuizStore();
-  const { user } = useUserStore();
+  const { user, spendGems, refillHearts } = useUserStore();
+  const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
+  const [pendingModeId, setPendingModeId] = useState<string | null>(null);
 
-  const handleMode = (modeId: string) => {
-    if (user && user.hearts <= 0) {
-      alert("Bạn đã hết tim! Chờ hồi phục hoặc dùng gems để mua.");
-      return;
-    }
-
+  const startMode = (modeId: string) => {
     switch (modeId) {
       case "random":
         startRandomQuiz(20);
@@ -66,6 +65,31 @@ function BattlePage() {
         break;
     }
     navigate("/quiz");
+  };
+
+  const handleMode = (modeId: string) => {
+    if (user && user.hearts <= 0) {
+      setPendingModeId(modeId);
+      setShowNoHeartsModal(true);
+      return;
+    }
+    startMode(modeId);
+  };
+
+  const handleBuyHearts = async () => {
+    const success = await spendGems(50);
+    if (success) {
+      await refillHearts();
+      setShowNoHeartsModal(false);
+      if (pendingModeId) {
+        startMode(pendingModeId);
+      }
+    }
+  };
+
+  const handleGoToShop = () => {
+    setShowNoHeartsModal(false);
+    navigate("/shop");
   };
 
   return (
@@ -130,6 +154,19 @@ function BattlePage() {
           );
         })}
       </div>
+
+      {/* No Hearts Modal */}
+      <NoHeartsModal
+        isOpen={showNoHeartsModal}
+        onClose={() => {
+          setShowNoHeartsModal(false);
+          setPendingModeId(null);
+        }}
+        onBuyHearts={handleBuyHearts}
+        onGoToShop={handleGoToShop}
+        userGems={user?.gems ?? 0}
+        heartCost={50}
+      />
     </Page>
   );
 }

@@ -4,8 +4,11 @@ import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
+import { useNavigate } from "zmp-ui";
+import { NoHeartsModal } from "@/components/ui/custom-modal";
 
 export function QuizCard() {
+  const navigate = useNavigate();
   const {
     currentQuestions,
     currentIndex,
@@ -15,10 +18,18 @@ export function QuizCard() {
     nextQuestion,
     score,
   } = useQuizStore();
-  const { user, updateStats, updateStreak, loseHeart, updateDailyProgress } =
-    useUserStore();
+  const {
+    user,
+    updateStats,
+    updateStreak,
+    loseHeart,
+    updateDailyProgress,
+    spendGems,
+    refillHearts,
+  } = useUserStore();
   const [showXP, setShowXP] = useState(false);
   const [showHeartLost, setShowHeartLost] = useState(false);
+  const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
 
   const currentQ = currentQuestions[currentIndex];
   const progress = ((currentIndex + 1) / currentQuestions.length) * 100;
@@ -80,39 +91,26 @@ export function QuizCard() {
     }
   };
 
+  const handleBuyHearts = async () => {
+    if (!user) return;
+    const success = await spendGems(50);
+    if (success) {
+      await refillHearts();
+      setShowNoHeartsModal(false);
+    }
+  };
+
+  const handleGoToShop = () => {
+    setShowNoHeartsModal(false);
+    navigate("/shop");
+  };
+
   if (!currentQ) return null;
 
-  // Show out of hearts message
-  if (user && user.hearts <= 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full py-10">
-        <div className="w-20 h-20 rounded-full bg-[var(--duo-red)]/20 flex items-center justify-center mb-4">
-          <img src="/Heart.png" alt="heart" className="w-12 h-12" />
-        </div>
-        <h2 className="text-xl font-bold text-foreground mb-2">Hết tim rồi!</h2>
-        <p className="text-sm text-[var(--muted-foreground)] text-center mb-4">
-          Chờ 30 phút để hồi phục 1 tim
-          <br />
-          hoặc dùng gems để mua thêm
-        </p>
-        <div className="space-y-2 w-full max-w-xs">
-          <button
-            onClick={() => {
-              const { spendGems, refillHearts } = useUserStore.getState();
-              if (user.gems >= 50) {
-                spendGems(50).then(() => refillHearts());
-              } else {
-                alert("Không đủ gems! Cần 50 gems.");
-              }
-            }}
-            className="btn-3d btn-3d-blue w-full py-3 flex items-center justify-center gap-2"
-          >
-            <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
-            Mua tim (50 gems)
-          </button>
-        </div>
-      </div>
-    );
+  // Show modal when out of hearts
+  if (user && user.hearts <= 0 && !showNoHeartsModal) {
+    // Auto show modal when hearts reach 0
+    setTimeout(() => setShowNoHeartsModal(true), 100);
   }
 
   return (
@@ -276,6 +274,16 @@ export function QuizCard() {
           </button>
         </div>
       )}
+
+      {/* No Hearts Modal */}
+      <NoHeartsModal
+        isOpen={showNoHeartsModal}
+        onClose={() => setShowNoHeartsModal(false)}
+        onBuyHearts={handleBuyHearts}
+        onGoToShop={handleGoToShop}
+        userGems={user?.gems ?? 0}
+        heartCost={50}
+      />
     </div>
   );
 }

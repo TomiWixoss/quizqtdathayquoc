@@ -11,12 +11,15 @@ import {
 } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { NoHeartsModal } from "@/components/ui/custom-modal";
 
 function HomePage() {
   const navigate = useNavigate();
   const { loadQuiz, chapters } = useQuizStore();
-  const { initUser, user } = useUserStore();
+  const { initUser, user, spendGems, refillHearts } = useUserStore();
+  const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
+  const [pendingChapterId, setPendingChapterId] = useState<number | null>(null);
 
   useEffect(() => {
     loadQuiz();
@@ -25,11 +28,29 @@ function HomePage() {
 
   const handleChapter = (id: number) => {
     if (user && user.hearts <= 0) {
-      alert("Bạn đã hết tim! Chờ hồi phục hoặc dùng gems để mua.");
+      setPendingChapterId(id);
+      setShowNoHeartsModal(true);
       return;
     }
     useQuizStore.getState().selectChapter(id);
     navigate("/quiz");
+  };
+
+  const handleBuyHearts = async () => {
+    const success = await spendGems(50);
+    if (success) {
+      await refillHearts();
+      setShowNoHeartsModal(false);
+      if (pendingChapterId !== null) {
+        useQuizStore.getState().selectChapter(pendingChapterId);
+        navigate("/quiz");
+      }
+    }
+  };
+
+  const handleGoToShop = () => {
+    setShowNoHeartsModal(false);
+    navigate("/shop");
   };
 
   const colors = [
@@ -272,6 +293,19 @@ function HomePage() {
           })}
         </div>
       </div>
+
+      {/* No Hearts Modal */}
+      <NoHeartsModal
+        isOpen={showNoHeartsModal}
+        onClose={() => {
+          setShowNoHeartsModal(false);
+          setPendingChapterId(null);
+        }}
+        onBuyHearts={handleBuyHearts}
+        onGoToShop={handleGoToShop}
+        userGems={user?.gems ?? 0}
+        heartCost={50}
+      />
     </Page>
   );
 }

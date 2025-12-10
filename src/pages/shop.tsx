@@ -84,20 +84,51 @@ function ShopPage() {
           )}
 
           <div className="grid grid-cols-2 gap-3">
-            {/* Refill all hearts */}
-            <button
-              onClick={handleBuyFullHearts}
-              className="card-3d p-4 text-center"
-            >
-              <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
-                <Heart className="w-6 h-6 text-[var(--duo-red)] fill-[var(--duo-red)]" />
+            {/* Refill all hearts - hide if full hearts or not enough gems */}
+            {user &&
+              (user.hearts ?? 5) < (user.maxHearts ?? 5) &&
+              (user.gems ?? 0) >= 50 && (
+                <button
+                  onClick={handleBuyFullHearts}
+                  className="card-3d p-4 text-center"
+                >
+                  <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
+                    <Heart className="w-6 h-6 text-[var(--duo-red)] fill-[var(--duo-red)]" />
+                  </div>
+                  <p className="font-bold text-foreground mb-1">Hồi đầy tim</p>
+                  <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
+                    <Gem className="w-4 h-4" />
+                    <span className="font-bold">50</span>
+                  </div>
+                </button>
+              )}
+
+            {/* Show disabled state when not enough gems */}
+            {user &&
+              (user.hearts ?? 5) < (user.maxHearts ?? 5) &&
+              (user.gems ?? 0) < 50 && (
+                <div className="card-3d p-4 text-center opacity-50">
+                  <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
+                    <Heart className="w-6 h-6 text-[var(--duo-red)] fill-[var(--duo-red)]" />
+                  </div>
+                  <p className="font-bold text-foreground mb-1">Hồi đầy tim</p>
+                  <div className="flex items-center justify-center gap-1 text-[var(--duo-red)]">
+                    <Gem className="w-4 h-4" />
+                    <span className="font-bold">Thiếu gems</span>
+                  </div>
+                </div>
+              )}
+
+            {/* Show full hearts message */}
+            {user && (user.hearts ?? 5) >= (user.maxHearts ?? 5) && (
+              <div className="card-3d p-4 text-center opacity-50">
+                <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-green)]/20 flex items-center justify-center mb-2">
+                  <Heart className="w-6 h-6 text-[var(--duo-green)] fill-[var(--duo-green)]" />
+                </div>
+                <p className="font-bold text-foreground mb-1">Tim đã đầy</p>
+                <p className="text-xs text-[var(--duo-green)]">5/5</p>
               </div>
-              <p className="font-bold text-foreground mb-1">Hồi đầy tim</p>
-              <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-                <Gem className="w-4 h-4" />
-                <span className="font-bold">50</span>
-              </div>
-            </button>
+            )}
 
             {/* Unlimited hearts (1 hour) */}
             <button

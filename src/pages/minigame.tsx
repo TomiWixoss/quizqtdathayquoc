@@ -158,7 +158,11 @@ function MinigamePage() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/shop")}
-            className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center"
+            className="btn-3d w-10 h-10 rounded-xl flex items-center justify-center"
+            style={{
+              background: "rgba(255,255,255,0.3)",
+              boxShadow: "0 4px 0 rgba(0,0,0,0.2)",
+            }}
           >
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>

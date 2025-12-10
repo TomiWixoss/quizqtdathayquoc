@@ -1,4 +1,4 @@
-import { Page } from "zmp-ui";
+import { Page, useNavigate } from "zmp-ui";
 import {
   Award,
   Lock,
@@ -16,6 +16,7 @@ import {
   Coins,
   CheckCircle,
   Gift,
+  ArrowLeft,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
@@ -54,6 +55,7 @@ const ACHIEVEMENT_REWARDS: Record<string, number> = {
 };
 
 function AchievementsPage() {
+  const navigate = useNavigate();
   const { user, addGems } = useUserStore();
   const [claimedRewards, setClaimedRewards] = useState<string[]>(() => {
     const saved = localStorage.getItem("claimedAchievementRewards");
@@ -190,8 +192,14 @@ function AchievementsPage() {
 
       {/* Header */}
       <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex items-center gap-3 mb-2">
+          <button
+            onClick={() => navigate("/settings")}
+            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </button>
+          <div className="flex-1">
             <div className="flex items-center gap-2">
               <Award className="w-6 h-6 text-white" />
               <h1 className="font-bold text-xl text-white">Thành tựu</h1>
@@ -203,7 +211,7 @@ function AchievementsPage() {
           {claimableCount > 0 && (
             <div className="bg-[var(--duo-red)] px-3 py-1.5 rounded-full">
               <span className="text-white text-sm font-bold">
-                {claimableCount} quà chờ nhận
+                {claimableCount}
               </span>
             </div>
           )}

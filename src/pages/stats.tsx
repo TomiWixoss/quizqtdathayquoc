@@ -1,4 +1,4 @@
-import { Page } from "zmp-ui";
+import { Page, useNavigate } from "zmp-ui";
 import {
   BarChart3,
   TrendingUp,
@@ -12,6 +12,7 @@ import {
   Calendar,
   Clock,
   Star,
+  ArrowLeft,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
@@ -20,6 +21,7 @@ import { useState, useEffect } from "react";
 type TabType = "overview" | "chapters" | "history";
 
 function StatsPage() {
+  const navigate = useNavigate();
   const { user } = useUserStore();
   const { chapters } = useQuizStore();
   const [activeTab, setActiveTab] = useState<TabType>("overview");
@@ -66,13 +68,23 @@ function StatsPage() {
     <Page className="bg-background min-h-screen">
       {/* Header */}
       <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-blue)] to-[var(--duo-purple)]">
-        <div className="flex items-center gap-2">
-          <BarChart3 className="w-6 h-6 text-white" />
-          <h1 className="font-bold text-xl text-white">Thống kê</h1>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate("/settings")}
+            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </button>
+          <div>
+            <div className="flex items-center gap-2">
+              <BarChart3 className="w-6 h-6 text-white" />
+              <h1 className="font-bold text-xl text-white">Thống kê</h1>
+            </div>
+            <p className="text-white/80 text-sm mt-1">
+              Phân tích chi tiết quá trình học
+            </p>
+          </div>
         </div>
-        <p className="text-white/80 text-sm mt-1">
-          Phân tích chi tiết quá trình học
-        </p>
       </div>
 
       {/* Tabs */}

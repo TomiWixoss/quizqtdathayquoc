@@ -178,7 +178,7 @@ export function QuizResult() {
     if (currentChapter) selectChapter(currentChapter);
     else {
       resetQuiz();
-      navigate("/");
+      navigate("/battle");
     }
   };
 
@@ -360,13 +360,7 @@ export function QuizResult() {
         </button>
         <button
           onClick={() => {
-            const { quizMode } = useQuizStore.getState();
-            const isBattleMode = [
-              "random",
-              "all",
-              "timeattack",
-              "survival",
-            ].includes(quizMode);
+            const isBattleMode = !currentChapter;
             resetQuiz();
             navigate(isBattleMode ? "/battle" : "/");
           }}

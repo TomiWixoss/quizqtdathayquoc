@@ -84,10 +84,8 @@ function QuizPage() {
       });
     }
 
-    // Navigate back based on quiz mode
-    const isBattleMode = ["random", "all", "timeattack", "survival"].includes(
-      quizMode
-    );
+    // Navigate back based on quiz mode (check before reset)
+    const isBattleMode = !currentChapter;
     resetQuiz();
     navigate(isBattleMode ? "/battle" : "/");
   };

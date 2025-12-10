@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle, Zap } from "lucide-react";
+import { CheckCircle2, XCircle, Zap, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -15,8 +15,10 @@ export function QuizCard() {
     nextQuestion,
     score,
   } = useQuizStore();
-  const { updateStats, updateStreak } = useUserStore();
+  const { user, updateStats, updateStreak, loseHeart, updateDailyProgress } =
+    useUserStore();
   const [showXP, setShowXP] = useState(false);
+  const [showHeartLost, setShowHeartLost] = useState(false);
 
   const currentQ = currentQuestions[currentIndex];
   const progress = ((currentIndex + 1) / currentQuestions.length) * 100;
@@ -24,22 +26,34 @@ export function QuizCard() {
   const isLastQuestion = currentIndex === currentQuestions.length - 1;
 
   useEffect(() => {
-    if (isAnswered && isCorrect) {
-      setShowXP(true);
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ["#58cc02", "#89e219", "#ffc800"],
-      });
-      setTimeout(() => setShowXP(false), 800);
+    if (isAnswered) {
+      if (isCorrect) {
+        setShowXP(true);
+        confetti({
+          particleCount: 60,
+          spread: 60,
+          origin: { y: 0.7 },
+          colors: ["#58cc02", "#89e219", "#ffc800"],
+        });
+        setTimeout(() => setShowXP(false), 800);
+      } else {
+        setShowHeartLost(true);
+        setTimeout(() => setShowHeartLost(false), 800);
+      }
     }
   }, [isAnswered, isCorrect]);
 
   const handleSelectAnswer = async (answerId: string) => {
     selectAnswer(answerId);
     const correct = answerId === currentQ.correctAnswer;
+
+    if (!correct) {
+      await loseHeart();
+    }
+
     await updateStats(correct, currentQ.chapter, correct ? 10 : 0);
+    await updateDailyProgress(correct ? 10 : 2);
+
     if (currentIndex === 0) {
       await updateStreak();
     }
@@ -50,20 +64,38 @@ export function QuizCard() {
   return (
     <div className="flex flex-col h-full">
       {/* Progress Bar */}
-      <div className="mb-6">
+      <div className="mb-4">
         <div className="progress-duo">
           <div
             className="progress-duo-fill"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="flex justify-between mt-2 text-sm">
+        <div className="flex justify-between items-center mt-2 text-sm">
           <span className="text-[var(--muted-foreground)]">
             Câu {currentIndex + 1}/{currentQuestions.length}
           </span>
-          <div className="flex items-center gap-1 text-[var(--duo-yellow)]">
-            <Zap className="w-4 h-4" />
-            <span className="font-bold">{score} XP</span>
+          <div className="flex items-center gap-3">
+            {/* Hearts */}
+            {user && (
+              <div className="flex items-center gap-0.5">
+                {[...Array(user.maxHearts)].map((_, i) => (
+                  <Heart
+                    key={i}
+                    className={`w-4 h-4 ${
+                      i < user.hearts
+                        ? "text-[var(--duo-red)] fill-[var(--duo-red)]"
+                        : "text-[var(--muted-foreground)]"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+            {/* XP */}
+            <div className="flex items-center gap-1 text-[var(--duo-yellow)]">
+              <Zap className="w-4 h-4" />
+              <span className="font-bold">{score}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -78,20 +110,28 @@ export function QuizCard() {
         </div>
       )}
 
+      {/* Heart Lost Popup */}
+      {showHeartLost && (
+        <div className="fixed top-1/3 left-1/2 -translate-x-1/2 z-50">
+          <div className="xp-pop flex items-center gap-2 bg-[var(--duo-red)] text-white px-4 py-2 rounded-full font-bold">
+            <Heart className="w-5 h-5" />
+            -1
+          </div>
+        </div>
+      )}
+
       {/* Question */}
       <div className="flex-1">
-        {/* Chapter badge */}
         <div className="inline-block px-3 py-1 rounded-full bg-[var(--secondary)] text-xs text-[var(--muted-foreground)] mb-3">
           {currentQ.chapterName}
         </div>
 
-        {/* Question text */}
-        <h2 className="text-xl font-bold text-foreground mb-6 leading-relaxed">
+        <h2 className="text-lg font-bold text-foreground mb-5 leading-relaxed">
           {currentQ.question}
         </h2>
 
         {/* Options */}
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {currentQ.options.map((option) => {
             const isSelected = selectedAnswer === option.id;
             const isCorrectOption = option.id === currentQ.correctAnswer;
@@ -104,16 +144,15 @@ export function QuizCard() {
                 onClick={() => !isAnswered && handleSelectAnswer(option.id)}
                 disabled={isAnswered}
                 className={cn(
-                  "option-btn w-full p-4 text-left flex items-center gap-3",
+                  "option-btn w-full p-3 text-left flex items-center gap-3",
                   isSelected && !isAnswered && "selected",
                   showCorrect && "correct",
                   showWrong && "wrong"
                 )}
               >
-                {/* Option indicator */}
                 <div
                   className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shrink-0",
+                    "w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs shrink-0",
                     showCorrect && "bg-[var(--duo-green)] text-white",
                     showWrong && "bg-[var(--duo-red)] text-white",
                     !isAnswered &&
@@ -124,14 +163,16 @@ export function QuizCard() {
                   )}
                 >
                   {showCorrect ? (
-                    <CheckCircle2 className="w-5 h-5" />
+                    <CheckCircle2 className="w-4 h-4" />
                   ) : showWrong ? (
-                    <XCircle className="w-5 h-5" />
+                    <XCircle className="w-4 h-4" />
                   ) : (
                     option.id
                   )}
                 </div>
-                <span className="flex-1 text-foreground">{option.text}</span>
+                <span className="flex-1 text-sm text-foreground">
+                  {option.text}
+                </span>
               </button>
             );
           })}
@@ -140,23 +181,22 @@ export function QuizCard() {
 
       {/* Bottom Action */}
       {isAnswered && (
-        <div className="mt-6">
-          {/* Feedback */}
+        <div className="mt-5">
           <div
             className={cn(
-              "p-4 rounded-2xl mb-4",
+              "p-3 rounded-2xl mb-3",
               isCorrect ? "bg-[var(--duo-green)]/20" : "bg-[var(--duo-red)]/20"
             )}
           >
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2">
               {isCorrect ? (
-                <CheckCircle2 className="w-6 h-6 text-[var(--duo-green)]" />
+                <CheckCircle2 className="w-5 h-5 text-[var(--duo-green)]" />
               ) : (
-                <XCircle className="w-6 h-6 text-[var(--duo-red)]" />
+                <XCircle className="w-5 h-5 text-[var(--duo-red)]" />
               )}
               <span
                 className={cn(
-                  "font-bold text-lg",
+                  "font-bold",
                   isCorrect
                     ? "text-[var(--duo-green)]"
                     : "text-[var(--duo-red)]"
@@ -166,17 +206,15 @@ export function QuizCard() {
               </span>
             </div>
             {!isCorrect && (
-              <p className="text-sm text-[var(--muted-foreground)]">
-                Đáp án đúng: {currentQ.correctAnswer}
+              <p className="text-xs text-[var(--muted-foreground)] mt-1">
+                Đáp án: {currentQ.correctAnswer}
               </p>
             )}
           </div>
-
-          {/* Next button */}
           <button
             onClick={nextQuestion}
             className={cn(
-              "btn-3d w-full py-4 text-lg",
+              "btn-3d w-full py-3.5 text-base",
               isCorrect ? "btn-3d-green" : "btn-3d-blue"
             )}
           >

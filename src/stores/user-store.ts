@@ -20,6 +20,13 @@ interface UserState {
   ) => Promise<void>;
   addBadge: (badge: string) => Promise<void>;
   updateStreak: () => Promise<void>;
+  loseHeart: () => Promise<boolean>;
+  refillHearts: () => Promise<void>;
+  addGems: (amount: number) => Promise<void>;
+  spendGems: (amount: number) => Promise<boolean>;
+  updateDailyProgress: (xp: number) => Promise<void>;
+  checkAchievements: () => Promise<string[]>;
+  addPerfectLesson: () => Promise<void>;
 }
 
 const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
@@ -33,6 +40,16 @@ const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
   exp: 0,
   badges: [],
   chapterProgress: {},
+  hearts: 5,
+  maxHearts: 5,
+  lastHeartRefill: "",
+  gems: 50,
+  dailyGoal: 50,
+  dailyProgress: 0,
+  achievements: [],
+  totalPlayTime: 0,
+  perfectLessons: 0,
+  longestStreak: 0,
 };
 
 export const useUserStore = create<UserState>((set, get) => ({
@@ -44,16 +61,42 @@ export const useUserStore = create<UserState>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       const { userInfo } = await getUserInfo({});
-      const userId = userInfo.id;
-
-      const userRef = doc(db, "users", userId);
+      const oderId = userInfo.id;
+      const userRef = doc(db, "users", oderId);
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists()) {
-        set({ user: userSnap.data() as UserStats, isLoading: false });
+        const data = userSnap.data() as UserStats;
+        // Check heart refill (1 heart per 30 minutes)
+        const now = Date.now();
+        const lastRefill = data.lastHeartRefill
+          ? new Date(data.lastHeartRefill).getTime()
+          : 0;
+        const hoursPassed = (now - lastRefill) / (1000 * 60 * 30);
+        const heartsToAdd = Math.min(
+          Math.floor(hoursPassed),
+          data.maxHearts - data.hearts
+        );
+        if (heartsToAdd > 0) {
+          data.hearts = Math.min(data.hearts + heartsToAdd, data.maxHearts);
+          data.lastHeartRefill = new Date().toISOString();
+          await updateDoc(userRef, {
+            hearts: data.hearts,
+            lastHeartRefill: data.lastHeartRefill,
+          });
+        }
+        // Reset daily progress if new day
+        const today = new Date().toDateString();
+        const lastPlay = data.lastPlayDate
+          ? new Date(data.lastPlayDate).toDateString()
+          : "";
+        if (lastPlay !== today) {
+          data.dailyProgress = 0;
+        }
+        set({ user: data, isLoading: false });
       } else {
         const newUser: UserStats = {
-          oderId: userId,
+          oderId,
           odername: userInfo.name || "Người chơi",
           avatar: userInfo.avatar || "",
           ...DEFAULT_STATS,
@@ -63,7 +106,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       }
     } catch (error) {
       console.error("Error init user:", error);
-      // Fallback for development
       const fallbackUser: UserStats = {
         oderId: "dev_user_" + Date.now(),
         odername: "Dev User",
@@ -75,25 +117,140 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   updateStats: async (correct, chapter, score) => {
-    const { user } = get();
+    const { user, checkAchievements } = get();
     if (!user) return;
 
+    const xpGain = correct ? 10 : 2;
     const updates = {
       totalScore: user.totalScore + score,
       totalCorrect: user.totalCorrect + (correct ? 1 : 0),
       totalWrong: user.totalWrong + (correct ? 0 : 1),
-      exp: user.exp + (correct ? 10 : 2),
+      exp: user.exp + xpGain,
+      gems: user.gems + (correct ? 1 : 0),
     };
-
     const newLevel = Math.floor(updates.exp / 100) + 1;
 
     try {
       const userRef = doc(db, "users", user.oderId);
       await updateDoc(userRef, { ...updates, level: newLevel });
       set({ user: { ...user, ...updates, level: newLevel } });
+      await checkAchievements();
     } catch (error) {
       console.error("Error updating stats:", error);
       set({ user: { ...user, ...updates, level: newLevel } });
+    }
+  },
+
+  loseHeart: async () => {
+    const { user } = get();
+    if (!user || user.hearts <= 0) return false;
+
+    const newHearts = user.hearts - 1;
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { hearts: newHearts });
+      set({ user: { ...user, hearts: newHearts } });
+      return newHearts > 0;
+    } catch (error) {
+      set({ user: { ...user, hearts: newHearts } });
+      return newHearts > 0;
+    }
+  },
+
+  refillHearts: async () => {
+    const { user } = get();
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, {
+        hearts: user.maxHearts,
+        lastHeartRefill: new Date().toISOString(),
+      });
+      set({
+        user: {
+          ...user,
+          hearts: user.maxHearts,
+          lastHeartRefill: new Date().toISOString(),
+        },
+      });
+    } catch (error) {
+      set({ user: { ...user, hearts: user.maxHearts } });
+    }
+  },
+
+  addGems: async (amount) => {
+    const { user } = get();
+    if (!user) return;
+
+    const newGems = user.gems + amount;
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { gems: newGems });
+      set({ user: { ...user, gems: newGems } });
+    } catch (error) {
+      set({ user: { ...user, gems: newGems } });
+    }
+  },
+
+  spendGems: async (amount) => {
+    const { user } = get();
+    if (!user || user.gems < amount) return false;
+
+    const newGems = user.gems - amount;
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { gems: newGems });
+      set({ user: { ...user, gems: newGems } });
+      return true;
+    } catch (error) {
+      set({ user: { ...user, gems: newGems } });
+      return true;
+    }
+  },
+
+  updateDailyProgress: async (xp) => {
+    const { user } = get();
+    if (!user) return;
+
+    const newProgress = user.dailyProgress + xp;
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { dailyProgress: newProgress });
+      set({ user: { ...user, dailyProgress: newProgress } });
+    } catch (error) {
+      set({ user: { ...user, dailyProgress: newProgress } });
+    }
+  },
+
+  addPerfectLesson: async () => {
+    const { user, checkAchievements } = get();
+    if (!user) return;
+
+    const newPerfect = user.perfectLessons + 1;
+    const bonusGems = 5;
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, {
+        perfectLessons: newPerfect,
+        gems: user.gems + bonusGems,
+      });
+      set({
+        user: {
+          ...user,
+          perfectLessons: newPerfect,
+          gems: user.gems + bonusGems,
+        },
+      });
+      await checkAchievements();
+    } catch (error) {
+      set({
+        user: {
+          ...user,
+          perfectLessons: newPerfect,
+          gems: user.gems + bonusGems,
+        },
+      });
     }
   },
 
@@ -106,8 +263,9 @@ export const useUserStore = create<UserState>((set, get) => ({
       correct: 0,
       bestScore: 0,
       lastAttempt: "",
+      stars: 0,
+      locked: false,
     };
-
     const newProgress = { ...currentProgress, ...progress };
     const newChapterProgress = {
       ...user.chapterProgress,
@@ -119,7 +277,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       await updateDoc(userRef, { chapterProgress: newChapterProgress });
       set({ user: { ...user, chapterProgress: newChapterProgress } });
     } catch (error) {
-      console.error("Error updating chapter progress:", error);
       set({ user: { ...user, chapterProgress: newChapterProgress } });
     }
   },
@@ -134,13 +291,12 @@ export const useUserStore = create<UserState>((set, get) => ({
       await updateDoc(userRef, { badges: newBadges });
       set({ user: { ...user, badges: newBadges } });
     } catch (error) {
-      console.error("Error adding badge:", error);
       set({ user: { ...user, badges: newBadges } });
     }
   },
 
   updateStreak: async () => {
-    const { user } = get();
+    const { user, checkAchievements } = get();
     if (!user) return;
 
     const today = new Date().toDateString();
@@ -156,13 +312,89 @@ export const useUserStore = create<UserState>((set, get) => ({
       newStreak = 1;
     }
 
+    const longestStreak = Math.max(user.longestStreak, newStreak);
+    const bonusGems = newStreak % 7 === 0 ? 10 : 0; // Bonus every 7 days
+
     try {
       const userRef = doc(db, "users", user.oderId);
-      await updateDoc(userRef, { streak: newStreak, lastPlayDate: today });
-      set({ user: { ...user, streak: newStreak, lastPlayDate: today } });
+      await updateDoc(userRef, {
+        streak: newStreak,
+        lastPlayDate: today,
+        longestStreak,
+        gems: user.gems + bonusGems,
+      });
+      set({
+        user: {
+          ...user,
+          streak: newStreak,
+          lastPlayDate: today,
+          longestStreak,
+          gems: user.gems + bonusGems,
+        },
+      });
+      await checkAchievements();
     } catch (error) {
-      console.error("Error updating streak:", error);
-      set({ user: { ...user, streak: newStreak, lastPlayDate: today } });
+      set({
+        user: {
+          ...user,
+          streak: newStreak,
+          lastPlayDate: today,
+          longestStreak,
+        },
+      });
     }
+  },
+
+  checkAchievements: async () => {
+    const { user, addBadge } = get();
+    if (!user) return [];
+
+    const { ACHIEVEMENTS } = await import("@/types/quiz");
+    const newAchievements: string[] = [];
+
+    for (const achievement of ACHIEVEMENTS) {
+      if (user.achievements.includes(achievement.id)) continue;
+
+      let earned = false;
+      switch (achievement.type) {
+        case "streak":
+          earned = user.streak >= achievement.requirement;
+          break;
+        case "correct":
+          earned = user.totalCorrect >= achievement.requirement;
+          break;
+        case "perfect":
+          earned = user.perfectLessons >= achievement.requirement;
+          break;
+        case "level":
+          earned = user.level >= achievement.requirement;
+          break;
+        case "gems":
+          earned = user.gems >= achievement.requirement;
+          break;
+      }
+
+      if (earned) {
+        newAchievements.push(achievement.id);
+        const newAchievementsList = [...user.achievements, achievement.id];
+        try {
+          const userRef = doc(db, "users", user.oderId);
+          await updateDoc(userRef, {
+            achievements: newAchievementsList,
+            gems: user.gems + 10,
+          });
+          set({
+            user: {
+              ...user,
+              achievements: newAchievementsList,
+              gems: user.gems + 10,
+            },
+          });
+        } catch (error) {
+          set({ user: { ...user, achievements: newAchievementsList } });
+        }
+      }
+    }
+    return newAchievements;
   },
 }));

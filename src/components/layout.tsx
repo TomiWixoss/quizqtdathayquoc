@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import HomePage from "../pages/index";
 import QuizPage from "../pages/quiz";
 import LeaderboardPage from "../pages/leaderboard";
+import AchievementsPage from "../pages/achievements";
 import SettingsPage from "../pages/settings";
 import TestFirebasePage from "../pages/test-firebase";
 import { BottomNav } from "./bottom-nav";
@@ -38,6 +39,7 @@ const Layout = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/achievements" element={<AchievementsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />
           </AnimationRoutes>

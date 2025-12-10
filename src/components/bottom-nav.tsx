@@ -1,10 +1,11 @@
 import { useLocation, useNavigate } from "zmp-ui";
-import { Home, Trophy, Settings } from "lucide-react";
+import { Home, Trophy, Award, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { path: "/", icon: Home, label: "Trang chủ" },
   { path: "/leaderboard", icon: Trophy, label: "Xếp hạng" },
+  { path: "/achievements", icon: Award, label: "Thành tựu" },
   { path: "/settings", icon: Settings, label: "Cài đặt" },
 ];
 
@@ -16,9 +17,9 @@ export function BottomNav() {
   if (location.pathname === "/quiz") return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 safe-bottom">
-      <div className="bg-[var(--card)] border-t-2 border-[var(--border)]">
-        <div className="flex items-center justify-around py-2">
+    <div className="fixed bottom-0 left-0 right-0 z-50">
+      <div className="bg-[var(--card)] border-t-2 border-[var(--border)] pb-[env(safe-area-inset-bottom)]">
+        <div className="flex items-center justify-around py-1">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
@@ -28,7 +29,7 @@ export function BottomNav() {
                 key={item.path}
                 onClick={() => navigate(item.path)}
                 className={cn(
-                  "flex flex-col items-center gap-1 px-6 py-2 rounded-xl transition-all",
+                  "flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl",
                   isActive
                     ? "text-[var(--duo-green)]"
                     : "text-[var(--muted-foreground)]"
@@ -36,13 +37,13 @@ export function BottomNav() {
               >
                 <div
                   className={cn(
-                    "p-2 rounded-xl transition-all",
+                    "p-1.5 rounded-xl",
                     isActive && "bg-[var(--duo-green)]/20"
                   )}
                 >
-                  <Icon className="w-6 h-6" />
+                  <Icon className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-semibold">{item.label}</span>
+                <span className="text-[10px] font-semibold">{item.label}</span>
               </button>
             );
           })}

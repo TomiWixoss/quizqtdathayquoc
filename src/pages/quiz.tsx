@@ -35,8 +35,9 @@ function QuizPage() {
     // Lưu tiến trình nếu đang làm quiz chương và đã trả lời ít nhất 1 câu
     if (currentChapter && currentIndex > 0 && user) {
       const currentProgress = user.chapterProgress?.[currentChapter];
+      const totalAnswered = correctCount + useQuizStore.getState().wrongCount;
       await updateChapterProgress(currentChapter, {
-        completed: Math.max(currentProgress?.completed ?? 0, correctCount),
+        completed: Math.max(currentProgress?.completed ?? 0, totalAnswered),
         correct: (currentProgress?.correct ?? 0) + correctCount,
         bestScore: Math.max(currentProgress?.bestScore ?? 0, score),
         lastAttempt: new Date().toISOString(),

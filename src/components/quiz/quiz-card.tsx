@@ -44,6 +44,11 @@ export function QuizCard() {
   }, [isAnswered, isCorrect]);
 
   const handleSelectAnswer = async (answerId: string) => {
+    // Check if user has hearts
+    if (user && user.hearts <= 0) {
+      return; // Can't answer without hearts
+    }
+
     selectAnswer(answerId);
     const correct = answerId === currentQ.correctAnswer;
 
@@ -60,6 +65,39 @@ export function QuizCard() {
   };
 
   if (!currentQ) return null;
+
+  // Show out of hearts message
+  if (user && user.hearts <= 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full py-10">
+        <div className="w-20 h-20 rounded-full bg-[var(--duo-red)]/20 flex items-center justify-center mb-4">
+          <Heart className="w-10 h-10 text-[var(--duo-red)]" />
+        </div>
+        <h2 className="text-xl font-bold text-foreground mb-2">Hết tim rồi!</h2>
+        <p className="text-sm text-[var(--muted-foreground)] text-center mb-4">
+          Chờ 30 phút để hồi phục 1 tim
+          <br />
+          hoặc dùng gems để mua thêm
+        </p>
+        <div className="space-y-2 w-full max-w-xs">
+          <button
+            onClick={() => {
+              const { spendGems, refillHearts } = useUserStore.getState();
+              if (user.gems >= 50) {
+                spendGems(50).then(() => refillHearts());
+              } else {
+                alert("Không đủ gems! Cần 50 gems.");
+              }
+            }}
+            className="btn-3d btn-3d-blue w-full py-3 flex items-center justify-center gap-2"
+          >
+            <Zap className="w-4 h-4" />
+            Mua tim (50 gems)
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full">

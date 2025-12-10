@@ -62,11 +62,17 @@ function QuizPage() {
     ? "Sinh Tồn"
     : "Trắc nghiệm";
 
+  // Redirect to home only on initial load if no questions (user accessed /quiz directly)
   useEffect(() => {
     if (currentQuestions.length === 0) {
-      navigate("/");
+      // Check if we just reset (navigating away) - don't redirect
+      const isNavigatingAway = window.location.pathname !== "/quiz";
+      if (!isNavigatingAway) {
+        navigate("/");
+      }
     }
-  }, [currentQuestions, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClose = async () => {
     // Clear timer if running

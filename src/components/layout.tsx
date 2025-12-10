@@ -13,6 +13,7 @@ import HomePage from "../pages/index";
 import QuizPage from "../pages/quiz";
 import LeaderboardPage from "../pages/leaderboard";
 import AchievementsPage from "../pages/achievements";
+import QuestsPage from "../pages/quests";
 import SettingsPage from "../pages/settings";
 import ShopPage from "../pages/shop";
 import MinigamePage from "../pages/minigame";
@@ -42,6 +43,7 @@ const Layout = () => {
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />
             <Route path="/achievements" element={<AchievementsPage />} />
+            <Route path="/quests" element={<QuestsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/minigame" element={<MinigamePage />} />

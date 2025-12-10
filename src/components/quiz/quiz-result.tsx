@@ -84,6 +84,21 @@ export function QuizResult() {
 
   useEffect(() => {
     const saveProgress = async () => {
+      // Track daily quiz completion for quests
+      const today = new Date().toDateString();
+      const dailyQuiz = parseInt(
+        localStorage.getItem(`daily_quiz_${today}`) || "0"
+      );
+      localStorage.setItem(`daily_quiz_${today}`, (dailyQuiz + 1).toString());
+
+      // Track weekly perfect for quests
+      if (isPerfect) {
+        const weeklyPerfect = parseInt(
+          localStorage.getItem("weekly_perfect") || "0"
+        );
+        localStorage.setItem("weekly_perfect", (weeklyPerfect + 1).toString());
+      }
+
       // Update chapter progress
       if (currentChapter && user) {
         const currentProgress = user.chapterProgress?.[currentChapter];

@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from "zmp-ui";
-import { Home, Trophy, Award, Gift, Settings } from "lucide-react";
+import { Home, Trophy, Target, Gift, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { path: "/", icon: Home, label: "Trang chủ" },
   { path: "/leaderboard", icon: Trophy, label: "Xếp hạng" },
+  { path: "/quests", icon: Target, label: "Nhiệm vụ" },
   { path: "/shop", icon: Gift, label: "Cửa hàng" },
-  { path: "/achievements", icon: Award, label: "Thành tựu" },
   { path: "/settings", icon: Settings, label: "Cài đặt" },
 ];
 

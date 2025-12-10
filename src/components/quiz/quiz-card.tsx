@@ -56,6 +56,22 @@ export function QuizCard() {
       await loseHeart();
     }
 
+    // Track daily correct for quests
+    if (correct) {
+      const today = new Date().toDateString();
+      const dailyCorrect = parseInt(
+        localStorage.getItem(`daily_correct_${today}`) || "0"
+      );
+      localStorage.setItem(
+        `daily_correct_${today}`,
+        (dailyCorrect + 1).toString()
+      );
+
+      // Track weekly XP
+      const weeklyXP = parseInt(localStorage.getItem("weekly_xp") || "0");
+      localStorage.setItem("weekly_xp", (weeklyXP + 10).toString());
+    }
+
     await updateStats(correct, currentQ.chapter, correct ? 10 : 0);
     await updateDailyProgress(correct ? 10 : 2);
 

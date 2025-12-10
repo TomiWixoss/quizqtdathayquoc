@@ -367,7 +367,7 @@ export function QuizResult() {
           className="btn-3d btn-3d-blue w-full py-3 flex items-center justify-center gap-2"
         >
           <Home className="w-4 h-4" />{" "}
-          {currentChapter ? "Trang chủ" : "Chinh chiến"}
+          {currentChapter ? "Trang chủ" : "Luyện tập"}
         </button>
       </div>
     </div>

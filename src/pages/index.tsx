@@ -10,6 +10,8 @@ import {
   Target,
   CheckCircle,
   Swords,
+  Dumbbell,
+  Lock,
 } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -168,19 +170,34 @@ function HomePage() {
           </div>
         )}
 
-        {/* Battle Button */}
+        {/* Practice Button */}
         <button
           onClick={() => navigate("/battle")}
-          className="btn-battle w-full mb-5 py-4 px-4 rounded-2xl font-bold text-white text-lg flex items-center justify-center gap-3"
+          className="btn-battle w-full mb-3 py-4 px-4 rounded-2xl font-bold text-white text-lg flex items-center justify-center gap-3"
           style={{
-            background:
-              "linear-gradient(135deg, #ff4b4b 0%, #ff9600 50%, #ffc800 100%)",
-            boxShadow: "0 6px 0 #c73e3e, 0 8px 20px rgba(255, 75, 75, 0.4)",
+            background: "linear-gradient(135deg, #58cc02 0%, #46a302 100%)",
+            boxShadow: "0 6px 0 #3d8c02, 0 8px 20px rgba(88, 204, 2, 0.4)",
           }}
         >
-          <Swords className="w-7 h-7" />
+          <Dumbbell className="w-7 h-7" />
+          <span>LUYỆN TẬP</span>
+        </button>
+
+        {/* Battle Button - Coming Soon */}
+        <button
+          disabled
+          className="w-full mb-5 py-3 px-4 rounded-2xl font-bold text-white/60 text-base flex items-center justify-center gap-2 relative overflow-hidden"
+          style={{
+            background: "linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%)",
+            boxShadow: "0 4px 0 #2a2a2a",
+          }}
+        >
+          <Swords className="w-5 h-5" />
           <span>CHINH CHIẾN</span>
-          <Swords className="w-7 h-7" style={{ transform: "scaleX(-1)" }} />
+          <Lock className="w-4 h-4" />
+          <span className="absolute top-1 right-2 text-[10px] bg-[var(--duo-orange)] text-white px-1.5 py-0.5 rounded font-bold">
+            SẮP RA MẮT
+          </span>
         </button>
 
         {/* Chapter List */}

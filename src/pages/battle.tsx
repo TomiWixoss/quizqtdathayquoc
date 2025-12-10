@@ -88,9 +88,9 @@ function BattlePage() {
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
           <div>
-            <h1 className="font-bold text-xl text-foreground">Chinh Chiến</h1>
+            <h1 className="font-bold text-xl text-foreground">Luyện Tập</h1>
             <p className="text-xs text-[var(--muted-foreground)]">
-              Chọn chế độ chơi
+              Chọn chế độ luyện
             </p>
           </div>
         </div>

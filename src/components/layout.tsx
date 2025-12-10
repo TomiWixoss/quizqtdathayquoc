@@ -8,6 +8,7 @@ import {
 } from "zmp-ui";
 
 import HomePage from "../pages/index";
+import TestFirebasePage from "../pages/test-firebase";
 
 const Layout = () => {
   const systemInfo = getSystemInfo();
@@ -20,6 +21,7 @@ const Layout = () => {
         <ZMPRouter>
           <AnimationRoutes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/test-firebase" element={<TestFirebasePage />} />
           </AnimationRoutes>
         </ZMPRouter>
       </SnackbarProvider>

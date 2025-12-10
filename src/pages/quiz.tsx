@@ -83,8 +83,13 @@ function QuizPage() {
         lastAttempt: new Date().toISOString(),
       });
     }
+
+    // Navigate back based on quiz mode
+    const isBattleMode = ["random", "all", "timeattack", "survival"].includes(
+      quizMode
+    );
     resetQuiz();
-    navigate("/");
+    navigate(isBattleMode ? "/battle" : "/");
   };
 
   if (currentQuestions.length === 0) return null;

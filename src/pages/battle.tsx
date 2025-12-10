@@ -118,11 +118,14 @@ function BattlePage() {
             <button
               key={mode.id}
               onClick={() => handleMode(mode.id)}
-              className="w-full p-4 rounded-2xl text-left flex items-center gap-4"
-              style={{
-                background: mode.color,
-                boxShadow: `0 5px 0 ${mode.shadow}`,
-              }}
+              className="btn-mode w-full p-4 rounded-2xl text-left flex items-center gap-4"
+              style={
+                {
+                  background: mode.color,
+                  boxShadow: `0 5px 0 ${mode.shadow}`,
+                  "--shadow-color": mode.shadow,
+                } as React.CSSProperties
+              }
             >
               <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
                 <Icon className="w-8 h-8 text-white" />

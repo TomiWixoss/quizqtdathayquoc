@@ -49,8 +49,8 @@ function HomePage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="pt-14 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      {/* Header - pt-16 để tránh dính nút X của Zalo */}
+      <div className="pt-16 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-[var(--duo-green)] flex items-center justify-center">

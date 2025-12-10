@@ -40,8 +40,8 @@ function LeaderboardPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="pt-14 pb-4 px-4 bg-gradient-to-r from-[var(--duo-yellow)] to-[var(--duo-orange)]">
+      {/* Header - pt-16 để tránh dính nút X của Zalo */}
+      <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-yellow)] to-[var(--duo-orange)]">
         <div className="flex items-center gap-2">
           <Trophy className="w-6 h-6 text-white" />
           <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>

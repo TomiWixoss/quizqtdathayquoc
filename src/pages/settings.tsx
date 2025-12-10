@@ -9,8 +9,8 @@ function SettingsPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="pt-14 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      {/* Header - pt-16 để tránh dính nút X của Zalo */}
+      <div className="pt-16 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <h1 className="font-bold text-xl text-foreground">Cài đặt</h1>
       </div>
 

@@ -36,8 +36,8 @@ function QuizPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header - Fixed spacing for Zalo app bar */}
-      <div className="pt-14 pb-2 px-4 bg-background sticky top-0 z-10">
+      {/* Header - pt-16 để tránh dính nút X của Zalo */}
+      <div className="pt-16 pb-2 px-4 bg-background sticky top-0 z-10">
         <div className="flex items-center justify-between">
           <button
             onClick={handleClose}

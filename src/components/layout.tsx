@@ -6,8 +6,11 @@ import {
   SnackbarProvider,
   ZMPRouter,
 } from "zmp-ui";
+import { Toaster } from "sonner";
 
 import HomePage from "../pages/index";
+import QuizPage from "../pages/quiz";
+import LeaderboardPage from "../pages/leaderboard";
 import TestFirebasePage from "../pages/test-firebase";
 
 const Layout = () => {
@@ -21,10 +24,13 @@ const Layout = () => {
         <ZMPRouter>
           <AnimationRoutes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/quiz" element={<QuizPage />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />
           </AnimationRoutes>
         </ZMPRouter>
       </SnackbarProvider>
+      <Toaster position="top-center" richColors />
     </App>
   );
 };

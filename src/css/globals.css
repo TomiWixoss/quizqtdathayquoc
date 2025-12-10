@@ -3,85 +3,64 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Roboto Mono", ui-monospace, monospace;
+:root {
+  --radius: 1rem;
 
-  --radius-lg: 0.5rem;
-  --radius-md: calc(var(--radius-lg) - 2px);
-  --radius-sm: calc(var(--radius-lg) - 4px);
+  /* Duolingo-inspired colors */
+  --duo-green: #58cc02;
+  --duo-green-dark: #46a302;
+  --duo-green-light: #89e219;
+  --duo-blue: #1cb0f6;
+  --duo-blue-dark: #1899d6;
+  --duo-purple: #ce82ff;
+  --duo-purple-dark: #a855f7;
+  --duo-orange: #ff9600;
+  --duo-orange-dark: #ea7e00;
+  --duo-red: #ff4b4b;
+  --duo-red-dark: #ea2b2b;
+  --duo-yellow: #ffc800;
+  --duo-gray: #e5e5e5;
+  --duo-gray-dark: #afafaf;
+
+  --background: #131f24;
+  --foreground: #ffffff;
+  --card: #1a2c35;
+  --card-foreground: #ffffff;
+  --popover: #1a2c35;
+  --popover-foreground: #ffffff;
+  --primary: #58cc02;
+  --primary-foreground: #ffffff;
+  --secondary: #2b3f4a;
+  --secondary-foreground: #ffffff;
+  --muted: #2b3f4a;
+  --muted-foreground: #8a9ba8;
+  --accent: #1cb0f6;
+  --accent-foreground: #ffffff;
+  --destructive: #ff4b4b;
+  --border: #37464f;
+  --input: #2b3f4a;
+  --ring: #58cc02;
 }
 
-@layer base {
-  :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-  }
-
-  .dark,
-  [zaui-theme="dark"] {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.145 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.145 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.396 0.141 25.723);
-    --destructive-foreground: oklch(0.637 0.237 25.331);
-    --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
-    --ring: oklch(0.439 0 0);
-  }
-}
-
-@layer base {
-  * {
-    @apply border-[var(--border)];
-  }
-
-  body {
-    @apply bg-[var(--background)] text-[var(--foreground)];
-  }
-}
-
-.page {
-  padding: 16px 16px 96px 16px;
-}
-
-.section-container {
-  padding: 16px;
-  background: var(--card);
-  border-radius: var(--radius-lg);
-  margin-bottom: 24px;
-}
-
-.zaui-list-item {
-  cursor: pointer;
+.light {
+  --background: #f7f7f7;
+  --foreground: #3c3c3c;
+  --card: #ffffff;
+  --card-foreground: #3c3c3c;
+  --popover: #ffffff;
+  --popover-foreground: #3c3c3c;
+  --primary: #58cc02;
+  --primary-foreground: #ffffff;
+  --secondary: #e5e5e5;
+  --secondary-foreground: #3c3c3c;
+  --muted: #f0f0f0;
+  --muted-foreground: #777777;
+  --accent: #1cb0f6;
+  --accent-foreground: #ffffff;
+  --destructive: #ff4b4b;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #58cc02;
 }
 
 @theme inline {
@@ -107,95 +86,189 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Nunito", "Inter", system-ui, sans-serif;
   }
+}
+
+/* Duolingo 3D Button Styles */
+.btn-3d {
+  position: relative;
+  border: none;
+  border-radius: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.1s ease;
+  cursor: pointer;
+}
+
+.btn-3d-green {
+  background: var(--duo-green);
+  box-shadow: 0 4px 0 var(--duo-green-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-3d-green:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--duo-green-dark), 0 8px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-3d-green:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--duo-green-dark), 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-3d-blue {
+  background: var(--duo-blue);
+  box-shadow: 0 4px 0 var(--duo-blue-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-3d-orange {
+  background: var(--duo-orange);
+  box-shadow: 0 4px 0 var(--duo-orange-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.btn-3d-purple {
+  background: var(--duo-purple);
+  box-shadow: 0 4px 0 var(--duo-purple-dark), 0 6px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+/* Card 3D Effect */
+.card-3d {
+  background: var(--card);
+  border-radius: 16px;
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 0 var(--border);
+  transition: all 0.2s ease;
+}
+
+.card-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 var(--border);
+}
+
+.card-3d:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--border);
+}
+
+/* Option Button Styles */
+.option-btn {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 0 var(--border);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.option-btn:hover {
+  border-color: var(--duo-blue);
+  background: rgba(28, 176, 246, 0.1);
+}
+
+.option-btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.option-btn.selected {
+  border-color: var(--duo-blue);
+  background: rgba(28, 176, 246, 0.15);
+  box-shadow: 0 2px 0 var(--duo-blue-dark);
+}
+
+.option-btn.correct {
+  border-color: var(--duo-green);
+  background: rgba(88, 204, 2, 0.15);
+  box-shadow: 0 2px 0 var(--duo-green-dark);
+}
+
+.option-btn.wrong {
+  border-color: var(--duo-red);
+  background: rgba(255, 75, 75, 0.15);
+  box-shadow: 0 2px 0 var(--duo-red-dark);
+}
+
+/* Progress Bar */
+.progress-duo {
+  height: 16px;
+  background: var(--secondary);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-duo-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--duo-green) 0%,
+    var(--duo-green-light) 100%
+  );
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* Safe area for Zalo Mini App */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 48px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 24px);
+}
+
+/* Streak flame animation */
+@keyframes flame {
+  0%,
+  100% {
+    transform: scale(1) rotate(-2deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(2deg);
+  }
+}
+
+.flame-animate {
+  animation: flame 0.5s ease-in-out infinite;
+}
+
+/* XP gain animation */
+@keyframes xp-pop {
+  0% {
+    transform: scale(0) translateY(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(-20px);
+    opacity: 0;
+  }
+}
+
+.xp-pop {
+  animation: xp-pop 0.8s ease-out forwards;
+}
+
+/* Level badge glow */
+.level-glow {
+  box-shadow: 0 0 20px rgba(88, 204, 2, 0.5);
+}
+
+.zaui-list-item {
+  cursor: pointer;
 }

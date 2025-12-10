@@ -1,0 +1,3659 @@
+{
+  "chapters": [
+    {
+      "id": 1,
+      "name": "TỔNG QUAN DỰ ÁN",
+      "totalQuestions": 16,
+      "icon": "ClipboardList"
+    },
+    {
+      "id": 2,
+      "name": "GIAO TIẾP VÀ TRUYỀN THÔNG",
+      "totalQuestions": 20,
+      "icon": "MessageCircle"
+    },
+    {
+      "id": 3,
+      "name": "ƯỚC LƯỢNG DỰ ÁN",
+      "totalQuestions": 17,
+      "icon": "BarChart3"
+    },
+    {
+      "id": 4,
+      "name": "LẬP LỊCH DỰ ÁN",
+      "totalQuestions": 16,
+      "icon": "Calendar"
+    },
+    {
+      "id": 5,
+      "name": "KIỂM SOÁT VÀ GIÁM SÁT",
+      "totalQuestions": 8,
+      "icon": "Search"
+    },
+    {
+      "id": 6,
+      "name": "QUẢN LÝ PHẠM VI",
+      "totalQuestions": 8,
+      "icon": "Target"
+    },
+    {
+      "id": 7,
+      "name": "QUẢN LÝ THỜI GIAN",
+      "totalQuestions": 8,
+      "icon": "Clock"
+    },
+    {
+      "id": 8,
+      "name": "QUẢN LÝ CHI PHÍ",
+      "totalQuestions": 9,
+      "icon": "DollarSign"
+    },
+    {
+      "id": 9,
+      "name": "QUẢN LÝ CHẤT LƯỢNG",
+      "totalQuestions": 7,
+      "icon": "CheckCircle"
+    },
+    {
+      "id": 10,
+      "name": "QUẢN LÝ NHÂN LỰC",
+      "totalQuestions": 8,
+      "icon": "Users"
+    },
+    {
+      "id": 11,
+      "name": "TRUYỀN THÔNG VÀ GIAO TIẾP",
+      "totalQuestions": 9,
+      "icon": "Megaphone"
+    },
+    {
+      "id": 12,
+      "name": "QUẢN LÝ RỦI RO",
+      "totalQuestions": 8,
+      "icon": "AlertTriangle"
+    },
+    {
+      "id": 13,
+      "name": "QUẢN LÝ TÍCH HỢP",
+      "totalQuestions": 9,
+      "icon": "Link"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "question": "Dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là hoạt động nghiên cứu mang tính lý thuyết."
+        },
+        {
+          "id": "B",
+          "text": "Là công việc lặp lại nhiều lần theo chu kỳ nhất định."
+        },
+        {
+          "id": "C",
+          "text": "Là hoạt động có phương pháp, sử dụng nguồn lực để tạo sản phẩm mới."
+        },
+        {
+          "id": "D",
+          "text": "Là kế hoạch sản xuất được áp dụng lâu dài."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 2,
+      "question": "Mục tiêu của dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giải quyết vấn đề thực tế và đáp ứng nhu cầu người dùng."
+        },
+        {
+          "id": "B",
+          "text": "Đưa ra mô hình khoa học và phương pháp nghiên cứu."
+        },
+        {
+          "id": "C",
+          "text": "Xây dựng chiến lược tài chính cho tổ chức."
+        },
+        {
+          "id": "D",
+          "text": "Phát triển hệ thống phần mềm phục vụ nghiên cứu."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 3,
+      "question": "Quản lý dự án CNTT là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là việc tổ chức các hoạt động nhằm đạt được mục tiêu trong giới hạn về thời gian, kinh phí và chất lượng."
+        },
+        {
+          "id": "B",
+          "text": "Là công việc lập trình và phát triển phần mềm cho doanh nghiệp."
+        },
+        {
+          "id": "C",
+          "text": "Là hoạt động nghiên cứu công nghệ thông tin ứng dụng."
+        },
+        {
+          "id": "D",
+          "text": "Là kế hoạch kiểm thử và vận hành phần mềm."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 4,
+      "question": "Một dự án CNTT được đánh giá là thành công khi:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hoàn thành đúng thời gian và đáp ứng yêu cầu người dùng."
+        },
+        {
+          "id": "B",
+          "text": "Được đầu tư nguồn vốn lớn và có nhiều nhân lực tham gia."
+        },
+        {
+          "id": "C",
+          "text": "Có sản phẩm ứng dụng công nghệ mới."
+        },
+        {
+          "id": "D",
+          "text": "Sử dụng phần mềm quản lý hiện đại."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 5,
+      "question": "Trong giai đoạn khởi tạo dự án, người quản lý cần thực hiện việc nào sau đây?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đánh giá hiệu quả sau khi bàn giao sản phẩm."
+        },
+        {
+          "id": "B",
+          "text": "Xác định yêu cầu, mức ưu tiên và phân công trách nhiệm."
+        },
+        {
+          "id": "C",
+          "text": "Thực hiện kiểm thử và viết tài liệu hướng dẫn."
+        },
+        {
+          "id": "D",
+          "text": "Xây dựng báo cáo tài chính cuối kỳ."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 6,
+      "question": "Giai đoạn lập kế hoạch dự án có nhiệm vụ:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hoàn thiện sản phẩm và bàn giao cho khách hàng."
+        },
+        {
+          "id": "B",
+          "text": "Lập kế hoạch chi tiết, xác định phạm vi và điều chỉnh mục tiêu."
+        },
+        {
+          "id": "C",
+          "text": "Thực hiện giám sát tiến độ dự án."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá rủi ro và đề xuất kết thúc dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 7,
+      "question": "Theo quy trình quản lý dự án phần mềm, giai đoạn kết thúc nhằm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thực hiện kiểm thử hệ thống và vận hành thử."
+        },
+        {
+          "id": "B",
+          "text": "Chính thức đóng dự án và hoàn tất các hoạt động còn lại."
+        },
+        {
+          "id": "C",
+          "text": "Triển khai nâng cấp và bảo trì phần mềm."
+        },
+        {
+          "id": "D",
+          "text": "Lập kế hoạch cho dự án tiếp theo."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 8,
+      "question": "Một dự án CNTT thất bại chủ yếu vì:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thiếu kế hoạch chi tiết và không hiểu rõ yêu cầu người dùng."
+        },
+        {
+          "id": "B",
+          "text": "Sử dụng công nghệ lỗi thời hoặc quá hiện đại."
+        },
+        {
+          "id": "C",
+          "text": "Thiếu nguồn vốn từ cơ quan nhà nước."
+        },
+        {
+          "id": "D",
+          "text": "Thay đổi nhân sự trong quá trình bảo trì."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 9,
+      "question": "Theo phân loại dự án, dự án lớn thường có đặc điểm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nguồn kinh phí ít, nhân lực gọn nhẹ, thời gian ngắn."
+        },
+        {
+          "id": "B",
+          "text": "Nhiều bên tham gia, phạm vi rộng và chi phí lớn."
+        },
+        {
+          "id": "C",
+          "text": "Chỉ thực hiện trong phạm vi nội bộ."
+        },
+        {
+          "id": "D",
+          "text": "Không cần có cơ cấu tổ chức riêng biệt."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 10,
+      "question": "Các nhiệm vụ trong hoạt động quản lý dự án bao gồm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quản lý thời gian, kinh phí, nhân lực và kết quả chuyển giao."
+        },
+        {
+          "id": "B",
+          "text": "Quản lý công nghệ, truyền thông, dữ liệu và bảo mật."
+        },
+        {
+          "id": "C",
+          "text": "Quản lý tài chính, kế toán, nhân sự và hành chính."
+        },
+        {
+          "id": "D",
+          "text": "Quản lý phần cứng, phần mềm, mạng và tài liệu."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 11,
+      "question": "Mục đích của quản lý dự án là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đảm bảo sản phẩm đáp ứng yêu cầu, đúng hạn, trong giới hạn chi phí."
+        },
+        {
+          "id": "B",
+          "text": "Đạt lợi nhuận cao nhất và mở rộng quy mô tổ chức."
+        },
+        {
+          "id": "C",
+          "text": "Đưa ra giải pháp mới và cải tiến quy trình công nghệ."
+        },
+        {
+          "id": "D",
+          "text": "Giảm thiểu rủi ro tài chính và nâng cao uy tín doanh nghiệp."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 12,
+      "question": "Trong quy trình lập kế hoạch, yếu tố ràng buộc của dự án gồm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thời gian, nhân lực và ngân sách."
+        },
+        {
+          "id": "B",
+          "text": "Khách hàng, sản phẩm và thị trường."
+        },
+        {
+          "id": "C",
+          "text": "Tài nguyên, kỹ năng và kỹ thuật."
+        },
+        {
+          "id": "D",
+          "text": "Thời gian, địa điểm và công nghệ."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 13,
+      "question": "Dự án bên ngoài là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dự án phục vụ chính nội bộ tổ chức."
+        },
+        {
+          "id": "B",
+          "text": "Dự án được thực hiện cho một đơn vị khác."
+        },
+        {
+          "id": "C",
+          "text": "Dự án không có yếu tố khách hàng tham gia."
+        },
+        {
+          "id": "D",
+          "text": "Dự án nghiên cứu phát triển nội bộ."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 14,
+      "question": "Khi một dự án kéo dài vượt 50% thời gian dự kiến, được coi là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dự án chậm tiến độ."
+        },
+        {
+          "id": "B",
+          "text": "Dự án thất bại."
+        },
+        {
+          "id": "C",
+          "text": "Dự án đang tạm dừng."
+        },
+        {
+          "id": "D",
+          "text": "Dự án cần tái cấu trúc."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 15,
+      "question": "Một trong những nguyên nhân sâu xa khiến dự án thất bại là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bắt đầu lập trình khi chưa hiểu rõ yêu cầu thực tế."
+        },
+        {
+          "id": "B",
+          "text": "Không có đủ kinh phí và nhân lực."
+        },
+        {
+          "id": "C",
+          "text": "Không được khách hàng phê duyệt yêu cầu."
+        },
+        {
+          "id": "D",
+          "text": "Sử dụng phần mềm không tương thích."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 16,
+      "question": "Để cân bằng bộ ba ràng buộc (phạm vi – chi phí – thời gian), nhà quản lý cần:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cắt giảm phạm vi khi chi phí vượt quá giới hạn."
+        },
+        {
+          "id": "B",
+          "text": "Phân tích ưu tiên, điều chỉnh linh hoạt giữa ba yếu tố."
+        },
+        {
+          "id": "C",
+          "text": "Tăng ngân sách để rút ngắn tiến độ dự án."
+        },
+        {
+          "id": "D",
+          "text": "Giữ nguyên thời gian, giảm chất lượng sản phẩm."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 1,
+      "chapterName": "TỔNG QUAN DỰ ÁN"
+    },
+    {
+      "id": 17,
+      "question": "Giao tiếp là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là quá trình truyền đạt thông tin bằng văn bản."
+        },
+        {
+          "id": "B",
+          "text": "Là hành động truyền tin một chiều từ người nói đến người nghe."
+        },
+        {
+          "id": "C",
+          "text": "Là quá trình trao đổi thông tin, tình cảm và hiểu biết giữa con người."
+        },
+        {
+          "id": "D",
+          "text": "Là hoạt động truyền thông qua các phương tiện kỹ thuật."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 18,
+      "question": "Giao tiếp hiệu quả nhất diễn ra trong tình huống nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giao tiếp trực tiếp, mặt đối mặt giữa hai bên."
+        },
+        {
+          "id": "B",
+          "text": "Giao tiếp qua thư điện tử và báo cáo."
+        },
+        {
+          "id": "C",
+          "text": "Giao tiếp qua điện thoại và tin nhắn."
+        },
+        {
+          "id": "D",
+          "text": "Giao tiếp bằng các văn bản hành chính."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 19,
+      "question": "Trong bốn quy mô giao tiếp, quy mô nào là cơ bản nhất?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giao tiếp với chính bản thân."
+        },
+        {
+          "id": "B",
+          "text": "Giao tiếp nhóm."
+        },
+        {
+          "id": "C",
+          "text": "Giao tiếp giữa các tổ chức."
+        },
+        {
+          "id": "D",
+          "text": "Giao tiếp trong cộng đồng."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 20,
+      "question": "Nguyên tắc quan trọng nhất trong giao tiếp là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cạnh tranh và khẳng định bản thân."
+        },
+        {
+          "id": "B",
+          "text": "Dùng quyền lực để điều khiển người khác."
+        },
+        {
+          "id": "C",
+          "text": "Tôn trọng nhân cách và đối xử bình đẳng trong giao tiếp."
+        },
+        {
+          "id": "D",
+          "text": "Giữ im lặng để tránh xung đột."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 21,
+      "question": "Theo thuyết “hoạt động”, giao tiếp là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quá trình biểu đạt cảm xúc bằng lời nói."
+        },
+        {
+          "id": "B",
+          "text": "Phương tiện để thỏa mãn nhu cầu tâm lý."
+        },
+        {
+          "id": "C",
+          "text": "Hệ thống quá trình có mục đích đảm bảo sự tương tác giữa người với người trong hoạt động tập thể."
+        },
+        {
+          "id": "D",
+          "text": "Phản ứng tâm lý khi tiếp xúc xã hội."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 22,
+      "question": "Phong cách giao tiếp “độc đoán” có ưu điểm là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tạo môi trường dân chủ và hợp tác."
+        },
+        {
+          "id": "B",
+          "text": "Giúp đưa ra quyết định nhanh chóng trong tình huống khẩn cấp."
+        },
+        {
+          "id": "C",
+          "text": "Tăng sự tự tin và sáng tạo của cấp dưới."
+        },
+        {
+          "id": "D",
+          "text": "Làm tăng tính dân chủ trong tổ chức."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 23,
+      "question": "Phong cách giao tiếp “dân chủ” được đặc trưng bởi:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Kiểm soát chặt chẽ và áp đặt ý kiến cá nhân."
+        },
+        {
+          "id": "B",
+          "text": "Linh hoạt nhưng dễ thay đổi mục tiêu."
+        },
+        {
+          "id": "C",
+          "text": "Biểu hiện sự tôn trọng, lắng nghe và hợp tác giữa các bên."
+        },
+        {
+          "id": "D",
+          "text": "Không quan tâm đến cảm xúc người đối thoại."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 24,
+      "question": "Sự khác biệt giữa “nghe” và “lắng nghe” là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "“Nghe” chủ động, còn “lắng nghe” là thụ động."
+        },
+        {
+          "id": "B",
+          "text": "“Nghe” là thụ động, còn “lắng nghe” là chủ động, có chọn lọc và tập trung."
+        },
+        {
+          "id": "C",
+          "text": "“Nghe” dùng giác quan, còn “lắng nghe” dùng lý trí."
+        },
+        {
+          "id": "D",
+          "text": "“Nghe” dành cho công việc, còn “lắng nghe” dành cho cảm xúc."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 25,
+      "question": "Một trong những yếu tố làm giảm hiệu quả lắng nghe là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giữ im lặng khi đối phương nói."
+        },
+        {
+          "id": "B",
+          "text": "Ngắt lời hoặc đánh giá người nói khi chưa hiểu rõ."
+        },
+        {
+          "id": "C",
+          "text": "Gật đầu và phản hồi tích cực."
+        },
+        {
+          "id": "D",
+          "text": "Ghi chú lại các ý chính trong khi nghe."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 26,
+      "question": "Một trong các kỹ năng giúp rèn luyện lắng nghe hiệu quả là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tập trung vào phong cách người nói hơn là nội dung."
+        },
+        {
+          "id": "B",
+          "text": "Phản biện liên tục để thể hiện hiểu biết."
+        },
+        {
+          "id": "C",
+          "text": "Chú ý, tập trung, không ngắt lời và phản hồi đúng lúc."
+        },
+        {
+          "id": "D",
+          "text": "Giữ khoảng cách để tránh bị chi phối cảm xúc."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 27,
+      "question": "Viết trong giao tiếp có vai trò gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thể hiện cảm xúc và sự quan tâm cá nhân."
+        },
+        {
+          "id": "B",
+          "text": "Là công cụ truyền tải thông tin chính xác, lưu trữ và xem xét chi tiết."
+        },
+        {
+          "id": "C",
+          "text": "Là hình thức giao tiếp không chính thức."
+        },
+        {
+          "id": "D",
+          "text": "Là cách thể hiện uy quyền và kiểm soát thông tin."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 28,
+      "question": "Một bài viết tốt cần đảm bảo yếu tố nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cảm xúc, hình thức và bố cục."
+        },
+        {
+          "id": "B",
+          "text": "Rõ ràng, súc tích, đúng ngữ pháp và dễ hiểu."
+        },
+        {
+          "id": "C",
+          "text": "Dài dòng, chi tiết và dùng nhiều ví dụ."
+        },
+        {
+          "id": "D",
+          "text": "Phức tạp, khoa trương và mang tính học thuật."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 29,
+      "question": "Trong kỹ năng nói, yếu tố quyết định hiệu quả là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nội dung bài nói dài và có số liệu."
+        },
+        {
+          "id": "B",
+          "text": "Cách diễn đạt, giọng nói và sự tự tin khi trình bày."
+        },
+        {
+          "id": "C",
+          "text": "Viết sẵn toàn bộ nội dung để đọc lại."
+        },
+        {
+          "id": "D",
+          "text": "Dùng ngôn từ phức tạp và trừu tượng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 30,
+      "question": "Trước khi thuyết trình, bước chuẩn bị quan trọng nhất là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Viết lại toàn bộ bài thuyết trình từ trí nhớ."
+        },
+        {
+          "id": "B",
+          "text": "Chuẩn bị trang phục phù hợp và phần thưởng."
+        },
+        {
+          "id": "C",
+          "text": "Xác định mục tiêu, đối tượng người nghe và nội dung chính."
+        },
+        {
+          "id": "D",
+          "text": "Học thuộc lòng toàn bộ nội dung bài nói."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 31,
+      "question": "Ngôn ngữ cơ thể trong khi nói giúp:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Làm giảm căng thẳng cho người nói."
+        },
+        {
+          "id": "B",
+          "text": "Tăng tính thuyết phục và thể hiện cảm xúc chân thật."
+        },
+        {
+          "id": "C",
+          "text": "Thay thế hoàn toàn lời nói trong giao tiếp."
+        },
+        {
+          "id": "D",
+          "text": "Giảm nhu cầu sử dụng ngôn ngữ."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 32,
+      "question": "Thuyết trình bằng cách “đọc toàn văn bài viết” có hạn chế gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giúp đảm bảo tính chính xác của nội dung."
+        },
+        {
+          "id": "B",
+          "text": "Gây buồn chán, thiếu tương tác và khó thu hút người nghe."
+        },
+        {
+          "id": "C",
+          "text": "Tăng khả năng ghi nhớ cho người nói."
+        },
+        {
+          "id": "D",
+          "text": "Thể hiện sự chuyên nghiệp trong trình bày."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 33,
+      "question": "Theo Maslow, nguyên nhân khiến người thuyết trình hồi hộp là do:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lo ngại phản ứng tiêu cực từ khán giả."
+        },
+        {
+          "id": "B",
+          "text": "Nhu cầu an toàn bị đe dọa trong tình huống công khai."
+        },
+        {
+          "id": "C",
+          "text": "Thiếu sự chuẩn bị và kinh nghiệm."
+        },
+        {
+          "id": "D",
+          "text": "Sợ mất vị thế xã hội và uy tín cá nhân."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 34,
+      "question": "Yếu tố phi ngôn từ trong giao tiếp gồm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giọng nói, từ ngữ và cấu trúc câu."
+        },
+        {
+          "id": "B",
+          "text": "Nội dung, cách viết và thái độ."
+        },
+        {
+          "id": "C",
+          "text": "Ánh mắt, cử chỉ, tư thế, trang phục và nét mặt."
+        },
+        {
+          "id": "D",
+          "text": "Hình thức trình bày văn bản."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 35,
+      "question": "Trong giao tiếp nhóm, để đạt hiệu quả cần:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tránh bất đồng và chấp nhận mọi ý kiến."
+        },
+        {
+          "id": "B",
+          "text": "Lắng nghe, tôn trọng và phối hợp hài hòa giữa các thành viên."
+        },
+        {
+          "id": "C",
+          "text": "Phân chia nhiệm vụ không rõ ràng để linh hoạt hơn."
+        },
+        {
+          "id": "D",
+          "text": "Chỉ tập trung vào mục tiêu cá nhân."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 36,
+      "question": "Khi viết báo cáo hoặc email công việc, điều cần tránh nhất là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Viết ngắn gọn, rõ ràng và đúng chính tả."
+        },
+        {
+          "id": "B",
+          "text": "Ghi chú đầy đủ các số liệu quan trọng."
+        },
+        {
+          "id": "C",
+          "text": "Dùng từ ngữ cảm tính, thiếu trọng tâm và không có cấu trúc."
+        },
+        {
+          "id": "D",
+          "text": "Trình bày nội dung theo thứ tự logic."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 2,
+      "chapterName": "GIAO TIẾP VÀ TRUYỀN THÔNG"
+    },
+    {
+      "id": 37,
+      "question": "“Ước lượng” trong quản lý dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quá trình kiểm tra và điều chỉnh chi phí thực tế của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Quá trình dự đoán công sức, chi phí và thời gian cần thiết để hoàn thành công việc."
+        },
+        {
+          "id": "C",
+          "text": "Quá trình so sánh kết quả thực tế với kế hoạch ban đầu."
+        },
+        {
+          "id": "D",
+          "text": "Hoạt động tổng kết sau khi dự án kết thúc."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 38,
+      "question": "Khi dự án tiến triển và thông tin rõ hơn, sai số ước lượng có xu hướng:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tăng dần do rủi ro cao hơn."
+        },
+        {
+          "id": "B",
+          "text": "Giảm dần nhờ dữ liệu thực tế được cập nhật."
+        },
+        {
+          "id": "C",
+          "text": "Không thay đổi vì đã có dự báo ban đầu."
+        },
+        {
+          "id": "D",
+          "text": "Phụ thuộc vào ý kiến của khách hàng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 39,
+      "question": "Phương pháp ước lượng “đánh giá chuyên gia” dựa trên yếu tố nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Kinh nghiệm và kiến thức thực tế của các chuyên gia trong lĩnh vực."
+        },
+        {
+          "id": "B",
+          "text": "Số liệu thống kê từ các dự án đã hoàn thành."
+        },
+        {
+          "id": "C",
+          "text": "Mức chi phí trung bình của ngành."
+        },
+        {
+          "id": "D",
+          "text": "Quy định kỹ thuật của cơ quan quản lý."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 40,
+      "question": "Ưu điểm của phương pháp “đánh giá chuyên gia” là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhanh chóng, có thể chính xác nếu chọn đúng chuyên gia."
+        },
+        {
+          "id": "B",
+          "text": "Tiết kiệm chi phí và dễ tự động hóa."
+        },
+        {
+          "id": "C",
+          "text": "Không phụ thuộc vào con người."
+        },
+        {
+          "id": "D",
+          "text": "Phù hợp với các dự án chưa có dữ liệu lịch sử."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 41,
+      "question": "Nhược điểm của phương pháp “đánh giá chuyên gia” là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tốn thời gian và chi phí cao."
+        },
+        {
+          "id": "B",
+          "text": "Phụ thuộc vào chủ quan và kinh nghiệm cá nhân."
+        },
+        {
+          "id": "C",
+          "text": "Không áp dụng cho các dự án nhỏ."
+        },
+        {
+          "id": "D",
+          "text": "Không phù hợp với dự án phần mềm."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 42,
+      "question": "Phương pháp ước lượng “quy trình lịch sử” dựa vào:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cảm nhận của nhóm dự án về tiến độ công việc."
+        },
+        {
+          "id": "B",
+          "text": "Dữ liệu và kết quả thực tế từ các dự án trước đó."
+        },
+        {
+          "id": "C",
+          "text": "Báo cáo tài chính và chi phí đầu tư."
+        },
+        {
+          "id": "D",
+          "text": "Thời gian thực hiện trung bình của dự án mẫu."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 43,
+      "question": "Khi sử dụng “quy trình lịch sử” để ước lượng, yếu tố quan trọng nhất là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Có cơ sở dữ liệu đầy đủ về thời gian, chi phí và nhân lực dự án trước."
+        },
+        {
+          "id": "B",
+          "text": "Tính toán theo cảm tính và kinh nghiệm cá nhân."
+        },
+        {
+          "id": "C",
+          "text": "Áp dụng quy tắc phần trăm tăng trưởng."
+        },
+        {
+          "id": "D",
+          "text": "Dựa vào mô hình dự toán tài chính."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 44,
+      "question": "Công thức COCOMO được dùng để ước lượng:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chi phí, thời gian, nhân lực và lịch biểu của dự án phần mềm."
+        },
+        {
+          "id": "B",
+          "text": "Rủi ro, chất lượng và chi phí vận hành."
+        },
+        {
+          "id": "C",
+          "text": "Tài nguyên phần cứng và hiệu năng hệ thống."
+        },
+        {
+          "id": "D",
+          "text": "Kế hoạch đào tạo và bảo trì sản phẩm."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 45,
+      "question": "Trong mô hình COCOMO, thông tin đầu vào quan trọng nhất là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Số dòng lệnh mã nguồn (LOSC) dự kiến."
+        },
+        {
+          "id": "B",
+          "text": "Số lượng lập trình viên tham gia."
+        },
+        {
+          "id": "C",
+          "text": "Mức lương bình quân của nhóm kỹ thuật."
+        },
+        {
+          "id": "D",
+          "text": "Tốc độ xử lý của hệ thống máy tính."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 46,
+      "question": "Phương pháp “điểm chức năng” dùng để:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đo độ phức tạp và khối lượng công việc của phần mềm."
+        },
+        {
+          "id": "B",
+          "text": "Đánh giá chất lượng mã nguồn chương trình."
+        },
+        {
+          "id": "C",
+          "text": "Kiểm thử hiệu năng hệ thống."
+        },
+        {
+          "id": "D",
+          "text": "Đo tốc độ xử lý của phần mềm."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 47,
+      "question": "Theo công thức D=C×(G+J), trong đó D là thời gian thực hiện, C là độ phức tạp, G là kinh nghiệm, J là tri thức chuyên môn, ta hiểu rằng:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thời gian hoàn thành phụ thuộc vào độ phức tạp và năng lực người thực hiện."
+        },
+        {
+          "id": "B",
+          "text": "Hiệu năng hệ thống quyết định hoàn toàn thời gian dự án."
+        },
+        {
+          "id": "C",
+          "text": "Chỉ cần kinh nghiệm chung là đủ để giảm thời gian."
+        },
+        {
+          "id": "D",
+          "text": "Tri thức chuyên môn không ảnh hưởng đến tiến độ."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 48,
+      "question": "Một nguyên tắc quan trọng của quy tắc ước lượng theo DEC là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nên để người mới ước lượng để có góc nhìn khách quan."
+        },
+        {
+          "id": "B",
+          "text": "Không cần thảo luận khi có sai khác giữa các nhóm."
+        },
+        {
+          "id": "C",
+          "text": "Nếu có chênh lệch lớn giữa các nhóm ước lượng, phải họp lại để thống nhất."
+        },
+        {
+          "id": "D",
+          "text": "Lấy trung bình cộng của mọi kết quả ước lượng để tăng độ tin cậy."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 49,
+      "question": "Yếu tố nào là nguyên nhân chính khiến việc ước lượng sai lệch lớn?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Không có dữ liệu lịch sử hoặc không phân tích kỹ yêu cầu dự án."
+        },
+        {
+          "id": "B",
+          "text": "Thiếu nhân lực có trình độ cao."
+        },
+        {
+          "id": "C",
+          "text": "Do khách hàng thay đổi yêu cầu giữa chừng."
+        },
+        {
+          "id": "D",
+          "text": "Do thiết bị phần cứng chưa ổn định."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 50,
+      "question": "Theo quy tắc DEC, vì sao không nên ép buộc lập trình viên đưa ra ước lượng?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vì họ không có khả năng tính toán."
+        },
+        {
+          "id": "B",
+          "text": "Vì họ thường đánh giá quá thấp công việc."
+        },
+        {
+          "id": "C",
+          "text": "Vì việc ép buộc làm mất tính khách quan và giảm độ tin cậy của kết quả."
+        },
+        {
+          "id": "D",
+          "text": "Vì họ không có trách nhiệm với tiến độ dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 51,
+      "question": "Theo DEC, cách xử lý hợp lý nhất khi có nhiều ước lượng khác nhau cho cùng một công việc là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chọn giá trị cao nhất để tránh thiếu hụt thời gian."
+        },
+        {
+          "id": "B",
+          "text": "Lấy trung bình cộng để đảm bảo cân bằng."
+        },
+        {
+          "id": "C",
+          "text": "Tổ chức thảo luận để tìm nguyên nhân sai khác và thống nhất lại kết quả."
+        },
+        {
+          "id": "D",
+          "text": "Chọn ngẫu nhiên một kết quả và điều chỉnh sau."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 52,
+      "question": "Theo tiến trình ước lượng, “ngẫu nhiên” được thêm vào nhằm mục đích:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tăng độ chính xác cho kết quả tính toán."
+        },
+        {
+          "id": "B",
+          "text": "Đảm bảo ước lượng phù hợp với thực tế thống kê."
+        },
+        {
+          "id": "C",
+          "text": "Bù trừ cho những biến động hoặc rủi ro không lường trước."
+        },
+        {
+          "id": "D",
+          "text": "Giảm sự khác biệt giữa các nhóm thực hiện."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 53,
+      "question": "Kết luận của tài liệu về kỹ năng ước lượng trong dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là một quy trình định lượng chính xác."
+        },
+        {
+          "id": "B",
+          "text": "Có thể tự động hóa hoàn toàn bằng phần mềm."
+        },
+        {
+          "id": "C",
+          "text": "Là một quá trình vừa mang tính nghệ thuật, vừa cần điều chỉnh liên tục."
+        },
+        {
+          "id": "D",
+          "text": "Không cần thiết nếu dự án đã có kế hoạch cụ thể."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 3,
+      "chapterName": "ƯỚC LƯỢNG DỰ ÁN"
+    },
+    {
+      "id": 54,
+      "question": "Mục đích chính của việc lập lịch trong quản lý dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dự đoán chi phí và phân bổ ngân sách dự án."
+        },
+        {
+          "id": "B",
+          "text": "Xác định thứ tự, thời gian và quan hệ giữa các công việc."
+        },
+        {
+          "id": "C",
+          "text": "Xác định người chịu trách nhiệm trong từng giai đoạn."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá hiệu quả tổng thể của kết quả thực hiện."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 55,
+      "question": "Từ “PERT” trong quản lý dự án là viết tắt của cụm từ nào sau đây?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Program Evaluation and Review Technique."
+        },
+        {
+          "id": "B",
+          "text": "Project Execution and Reporting Template."
+        },
+        {
+          "id": "C",
+          "text": "Process Evaluation and Resource Tracking."
+        },
+        {
+          "id": "D",
+          "text": "Planning Estimation and Review Tool."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 56,
+      "question": "“Đường găng” (Critical Path) trong sơ đồ PERT có ý nghĩa gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là đường có số lượng hoạt động lớn nhất trong dự án."
+        },
+        {
+          "id": "B",
+          "text": "Là chuỗi hoạt động dài nhất quyết định thời gian hoàn thành dự án."
+        },
+        {
+          "id": "C",
+          "text": "Là tuyến đường có mức chi phí thực hiện thấp nhất."
+        },
+        {
+          "id": "D",
+          "text": "Là chuỗi hoạt động có độ thả nổi cao nhất trong dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 57,
+      "question": "Mối quan hệ giữa “đường găng” và “thời hạn hoàn thành dự án” là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mọi thay đổi trên đường găng đều làm thay đổi thời hạn dự án."
+        },
+        {
+          "id": "B",
+          "text": "Đường găng chỉ ảnh hưởng đến các công việc đầu tiên."
+        },
+        {
+          "id": "C",
+          "text": "Các công việc trên đường găng có thể dời lịch tùy ý."
+        },
+        {
+          "id": "D",
+          "text": "Đường găng chỉ dùng để theo dõi chi phí dự kiến."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 58,
+      "question": "Khi một công việc không nằm trên đường găng, điều đó cho biết:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Công việc đó có vai trò trung tâm của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Công việc đó có thể trễ trong giới hạn cho phép mà không ảnh hưởng dự án."
+        },
+        {
+          "id": "C",
+          "text": "Công việc đó phải hoàn thành sớm nhất để đạt tiến độ."
+        },
+        {
+          "id": "D",
+          "text": "Công việc đó không ảnh hưởng đến sản phẩm cuối cùng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 59,
+      "question": "“Thả nổi toàn bộ” (Total Float) trong dự án được hiểu là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thời gian công việc có thể trễ mà không làm trễ toàn bộ dự án."
+        },
+        {
+          "id": "B",
+          "text": "Thời gian dự án có thể kéo dài trước khi bị hủy bỏ."
+        },
+        {
+          "id": "C",
+          "text": "Thời gian chờ đợi giữa hai hoạt động liên tiếp nhau."
+        },
+        {
+          "id": "D",
+          "text": "Thời gian mà người quản lý dự án có thể phân bổ lại nhân sự."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 60,
+      "question": "“Thả nổi tự do” (Free Float) có ý nghĩa như thế nào trong quản lý dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Khoảng thời gian dự án có thể kéo dài tối đa."
+        },
+        {
+          "id": "B",
+          "text": "Khoảng thời gian công việc có thể trễ mà không ảnh hưởng đến công việc sau."
+        },
+        {
+          "id": "C",
+          "text": "Khoảng thời gian người quản lý có thể nghỉ giữa chừng."
+        },
+        {
+          "id": "D",
+          "text": "Khoảng thời gian dùng để chuẩn bị báo cáo kết quả."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 61,
+      "question": "Khi một hoạt động bị kéo dài và làm thay đổi đường găng, người quản lý cần:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cập nhật sơ đồ PERT và điều chỉnh kế hoạch tổng thể."
+        },
+        {
+          "id": "B",
+          "text": "Giữ nguyên tiến độ và chờ đánh giá sau."
+        },
+        {
+          "id": "C",
+          "text": "Giảm yêu cầu chất lượng để bù thời gian."
+        },
+        {
+          "id": "D",
+          "text": "Dời các hoạt động khác sang giai đoạn sau."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 62,
+      "question": "Việc cấp phát tài nguyên nhân lực cần dựa trên nguyên tắc nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dựa trên thâm niên công tác và chức vụ của mỗi người."
+        },
+        {
+          "id": "B",
+          "text": "Dựa trên kỹ năng, mức độ phù hợp và sự tin cậy của nhân sự."
+        },
+        {
+          "id": "C",
+          "text": "Dựa trên độ tuổi, giới tính và khả năng làm việc nhóm."
+        },
+        {
+          "id": "D",
+          "text": "Dựa trên số lượng người có thể huy động trong giai đoạn đó."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 63,
+      "question": "Theo quy tắc công nghiệp, khi bổ sung thêm người vào nhóm, điều gì xảy ra?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hiệu suất giảm vì cần thêm thời gian phối hợp giữa các thành viên."
+        },
+        {
+          "id": "B",
+          "text": "Hiệu suất tăng vì nhiều người cùng chia sẻ công việc."
+        },
+        {
+          "id": "C",
+          "text": "Chi phí giảm vì rút ngắn được thời gian dự án."
+        },
+        {
+          "id": "D",
+          "text": "Tiến độ được rút ngắn tỉ lệ thuận với số lượng nhân viên."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 64,
+      "question": "Tài nguyên “phi con người” trong dự án thường bao gồm những gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phần cứng, phần mềm, tài liệu, thiết bị và các dịch vụ hỗ trợ."
+        },
+        {
+          "id": "B",
+          "text": "Chi phí nhân sự, phương tiện đi lại và phụ cấp công tác."
+        },
+        {
+          "id": "C",
+          "text": "Hợp đồng, giấy tờ hành chính và tài liệu đào tạo."
+        },
+        {
+          "id": "D",
+          "text": "Thời gian nghỉ phép và lịch công tác của nhóm dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 65,
+      "question": "“Ràng buộc bộ ba” (Triple Constraint) trong quản lý dự án gồm những yếu tố nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thời gian – Chi phí – Phạm vi (hoặc Chất lượng)."
+        },
+        {
+          "id": "B",
+          "text": "Nhân lực – Công nghệ – Kinh nghiệm."
+        },
+        {
+          "id": "C",
+          "text": "Thời gian – Địa điểm – Nguồn lực."
+        },
+        {
+          "id": "D",
+          "text": "Kế hoạch – Tiến độ – Đánh giá."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 66,
+      "question": "Sơ đồ Gantt có vai trò gì trong quản lý dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Thể hiện tiến độ công việc theo trục thời gian để theo dõi thực hiện."
+        },
+        {
+          "id": "B",
+          "text": "Mô tả quan hệ nhân quả giữa các công việc dự án."
+        },
+        {
+          "id": "C",
+          "text": "Đánh giá năng suất của từng thành viên trong nhóm."
+        },
+        {
+          "id": "D",
+          "text": "Biểu diễn mức độ rủi ro và sự phụ thuộc kỹ thuật."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 67,
+      "question": "Việc “lập lịch lại” các hoạt động trong dự án được thực hiện khi nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Khi dự án kết thúc và cần rút kinh nghiệm."
+        },
+        {
+          "id": "B",
+          "text": "Khi có thay đổi trong tiến độ, nguồn lực hoặc các ràng buộc khác."
+        },
+        {
+          "id": "C",
+          "text": "Khi khách hàng yêu cầu bổ sung thêm chức năng mới."
+        },
+        {
+          "id": "D",
+          "text": "Khi nhóm dự án thay đổi người quản lý hoặc nhà tài trợ."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 68,
+      "question": "Người quản lý dự án cần đặc biệt tập trung vào đường găng vì lý do nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đường găng chứa các công việc ít quan trọng nhất."
+        },
+        {
+          "id": "B",
+          "text": "Đường găng xác định chi phí phát sinh của từng công đoạn."
+        },
+        {
+          "id": "C",
+          "text": "Mọi sự chậm trễ trên đường găng đều làm chậm toàn bộ tiến độ dự án."
+        },
+        {
+          "id": "D",
+          "text": "Đường găng chỉ ảnh hưởng đến các công việc phụ trợ trong dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 69,
+      "question": "Khi rút ngắn tiến độ dự án, điều giả định nào cần được đảm bảo?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Các nhiệm vụ có thể rút ngắn độc lập và không ảnh hưởng lẫn nhau."
+        },
+        {
+          "id": "B",
+          "text": "Thêm nhân lực luôn giúp tiến độ được rút ngắn nhanh chóng."
+        },
+        {
+          "id": "C",
+          "text": "Có thể giảm thời gian mà không tăng thêm chi phí hoặc rủi ro."
+        },
+        {
+          "id": "D",
+          "text": "Mọi hoạt động có thể được rút ngắn mà không cần điều chỉnh kế hoạch."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 4,
+      "chapterName": "LẬP LỊCH DỰ ÁN"
+    },
+    {
+      "id": 70,
+      "question": "Kiểm soát dự án bao gồm các công việc chính nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phân tích yêu cầu, thiết kế và thử nghiệm sản phẩm."
+        },
+        {
+          "id": "B",
+          "text": "Giám sát tiến độ, phát hiện vấn đề và điều chỉnh kế hoạch."
+        },
+        {
+          "id": "C",
+          "text": "Lập kế hoạch ngân sách và phân công nhân sự."
+        },
+        {
+          "id": "D",
+          "text": "Tổng kết dự án và đánh giá chất lượng sản phẩm."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 71,
+      "question": "Mục tiêu quan trọng của kiểm soát dự án là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đảm bảo dự án được thực hiện đúng kế hoạch, đúng thời gian và ngân sách."
+        },
+        {
+          "id": "B",
+          "text": "Tăng doanh thu, giảm chi phí và mở rộng thị trường."
+        },
+        {
+          "id": "C",
+          "text": "Giảm bớt các bước triển khai và tối giản nhân sự."
+        },
+        {
+          "id": "D",
+          "text": "Đảm bảo tất cả yêu cầu kỹ thuật đều được viết bằng tài liệu."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 72,
+      "question": "Giám sát dự án là quá trình:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phát triển các tính năng mới theo yêu cầu khách hàng."
+        },
+        {
+          "id": "B",
+          "text": "Theo dõi, kiểm tra tiến độ và chất lượng công việc so với kế hoạch."
+        },
+        {
+          "id": "C",
+          "text": "Kiểm thử phần mềm và sửa lỗi sau triển khai."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá tổng kết khi dự án đã hoàn thành."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 73,
+      "question": "Ai là người chịu trách nhiệm giám sát chi tiết các công đoạn kỹ thuật trong dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phó giám đốc điều hành (PGĐ điều hành)."
+        },
+        {
+          "id": "B",
+          "text": "Giám đốc dự án (GĐ dự án)."
+        },
+        {
+          "id": "C",
+          "text": "Khách hàng sử dụng phần mềm."
+        },
+        {
+          "id": "D",
+          "text": "Ban chỉ đạo cấp trên của dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 74,
+      "question": "Theo tài liệu, giám sát dự án từ phía khách hàng có ý nghĩa gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giúp khách hàng nắm tiến độ, chất lượng và chi phí để đảm bảo quyền lợi."
+        },
+        {
+          "id": "B",
+          "text": "Giúp nhà tài trợ kiểm soát nguồn vốn đầu tư hiệu quả hơn."
+        },
+        {
+          "id": "C",
+          "text": "Giúp ban chỉ đạo theo dõi hiệu suất làm việc của nhân viên."
+        },
+        {
+          "id": "D",
+          "text": "Giúp nhóm kỹ thuật phát triển thêm các chức năng bổ sung."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 75,
+      "question": "Khi dự án bị kéo dài thời hạn, người quản lý cần làm gì trước tiên?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bổ sung nhân lực và yêu cầu làm thêm giờ."
+        },
+        {
+          "id": "B",
+          "text": "Giảm phạm vi dự án để rút ngắn thời gian."
+        },
+        {
+          "id": "C",
+          "text": "Kiểm tra nguyên nhân, xác định công việc găng và điều chỉnh kế hoạch."
+        },
+        {
+          "id": "D",
+          "text": "Tạm dừng dự án để đánh giá lại toàn bộ kế hoạch."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 76,
+      "question": "Trong kiểm soát chi phí, “giá trị phần việc đã thực hiện” (EV) thể hiện điều gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tổng chi phí đã chi trả tính đến thời điểm hiện tại."
+        },
+        {
+          "id": "B",
+          "text": "Giá trị công việc hoàn thành theo ngân sách dự kiến."
+        },
+        {
+          "id": "C",
+          "text": "Khoản chi phí phát sinh vượt ngoài kế hoạch."
+        },
+        {
+          "id": "D",
+          "text": "Lợi nhuận dự kiến thu được sau khi bàn giao dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 77,
+      "question": "Người quản lý nên phát hiện vấn đề của dự án vào giai đoạn nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Càng sớm càng tốt, trước khi vấn đề ảnh hưởng đến tiến độ và chi phí."
+        },
+        {
+          "id": "B",
+          "text": "Sau khi dự án kết thúc để có số liệu chính xác."
+        },
+        {
+          "id": "C",
+          "text": "Khi khách hàng yêu cầu báo cáo chính thức."
+        },
+        {
+          "id": "D",
+          "text": "Khi nhóm dự án hoàn thành 50% khối lượng công việc."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 5,
+      "chapterName": "KIỂM SOÁT VÀ GIÁM SÁT"
+    },
+    {
+      "id": 78,
+      "question": "“Phạm vi dự án” được hiểu là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tập hợp các rủi ro có thể xảy ra trong quá trình thực hiện dự án."
+        },
+        {
+          "id": "B",
+          "text": "Danh sách toàn bộ những công việc mà dự án phải thực hiện."
+        },
+        {
+          "id": "C",
+          "text": "Tập hợp các nguồn lực cần thiết để hoàn thành dự án."
+        },
+        {
+          "id": "D",
+          "text": "Các chỉ tiêu tài chính và lợi nhuận của dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 79,
+      "question": "Quản lý phạm vi dự án nhằm mục đích chính là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giảm thiểu rủi ro và tăng hiệu quả vận hành của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Đảm bảo dự án hoàn thành đúng những nội dung đã được xác định."
+        },
+        {
+          "id": "C",
+          "text": "Duy trì tiến độ và cân bằng chi phí của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Theo dõi kết quả và đánh giá chất lượng sản phẩm."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 80,
+      "question": "Các kết quả chuyển giao (deliverables) của dự án là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Các chi phí đã được chi trả cho các hoạt động."
+        },
+        {
+          "id": "B",
+          "text": "Những sản phẩm hoặc kết quả cụ thể mà dự án phải bàn giao."
+        },
+        {
+          "id": "C",
+          "text": "Những công việc đang trong quá trình thực hiện."
+        },
+        {
+          "id": "D",
+          "text": "Những tài liệu hướng dẫn kỹ thuật và báo cáo chi tiết."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 81,
+      "question": "Tuyên bố phạm vi (Scope Statement) thường bao gồm những nội dung nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mục tiêu tài chính, thời gian hoàn thành và kết quả kiểm thử."
+        },
+        {
+          "id": "B",
+          "text": "Lý do dự án, mô tả sản phẩm, các sản phẩm trung gian và tiêu chí thành công."
+        },
+        {
+          "id": "C",
+          "text": "Danh sách nhân sự, sơ đồ PERT và biểu đồ Gantt."
+        },
+        {
+          "id": "D",
+          "text": "Kế hoạch chi phí, nguồn lực và tiến độ thực hiện."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 82,
+      "question": "“Xác định phạm vi dự án” là bước nhằm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chia nhỏ công việc thành các phần chi tiết dễ quản lý và kiểm soát."
+        },
+        {
+          "id": "B",
+          "text": "Tổng hợp tất cả kết quả của các giai đoạn triển khai dự án."
+        },
+        {
+          "id": "C",
+          "text": "Thiết lập cơ chế theo dõi và đánh giá tiến độ."
+        },
+        {
+          "id": "D",
+          "text": "Kiểm tra tính khả thi của các phương án kỹ thuật."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 83,
+      "question": "Lợi ích của việc xác định phạm vi đúng đắn là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giúp dự án linh hoạt hơn khi mở rộng quy mô thực hiện."
+        },
+        {
+          "id": "B",
+          "text": "Giúp ước lượng chính xác thời gian, chi phí và tài nguyên cần thiết."
+        },
+        {
+          "id": "C",
+          "text": "Giúp tiết kiệm ngân sách và giảm nhân sự trong dự án."
+        },
+        {
+          "id": "D",
+          "text": "Giúp tập trung vào giai đoạn cuối mà không cần kiểm soát đầu vào."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 84,
+      "question": "Vấn đề phổ biến khi quản lý phạm vi dự án CNTT là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phạm vi bị mở rộng liên tục do thay đổi yêu cầu (scope creep)."
+        },
+        {
+          "id": "B",
+          "text": "Không xác định được ngân sách và thời hạn cụ thể cho từng công việc."
+        },
+        {
+          "id": "C",
+          "text": "Các thành viên nhóm dự án không có kỹ năng lập kế hoạch."
+        },
+        {
+          "id": "D",
+          "text": "Thiếu dữ liệu đánh giá rủi ro trong giai đoạn đầu dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 85,
+      "question": "Để kiểm soát và hạn chế “phạm vi phình ra” (scope creep), người quản lý cần:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cho phép thay đổi tùy ý để đảm bảo sự linh hoạt trong dự án."
+        },
+        {
+          "id": "B",
+          "text": "Trì hoãn việc cập nhật kế hoạch cho đến khi hoàn thành giai đoạn chính."
+        },
+        {
+          "id": "C",
+          "text": "Xác lập quy trình kiểm soát thay đổi và được phê duyệt trước khi thực hiện."
+        },
+        {
+          "id": "D",
+          "text": "Tăng thêm nhân lực và kinh phí để đáp ứng các yêu cầu mới."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 6,
+      "chapterName": "QUẢN LÝ PHẠM VI"
+    },
+    {
+      "id": 86,
+      "question": "Tại sao quản lý thời gian dự án lại quan trọng?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vì thời gian là yếu tố dễ thay đổi và ít ảnh hưởng đến chi phí."
+        },
+        {
+          "id": "B",
+          "text": "Vì tiến độ dự án quyết định sự thành công của sản phẩm cuối cùng."
+        },
+        {
+          "id": "C",
+          "text": "Vì việc hoàn thành đúng hạn là thách thức lớn nhất đối với mọi dự án."
+        },
+        {
+          "id": "D",
+          "text": "Vì thời gian có thể được điều chỉnh linh hoạt trong mọi giai đoạn."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 87,
+      "question": "Quản lý thời gian dự án bao gồm hoạt động nào sau đây?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Xác định hoạt động, sắp xếp thứ tự, ước lượng và phát triển lịch biểu."
+        },
+        {
+          "id": "B",
+          "text": "Lên kế hoạch chi phí, phân bổ nguồn lực và theo dõi hiệu suất."
+        },
+        {
+          "id": "C",
+          "text": "Xác định rủi ro, đánh giá phạm vi và điều chỉnh nhân sự."
+        },
+        {
+          "id": "D",
+          "text": "Kiểm soát chất lượng, lập báo cáo và phân tích năng suất."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 88,
+      "question": "Sắp xếp thứ tự các hoạt động trong dự án nhằm mục đích gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giúp xác định chi phí trung bình của từng hạng mục."
+        },
+        {
+          "id": "B",
+          "text": "Giúp xác định quan hệ phụ thuộc giữa các hoạt động để lập kế hoạch."
+        },
+        {
+          "id": "C",
+          "text": "Giúp tăng tính linh hoạt trong quá trình kiểm soát dự án."
+        },
+        {
+          "id": "D",
+          "text": "Giúp rút ngắn thời gian thực hiện thông qua làm song song công việc."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 89,
+      "question": "Phụ thuộc bắt buộc giữa các hoạt động là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là sự phụ thuộc được nhóm dự án quyết định."
+        },
+        {
+          "id": "B",
+          "text": "Là mối quan hệ do bản chất kỹ thuật của công việc quy định."
+        },
+        {
+          "id": "C",
+          "text": "Là sự phụ thuộc do khách hàng hoặc nhà tài trợ đặt ra."
+        },
+        {
+          "id": "D",
+          "text": "Là mối quan hệ tạm thời do thiếu nguồn lực thực hiện."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 90,
+      "question": "Phương pháp CPM (Critical Path Method) được sử dụng để:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Xác định đường găng và thời gian hoàn thành sớm nhất của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Tính toán chi phí dự kiến và ngân sách của từng công việc."
+        },
+        {
+          "id": "C",
+          "text": "Ước lượng nhân lực và vật tư cần thiết cho mỗi giai đoạn."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá mức độ hài lòng của khách hàng trong quá trình thực hiện."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 91,
+      "question": "Khi lập lịch, “điều khiển lịch biểu” có nghĩa là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tính toán lại chi phí dự án dựa trên tiến độ thực tế."
+        },
+        {
+          "id": "B",
+          "text": "Xây dựng kế hoạch nhân sự theo năng lực của từng cá nhân."
+        },
+        {
+          "id": "C",
+          "text": "Theo dõi tiến độ, xử lý sai lệch và cập nhật lại lịch biểu khi cần."
+        },
+        {
+          "id": "D",
+          "text": "Dừng các hoạt động trễ để bảo đảm chi phí không vượt quá dự kiến."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 92,
+      "question": "Trong phương pháp PERT, công thức tính thời gian kỳ vọng là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "(Thời gian lạc quan + 4 × Thời gian trung bình) / 6"
+        },
+        {
+          "id": "B",
+          "text": "(Thời gian lạc quan + 4 × Thời gian khả dĩ + Thời gian bi quan) / 6"
+        },
+        {
+          "id": "C",
+          "text": "(Thời gian bi quan + Thời gian trung bình) / 2"
+        },
+        {
+          "id": "D",
+          "text": "(Thời gian thực tế + Thời gian dự kiến) / 2"
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 93,
+      "question": "Yếu tố nào gây xung đột nhiều nhất trong các dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chi phí phát sinh và thay đổi yêu cầu khách hàng."
+        },
+        {
+          "id": "B",
+          "text": "Lịch biểu và tiến độ công việc, đặc biệt ở giai đoạn cuối dự án."
+        },
+        {
+          "id": "C",
+          "text": "Phạm vi công việc không rõ ràng giữa các bộ phận."
+        },
+        {
+          "id": "D",
+          "text": "Thiếu thông tin và truyền thông trong nhóm dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 7,
+      "chapterName": "QUẢN LÝ THỜI GIAN"
+    },
+    {
+      "id": 94,
+      "question": "Quản lý chi phí dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là quá trình lập kế hoạch, giám sát và phân bổ nguồn lực cho nhân sự."
+        },
+        {
+          "id": "B",
+          "text": "Là quá trình ước lượng, lập kế hoạch và kiểm soát chi phí của dự án."
+        },
+        {
+          "id": "C",
+          "text": "Là hoạt động giám sát rủi ro và kiểm soát tiến độ của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Là quá trình đánh giá hiệu suất và chất lượng của các hoạt động."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 95,
+      "question": "Mục tiêu chính của quản lý chi phí dự án là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đảm bảo dự án hoàn thành trong giới hạn ngân sách đã được phê duyệt."
+        },
+        {
+          "id": "B",
+          "text": "Tăng doanh thu và tối ưu hóa lợi nhuận cho tổ chức thực hiện."
+        },
+        {
+          "id": "C",
+          "text": "Duy trì tiến độ thực hiện và hạn chế rủi ro phát sinh trong dự án."
+        },
+        {
+          "id": "D",
+          "text": "Tối đa hóa hiệu suất sử dụng nhân lực và vật tư của dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 96,
+      "question": "Các quy trình chính của quản lý chi phí bao gồm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lập ngân sách, quản lý rủi ro và đánh giá chất lượng sản phẩm."
+        },
+        {
+          "id": "B",
+          "text": "Ước lượng nguồn lực, đào tạo nhân sự và xác định mục tiêu dự án."
+        },
+        {
+          "id": "C",
+          "text": "Lập kế hoạch tài nguyên, ước lượng chi phí, dự toán và kiểm soát chi phí."
+        },
+        {
+          "id": "D",
+          "text": "Tính toán lương, chi tiêu nội bộ và lợi nhuận sau dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 97,
+      "question": "Trong quản lý chi phí, “ước lượng chi phí” có nghĩa là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Xác định giá bán sản phẩm cuối cùng của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Dự đoán chi phí cần thiết để hoàn thành các hoạt động dự án."
+        },
+        {
+          "id": "C",
+          "text": "Phân tích các khoản chi phát sinh trong giai đoạn kết thúc dự án."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá mức độ hiệu quả của việc sử dụng ngân sách."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 98,
+      "question": "Phương pháp “ước lượng từ dưới lên” (Bottom-up Estimating) là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ước tính chi phí tổng thể dựa trên phạm vi công việc chung."
+        },
+        {
+          "id": "B",
+          "text": "Ước lượng chi phí chi tiết cho từng hạng mục rồi tổng hợp lại toàn dự án."
+        },
+        {
+          "id": "C",
+          "text": "Ước lượng chi phí bằng cách lấy trung bình chi phí của các nhóm."
+        },
+        {
+          "id": "D",
+          "text": "Ước lượng chi phí theo tỷ lệ phần trăm doanh thu của dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 99,
+      "question": "Phương pháp “thông số” (Parametric Estimating) được hiểu là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ước lượng dựa vào dữ liệu từ các dự án khác có quy mô tương đương."
+        },
+        {
+          "id": "B",
+          "text": "Ước lượng dựa vào kinh nghiệm thực tế của người quản lý dự án."
+        },
+        {
+          "id": "C",
+          "text": "Ước lượng dựa trên các biến số toán học phản ánh mối quan hệ chi phí."
+        },
+        {
+          "id": "D",
+          "text": "Ước lượng bằng cách so sánh các báo cáo tài chính của nhiều dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 100,
+      "question": "Quản lý chi phí sử dụng công cụ EMV (Earned Value Management) nhằm mục đích:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đánh giá mức độ hoàn thành công việc thông qua so sánh chi phí và tiến độ."
+        },
+        {
+          "id": "B",
+          "text": "Theo dõi các khoản nợ và doanh thu từ hợp đồng dự án."
+        },
+        {
+          "id": "C",
+          "text": "Tính toán các chỉ tiêu tài chính để đánh giá lợi nhuận đầu tư."
+        },
+        {
+          "id": "D",
+          "text": "Xác định số lượng nhân sự cần thiết trong từng giai đoạn."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 101,
+      "question": "Trong EMV, chỉ số SPI = EV/PV phản ánh điều gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hiệu suất chi phí so với giá trị thực tế đã chi tiêu."
+        },
+        {
+          "id": "B",
+          "text": "Mức độ tiến độ – nếu SPI < 1 nghĩa là dự án bị trễ so với kế hoạch."
+        },
+        {
+          "id": "C",
+          "text": "Tỷ lệ giữa chi phí dự kiến và chi phí thực tế của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Hiệu quả đầu tư – nếu SPI > 1 nghĩa là lợi nhuận cao hơn dự kiến."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 102,
+      "question": "Để kiểm soát chi phí hiệu quả, người quản lý dự án cần:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tăng ngân sách dự án khi chi phí vượt kế hoạch."
+        },
+        {
+          "id": "B",
+          "text": "Chỉ điều chỉnh chi phí vào giai đoạn cuối dự án."
+        },
+        {
+          "id": "C",
+          "text": "Giám sát chi phí định kỳ, phát hiện sai lệch và điều chỉnh kịp thời."
+        },
+        {
+          "id": "D",
+          "text": "Giảm chi phí bằng cách cắt giảm nhân sự và trang thiết bị."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 8,
+      "chapterName": "QUẢN LÝ CHI PHÍ"
+    },
+    {
+      "id": 103,
+      "question": "Theo ISO, “chất lượng” được định nghĩa là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là chi phí đầu tư để đảm bảo sản phẩm đạt tiêu chuẩn."
+        },
+        {
+          "id": "B",
+          "text": "Là mức độ mà sản phẩm đáp ứng các yêu cầu đã được xác định."
+        },
+        {
+          "id": "C",
+          "text": "Là khả năng sản phẩm tạo ra lợi nhuận cho tổ chức thực hiện."
+        },
+        {
+          "id": "D",
+          "text": "Là mức độ phù hợp giữa sản phẩm và nhu cầu của khách hàng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 9,
+      "chapterName": "QUẢN LÝ CHẤT LƯỢNG"
+    },
+    {
+      "id": 104,
+      "question": "Mục tiêu cơ bản của quản lý chất lượng trong dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tăng doanh thu và mở rộng quy mô hoạt động của tổ chức."
+        },
+        {
+          "id": "B",
+          "text": "Đảm bảo sản phẩm thoả mãn yêu cầu khách hàng và tiêu chuẩn đề ra."
+        },
+        {
+          "id": "C",
+          "text": "Giảm chi phí sản xuất để nâng cao hiệu quả kinh tế tổng thể."
+        },
+        {
+          "id": "D",
+          "text": "Rút ngắn thời gian thực hiện mà vẫn đảm bảo hiệu suất tối đa."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 9,
+      "chapterName": "QUẢN LÝ CHẤT LƯỢNG"
+    },
+    {
+      "id": 105,
+      "question": "Trong quy trình quản lý chất lượng, “lập kế hoạch chất lượng” là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giai đoạn kiểm tra các kết quả đầu ra của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Quá trình xác định tiêu chuẩn và cách thức để đảm bảo sản phẩm đạt yêu cầu."
+        },
+        {
+          "id": "C",
+          "text": "Hoạt động đo lường hiệu quả và chi phí của từng công việc."
+        },
+        {
+          "id": "D",
+          "text": "Giai đoạn phê duyệt kết quả trước khi bàn giao cho khách hàng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 9,
+      "chapterName": "QUẢN LÝ CHẤT LƯỢNG"
+    },
+    {
+      "id": 106,
+      "question": "“Đảm bảo chất lượng” (Quality Assurance) tập trung vào:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đánh giá quy trình làm việc nhằm đảm bảo sản phẩm tuân thủ tiêu chuẩn."
+        },
+        {
+          "id": "B",
+          "text": "Sửa lỗi kỹ thuật và khắc phục sự cố phần mềm phát sinh trong dự án."
+        },
+        {
+          "id": "C",
+          "text": "Kiểm tra kết quả cuối cùng trước khi giao cho người sử dụng."
+        },
+        {
+          "id": "D",
+          "text": "Xác định phạm vi dự án và đo lường hiệu quả quản lý thời gian."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 9,
+      "chapterName": "QUẢN LÝ CHẤT LƯỢNG"
+    },
+    {
+      "id": 107,
+      "question": "“Kiểm tra chất lượng” (Quality Control) được hiểu là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Xem xét chi tiết kết quả để xác định mức độ tuân thủ các tiêu chuẩn đã đặt ra."
+        },
+        {
+          "id": "B",
+          "text": "Đánh giá khả năng nhân viên trong việc đảm bảo tiến độ dự án."
+        },
+        {
+          "id": "C",
+          "text": "Kiểm tra ngân sách và điều chỉnh chi phí thực hiện từng phần việc."
+        },
+        {
+          "id": "D",
+          "text": "Kiểm định mức độ hài lòng của khách hàng sau khi bàn giao sản phẩm."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 9,
+      "chapterName": "QUẢN LÝ CHẤT LƯỢNG"
+    },
+    {
+      "id": 108,
+      "question": "Chi phí ngăn ngừa trong quản lý chất lượng là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là chi phí dùng để phòng tránh sai lỗi trước khi sản phẩm được tạo ra."
+        },
+        {
+          "id": "B",
+          "text": "Là chi phí cho việc sửa lỗi sau khi sản phẩm đã được bàn giao."
+        },
+        {
+          "id": "C",
+          "text": "Là chi phí kiểm định chất lượng và kiểm tra tài liệu hướng dẫn."
+        },
+        {
+          "id": "D",
+          "text": "Là chi phí phát sinh do không tuân thủ quy trình đã được phê duyệt."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 9,
+      "chapterName": "QUẢN LÝ CHẤT LƯỢNG"
+    },
+    {
+      "id": 109,
+      "question": "Yếu tố quan trọng nhất để cải tiến chất lượng là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sử dụng phần mềm kiểm thử tự động và các công cụ quản lý tiên tiến."
+        },
+        {
+          "id": "B",
+          "text": "Sự cam kết và hỗ trợ của lãnh đạo trong việc thúc đẩy văn hóa chất lượng."
+        },
+        {
+          "id": "C",
+          "text": "Giảm thiểu thời gian kiểm thử để tiết kiệm chi phí nhân sự."
+        },
+        {
+          "id": "D",
+          "text": "Tăng số lượng nhân viên để kiểm soát tốt hơn quá trình thực hiện."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 9,
+      "chapterName": "QUẢN LÝ CHẤT LƯỢNG"
+    },
+    {
+      "id": 110,
+      "question": "Quản lý nguồn nhân lực dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là hoạt động phân bổ ngân sách cho các hoạt động kỹ thuật của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Là quá trình tổ chức, phân công và giám sát con người tham gia dự án."
+        },
+        {
+          "id": "C",
+          "text": "Là quá trình xây dựng chiến lược phát triển sản phẩm phần mềm."
+        },
+        {
+          "id": "D",
+          "text": "Là hoạt động lập kế hoạch chi phí và theo dõi tiến độ dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 111,
+      "question": "Mục tiêu chính của quản lý nhân lực trong dự án là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đảm bảo các công việc được giao đúng người, đúng thời điểm và đúng năng lực."
+        },
+        {
+          "id": "B",
+          "text": "Tối đa hóa lợi nhuận và giảm chi phí lao động của dự án."
+        },
+        {
+          "id": "C",
+          "text": "Đảm bảo tiến độ bằng cách phân chia khối lượng đồng đều cho mọi người."
+        },
+        {
+          "id": "D",
+          "text": "Duy trì tinh thần làm việc và văn hóa tổ chức trong doanh nghiệp."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 112,
+      "question": "Nhân sự của dự án bao gồm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chỉ những người tham gia trực tiếp vào lập trình và kiểm thử."
+        },
+        {
+          "id": "B",
+          "text": "Những người hỗ trợ dự án ở cấp quản lý hoặc hành chính."
+        },
+        {
+          "id": "C",
+          "text": "Tất cả cá nhân tham gia vào quá trình thực hiện, điều hành và hỗ trợ dự án."
+        },
+        {
+          "id": "D",
+          "text": "Các nhà tài trợ và khách hàng cung cấp nguồn vốn cho dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 113,
+      "question": "Trong dự án CNTT, GĐ dự án có trách nhiệm gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Báo cáo kế hoạch, giám sát tiến độ và duy trì liên hệ giữa dự án và bên ngoài."
+        },
+        {
+          "id": "B",
+          "text": "Thực hiện kiểm thử kỹ thuật và đảm bảo chất lượng của phần mềm."
+        },
+        {
+          "id": "C",
+          "text": "Phụ trách lập trình chi tiết và xử lý lỗi trong quá trình phát triển."
+        },
+        {
+          "id": "D",
+          "text": "Giám sát việc bảo trì và vận hành hệ thống sau khi bàn giao."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 114,
+      "question": "Phó Giám đốc kỹ thuật (PGĐ kỹ thuật) trong dự án có vai trò chính là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quản lý ngân sách, hợp đồng và chi phí nhân công cho toàn dự án."
+        },
+        {
+          "id": "B",
+          "text": "Chỉ đạo kỹ thuật, giám sát tiến độ và đảm bảo chất lượng sản phẩm."
+        },
+        {
+          "id": "C",
+          "text": "Quản lý khách hàng và giải quyết các vấn đề truyền thông."
+        },
+        {
+          "id": "D",
+          "text": "Phân tích yêu cầu và thiết kế chức năng của hệ thống phần mềm."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 115,
+      "question": "Theo tài liệu, cán bộ lập trình có trách nhiệm gì trong dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đề xuất yêu cầu và xác nhận phạm vi công việc của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Thiết kế chi tiết, lập trình, kiểm thử và báo cáo tiến độ thực hiện."
+        },
+        {
+          "id": "C",
+          "text": "Xây dựng tài liệu quản lý rủi ro và đánh giá chi phí thực tế."
+        },
+        {
+          "id": "D",
+          "text": "Quản lý ngân sách và phân công công việc cho các nhóm kỹ thuật."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 116,
+      "question": "Người đại diện phía khách hàng trong dự án có nhiệm vụ chính là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Theo dõi tiến độ tài chính và phê duyệt chi phí dự án."
+        },
+        {
+          "id": "B",
+          "text": "Liên hệ, cung cấp dữ liệu và xác nhận các tài liệu kỹ thuật."
+        },
+        {
+          "id": "C",
+          "text": "Tham gia viết mã nguồn và kiểm thử hệ thống phần mềm."
+        },
+        {
+          "id": "D",
+          "text": "Giám sát việc phân công nhân sự trong đội ngũ phát triển."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 117,
+      "question": "Tính cách quan trọng của người quản lý dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Kiên nhẫn, cẩn thận và chỉ đạo theo quy trình chi tiết."
+        },
+        {
+          "id": "B",
+          "text": "Tập trung tuyệt đối vào kỹ thuật và hạn chế tương tác xã hội."
+        },
+        {
+          "id": "C",
+          "text": "Biết giao tiếp, có tổ chức, biết lắng nghe và có khả năng ra quyết định."
+        },
+        {
+          "id": "D",
+          "text": "Cầu toàn, thích làm việc độc lập và không cần sự hỗ trợ từ người khác."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 10,
+      "chapterName": "QUẢN LÝ NHÂN LỰC"
+    },
+    {
+      "id": 118,
+      "question": "Vì sao truyền thông đóng vai trò quan trọng trong quản lý dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vì thông tin được chia sẻ đầy đủ giúp phối hợp hiệu quả và tránh sai lệch."
+        },
+        {
+          "id": "B",
+          "text": "Vì truyền thông giúp giảm chi phí và rút ngắn thời gian dự án."
+        },
+        {
+          "id": "C",
+          "text": "Vì truyền thông giúp kiểm soát chất lượng kỹ thuật của sản phẩm."
+        },
+        {
+          "id": "D",
+          "text": "Vì truyền thông giúp xác định vai trò của các thành viên dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 119,
+      "question": "Quản lý truyền thông trong dự án bao gồm các quá trình nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phân tích rủi ro, điều phối tài nguyên và đánh giá kết quả."
+        },
+        {
+          "id": "B",
+          "text": "Lập kế hoạch truyền thông, phân phối thông tin, báo cáo hiệu suất và kết thúc hành chính."
+        },
+        {
+          "id": "C",
+          "text": "Lập kế hoạch chi phí, báo cáo tiến độ và kiểm soát thay đổi."
+        },
+        {
+          "id": "D",
+          "text": "Phân công nhân sự, tổ chức họp và đánh giá hiệu quả công việc."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 120,
+      "question": "Kế hoạch quản lý truyền thông là tài liệu nhằm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mô tả yêu cầu kỹ thuật và quy trình lập báo cáo nội bộ."
+        },
+        {
+          "id": "B",
+          "text": "Xác định cách thức, nội dung và thời gian chia sẻ thông tin trong dự án."
+        },
+        {
+          "id": "C",
+          "text": "Ghi nhận toàn bộ chi phí liên quan đến truyền thông nội bộ."
+        },
+        {
+          "id": "D",
+          "text": "Tổng hợp kết quả dự án và lập báo cáo sau khi hoàn thành."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 121,
+      "question": "Phân tích các bên liên quan trong kế hoạch truyền thông giúp:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Xác định chi phí liên lạc và mức độ tương tác giữa các bộ phận."
+        },
+        {
+          "id": "B",
+          "text": "Xây dựng quy trình giám sát hoạt động của từng cá nhân trong nhóm."
+        },
+        {
+          "id": "C",
+          "text": "Xác định nhu cầu thông tin và hình thức truyền đạt phù hợp cho từng đối tượng."
+        },
+        {
+          "id": "D",
+          "text": "Xác định nội dung đào tạo và thời điểm huấn luyện nhân viên mới."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 122,
+      "question": "“Phân phối thông tin” trong quản lý truyền thông có nghĩa là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cung cấp thông tin đúng người, đúng thời điểm và đúng định dạng yêu cầu."
+        },
+        {
+          "id": "B",
+          "text": "Gửi báo cáo định kỳ đến lãnh đạo cấp cao để phê duyệt ngân sách."
+        },
+        {
+          "id": "C",
+          "text": "Tạo điều kiện để các bên thảo luận và chỉnh sửa yêu cầu dự án."
+        },
+        {
+          "id": "D",
+          "text": "Tổng hợp dữ liệu kỹ thuật và truyền đạt qua các phương tiện số."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 123,
+      "question": "“Báo cáo hiệu suất” (Performance Reporting) có vai trò gì trong dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giúp các bên nắm được tình hình sử dụng tài nguyên và tiến độ đạt được."
+        },
+        {
+          "id": "B",
+          "text": "Giúp khách hàng xem xét các thay đổi trong thiết kế hệ thống phần mềm."
+        },
+        {
+          "id": "C",
+          "text": "Giúp đội ngũ kỹ thuật kiểm tra lỗi và điều chỉnh chương trình."
+        },
+        {
+          "id": "D",
+          "text": "Giúp nhà quản lý xác định chi phí phát sinh trong từng giai đoạn."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 124,
+      "question": "Giai đoạn “kết thúc hành chính” trong quản lý truyền thông nhằm mục đích:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lưu trữ các báo cáo tài chính và hồ sơ kỹ thuật của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Tạo và lưu hồ sơ chính thức, chấp nhận kết quả và rút ra bài học kinh nghiệm."
+        },
+        {
+          "id": "C",
+          "text": "Giải quyết các tranh chấp hợp đồng và thanh toán các khoản chi phí."
+        },
+        {
+          "id": "D",
+          "text": "Cập nhật dữ liệu khách hàng và thông tin phần mềm sau triển khai."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 125,
+      "question": "Yếu tố nào giúp cải thiện hiệu quả truyền thông trong nhóm dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tăng cường giám sát để giảm sai sót khi truyền đạt thông tin."
+        },
+        {
+          "id": "B",
+          "text": "Lắng nghe tích cực, phản hồi kịp thời và đảm bảo thông tin hai chiều."
+        },
+        {
+          "id": "C",
+          "text": "Giới hạn số lượng kênh liên lạc để tránh trùng lặp dữ liệu."
+        },
+        {
+          "id": "D",
+          "text": "Tập trung sử dụng văn bản thay vì giao tiếp trực tiếp."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 126,
+      "question": "Để tổ chức cuộc họp dự án hiệu quả, người chủ trì cần:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mở rộng thời gian họp để mọi người được phát biểu ý kiến đầy đủ."
+        },
+        {
+          "id": "B",
+          "text": "Chỉ định một người ghi chép và một người điều hành để tiết kiệm thời gian."
+        },
+        {
+          "id": "C",
+          "text": "Xác định mục tiêu, nội dung, người tham dự và chuẩn bị tài liệu trước khi họp."
+        },
+        {
+          "id": "D",
+          "text": "Tập trung thảo luận chi tiết kỹ thuật thay vì các vấn đề tổng thể."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 11,
+      "chapterName": "TRUYỀN THÔNG VÀ GIAO TIẾP"
+    },
+    {
+      "id": 127,
+      "question": "Quản lý rủi ro trong dự án bao gồm mấy bước cơ bản?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bốn bước: dự đoán, khử bỏ, giảm tác động và kiểm soát khi xảy ra."
+        },
+        {
+          "id": "B",
+          "text": "Ba bước: phân tích, đánh giá và xử lý rủi ro."
+        },
+        {
+          "id": "C",
+          "text": "Hai bước: xác định và loại trừ rủi ro."
+        },
+        {
+          "id": "D",
+          "text": "Năm bước: phân tích, lập kế hoạch, theo dõi, đánh giá và báo cáo."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 128,
+      "question": "Trong quản lý rủi ro, bước đầu tiên cần thực hiện là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhận diện và dự đoán các tình huống rủi ro có thể xảy ra."
+        },
+        {
+          "id": "B",
+          "text": "Tính toán chi phí để khắc phục khi rủi ro xảy ra."
+        },
+        {
+          "id": "C",
+          "text": "Lên kế hoạch tài chính để phòng ngừa rủi ro."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá thiệt hại sau khi rủi ro đã phát sinh."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 129,
+      "question": "Rủi ro về nhân sự trong dự án thường xuất phát từ nguyên nhân nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhân viên có kỹ năng cao nhưng thiếu kinh nghiệm thực tế."
+        },
+        {
+          "id": "B",
+          "text": "Nhân viên không phù hợp, thiếu kinh nghiệm hoặc thiếu đào tạo."
+        },
+        {
+          "id": "C",
+          "text": "Nhân viên làm việc quá năng suất dẫn đến mất cân bằng tiến độ."
+        },
+        {
+          "id": "D",
+          "text": "Nhân viên không đồng ý làm thêm giờ và thiếu động lực."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 130,
+      "question": "Rủi ro kỹ thuật trong dự án CNTT thường liên quan đến:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sự thay đổi trong tổ chức hoặc mô hình làm việc của nhóm."
+        },
+        {
+          "id": "B",
+          "text": "Việc lựa chọn sai công nghệ, ngôn ngữ lập trình hoặc phần cứng."
+        },
+        {
+          "id": "C",
+          "text": "Sự chậm trễ trong phê duyệt tài chính và ký hợp đồng."
+        },
+        {
+          "id": "D",
+          "text": "Việc thiếu dữ liệu đầu vào và thông tin về khách hàng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 131,
+      "question": "Trong quá trình đánh giá rủi ro, hai yếu tố quan trọng cần xem xét là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tác động và phạm vi ảnh hưởng của rủi ro."
+        },
+        {
+          "id": "B",
+          "text": "Xác suất xảy ra và mức độ tác động của rủi ro."
+        },
+        {
+          "id": "C",
+          "text": "Nguyên nhân hình thành và chi phí khắc phục rủi ro."
+        },
+        {
+          "id": "D",
+          "text": "Mức độ quan tâm của lãnh đạo và nhóm kỹ thuật."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 132,
+      "question": "Khi không thể loại bỏ rủi ro, người quản lý nên làm gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chuyển giao rủi ro cho các đối tác hoặc nhà tài trợ."
+        },
+        {
+          "id": "B",
+          "text": "Lập kế hoạch dự phòng để giảm thiểu tác động khi rủi ro xảy ra."
+        },
+        {
+          "id": "C",
+          "text": "Bỏ qua rủi ro để tập trung vào mục tiêu chính của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Kéo dài tiến độ nhằm tránh rủi ro trong giai đoạn hiện tại."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 133,
+      "question": "“Khử bỏ rủi ro” trong quản lý dự án có nghĩa là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Loại trừ nguyên nhân gây rủi ro hoặc thay đổi điều kiện để rủi ro không xảy ra."
+        },
+        {
+          "id": "B",
+          "text": "Giảm bớt ảnh hưởng của rủi ro bằng cách phân chia công việc nhỏ hơn."
+        },
+        {
+          "id": "C",
+          "text": "Chuyển toàn bộ trách nhiệm cho bộ phận kiểm soát nội bộ."
+        },
+        {
+          "id": "D",
+          "text": "Giảm thời gian thực hiện để rủi ro không kịp phát sinh."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 134,
+      "question": "Khi một rủi ro đã xảy ra, hành động đầu tiên của người quản lý dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Báo cáo ngay cho cấp trên và chờ hướng dẫn xử lý cụ thể."
+        },
+        {
+          "id": "B",
+          "text": "Đánh giá mức độ ảnh hưởng, kiểm soát tình hình và triển khai biện pháp ứng phó."
+        },
+        {
+          "id": "C",
+          "text": "Tạm dừng toàn bộ hoạt động cho đến khi có hướng xử lý mới."
+        },
+        {
+          "id": "D",
+          "text": "Cắt giảm chi phí để bù vào thiệt hại do rủi ro gây ra."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 12,
+      "chapterName": "QUẢN LÝ RỦI RO"
+    },
+    {
+      "id": 135,
+      "question": "“Quản lý tích hợp dự án” được hiểu là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là quá trình quản lý tài chính, nhân sự và truyền thông trong dự án."
+        },
+        {
+          "id": "B",
+          "text": "Là việc phối hợp tất cả các lĩnh vực kiến thức để đảm bảo dự án thống nhất."
+        },
+        {
+          "id": "C",
+          "text": "Là hoạt động tổng hợp dữ liệu, báo cáo và lưu trữ tài liệu của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Là công tác kết nối giữa các nhà tài trợ và đội ngũ kỹ thuật trong dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 136,
+      "question": "Quản lý tích hợp dự án giúp nhà quản lý đạt được điều gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tối ưu hóa hiệu quả của từng bộ phận riêng biệt trong dự án."
+        },
+        {
+          "id": "B",
+          "text": "Đảm bảo các quy trình dự án phối hợp nhịp nhàng và đồng bộ với nhau."
+        },
+        {
+          "id": "C",
+          "text": "Giảm thiểu chi phí vận hành và số lượng nhân sự trong nhóm dự án."
+        },
+        {
+          "id": "D",
+          "text": "Giới hạn phạm vi công việc để rút ngắn tiến độ dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 137,
+      "question": "Các quy trình chính của quản lý tích hợp bao gồm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phân bổ tài nguyên, kiểm soát rủi ro và kết thúc dự án."
+        },
+        {
+          "id": "B",
+          "text": "Phát triển kế hoạch, thực thi kế hoạch và điều khiển thay đổi tích hợp."
+        },
+        {
+          "id": "C",
+          "text": "Lập ngân sách, quản lý thời gian và theo dõi tiến độ công việc."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá hiệu suất, kiểm tra chất lượng và bàn giao sản phẩm."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 138,
+      "question": "Kế hoạch dự án là tài liệu nhằm mục đích gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mô tả chi tiết các chi phí, lợi nhuận và rủi ro của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Hướng dẫn thực thi dự án và đánh giá tình trạng thực hiện so với mục tiêu."
+        },
+        {
+          "id": "C",
+          "text": "Ghi lại danh sách nhân sự, cơ cấu tổ chức và quy trình kiểm thử."
+        },
+        {
+          "id": "D",
+          "text": "Thống kê tài nguyên và thời gian sử dụng trong suốt quá trình làm việc."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 139,
+      "question": "Một kế hoạch dự án hiệu quả cần có đặc điểm nào sau đây?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cố định, không thay đổi trong suốt vòng đời dự án."
+        },
+        {
+          "id": "B",
+          "text": "Chỉ tập trung vào các yếu tố kỹ thuật của dự án."
+        },
+        {
+          "id": "C",
+          "text": "Mang tính linh hoạt, có thể cập nhật và điều chỉnh khi có thay đổi."
+        },
+        {
+          "id": "D",
+          "text": "Chỉ do giám đốc dự án biên soạn mà không cần sự tham gia của nhóm."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 140,
+      "question": "“Thực thi kế hoạch dự án” (Project Execution) là giai đoạn nhằm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đánh giá các rủi ro và tính toán chi phí cho toàn bộ dự án."
+        },
+        {
+          "id": "B",
+          "text": "Quản lý và thực hiện các công việc được mô tả trong kế hoạch dự án."
+        },
+        {
+          "id": "C",
+          "text": "Lưu trữ dữ liệu và lập báo cáo tổng hợp kết quả thực hiện."
+        },
+        {
+          "id": "D",
+          "text": "Kiểm tra và nghiệm thu sản phẩm trước khi bàn giao cho khách hàng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 141,
+      "question": "“Điều khiển thay đổi tích hợp” (Integrated Change Control) có mục tiêu là:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đánh giá năng suất của nhân viên trong quá trình thực hiện dự án."
+        },
+        {
+          "id": "B",
+          "text": "Tạo điều kiện cho các nhóm tự do thay đổi quy trình khi cần thiết."
+        },
+        {
+          "id": "C",
+          "text": "Phối hợp và quản lý mọi thay đổi trong phạm vi và mục tiêu của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Hạn chế sự tham gia của các bên liên quan khi thay đổi dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 142,
+      "question": "Vì sao quản lý thay đổi tích hợp lại quan trọng trong dự án CNTT?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vì khách hàng thường xuyên thay đổi yêu cầu kỹ thuật trong quá trình thực hiện."
+        },
+        {
+          "id": "B",
+          "text": "Vì các yếu tố phạm vi, chi phí và thời gian luôn có thể bị tác động lẫn nhau."
+        },
+        {
+          "id": "C",
+          "text": "Vì nhóm dự án thường không tuân thủ quy trình khi thay đổi nhiệm vụ."
+        },
+        {
+          "id": "D",
+          "text": "Vì việc thay đổi luôn giúp dự án đạt kết quả nhanh và hiệu quả hơn."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 143,
+      "question": "Yếu tố cốt lõi giúp việc quản lý tích hợp dự án thành công là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cấu trúc tổ chức phức tạp và hệ thống báo cáo đa tầng."
+        },
+        {
+          "id": "B",
+          "text": "Sử dụng các công cụ phần mềm tiên tiến để kiểm soát tiến độ."
+        },
+        {
+          "id": "C",
+          "text": "Duy trì giao tiếp hiệu quả và sự phối hợp chặt chẽ giữa các bên liên quan."
+        },
+        {
+          "id": "D",
+          "text": "Tập trung vào các chỉ tiêu tài chính và lợi nhuận của dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 13,
+      "chapterName": "QUẢN LÝ TÍCH HỢP"
+    }
+  ]
+}

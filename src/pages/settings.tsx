@@ -1,5 +1,13 @@
 import { Page, useNavigate } from "zmp-ui";
-import { Sun, Moon, User, Info, Award, ChevronRight } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  User,
+  Info,
+  Award,
+  ChevronRight,
+  BarChart3,
+} from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS } from "@/types/quiz";
@@ -60,6 +68,25 @@ function SettingsPage() {
           <h3 className="text-sm font-semibold text-[var(--muted-foreground)] mb-2">
             Giao diện
           </h3>
+
+          {/* Stats Link */}
+          <button
+            onClick={() => navigate("/stats")}
+            className="card-3d w-full p-4 flex items-center justify-between mb-3"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-blue)]/20 flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-[var(--duo-blue)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Thống kê</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Phân tích chi tiết
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+          </button>
 
           {/* Achievements Link */}
           <button

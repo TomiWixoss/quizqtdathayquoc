@@ -1,17 +1,29 @@
-import { Page } from "zmp-ui";
-import { Sun, Moon, User, Info } from "lucide-react";
+import { Page, useNavigate } from "zmp-ui";
+import { Sun, Moon, User, Info, Award, ChevronRight } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
+import { ACHIEVEMENTS } from "@/types/quiz";
 
 function SettingsPage() {
+  const navigate = useNavigate();
   const { theme, toggleTheme } = useThemeStore();
   const { user } = useUserStore();
+
+  const earnedCount = (user?.achievements ?? []).length;
+  const claimedRewards = JSON.parse(
+    localStorage.getItem("claimedAchievementRewards") || "[]"
+  );
+  const claimableCount = ACHIEVEMENTS.filter(
+    (a) =>
+      (user?.achievements ?? []).includes(a.id) &&
+      !claimedRewards.includes(a.id)
+  ).length;
 
   return (
     <Page className="bg-background min-h-screen">
       {/* Header - pt-16 để tránh dính nút X của Zalo */}
       <div className="pt-16 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
-        <h1 className="font-bold text-xl text-foreground">Cài đặt</h1>
+        <h1 className="font-bold text-xl text-foreground">Tôi</h1>
       </div>
 
       {/* Content */}
@@ -48,6 +60,32 @@ function SettingsPage() {
           <h3 className="text-sm font-semibold text-[var(--muted-foreground)] mb-2">
             Giao diện
           </h3>
+
+          {/* Achievements Link */}
+          <button
+            onClick={() => navigate("/achievements")}
+            className="card-3d w-full p-4 flex items-center justify-between mb-3"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-yellow)]/20 flex items-center justify-center">
+                <Award className="w-5 h-5 text-[var(--duo-yellow)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Thành tựu</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  {earnedCount}/{ACHIEVEMENTS.length} đã đạt
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {claimableCount > 0 && (
+                <span className="bg-[var(--duo-red)] text-white text-xs px-2 py-0.5 rounded-full">
+                  {claimableCount} quà
+                </span>
+              )}
+              <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+            </div>
+          </button>
 
           {/* Theme Toggle */}
           <button

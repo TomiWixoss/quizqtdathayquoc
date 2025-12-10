@@ -2,10 +2,44 @@ import { Page } from "zmp-ui";
 import { Heart, Gem, Zap, Gift, Clock, Sparkles } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useNavigate } from "zmp-ui";
+import { useState, useEffect } from "react";
 
 function ShopPage() {
   const navigate = useNavigate();
   const { user, spendGems, refillHearts } = useUserStore();
+  const [nextHeartTime, setNextHeartTime] = useState<string | null>(null);
+
+  // Realtime timer for next heart
+  useEffect(() => {
+    const updateTimer = () => {
+      if (!user?.lastHeartRefill) {
+        setNextHeartTime(null);
+        return;
+      }
+      if ((user.hearts ?? 5) >= (user.maxHearts ?? 5)) {
+        setNextHeartTime(null);
+        return;
+      }
+
+      const lastRefill = new Date(user.lastHeartRefill).getTime();
+      const now = Date.now();
+      const nextRefill = lastRefill + 30 * 60 * 1000;
+      const remaining = Math.max(0, nextRefill - now);
+
+      if (remaining <= 0) {
+        setNextHeartTime("Sắp có!");
+        return;
+      }
+
+      const minutes = Math.floor(remaining / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+      setNextHeartTime(`${minutes}:${seconds.toString().padStart(2, "0")}`);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [user?.lastHeartRefill, user?.hearts, user?.maxHearts]);
 
   const handleBuyFullHearts = async () => {
     if (!user) return;
@@ -18,23 +52,6 @@ function ShopPage() {
       await refillHearts();
       alert("Đã hồi đầy tim!");
     }
-  };
-
-  // Calculate time until next heart
-  const getNextHeartTime = () => {
-    if (!user?.lastHeartRefill) return null;
-    if ((user.hearts ?? 5) >= (user.maxHearts ?? 5)) return null;
-
-    const lastRefill = new Date(user.lastHeartRefill).getTime();
-    const now = Date.now();
-    const nextRefill = lastRefill + 30 * 60 * 1000; // 30 minutes
-    const remaining = Math.max(0, nextRefill - now);
-
-    if (remaining <= 0) return "Sắp có!";
-
-    const minutes = Math.floor(remaining / 60000);
-    const seconds = Math.floor((remaining % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -78,7 +95,7 @@ function ShopPage() {
                 <span className="text-sm text-foreground">Tim tiếp theo</span>
               </div>
               <span className="font-bold text-[var(--duo-blue)]">
-                {getNextHeartTime()}
+                {nextHeartTime}
               </span>
             </div>
           )}

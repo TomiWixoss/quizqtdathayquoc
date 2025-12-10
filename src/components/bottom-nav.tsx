@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "zmp-ui";
-import { Home, Trophy, Target, Gift, Settings } from "lucide-react";
+import { Home, Trophy, Target, Gift, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -7,7 +7,7 @@ const navItems = [
   { path: "/leaderboard", icon: Trophy, label: "Xếp hạng" },
   { path: "/quests", icon: Target, label: "Nhiệm vụ" },
   { path: "/shop", icon: Gift, label: "Cửa hàng" },
-  { path: "/settings", icon: Settings, label: "Cài đặt" },
+  { path: "/settings", icon: User, label: "Tôi" },
 ];
 
 export function BottomNav() {

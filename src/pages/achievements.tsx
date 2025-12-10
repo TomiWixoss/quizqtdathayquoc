@@ -1,12 +1,43 @@
 import { Page } from "zmp-ui";
-import { Award, Lock } from "lucide-react";
+import {
+  Award,
+  Lock,
+  Target,
+  Flame,
+  Zap,
+  Crown,
+  BookOpen,
+  Trophy,
+  GraduationCap,
+  Gem,
+  Star,
+  Sparkles,
+  Medal,
+  Coins,
+  CheckCircle,
+} from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
-import { ACHIEVEMENTS } from "@/types/quiz";
+import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
+
+const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
+  Target,
+  Flame,
+  Zap,
+  Crown,
+  BookOpen,
+  Trophy,
+  GraduationCap,
+  Gem,
+  Star,
+  Sparkles,
+  Medal,
+  Coins,
+};
 
 function AchievementsPage() {
   const { user } = useUserStore();
 
-  const getProgress = (achievement: (typeof ACHIEVEMENTS)[0]) => {
+  const getProgress = (achievement: Achievement) => {
     if (!user) return 0;
     switch (achievement.type) {
       case "streak":
@@ -33,7 +64,7 @@ function AchievementsPage() {
     }
   };
 
-  const getCurrentValue = (achievement: (typeof ACHIEVEMENTS)[0]) => {
+  const getCurrentValue = (achievement: Achievement) => {
     if (!user) return 0;
     switch (achievement.type) {
       case "streak":
@@ -51,6 +82,8 @@ function AchievementsPage() {
     }
   };
 
+  const earnedCount = (user?.achievements ?? []).length;
+
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
@@ -59,12 +92,9 @@ function AchievementsPage() {
           <Award className="w-6 h-6 text-white" />
           <h1 className="font-bold text-xl text-white">Thành tựu</h1>
         </div>
-        {user && (
-          <p className="text-white/80 text-sm mt-1">
-            Đã đạt {(user.achievements ?? []).length}/{ACHIEVEMENTS.length}{" "}
-            thành tựu
-          </p>
-        )}
+        <p className="text-white/80 text-sm mt-1">
+          Đã đạt {earnedCount}/{ACHIEVEMENTS.length} thành tựu
+        </p>
       </div>
 
       {/* Content */}
@@ -73,6 +103,7 @@ function AchievementsPage() {
           const earned = (user?.achievements ?? []).includes(achievement.id);
           const progress = getProgress(achievement);
           const current = getCurrentValue(achievement);
+          const Icon = ICON_MAP[achievement.icon];
 
           return (
             <div
@@ -84,14 +115,14 @@ function AchievementsPage() {
               <div className="flex items-center gap-4">
                 {/* Icon */}
                 <div
-                  className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl ${
+                  className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
                     earned
                       ? "bg-[var(--duo-yellow)]/20"
                       : "bg-[var(--secondary)]"
                   }`}
                 >
                   {earned ? (
-                    achievement.icon
+                    <Icon className="w-7 h-7 text-[var(--duo-yellow)]" />
                   ) : (
                     <Lock className="w-6 h-6 text-[var(--muted-foreground)]" />
                   )}
@@ -126,11 +157,9 @@ function AchievementsPage() {
                   )}
                 </div>
 
-                {/* Reward */}
+                {/* Completed */}
                 {earned && (
-                  <div className="text-center">
-                    <span className="text-2xl">✓</span>
-                  </div>
+                  <CheckCircle className="w-6 h-6 text-[var(--duo-green)]" />
                 )}
               </div>
             </div>

@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { QuizCard } from "@/components/quiz/quiz-card";
 import { QuizResult } from "@/components/quiz/quiz-result";
 import { useQuizStore } from "@/stores/quiz-store";
+import { useUserStore } from "@/stores/user-store";
 import { useEffect } from "react";
 
 function QuizPage() {
@@ -14,7 +15,10 @@ function QuizPage() {
     resetQuiz,
     chapters,
     currentChapter,
+    correctCount,
+    score,
   } = useQuizStore();
+  const { user, updateChapterProgress } = useUserStore();
 
   const isFinished = currentIndex >= currentQuestions.length;
   const chapterName = currentChapter
@@ -27,7 +31,17 @@ function QuizPage() {
     }
   }, [currentQuestions, navigate]);
 
-  const handleClose = () => {
+  const handleClose = async () => {
+    // Lưu tiến trình nếu đang làm quiz chương và đã trả lời ít nhất 1 câu
+    if (currentChapter && currentIndex > 0 && user) {
+      const currentProgress = user.chapterProgress?.[currentChapter];
+      await updateChapterProgress(currentChapter, {
+        completed: Math.max(currentProgress?.completed ?? 0, correctCount),
+        correct: (currentProgress?.correct ?? 0) + correctCount,
+        bestScore: Math.max(currentProgress?.bestScore ?? 0, score),
+        lastAttempt: new Date().toISOString(),
+      });
+    }
     resetQuiz();
     navigate("/");
   };

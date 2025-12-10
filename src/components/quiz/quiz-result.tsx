@@ -8,11 +8,35 @@ import {
   Zap,
   Target,
   Gem,
+  CheckCircle,
+  Award,
+  Crown,
+  BookOpen,
+  GraduationCap,
+  Sparkles,
+  Medal,
+  Coins,
 } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState } from "react";
+import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
 import confetti from "canvas-confetti";
+
+const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
+  Target,
+  Flame,
+  Zap,
+  Crown,
+  BookOpen,
+  Trophy,
+  GraduationCap,
+  Gem,
+  Star,
+  Sparkles,
+  Medal,
+  Coins,
+};
 
 export function QuizResult() {
   const navigate = useNavigate();
@@ -24,16 +48,25 @@ export function QuizResult() {
     currentChapter,
     resetQuiz,
     selectChapter,
+    chapters,
   } = useQuizStore();
-  const { user, updateChapterProgress, addBadge, addPerfectLesson, addGems } =
-    useUserStore();
+  const {
+    user,
+    updateChapterProgress,
+    addBadge,
+    addPerfectLesson,
+    addGems,
+    checkAchievements,
+  } = useUserStore();
   const [bonusGems, setBonusGems] = useState(0);
+  const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
+  const [showAchievement, setShowAchievement] = useState(false);
 
   const totalQuestions = currentQuestions.length;
-  const percentage = Math.round((correctCount / totalQuestions) * 100);
+  const percentage =
+    totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
   const isPerfect = percentage === 100;
 
-  // Calculate stars
   const getStars = () => {
     if (percentage >= 90) return 3;
     if (percentage >= 70) return 2;
@@ -42,67 +75,89 @@ export function QuizResult() {
   };
   const stars = getStars();
 
+  // Get chapter info
+  const chapterInfo = currentChapter
+    ? chapters.find((c) => c.id === currentChapter)
+    : null;
+  const isChapterCompleted =
+    chapterInfo && correctCount >= chapterInfo.totalQuestions * 0.7;
+
   useEffect(() => {
-    // Update chapter progress with stars
-    if (currentChapter && user) {
-      const currentProgress = user.chapterProgress[currentChapter];
-      updateChapterProgress(currentChapter, {
-        completed: Math.max(currentProgress?.completed || 0, correctCount),
-        correct: (currentProgress?.correct || 0) + correctCount,
-        bestScore: Math.max(currentProgress?.bestScore || 0, score),
-        lastAttempt: new Date().toISOString(),
-        stars: Math.max(currentProgress?.stars || 0, stars),
-      });
-    }
-
-    // Perfect lesson bonus
-    if (isPerfect) {
-      addPerfectLesson();
-      setBonusGems(10);
-    } else if (percentage >= 80) {
-      const bonus = 5;
-      addGems(bonus);
-      setBonusGems(bonus);
-    }
-
-    // Celebration
-    if (percentage >= 80) {
-      const duration = isPerfect ? 3000 : 1500;
-      const end = Date.now() + duration;
-      const frame = () => {
-        confetti({
-          particleCount: isPerfect ? 7 : 3,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: ["#58cc02", "#ffc800", "#1cb0f6"],
+    const saveProgress = async () => {
+      // Update chapter progress
+      if (currentChapter && user) {
+        const currentProgress = user.chapterProgress?.[currentChapter];
+        await updateChapterProgress(currentChapter, {
+          completed: correctCount,
+          correct: (currentProgress?.correct ?? 0) + correctCount,
+          bestScore: Math.max(currentProgress?.bestScore ?? 0, score),
+          lastAttempt: new Date().toISOString(),
+          stars: Math.max(currentProgress?.stars ?? 0, stars),
+          isCompleted:
+            isChapterCompleted || (currentProgress?.isCompleted ?? false),
         });
-        confetti({
-          particleCount: isPerfect ? 7 : 3,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: ["#58cc02", "#ffc800", "#1cb0f6"],
-        });
-        if (Date.now() < end) requestAnimationFrame(frame);
-      };
-      frame();
-    }
+      }
 
-    if (isPerfect) addBadge("perfect_score");
-    if (user && user.streak >= 7) addBadge("week_streak");
+      // Perfect lesson bonus
+      if (isPerfect) {
+        await addPerfectLesson();
+        setBonusGems(10);
+      } else if (percentage >= 80) {
+        await addGems(5);
+        setBonusGems(5);
+      }
+
+      // Check achievements
+      const earned = await checkAchievements();
+      if (earned.length > 0) {
+        const achievementDetails = ACHIEVEMENTS.filter((a) =>
+          earned.includes(a.id)
+        );
+        setNewAchievements(achievementDetails);
+        setShowAchievement(true);
+      }
+
+      // Celebration
+      if (percentage >= 80) {
+        const duration = isPerfect ? 3000 : 1500;
+        const end = Date.now() + duration;
+        const frame = () => {
+          confetti({
+            particleCount: isPerfect ? 7 : 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ["#58cc02", "#ffc800", "#1cb0f6"],
+          });
+          confetti({
+            particleCount: isPerfect ? 7 : 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ["#58cc02", "#ffc800", "#1cb0f6"],
+          });
+          if (Date.now() < end) requestAnimationFrame(frame);
+        };
+        frame();
+      }
+
+      if (isPerfect) await addBadge("perfect_score");
+    };
+
+    saveProgress();
   }, []);
 
   const getGrade = () => {
     if (percentage >= 90)
-      return { label: "Xuất sắc!", emoji: "🏆", color: "var(--duo-yellow)" };
+      return { label: "Xuất sắc!", icon: Trophy, color: "var(--duo-yellow)" };
     if (percentage >= 70)
-      return { label: "Tốt lắm!", emoji: "⭐", color: "var(--duo-green)" };
+      return { label: "Tốt lắm!", icon: Star, color: "var(--duo-green)" };
     if (percentage >= 50)
-      return { label: "Khá ổn!", emoji: "👍", color: "var(--duo-blue)" };
-    return { label: "Cố gắng hơn!", emoji: "💪", color: "var(--duo-orange)" };
+      return { label: "Khá ổn!", icon: Target, color: "var(--duo-blue)" };
+    return { label: "Cố gắng hơn!", icon: Flame, color: "var(--duo-orange)" };
   };
   const grade = getGrade();
+  const GradeIcon = grade.icon;
 
   const handleRetry = () => {
     if (currentChapter) selectChapter(currentChapter);
@@ -114,13 +169,66 @@ export function QuizResult() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[65vh] px-4">
-      {/* Emoji */}
-      <div className="text-7xl mb-3">{grade.emoji}</div>
+      {/* Achievement Popup */}
+      {showAchievement && newAchievements.length > 0 && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-[var(--card)] rounded-3xl p-6 max-w-sm w-full text-center">
+            <Award className="w-16 h-16 text-[var(--duo-yellow)] mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-[var(--duo-yellow)] mb-2">
+              Thành tựu mới!
+            </h2>
+            <div className="space-y-3 mb-4">
+              {newAchievements.map((a) => {
+                const AIcon = ICON_MAP[a.icon];
+                return (
+                  <div
+                    key={a.id}
+                    className="flex items-center gap-3 bg-[var(--secondary)] p-3 rounded-xl"
+                  >
+                    <AIcon className="w-8 h-8 text-[var(--duo-yellow)]" />
+                    <div className="text-left">
+                      <p className="font-bold text-foreground">{a.name}</p>
+                      <p className="text-xs text-[var(--muted-foreground)]">
+                        {a.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)] mb-4">
+              <Gem className="w-5 h-5" />
+              <span className="font-bold">
+                +{newAchievements.length * 10} Gems
+              </span>
+            </div>
+            <button
+              onClick={() => setShowAchievement(false)}
+              className="btn-3d btn-3d-green w-full py-3"
+            >
+              Tuyệt vời!
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Grade Icon */}
+      <div className="w-20 h-20 rounded-full bg-[var(--secondary)] flex items-center justify-center mb-3">
+        <GradeIcon className="w-10 h-10" style={{ color: grade.color }} />
+      </div>
 
       {/* Grade */}
       <h1 className="text-2xl font-bold mb-1" style={{ color: grade.color }}>
         {grade.label}
       </h1>
+
+      {/* Chapter completed badge */}
+      {isChapterCompleted && (
+        <div className="flex items-center gap-1 text-[var(--duo-green)] mb-2">
+          <CheckCircle className="w-5 h-5" />
+          <span className="font-semibold text-sm">Chương hoàn thành!</span>
+        </div>
+      )}
 
       {/* Stars */}
       <div className="flex items-center gap-1 mb-4">
@@ -170,7 +278,7 @@ export function QuizResult() {
         <div className="grid grid-cols-3 gap-3 text-center">
           <div>
             <div className="w-8 h-8 mx-auto rounded-lg bg-[var(--duo-green)]/20 flex items-center justify-center mb-1">
-              <Target className="w-4 h-4 text-[var(--duo-green)]" />
+              <CheckCircle className="w-4 h-4 text-[var(--duo-green)]" />
             </div>
             <div className="text-xl font-bold text-[var(--duo-green)]">
               {correctCount}
@@ -181,7 +289,7 @@ export function QuizResult() {
           </div>
           <div>
             <div className="w-8 h-8 mx-auto rounded-lg bg-[var(--duo-red)]/20 flex items-center justify-center mb-1">
-              <Star className="w-4 h-4 text-[var(--duo-red)]" />
+              <Target className="w-4 h-4 text-[var(--duo-red)]" />
             </div>
             <div className="text-xl font-bold text-[var(--duo-red)]">
               {wrongCount}

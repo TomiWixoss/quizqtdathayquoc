@@ -9,6 +9,8 @@ import {
   Heart,
   Gem,
   Star,
+  Target,
+  CheckCircle,
 } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -154,9 +156,12 @@ function HomePage() {
         {user && (
           <div className="card-3d p-3 mb-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="font-bold text-sm text-foreground">
-                🎯 Mục tiêu hôm nay
-              </span>
+              <div className="flex items-center gap-1.5">
+                <Target className="w-4 h-4 text-[var(--duo-green)]" />
+                <span className="font-bold text-sm text-foreground">
+                  Mục tiêu hôm nay
+                </span>
+              </div>
               <span
                 className={`font-bold text-sm ${
                   (user.dailyProgress ?? 0) >= (user.dailyGoal ?? 50)
@@ -255,16 +260,21 @@ function HomePage() {
                       />
                     </div>
                   </div>
-                  {progress && progress.bestScore > 0 && (
-                    <div className="text-right shrink-0">
-                      <div className="text-[10px] text-[var(--muted-foreground)]">
-                        Best
+                  <div className="flex items-center gap-2 shrink-0">
+                    {progress?.isCompleted && (
+                      <CheckCircle className="w-5 h-5 text-[var(--duo-green)]" />
+                    )}
+                    {progress && progress.bestScore > 0 && (
+                      <div className="text-right">
+                        <div className="text-[10px] text-[var(--muted-foreground)]">
+                          Best
+                        </div>
+                        <div className="font-bold text-sm text-[var(--duo-green)]">
+                          {progress.bestScore}
+                        </div>
                       </div>
-                      <div className="font-bold text-sm text-[var(--duo-green)]">
-                        {progress.bestScore}
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </button>
             );

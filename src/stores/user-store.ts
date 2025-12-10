@@ -116,7 +116,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     }
   },
 
-  updateStats: async (correct, chapter, score) => {
+  updateStats: async (correct, _chapter, score) => {
     const { user, checkAchievements } = get();
     if (!user) return;
 
@@ -346,7 +346,7 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   checkAchievements: async () => {
-    const { user, addBadge } = get();
+    const { user } = get();
     if (!user) return [];
 
     const { ACHIEVEMENTS } = await import("@/types/quiz");

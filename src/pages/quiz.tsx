@@ -36,9 +36,9 @@ function QuizPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="safe-top bg-background px-4 pb-2 sticky top-0 z-10">
-        <div className="flex items-center justify-between pt-2">
+      {/* Header - Fixed spacing for Zalo app bar */}
+      <div className="pt-14 pb-2 px-4 bg-background sticky top-0 z-10">
+        <div className="flex items-center justify-between">
           <button
             onClick={handleClose}
             className="w-10 h-10 rounded-xl bg-[var(--secondary)] flex items-center justify-center"
@@ -55,10 +55,7 @@ function QuizPage() {
       </div>
 
       {/* Content */}
-      <div
-        className="px-4 pb-8 safe-bottom"
-        style={{ minHeight: "calc(100vh - 80px)" }}
-      >
+      <div className="px-4 pb-8" style={{ minHeight: "calc(100vh - 100px)" }}>
         {isFinished ? <QuizResult /> : <QuizCard />}
       </div>
     </Page>

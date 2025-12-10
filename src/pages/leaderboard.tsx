@@ -1,6 +1,5 @@
-import { useNavigate } from "zmp-ui";
 import { Page } from "zmp-ui";
-import { ArrowLeft, Trophy, Crown, Medal, Flame, Zap } from "lucide-react";
+import { Trophy, Crown, Medal, Flame, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
@@ -9,7 +8,6 @@ import { useUserStore } from "@/stores/user-store";
 import type { UserStats } from "@/types/quiz";
 
 function LeaderboardPage() {
-  const navigate = useNavigate();
   const { user } = useUserStore();
   const [leaders, setLeaders] = useState<UserStats[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,24 +41,16 @@ function LeaderboardPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="safe-top bg-gradient-to-r from-[var(--duo-yellow)] to-[var(--duo-orange)] px-4 pb-6">
-        <div className="flex items-center gap-3 pt-2">
-          <button
-            onClick={() => navigate("/")}
-            className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center"
-          >
-            <ArrowLeft className="w-5 h-5 text-white" />
-          </button>
-          <div className="flex items-center gap-2">
-            <Trophy className="w-6 h-6 text-white" />
-            <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>
-          </div>
+      {/* Header - Fixed spacing */}
+      <div className="pt-14 pb-4 px-4 bg-gradient-to-r from-[var(--duo-yellow)] to-[var(--duo-orange)]">
+        <div className="flex items-center gap-2">
+          <Trophy className="w-6 h-6 text-white" />
+          <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="px-4 py-4 pb-24 -mt-4">
+      {/* Content - with bottom padding for nav bar */}
+      <div className="px-4 py-4 pb-28">
         {loading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[var(--duo-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />

@@ -1,6 +1,6 @@
 import { useNavigate } from "zmp-ui";
 import { Page } from "zmp-ui";
-import { Trophy, Flame, Zap, BookOpen, Shuffle, Play } from "lucide-react";
+import { Flame, Zap, BookOpen, Shuffle, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -33,63 +33,53 @@ function HomePage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header with safe area */}
-      <div className="safe-top bg-[#1a2c35] px-4 pb-4">
-        <div className="flex items-center justify-between pt-2">
+      {/* Header - Fixed spacing for Zalo app bar */}
+      <div className="pt-14 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-[var(--duo-green)] flex items-center justify-center shadow-lg">
               <BookOpen className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="font-bold text-xl text-white">Quiz QTDA</h1>
+              <h1 className="font-bold text-xl text-foreground">Quiz QTDA</h1>
               <p className="text-sm text-[var(--muted-foreground)]">
                 {chapters.length} chương
               </p>
             </div>
           </div>
-          <button
-            onClick={() => navigate("/leaderboard")}
-            className="w-10 h-10 rounded-xl bg-[var(--duo-yellow)] flex items-center justify-center"
-          >
-            <Trophy className="w-5 h-5 text-[#1a2c35]" />
-          </button>
-        </div>
-      </div>
-
-      {/* User Stats Bar */}
-      {user && (
-        <div className="px-4 py-3 bg-[#1a2c35] border-b border-[var(--border)]">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              {/* Streak */}
-              <div className="flex items-center gap-1">
-                <Flame className="w-5 h-5 text-[var(--duo-orange)] flame-animate" />
-                <span className="font-bold text-[var(--duo-orange)]">
-                  {user.streak}
-                </span>
-              </div>
-              {/* XP */}
-              <div className="flex items-center gap-1">
-                <Zap className="w-5 h-5 text-[var(--duo-yellow)]" />
-                <span className="font-bold text-[var(--duo-yellow)]">
-                  {user.exp}
-                </span>
-              </div>
-            </div>
-            {/* Level */}
-            <div className="flex items-center gap-2 bg-[var(--duo-green)] px-3 py-1 rounded-full">
-              <span className="text-sm font-bold text-white">
+          {/* Level Badge */}
+          {user && (
+            <div className="bg-[var(--duo-yellow)] px-3 py-1.5 rounded-xl">
+              <span className="text-sm font-bold text-[#1a2c35]">
                 Lv.{user.level}
               </span>
             </div>
-          </div>
+          )}
         </div>
-      )}
 
-      {/* Content */}
+        {/* Stats Row */}
+        {user && (
+          <div className="flex items-center gap-4 mt-3">
+            <div className="flex items-center gap-1">
+              <Flame className="w-5 h-5 text-[var(--duo-orange)] flame-animate" />
+              <span className="font-bold text-[var(--duo-orange)]">
+                {user.streak}
+              </span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Zap className="w-5 h-5 text-[var(--duo-yellow)]" />
+              <span className="font-bold text-[var(--duo-yellow)]">
+                {user.exp}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Content - with bottom padding for nav bar */}
       <div
-        className="px-4 py-4 pb-24 overflow-y-auto"
-        style={{ height: "calc(100vh - 180px)" }}
+        className="px-4 py-4 pb-28 overflow-y-auto"
+        style={{ height: "calc(100vh - 140px)" }}
       >
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 mb-6">
@@ -112,7 +102,7 @@ function HomePage() {
         </div>
 
         {/* Chapter List */}
-        <h2 className="text-lg font-bold mb-3 text-[var(--muted-foreground)]">
+        <h2 className="text-base font-bold mb-3 text-[var(--muted-foreground)]">
           Chọn chương
         </h2>
         <div className="space-y-3">
@@ -122,12 +112,30 @@ function HomePage() {
               ? Math.round((progress.completed / chapter.totalQuestions) * 100)
               : 0;
 
+            // Color based on chapter id
+            const colors = [
+              "#ff9600",
+              "#ffc800",
+              "#58cc02",
+              "#1cb0f6",
+              "#ce82ff",
+              "#ff4b4b",
+              "#ff9600",
+              "#ffc800",
+              "#58cc02",
+              "#1cb0f6",
+              "#ce82ff",
+              "#ff4b4b",
+              "#ff9600",
+            ];
+            const bgColor = colors[index % colors.length];
+
             return (
               <motion.div
                 key={chapter.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.03 }}
               >
                 <button
                   onClick={() => handleChapter(chapter.id)}
@@ -135,10 +143,8 @@ function HomePage() {
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg"
-                      style={{
-                        background: `hsl(${(chapter.id * 30) % 360}, 70%, 50%)`,
-                      }}
+                      className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shrink-0"
+                      style={{ background: bgColor }}
                     >
                       {chapter.id}
                     </div>
@@ -146,11 +152,11 @@ function HomePage() {
                       <h3 className="font-bold text-sm text-foreground line-clamp-1">
                         {chapter.name}
                       </h3>
-                      <p className="text-xs text-[var(--muted-foreground)]">
+                      <p className="text-xs text-[var(--muted-foreground)] mb-2">
                         {chapter.totalQuestions} câu hỏi
                       </p>
                       {/* Progress bar */}
-                      <div className="mt-2 progress-duo">
+                      <div className="progress-duo h-2">
                         <div
                           className="progress-duo-fill"
                           style={{ width: `${percent}%` }}
@@ -158,7 +164,7 @@ function HomePage() {
                       </div>
                     </div>
                     {progress && progress.bestScore > 0 && (
-                      <div className="text-right">
+                      <div className="text-right shrink-0">
                         <div className="text-xs text-[var(--muted-foreground)]">
                           Best
                         </div>

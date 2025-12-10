@@ -4,13 +4,12 @@ import {
   Flame,
   Zap,
   BookOpen,
-  Shuffle,
-  Play,
   Heart,
   Gem,
   Star,
   Target,
   CheckCircle,
+  Swords,
 } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -18,7 +17,7 @@ import { useEffect } from "react";
 
 function HomePage() {
   const navigate = useNavigate();
-  const { loadQuiz, chapters, startRandomQuiz, startAllQuiz } = useQuizStore();
+  const { loadQuiz, chapters } = useQuizStore();
   const { initUser, user } = useUserStore();
 
   useEffect(() => {
@@ -32,24 +31,6 @@ function HomePage() {
       return;
     }
     useQuizStore.getState().selectChapter(id);
-    navigate("/quiz");
-  };
-
-  const handleRandom = () => {
-    if (user && user.hearts <= 0) {
-      alert("Bạn đã hết tim!");
-      return;
-    }
-    startRandomQuiz(20);
-    navigate("/quiz");
-  };
-
-  const handleAll = () => {
-    if (user && user.hearts <= 0) {
-      alert("Bạn đã hết tim!");
-      return;
-    }
-    startAllQuiz();
     navigate("/quiz");
   };
 
@@ -187,23 +168,20 @@ function HomePage() {
           </div>
         )}
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-3 mb-5">
-          <button
-            onClick={handleRandom}
-            className="btn-3d btn-3d-orange py-3 px-3 flex flex-col items-center gap-1"
-          >
-            <Shuffle className="w-7 h-7" />
-            <span className="text-xs">Ngẫu nhiên</span>
-          </button>
-          <button
-            onClick={handleAll}
-            className="btn-3d btn-3d-purple py-3 px-3 flex flex-col items-center gap-1"
-          >
-            <Play className="w-7 h-7" />
-            <span className="text-xs">Tất cả</span>
-          </button>
-        </div>
+        {/* Battle Button */}
+        <button
+          onClick={() => navigate("/battle")}
+          className="btn-battle w-full mb-5 py-4 px-4 rounded-2xl font-bold text-white text-lg flex items-center justify-center gap-3"
+          style={{
+            background:
+              "linear-gradient(135deg, #ff4b4b 0%, #ff9600 50%, #ffc800 100%)",
+            boxShadow: "0 6px 0 #c73e3e, 0 8px 20px rgba(255, 75, 75, 0.4)",
+          }}
+        >
+          <Swords className="w-7 h-7" />
+          <span>CHINH CHIẾN</span>
+          <Swords className="w-7 h-7" style={{ transform: "scaleX(-1)" }} />
+        </button>
 
         {/* Chapter List */}
         <h2 className="text-sm font-bold mb-3 text-[var(--muted-foreground)]">

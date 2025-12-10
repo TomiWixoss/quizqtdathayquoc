@@ -13,13 +13,17 @@ interface QuizState {
   score: number;
   correctCount: number;
   wrongCount: number;
-  quizMode: "chapter" | "random" | "all";
+  quizMode: "chapter" | "random" | "all" | "timeattack" | "survival";
+  timeLimit: number | null;
+  maxWrong: number | null;
 
   // Actions
   loadQuiz: () => void;
   selectChapter: (chapterId: number) => void;
   startRandomQuiz: (count?: number) => void;
   startAllQuiz: () => void;
+  startTimeAttack: (seconds: number) => void;
+  startSurvival: (maxWrong: number) => void;
   selectAnswer: (answerId: string) => void;
   nextQuestion: () => void;
   resetQuiz: () => void;
@@ -47,6 +51,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
   correctCount: 0,
   wrongCount: 0,
   quizMode: "chapter",
+  timeLimit: null,
+  maxWrong: null,
 
   loadQuiz: () => {
     const data = quizData as QuizData;
@@ -68,6 +74,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       correctCount: 0,
       wrongCount: 0,
       quizMode: "chapter",
+      timeLimit: null,
+      maxWrong: null,
     });
   },
 
@@ -84,6 +92,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       correctCount: 0,
       wrongCount: 0,
       quizMode: "random",
+      timeLimit: null,
+      maxWrong: null,
     });
   },
 
@@ -99,6 +109,42 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       correctCount: 0,
       wrongCount: 0,
       quizMode: "all",
+      timeLimit: null,
+      maxWrong: null,
+    });
+  },
+
+  startTimeAttack: (seconds) => {
+    const { questions } = get();
+    set({
+      currentChapter: null,
+      currentQuestions: shuffleArray(questions),
+      currentIndex: 0,
+      selectedAnswer: null,
+      isAnswered: false,
+      score: 0,
+      correctCount: 0,
+      wrongCount: 0,
+      quizMode: "timeattack",
+      timeLimit: seconds,
+      maxWrong: null,
+    });
+  },
+
+  startSurvival: (maxWrong) => {
+    const { questions } = get();
+    set({
+      currentChapter: null,
+      currentQuestions: shuffleArray(questions),
+      currentIndex: 0,
+      selectedAnswer: null,
+      isAnswered: false,
+      score: 0,
+      correctCount: 0,
+      wrongCount: 0,
+      quizMode: "survival",
+      timeLimit: null,
+      maxWrong: maxWrong,
     });
   },
 

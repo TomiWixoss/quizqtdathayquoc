@@ -79,11 +79,11 @@ export function QuizCard() {
             {/* Hearts */}
             {user && (
               <div className="flex items-center gap-0.5">
-                {[...Array(user.maxHearts)].map((_, i) => (
+                {[...Array(user.maxHearts ?? 5)].map((_, i) => (
                   <Heart
                     key={i}
                     className={`w-4 h-4 ${
-                      i < user.hearts
+                      i < (user.hearts ?? 5)
                         ? "text-[var(--duo-red)] fill-[var(--duo-red)]"
                         : "text-[var(--muted-foreground)]"
                     }`}

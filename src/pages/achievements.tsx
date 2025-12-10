@@ -18,13 +18,16 @@ function AchievementsPage() {
         );
       case "perfect":
         return Math.min(
-          (user.perfectLessons / achievement.requirement) * 100,
+          ((user.perfectLessons ?? 0) / achievement.requirement) * 100,
           100
         );
       case "level":
         return Math.min((user.level / achievement.requirement) * 100, 100);
       case "gems":
-        return Math.min((user.gems / achievement.requirement) * 100, 100);
+        return Math.min(
+          ((user.gems ?? 0) / achievement.requirement) * 100,
+          100
+        );
       default:
         return 0;
     }
@@ -38,11 +41,11 @@ function AchievementsPage() {
       case "correct":
         return user.totalCorrect;
       case "perfect":
-        return user.perfectLessons;
+        return user.perfectLessons ?? 0;
       case "level":
-        return user.level;
+        return user.level ?? 1;
       case "gems":
-        return user.gems;
+        return user.gems ?? 0;
       default:
         return 0;
     }
@@ -58,7 +61,8 @@ function AchievementsPage() {
         </div>
         {user && (
           <p className="text-white/80 text-sm mt-1">
-            Đã đạt {user.achievements.length}/{ACHIEVEMENTS.length} thành tựu
+            Đã đạt {(user.achievements ?? []).length}/{ACHIEVEMENTS.length}{" "}
+            thành tựu
           </p>
         )}
       </div>
@@ -66,7 +70,7 @@ function AchievementsPage() {
       {/* Content */}
       <div className="px-4 py-4 pb-28 space-y-3">
         {ACHIEVEMENTS.map((achievement) => {
-          const earned = user?.achievements.includes(achievement.id);
+          const earned = (user?.achievements ?? []).includes(achievement.id);
           const progress = getProgress(achievement);
           const current = getCurrentValue(achievement);
 

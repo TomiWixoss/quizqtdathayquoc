@@ -67,9 +67,13 @@ function HomePage() {
     "#ff9600",
   ];
 
-  const dailyProgress = user
-    ? Math.min((user.dailyProgress / user.dailyGoal) * 100, 100)
-    : 0;
+  // Safe defaults for new fields
+  const dailyProgressValue = user?.dailyProgress ?? 0;
+  const dailyGoalValue = user?.dailyGoal ?? 50;
+  const dailyProgress =
+    dailyGoalValue > 0
+      ? Math.min((dailyProgressValue / dailyGoalValue) * 100, 100)
+      : 0;
 
   return (
     <Page className="bg-background min-h-screen">
@@ -102,11 +106,11 @@ function HomePage() {
             <div className="flex items-center gap-3">
               {/* Hearts */}
               <div className="flex items-center gap-0.5">
-                {[...Array(user.maxHearts)].map((_, i) => (
+                {[...Array(user.maxHearts ?? 5)].map((_, i) => (
                   <Heart
                     key={i}
                     className={`w-4 h-4 ${
-                      i < user.hearts
+                      i < (user.hearts ?? 5)
                         ? "text-[var(--duo-red)] fill-[var(--duo-red)]"
                         : "text-[var(--muted-foreground)]"
                     }`}
@@ -155,12 +159,12 @@ function HomePage() {
               </span>
               <span
                 className={`font-bold text-sm ${
-                  user.dailyProgress >= user.dailyGoal
+                  (user.dailyProgress ?? 0) >= (user.dailyGoal ?? 50)
                     ? "text-[var(--duo-green)]"
                     : "text-[var(--muted-foreground)]"
                 }`}
               >
-                {user.dailyProgress}/{user.dailyGoal} XP
+                {user.dailyProgress ?? 0}/{user.dailyGoal ?? 50} XP
               </span>
             </div>
             <div className="progress-duo h-2.5">
@@ -169,7 +173,7 @@ function HomePage() {
                 style={{
                   width: `${dailyProgress}%`,
                   background:
-                    user.dailyProgress >= user.dailyGoal
+                    (user.dailyProgress ?? 0) >= (user.dailyGoal ?? 50)
                       ? "var(--duo-yellow)"
                       : undefined,
                 }}

@@ -14,6 +14,8 @@ import QuizPage from "../pages/quiz";
 import LeaderboardPage from "../pages/leaderboard";
 import AchievementsPage from "../pages/achievements";
 import SettingsPage from "../pages/settings";
+import ShopPage from "../pages/shop";
+import MinigamePage from "../pages/minigame";
 import TestFirebasePage from "../pages/test-firebase";
 import { BottomNav } from "./bottom-nav";
 import { useThemeStore } from "@/stores/theme-store";
@@ -41,6 +43,8 @@ const Layout = () => {
             <Route path="/leaderboard" element={<LeaderboardPage />} />
             <Route path="/achievements" element={<AchievementsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/minigame" element={<MinigamePage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />
           </AnimationRoutes>
           <BottomNav />

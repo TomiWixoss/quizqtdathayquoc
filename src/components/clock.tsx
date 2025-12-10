@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-import { Text } from "zmp-ui";
+import { cn } from "@/lib/utils";
 
-function Clock() {
+interface ClockProps {
+  className?: string;
+}
+
+function Clock({ className }: ClockProps) {
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -23,7 +27,11 @@ function Clock() {
     return () => clearInterval(intervalId);
   }, []);
 
-  return <Text className="font-mono">{time}</Text>;
+  return (
+    <p className={cn("font-mono text-sm text-muted-foreground", className)}>
+      {time}
+    </p>
+  );
 }
 
 export default Clock;

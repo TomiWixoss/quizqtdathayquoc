@@ -2,9 +2,8 @@
   "name": "quizqtdathayquoc",
   "private": true,
   "version": "1.0.0",
-  "description": "zmp-blank-templates",
-  "repository": "",
-  "license": "UNLICENSED",
+  "description": "Quiz App - Zalo Mini App",
+  "type": "module",
   "browserslist": [
     "Android >= 5",
     "IOS >= 9.3",
@@ -20,21 +19,26 @@
     "deploy": "zmp deploy"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
+    "@tailwindcss/vite": "^4.1.17",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "jotai": "^2.12.1",
+    "lucide-react": "^0.557.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.17",
     "zmp-sdk": "latest",
     "zmp-ui": "latest"
   },
   "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.19",
-    "cross-env": "^7.0.3",
-    "postcss": "^8.4.38",
-    "postcss-cli": "^8.3.1",
-    "postcss-preset-env": "^6.7.0",
-    "sass": "^1.76.0",
-    "tailwindcss": "^3.4.3",
+    "tw-animate-css": "^1.4.0",
+    "typescript": "^5.7.2",
     "vite": "^5.2.13",
     "zmp-vite-plugin": "latest"
   }

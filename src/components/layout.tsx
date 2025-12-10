@@ -16,6 +16,7 @@ import AchievementsPage from "../pages/achievements";
 import QuestsPage from "../pages/quests";
 import SettingsPage from "../pages/settings";
 import StatsPage from "../pages/stats";
+import MailboxPage from "../pages/mailbox";
 import ShopPage from "../pages/shop";
 import MinigamePage from "../pages/minigame";
 import TestFirebasePage from "../pages/test-firebase";
@@ -47,6 +48,7 @@ const Layout = () => {
             <Route path="/quests" element={<QuestsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/stats" element={<StatsPage />} />
+            <Route path="/mailbox" element={<MailboxPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/minigame" element={<MinigamePage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />

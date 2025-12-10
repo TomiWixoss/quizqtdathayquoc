@@ -2,20 +2,38 @@ import { Page, useNavigate } from "zmp-ui";
 import {
   Sun,
   Moon,
-  User,
   Info,
   Award,
   ChevronRight,
   BarChart3,
+  Mail,
+  Gift,
+  Gem,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS } from "@/types/quiz";
+import { useState, useEffect } from "react";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 function SettingsPage() {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useThemeStore();
-  const { user } = useUserStore();
+  const { user, addGems } = useUserStore();
+  const [showRedeemModal, setShowRedeemModal] = useState(false);
+  const [redeemCode, setRedeemCode] = useState("");
+  const [redeemStatus, setRedeemStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [unreadMail, setUnreadMail] = useState(0);
 
   const earnedCount = (user?.achievements ?? []).length;
   const claimedRewards = JSON.parse(
@@ -27,9 +45,143 @@ function SettingsPage() {
       !claimedRewards.includes(a.id)
   ).length;
 
+  // Check unread mail count
+  useEffect(() => {
+    const checkMail = async () => {
+      if (!user?.oderId) return;
+      try {
+        const claimedMails = JSON.parse(
+          localStorage.getItem("claimedMails") || "[]"
+        );
+        const mailRef = collection(db, "mails");
+        const q = query(mailRef, where("active", "==", true));
+        const snapshot = await getDocs(q);
+        const unread = snapshot.docs.filter(
+          (d) => !claimedMails.includes(d.id)
+        ).length;
+        setUnreadMail(unread);
+      } catch (error) {
+        console.error("Error checking mail:", error);
+      }
+    };
+    checkMail();
+  }, [user?.oderId]);
+
+  // Redeem code handler
+  const handleRedeem = async () => {
+    if (!redeemCode.trim() || !user) return;
+
+    try {
+      const codesRef = collection(db, "redeemCodes");
+      const q = query(codesRef, where("code", "==", redeemCode.toUpperCase()));
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) {
+        setRedeemStatus("error");
+        return;
+      }
+
+      const codeDoc = snapshot.docs[0];
+      const codeData = codeDoc.data();
+
+      // Check if already used
+      const usedCodes = JSON.parse(
+        localStorage.getItem("usedRedeemCodes") || "[]"
+      );
+      if (usedCodes.includes(codeDoc.id)) {
+        setRedeemStatus("error");
+        return;
+      }
+
+      // Check if code is still valid
+      if (codeData.usageLimit && codeData.usedCount >= codeData.usageLimit) {
+        setRedeemStatus("error");
+        return;
+      }
+
+      // Add gems
+      await addGems(codeData.reward);
+
+      // Mark as used
+      usedCodes.push(codeDoc.id);
+      localStorage.setItem("usedRedeemCodes", JSON.stringify(usedCodes));
+
+      // Update usage count in Firebase
+      await updateDoc(doc(db, "redeemCodes", codeDoc.id), {
+        usedCount: (codeData.usedCount || 0) + 1,
+      });
+
+      setRedeemStatus("success");
+      setRedeemCode("");
+    } catch (error) {
+      console.error("Redeem error:", error);
+      setRedeemStatus("error");
+    }
+  };
+
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header - pt-16 để tránh dính nút X của Zalo */}
+      {/* Redeem Code Modal */}
+      {showRedeemModal && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-[var(--card)] rounded-3xl p-6 max-w-sm w-full">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--duo-purple)]/20 flex items-center justify-center">
+              <Gift className="w-8 h-8 text-[var(--duo-purple)]" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground text-center mb-2">
+              Nhập mã đổi thưởng
+            </h2>
+            <p className="text-sm text-[var(--muted-foreground)] text-center mb-4">
+              Nhập mã để nhận gems miễn phí
+            </p>
+
+            <input
+              type="text"
+              value={redeemCode}
+              onChange={(e) => {
+                setRedeemCode(e.target.value.toUpperCase());
+                setRedeemStatus("idle");
+              }}
+              placeholder="VD: QTDA2024"
+              className="w-full p-3 rounded-xl bg-[var(--secondary)] text-foreground text-center font-bold text-lg uppercase mb-3"
+            />
+
+            {redeemStatus === "success" && (
+              <div className="flex items-center justify-center gap-2 text-[var(--duo-green)] mb-3">
+                <Gem className="w-5 h-5" />
+                <span className="font-bold">Đổi mã thành công!</span>
+              </div>
+            )}
+
+            {redeemStatus === "error" && (
+              <p className="text-[var(--duo-red)] text-center text-sm mb-3">
+                Mã không hợp lệ hoặc đã sử dụng
+              </p>
+            )}
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setShowRedeemModal(false);
+                  setRedeemCode("");
+                  setRedeemStatus("idle");
+                }}
+                className="flex-1 py-3 rounded-xl bg-[var(--secondary)] text-foreground font-bold"
+              >
+                Đóng
+              </button>
+              <button
+                onClick={handleRedeem}
+                className="flex-1 btn-3d btn-3d-green py-3"
+              >
+                Đổi thưởng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Header */}
       <div className="pt-16 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <h1 className="font-bold text-xl text-foreground">Tôi</h1>
       </div>
@@ -56,23 +208,19 @@ function SettingsPage() {
                   {user.odername}
                 </h2>
                 <p className="text-sm text-[var(--muted-foreground)]">
-                  Level {user.level} • {user.totalScore} XP
+                  Level {user.level} • {user.exp} XP
                 </p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Settings List */}
+        {/* Menu List */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-[var(--muted-foreground)] mb-2">
-            Giao diện
-          </h3>
-
           {/* Stats Link */}
           <button
             onClick={() => navigate("/stats")}
-            className="card-3d w-full p-4 flex items-center justify-between mb-3"
+            className="card-3d w-full p-4 flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[var(--duo-blue)]/20 flex items-center justify-center">
@@ -91,7 +239,7 @@ function SettingsPage() {
           {/* Achievements Link */}
           <button
             onClick={() => navigate("/achievements")}
-            className="card-3d w-full p-4 flex items-center justify-between mb-3"
+            className="card-3d w-full p-4 flex items-center justify-between"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[var(--duo-yellow)]/20 flex items-center justify-center">
@@ -107,12 +255,61 @@ function SettingsPage() {
             <div className="flex items-center gap-2">
               {claimableCount > 0 && (
                 <span className="bg-[var(--duo-red)] text-white text-xs px-2 py-0.5 rounded-full">
-                  {claimableCount} quà
+                  {claimableCount}
                 </span>
               )}
               <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
             </div>
           </button>
+
+          {/* Mailbox Link */}
+          <button
+            onClick={() => navigate("/mailbox")}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-orange)]/20 flex items-center justify-center">
+                <Mail className="w-5 h-5 text-[var(--duo-orange)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Hòm thư</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Nhận quà từ hệ thống
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {unreadMail > 0 && (
+                <span className="bg-[var(--duo-red)] text-white text-xs px-2 py-0.5 rounded-full">
+                  {unreadMail}
+                </span>
+              )}
+              <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+            </div>
+          </button>
+
+          {/* Redeem Code */}
+          <button
+            onClick={() => setShowRedeemModal(true)}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-purple)]/20 flex items-center justify-center">
+                <Gift className="w-5 h-5 text-[var(--duo-purple)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Mã đổi thưởng</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Nhập mã nhận gems
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+          </button>
+
+          <h3 className="text-sm font-semibold text-[var(--muted-foreground)] mt-4 mb-2">
+            Cài đặt
+          </h3>
 
           {/* Theme Toggle */}
           <button
@@ -134,7 +331,6 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
-            {/* Toggle Switch */}
             <div
               className={`w-14 h-8 rounded-full p-1 ${
                 theme === "dark"
@@ -152,10 +348,6 @@ function SettingsPage() {
             </div>
           </button>
 
-          <h3 className="text-sm font-semibold text-[var(--muted-foreground)] mt-6 mb-2">
-            Thông tin
-          </h3>
-
           {/* App Info */}
           <div className="card-3d p-4">
             <div className="flex items-center gap-3">
@@ -170,54 +362,6 @@ function SettingsPage() {
               </div>
             </div>
           </div>
-
-          {/* Stats */}
-          {user && (
-            <div className="card-3d p-4 mt-3">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-[var(--duo-purple)]/20 flex items-center justify-center">
-                  <User className="w-5 h-5 text-[var(--duo-purple)]" />
-                </div>
-                <p className="font-semibold text-foreground">
-                  Thống kê của bạn
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-green)]">
-                    {user.totalCorrect}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Câu đúng
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-red)]">
-                    {user.totalWrong}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Câu sai
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-orange)]">
-                    {user.streak}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Streak
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-yellow)]">
-                    {user.exp}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Tổng XP
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </Page>

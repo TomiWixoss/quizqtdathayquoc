@@ -18,6 +18,7 @@ import {
   Gift,
   ArrowLeft,
 } from "lucide-react";
+// Keep Lucide icons for ICON_MAP
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
 import { useState } from "react";
@@ -170,7 +171,7 @@ function AchievementsPage() {
             {/* Gems reward */}
             <div className="bg-[var(--secondary)] rounded-2xl p-4 mb-4">
               <div className="flex items-center justify-center gap-2">
-                <Gem className="w-8 h-8 text-[var(--duo-blue)]" />
+                <img src="/BlueDiamond.png" alt="gem" className="w-10 h-10" />
                 <span className="text-3xl font-bold text-[var(--duo-blue)]">
                   +{currentReward.gems}
                 </span>

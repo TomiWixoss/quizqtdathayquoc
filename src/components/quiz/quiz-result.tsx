@@ -17,6 +17,8 @@ import {
   Medal,
   Coins,
 } from "lucide-react";
+
+// Keep Lucide icons for ICON_MAP (achievements use them)
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState } from "react";
@@ -212,7 +214,7 @@ export function QuizResult() {
               })}
             </div>
             <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)] mb-4">
-              <Gem className="w-5 h-5" />
+              <img src="/BlueDiamond.png" alt="gem" className="w-6 h-6" />
               <span className="font-bold">
                 +{newAchievements.length * 10} Gems
               </span>
@@ -315,7 +317,7 @@ export function QuizResult() {
           </div>
           <div>
             <div className="w-8 h-8 mx-auto rounded-lg bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-1">
-              <Zap className="w-4 h-4 text-[var(--duo-yellow)]" />
+              <img src="/Lighting.png" alt="xp" className="w-5 h-5" />
             </div>
             <div className="text-xl font-bold text-[var(--duo-yellow)]">
               {score}
@@ -328,7 +330,7 @@ export function QuizResult() {
         {bonusGems > 0 && (
           <div className="mt-3 pt-3 border-t border-[var(--border)] text-center">
             <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-              <Gem className="w-4 h-4" />
+              <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
               <span className="font-bold">+{bonusGems} Gems bonus!</span>
             </div>
           </div>
@@ -337,7 +339,7 @@ export function QuizResult() {
         {user && (
           <div className="mt-3 pt-3 border-t border-[var(--border)] flex items-center justify-center gap-4">
             <div className="flex items-center gap-1">
-              <Flame className="w-4 h-4 text-[var(--duo-orange)] flame-animate" />
+              <img src="/Fire.png" alt="streak" className="w-5 h-5" />
               <span className="font-bold text-sm text-[var(--duo-orange)]">
                 {user.streak}
               </span>

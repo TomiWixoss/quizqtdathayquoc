@@ -111,8 +111,10 @@ function QuizPage() {
           </button>
           {!isFinished && (
             <div className="flex items-center gap-3">
-              <h1 className="font-bold text-sm text-[var(--muted-foreground)] truncate max-w-[120px]">
-                {chapterName}
+              <h1 className="font-bold text-sm text-[var(--muted-foreground)] truncate max-w-[200px]">
+                {currentChapter
+                  ? `Chương ${currentChapter}: ${chapterName}`
+                  : chapterName}
               </h1>
               {/* Time Attack Timer */}
               {quizMode === "timeattack" && (

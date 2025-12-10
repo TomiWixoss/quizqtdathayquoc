@@ -1,4 +1,3 @@
-import { Heart, Gem } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 
 export function HeartsDisplay() {
@@ -17,12 +16,12 @@ export function HeartsDisplay() {
   return (
     <div className="flex items-center gap-1">
       {[...Array(user.maxHearts)].map((_, i) => (
-        <Heart
+        <img
           key={i}
+          src="/Heart.png"
+          alt="heart"
           className={`w-5 h-5 ${
-            i < user.hearts
-              ? "text-[var(--duo-red)] fill-[var(--duo-red)]"
-              : "text-[var(--muted-foreground)]"
+            i >= user.hearts ? "opacity-30 grayscale" : ""
           }`}
         />
       ))}
@@ -31,7 +30,7 @@ export function HeartsDisplay() {
           onClick={handleRefill}
           className="ml-2 flex items-center gap-1 text-xs bg-[var(--duo-blue)] text-white px-2 py-1 rounded-full"
         >
-          <Gem className="w-3 h-3" />
+          <img src="/BlueDiamond.png" alt="gem" className="w-3 h-3" />
           50
         </button>
       )}
@@ -45,7 +44,7 @@ export function GemsDisplay() {
 
   return (
     <div className="flex items-center gap-1">
-      <Gem className="w-5 h-5 text-[var(--duo-blue)]" />
+      <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
       <span className="font-bold text-[var(--duo-blue)]">{user.gems}</span>
     </div>
   );

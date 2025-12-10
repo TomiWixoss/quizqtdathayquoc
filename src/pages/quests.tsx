@@ -5,7 +5,6 @@ import {
   Zap,
   BookOpen,
   Trophy,
-  Gem,
   Gift,
   CheckCircle,
   Calendar,
@@ -220,7 +219,7 @@ function QuestsPage() {
 
             <div className="bg-[var(--secondary)] rounded-2xl p-4 mb-4">
               <div className="flex items-center justify-center gap-2">
-                <Gem className="w-8 h-8 text-[var(--duo-blue)]" />
+                <img src="/BlueDiamond.png" alt="gem" className="w-10 h-10" />
                 <span className="text-3xl font-bold text-[var(--duo-blue)]">
                   +{currentReward.gems}
                 </span>
@@ -331,7 +330,11 @@ function QuestsPage() {
 
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1 text-[var(--duo-blue)]">
-                        <Gem className="w-4 h-4" />
+                        <img
+                          src="/BlueDiamond.png"
+                          alt="gem"
+                          className="w-4 h-4"
+                        />
                         <span className="font-bold text-sm">
                           {quest.reward}
                         </span>
@@ -425,7 +428,11 @@ function QuestsPage() {
 
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1 text-[var(--duo-blue)]">
-                        <Gem className="w-4 h-4" />
+                        <img
+                          src="/BlueDiamond.png"
+                          alt="gem"
+                          className="w-4 h-4"
+                        />
                         <span className="font-bold text-sm">
                           {quest.reward}
                         </span>

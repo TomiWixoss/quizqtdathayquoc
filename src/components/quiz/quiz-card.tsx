@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle, Zap, Heart } from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -87,7 +87,7 @@ export function QuizCard() {
     return (
       <div className="flex flex-col items-center justify-center h-full py-10">
         <div className="w-20 h-20 rounded-full bg-[var(--duo-red)]/20 flex items-center justify-center mb-4">
-          <Heart className="w-10 h-10 text-[var(--duo-red)]" />
+          <img src="/Heart.png" alt="heart" className="w-12 h-12" />
         </div>
         <h2 className="text-xl font-bold text-foreground mb-2">Hết tim rồi!</h2>
         <p className="text-sm text-[var(--muted-foreground)] text-center mb-4">
@@ -107,7 +107,7 @@ export function QuizCard() {
             }}
             className="btn-3d btn-3d-blue w-full py-3 flex items-center justify-center gap-2"
           >
-            <Zap className="w-4 h-4" />
+            <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
             Mua tim (50 gems)
           </button>
         </div>
@@ -134,12 +134,12 @@ export function QuizCard() {
             {user && (
               <div className="flex items-center gap-0.5">
                 {[...Array(user.maxHearts ?? 5)].map((_, i) => (
-                  <Heart
+                  <img
                     key={i}
+                    src="/Heart.png"
+                    alt="heart"
                     className={`w-4 h-4 ${
-                      i < (user.hearts ?? 5)
-                        ? "text-[var(--duo-red)] fill-[var(--duo-red)]"
-                        : "text-[var(--muted-foreground)]"
+                      i >= (user.hearts ?? 5) ? "opacity-30 grayscale" : ""
                     }`}
                   />
                 ))}
@@ -147,7 +147,7 @@ export function QuizCard() {
             )}
             {/* XP */}
             <div className="flex items-center gap-1 text-[var(--duo-yellow)]">
-              <Zap className="w-4 h-4" />
+              <img src="/Lighting.png" alt="xp" className="w-4 h-4" />
               <span className="font-bold">{score}</span>
             </div>
           </div>
@@ -158,7 +158,7 @@ export function QuizCard() {
       {showXP && (
         <div className="fixed top-1/3 left-1/2 -translate-x-1/2 z-50">
           <div className="xp-pop flex items-center gap-2 bg-[var(--duo-green)] text-white px-4 py-2 rounded-full font-bold">
-            <Zap className="w-5 h-5" />
+            <img src="/Lighting.png" alt="xp" className="w-5 h-5" />
             +10 XP
           </div>
         </div>
@@ -168,7 +168,7 @@ export function QuizCard() {
       {showHeartLost && (
         <div className="fixed top-1/3 left-1/2 -translate-x-1/2 z-50">
           <div className="xp-pop flex items-center gap-2 bg-[var(--duo-red)] text-white px-4 py-2 rounded-full font-bold">
-            <Heart className="w-5 h-5" />
+            <img src="/Heart.png" alt="heart" className="w-5 h-5" />
             -1
           </div>
         </div>

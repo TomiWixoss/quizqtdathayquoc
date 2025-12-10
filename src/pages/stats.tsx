@@ -4,7 +4,6 @@ import {
   TrendingUp,
   Target,
   Flame,
-  Zap,
   Trophy,
   BookOpen,
   CheckCircle,
@@ -239,7 +238,7 @@ function StatsPage() {
                 ))}
               </div>
               <div className="flex items-center justify-center gap-2 mt-3 pt-3 border-t border-[var(--border)]">
-                <Flame className="w-5 h-5 text-[var(--duo-orange)]" />
+                <img src="/Fire.png" alt="streak" className="w-6 h-6" />
                 <span className="font-bold text-[var(--duo-orange)]">
                   {user?.streak ?? 0} ngày streak
                 </span>
@@ -249,7 +248,11 @@ function StatsPage() {
             {/* More Stats */}
             <div className="grid grid-cols-3 gap-2">
               <div className="card-3d p-3 text-center">
-                <Zap className="w-5 h-5 text-[var(--duo-yellow)] mx-auto mb-1" />
+                <img
+                  src="/Lighting.png"
+                  alt="xp"
+                  className="w-6 h-6 mx-auto mb-1"
+                />
                 <p className="text-lg font-bold text-foreground">
                   {user?.exp ?? 0}
                 </p>

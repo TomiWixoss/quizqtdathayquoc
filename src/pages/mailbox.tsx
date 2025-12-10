@@ -1,5 +1,5 @@
 import { Page, useNavigate } from "zmp-ui";
-import { ArrowLeft, Mail, Gem, Gift, CheckCircle, Inbox } from "lucide-react";
+import { ArrowLeft, Mail, Gift, CheckCircle, Inbox } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -101,7 +101,7 @@ function MailboxPage() {
             </p>
             <div className="bg-[var(--secondary)] rounded-2xl p-4 mb-4">
               <div className="flex items-center justify-center gap-2">
-                <Gem className="w-8 h-8 text-[var(--duo-blue)]" />
+                <img src="/BlueDiamond.png" alt="gem" className="w-10 h-10" />
                 <span className="text-3xl font-bold text-[var(--duo-blue)]">
                   +{currentReward.gems}
                 </span>
@@ -188,7 +188,11 @@ function MailboxPage() {
                         {mail.content}
                       </p>
                       <div className="flex items-center gap-1 mt-2">
-                        <Gem className="w-4 h-4 text-[var(--duo-blue)]" />
+                        <img
+                          src="/BlueDiamond.png"
+                          alt="gem"
+                          className="w-4 h-4"
+                        />
                         <span className="text-sm font-bold text-[var(--duo-blue)]">
                           {mail.reward} Gems
                         </span>

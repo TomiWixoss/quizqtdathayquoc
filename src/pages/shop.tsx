@@ -1,5 +1,5 @@
 import { Page } from "zmp-ui";
-import { Heart, Gem, Zap, Gift, Clock, Sparkles } from "lucide-react";
+import { Gift, Clock, Sparkles } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useNavigate } from "zmp-ui";
 import { useState, useEffect } from "react";
@@ -65,11 +65,11 @@ function ShopPage() {
         {user && (
           <div className="flex items-center gap-4 mt-3">
             <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
-              <Gem className="w-4 h-4 text-white" />
+              <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
               <span className="font-bold text-white">{user.gems ?? 0}</span>
             </div>
             <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
-              <Heart className="w-4 h-4 text-white fill-white" />
+              <img src="/Heart.png" alt="heart" className="w-4 h-4" />
               <span className="font-bold text-white">
                 {user.hearts ?? 5}/{user.maxHearts ?? 5}
               </span>
@@ -83,7 +83,7 @@ function ShopPage() {
         {/* Hearts Section */}
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
-            <Heart className="w-4 h-4 text-[var(--duo-red)]" />
+            <img src="/Heart.png" alt="heart" className="w-4 h-4" />
             Tim
           </h2>
 
@@ -110,11 +110,11 @@ function ShopPage() {
                   className="card-3d p-4 text-center"
                 >
                   <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
-                    <Heart className="w-6 h-6 text-[var(--duo-red)] fill-[var(--duo-red)]" />
+                    <img src="/Heart.png" alt="heart" className="w-8 h-8" />
                   </div>
                   <p className="font-bold text-foreground mb-1">Hồi đầy tim</p>
                   <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-                    <Gem className="w-4 h-4" />
+                    <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
                     <span className="font-bold">50</span>
                   </div>
                 </button>
@@ -126,11 +126,15 @@ function ShopPage() {
               (user.gems ?? 0) < 50 && (
                 <div className="card-3d p-4 text-center opacity-50">
                   <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
-                    <Heart className="w-6 h-6 text-[var(--duo-red)] fill-[var(--duo-red)]" />
+                    <img src="/Heart.png" alt="heart" className="w-8 h-8" />
                   </div>
                   <p className="font-bold text-foreground mb-1">Hồi đầy tim</p>
                   <div className="flex items-center justify-center gap-1 text-[var(--duo-red)]">
-                    <Gem className="w-4 h-4" />
+                    <img
+                      src="/BlueDiamond.png"
+                      alt="gem"
+                      className="w-4 h-4 grayscale"
+                    />
                     <span className="font-bold">Thiếu gems</span>
                   </div>
                 </div>
@@ -140,7 +144,7 @@ function ShopPage() {
             {user && (user.hearts ?? 5) >= (user.maxHearts ?? 5) && (
               <div className="card-3d p-4 text-center opacity-50">
                 <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-green)]/20 flex items-center justify-center mb-2">
-                  <Heart className="w-6 h-6 text-[var(--duo-green)] fill-[var(--duo-green)]" />
+                  <img src="/Heart.png" alt="heart" className="w-8 h-8" />
                 </div>
                 <p className="font-bold text-foreground mb-1">Tim đã đầy</p>
                 <p className="text-xs text-[var(--duo-green)]">5/5</p>
@@ -157,7 +161,7 @@ function ShopPage() {
               </div>
               <p className="font-bold text-foreground mb-1">Tim vô hạn 1h</p>
               <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-                <Gem className="w-4 h-4" />
+                <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
                 <span className="font-bold">100</span>
               </div>
             </button>
@@ -167,7 +171,7 @@ function ShopPage() {
         {/* Mini Games Section */}
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
-            <Zap className="w-4 h-4 text-[var(--duo-yellow)]" />
+            <img src="/Lighting.png" alt="xp" className="w-4 h-4" />
             Mini Game - Nhận tim miễn phí
           </h2>
 
@@ -196,7 +200,7 @@ function ShopPage() {
         {/* Gems Packages */}
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
-            <Gem className="w-4 h-4 text-[var(--duo-blue)]" />
+            <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
             Gói Gems (Sắp ra mắt)
           </h2>
 
@@ -211,7 +215,11 @@ function ShopPage() {
                 className="card-3d p-3 text-center opacity-50"
                 disabled
               >
-                <Gem className="w-8 h-8 text-[var(--duo-blue)] mx-auto mb-1" />
+                <img
+                  src="/BlueDiamond.png"
+                  alt="gem"
+                  className="w-8 h-8 mx-auto mb-1"
+                />
                 <p className="font-bold text-foreground">{pkg.gems}</p>
                 <p className="text-xs text-[var(--muted-foreground)]">
                   {pkg.price}

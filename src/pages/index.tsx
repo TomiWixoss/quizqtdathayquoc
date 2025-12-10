@@ -1,11 +1,7 @@
 import { useNavigate } from "zmp-ui";
 import { Page } from "zmp-ui";
 import {
-  Flame,
-  Zap,
   BookOpen,
-  Heart,
-  Gem,
   Star,
   Target,
   CheckCircle,
@@ -92,19 +88,19 @@ function HomePage() {
               {/* Hearts */}
               <div className="flex items-center gap-0.5">
                 {[...Array(user.maxHearts ?? 5)].map((_, i) => (
-                  <Heart
+                  <img
                     key={i}
+                    src="/Heart.png"
+                    alt="heart"
                     className={`w-4 h-4 ${
-                      i < (user.hearts ?? 5)
-                        ? "text-[var(--duo-red)] fill-[var(--duo-red)]"
-                        : "text-[var(--muted-foreground)]"
+                      i >= (user.hearts ?? 5) ? "opacity-30 grayscale" : ""
                     }`}
                   />
                 ))}
               </div>
               {/* Streak */}
               <div className="flex items-center gap-1">
-                <Flame className="w-4 h-4 text-[var(--duo-orange)] flame-animate" />
+                <img src="/Fire.png" alt="streak" className="w-5 h-5" />
                 <span className="font-bold text-sm text-[var(--duo-orange)]">
                   {user.streak}
                 </span>
@@ -113,14 +109,14 @@ function HomePage() {
             <div className="flex items-center gap-3">
               {/* Gems */}
               <div className="flex items-center gap-1">
-                <Gem className="w-4 h-4 text-[var(--duo-blue)]" />
+                <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
                 <span className="font-bold text-sm text-[var(--duo-blue)]">
                   {user.gems}
                 </span>
               </div>
               {/* XP */}
               <div className="flex items-center gap-1">
-                <Zap className="w-4 h-4 text-[var(--duo-yellow)]" />
+                <img src="/Lighting.png" alt="xp" className="w-5 h-5" />
                 <span className="font-bold text-sm text-[var(--duo-yellow)]">
                   {user.exp}
                 </span>

@@ -8,7 +8,6 @@ import {
   BarChart3,
   Mail,
   Gift,
-  Gem,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
@@ -148,7 +147,7 @@ function SettingsPage() {
 
             {redeemStatus === "success" && (
               <div className="flex items-center justify-center gap-2 text-[var(--duo-green)] mb-3">
-                <Gem className="w-5 h-5" />
+                <img src="/BlueDiamond.png" alt="gem" className="w-6 h-6" />
                 <span className="font-bold">Đổi mã thành công!</span>
               </div>
             )}

@@ -299,7 +299,7 @@ function CaroPage() {
               <button
                 key={diff}
                 onClick={() => startGame(diff)}
-                className={`card-3d p-4 w-full flex items-center justify-between border-l-4 ${style.border} transition-all active:scale-[0.98]`}
+                className={`card-3d p-4 w-full flex items-center justify-between border-l-4 ${style.border}`}
               >
                 <div className="text-left">
                   <p className={`font-bold ${style.text}`}>{cfg.label}</p>

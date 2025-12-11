@@ -17,24 +17,25 @@ type GameStatus = "menu" | "playing" | "won" | "lost";
 
 interface Card {
   id: number;
-  emoji: string;
+  icon: string;
   isFlipped: boolean;
   isMatched: boolean;
 }
 
-const EMOJIS = [
-  "🎯",
-  "🔥",
-  "⚡",
-  "💎",
-  "🌟",
-  "🎁",
-  "🏆",
-  "🎮",
-  "📚",
-  "🎨",
-  "🚀",
-  "💡",
+// 12 icons đa dạng từ IconPack
+const ICONS = [
+  "/IconPack/Main/Star/golden-star-1st.png",
+  "/IconPack/Item/Crown/crown-1st.png",
+  "/IconPack/Currency/Diamond/bluediamond.png",
+  "/IconPack/Main/Heart/heart-1st.png",
+  "/IconPack/Item/Gift/red-gift-1st.png",
+  "/IconPack/Item/Rocket/rocket-1st.png",
+  "/IconPack/Item/Key/golden-key-1st.png",
+  "/IconPack/Item/Bomb/bomb-1st.png",
+  "/IconPack/Main/Lighting/lighting-1st.png",
+  "/IconPack/Item/Shield/shield-1st.png",
+  "/IconPack/Item/Potion/blue-potion-1st.png",
+  "/IconPack/Currency/Coin/golden-coin-1st.png",
 ];
 
 const DIFFICULTY_CONFIG: Record<
@@ -80,14 +81,14 @@ function MemoryGamePage() {
 
   const initGame = useCallback((diff: Difficulty) => {
     const cfg = DIFFICULTY_CONFIG[diff];
-    const selectedEmojis = EMOJIS.slice(0, cfg.pairs);
-    const cardPairs = [...selectedEmojis, ...selectedEmojis];
+    const selectedIcons = ICONS.slice(0, cfg.pairs);
+    const cardPairs = [...selectedIcons, ...selectedIcons];
 
     // Shuffle cards
     const shuffled = cardPairs
-      .map((emoji, index) => ({
+      .map((icon, index) => ({
         id: index,
-        emoji,
+        icon,
         isFlipped: false,
         isMatched: false,
       }))
@@ -167,7 +168,7 @@ function MemoryGamePage() {
       const firstCard = cards.find((c) => c.id === first);
       const secondCard = cards.find((c) => c.id === second);
 
-      if (firstCard?.emoji === secondCard?.emoji) {
+      if (firstCard?.icon === secondCard?.icon) {
         // Match found
         setTimeout(() => {
           setCards((prev) =>
@@ -437,17 +438,25 @@ function MemoryGamePage() {
               disabled={
                 card.isFlipped || card.isMatched || gameStatus !== "playing"
               }
-              className={`aspect-square rounded-xl text-3xl flex items-center justify-center transition-all duration-300 transform
+              className={`aspect-square rounded-xl flex items-center justify-center transition-all duration-300 transform p-2
                 ${
                   card.isFlipped || card.isMatched
-                    ? "bg-[var(--duo-blue)] rotate-0"
+                    ? "bg-[var(--duo-blue)]/20 border-2 border-[var(--duo-blue)]"
                     : "bg-[var(--card)] border-2 border-[var(--border)] hover:border-[var(--duo-blue)]"
                 }
                 ${card.isMatched ? "opacity-50 scale-95" : ""}
               `}
               style={{ minHeight: "60px" }}
             >
-              {card.isFlipped || card.isMatched ? card.emoji : "❓"}
+              {card.isFlipped || card.isMatched ? (
+                <img
+                  src={card.icon}
+                  alt="card"
+                  className="w-10 h-10 object-contain"
+                />
+              ) : (
+                <span className="text-2xl">❓</span>
+              )}
             </button>
           ))}
         </div>

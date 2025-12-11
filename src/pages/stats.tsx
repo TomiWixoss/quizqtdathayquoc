@@ -107,7 +107,7 @@ function StatsPage() {
 
       {/* Tabs */}
       <div className="px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
-        <div className="flex gap-2">
+        <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {[
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
             { id: "chapters", label: "Chương", icon: BookOpen },
@@ -117,13 +117,13 @@ function StatsPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as TabType)}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-sm font-semibold ${
+              className={`flex items-center justify-center gap-1 py-2 px-3 rounded-xl text-xs font-semibold whitespace-nowrap shrink-0 ${
                 activeTab === tab.id
                   ? "bg-[var(--duo-green)] text-white"
                   : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
               }`}
             >
-              <tab.icon className="w-4 h-4" />
+              <tab.icon className="w-3.5 h-3.5" />
               {tab.label}
             </button>
           ))}
@@ -304,7 +304,11 @@ function StatsPage() {
                 ))}
               </div>
               <div className="flex items-center justify-center gap-2 mt-3 pt-3 border-t border-[var(--border)]">
-                <img src="/AppAssets/Fire.png" alt="streak" className="w-6 h-6" />
+                <img
+                  src="/AppAssets/Fire.png"
+                  alt="streak"
+                  className="w-6 h-6"
+                />
                 <span className="font-bold text-[var(--duo-orange)]">
                   {user?.streak ?? 0} ngày streak
                 </span>

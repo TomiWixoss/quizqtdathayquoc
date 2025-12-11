@@ -209,10 +209,10 @@ export function getRankFromPoints(points: number): UserRank {
 // Hàm lấy ảnh rank - tier 7 (thấp nhất) = ảnh 1, tier 1 (cao nhất) = ảnh 7
 export function getRankImage(rank: UserRank): string {
   const rankInfo = RANK_LEVELS.find((r) => r.id === rank.rankId);
-  if (!rankInfo) return "/Wood/rank-wood-1_NoOL_large.png";
+  if (!rankInfo) return "/Rank/Wood/rank-wood-1_NoOL_large.png";
   // Đảo ngược: tier 7 -> ảnh 1, tier 1 -> ảnh 7
   const imageNumber = 8 - rank.tier;
-  return `/${rankInfo.folder}/rank-${rank.rankId}-${imageNumber}_NoOL_large.png`;
+  return `/Rank/${rankInfo.folder}/rank-${rank.rankId}-${imageNumber}_NoOL_large.png`;
 }
 
 // Tạo prompt dựa trên rank và tier

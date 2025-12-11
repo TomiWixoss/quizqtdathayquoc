@@ -18,6 +18,10 @@ import {
   Coins,
   Swords,
   Shield,
+  Gamepad2,
+  Brain,
+  Dices,
+  Grid2X2,
 } from "lucide-react";
 
 // Keep Lucide icons for ICON_MAP (achievements use them)
@@ -43,6 +47,10 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Swords,
   Shield,
   Award,
+  Gamepad2,
+  Brain,
+  Dices,
+  Grid2X2,
 };
 
 export function QuizResult() {
@@ -224,7 +232,11 @@ export function QuizResult() {
               })}
             </div>
             <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)] mb-4">
-              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-6 h-6" />
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-6 h-6"
+              />
               <span className="font-bold">
                 +{newAchievements.length * 10} Gems
               </span>
@@ -340,7 +352,11 @@ export function QuizResult() {
         {bonusGems > 0 && (
           <div className="mt-3 pt-3 border-t border-[var(--border)] text-center">
             <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-5 h-5"
+              />
               <span className="font-bold">+{bonusGems} Gems bonus!</span>
             </div>
           </div>

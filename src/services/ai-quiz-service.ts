@@ -291,6 +291,10 @@ export async function generateAIQuestions(
         { role: "system", content: QTDA_SYSTEM_PROMPT },
         { role: "user", content: prompt },
       ],
+      max_completion_tokens: 65536,
+      temperature: 0.7,
+      top_p: 0.95,
+      reasoning_effort: "high",
       response_format: {
         type: "json_schema",
         json_schema: {

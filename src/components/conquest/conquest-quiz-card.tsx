@@ -179,69 +179,99 @@ export function ConquestQuizCard({ question, onEnd }: Props) {
       {/* Bottom Sheet */}
       <div
         className={cn(
-          "fixed bottom-0 left-0 right-0 p-4 pb-6 transition-all duration-300 z-40",
+          "fixed bottom-0 left-0 right-0 transition-all duration-300 z-40",
           isSubmitted && result
             ? result.correct
-              ? "bg-[var(--duo-green)]/95"
-              : "bg-[var(--duo-red)]/95"
+              ? "bg-[#d7ffb8]"
+              : "bg-[#ffdfe0]"
             : "bg-[var(--card)] border-t border-[var(--border)]"
         )}
       >
-        {isSubmitted && result ? (
-          // Result bottom sheet
-          <div className="max-w-lg mx-auto">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-3">
-                {result.correct ? (
-                  <CheckCircle2 className="w-8 h-8 text-white" />
-                ) : (
-                  <XCircle className="w-8 h-8 text-white" />
-                )}
-                <div>
-                  <p className="font-bold text-white text-lg">
-                    {result.correct ? "Chính xác!" : "Chưa đúng!"}
-                  </p>
+        <div className="safe-area-bottom">
+          {isSubmitted && result ? (
+            // Result bottom sheet - Duolingo style
+            <div className="px-4 py-4">
+              <div className="flex items-start gap-3 mb-4">
+                <div
+                  className={cn(
+                    "w-12 h-12 rounded-full flex items-center justify-center shrink-0",
+                    result.correct
+                      ? "bg-[var(--duo-green)]"
+                      : "bg-[var(--duo-red)]"
+                  )}
+                >
+                  {result.correct ? (
+                    <CheckCircle2 className="w-7 h-7 text-white" />
+                  ) : (
+                    <XCircle className="w-7 h-7 text-white" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <p
+                      className={cn(
+                        "font-bold text-xl",
+                        result.correct
+                          ? "text-[var(--duo-green)]"
+                          : "text-[var(--duo-red)]"
+                      )}
+                    >
+                      {result.correct ? "Tuyệt vời!" : "Sai rồi!"}
+                    </p>
+                    <span
+                      className={cn(
+                        "font-bold text-lg",
+                        result.correct
+                          ? "text-[var(--duo-green)]"
+                          : "text-[var(--duo-red)]"
+                      )}
+                    >
+                      {result.points >= 0 ? "+" : ""}
+                      {result.points} RP
+                    </span>
+                  </div>
                   {question.explanation && (
-                    <p className="text-white/80 text-sm">
+                    <p className="text-[var(--muted-foreground)] text-sm mt-1 line-clamp-2">
                       {question.explanation}
                     </p>
                   )}
                 </div>
               </div>
-              <span className="font-bold text-white text-lg">
-                {result.points >= 0 ? "+" : ""}
-                {result.points} RP
-              </span>
+              <button
+                onClick={handleNext}
+                disabled={isLoadingNext}
+                className={cn(
+                  "w-full py-4 rounded-2xl font-bold text-base shadow-md active:scale-[0.98] transition-transform",
+                  result.correct
+                    ? "bg-[var(--duo-green)] text-white"
+                    : "bg-[var(--duo-red)] text-white"
+                )}
+              >
+                {isLoadingNext
+                  ? "Đang tải..."
+                  : isLastQuestion
+                  ? "Xem kết quả"
+                  : "Tiếp tục"}
+              </button>
             </div>
-            <button
-              onClick={handleNext}
-              disabled={isLoadingNext}
-              className="w-full py-3.5 rounded-2xl font-bold text-base bg-white text-[var(--duo-green)] shadow-lg"
-            >
-              {isLoadingNext
-                ? "Đang tải..."
-                : isLastQuestion
-                ? "Xem kết quả"
-                : "Tiếp tục"}
-            </button>
-          </div>
-        ) : (
-          // Check button
-          <div className="max-w-lg mx-auto">
-            <button
-              onClick={handleSubmit}
-              disabled={!selectedAnswer || isLoading}
-              className={cn(
-                "w-full py-3.5 rounded-2xl font-bold text-base transition-all",
-                selectedAnswer
-                  ? "btn-3d btn-3d-green"
-                  : "bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed"
-              )}
-            >
-              Kiểm tra
-            </button>
-          </div>
-        )}
+          ) : (
+            // Check button
+            <div className="px-4 py-4">
+              <button
+                onClick={handleSubmit}
+                disabled={!selectedAnswer || isLoading}
+                className={cn(
+                  "w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]",
+                  selectedAnswer
+                    ? "bg-[var(--duo-green)] text-white shadow-[0_4px_0_0_#58a700]"
+                    : "bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed"
+                )}
+              >
+                Kiểm tra
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

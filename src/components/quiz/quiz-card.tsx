@@ -247,63 +247,86 @@ export function QuizCard() {
       {/* Bottom Sheet - Result or Check Button */}
       <div
         className={cn(
-          "fixed bottom-0 left-0 right-0 p-4 pb-6 transition-all duration-300 z-40",
+          "fixed bottom-0 left-0 right-0 transition-all duration-300 z-40",
           isAnswered
             ? isCorrect
-              ? "bg-[var(--duo-green)]/95"
-              : "bg-[var(--duo-red)]/95"
+              ? "bg-[#d7ffb8]"
+              : "bg-[#ffdfe0]"
             : "bg-[var(--card)] border-t border-[var(--border)]"
         )}
       >
-        {isAnswered ? (
-          // Result bottom sheet
-          <div className="max-w-lg mx-auto">
-            <div className="flex items-center gap-3 mb-3">
-              {isCorrect ? (
-                <CheckCircle2 className="w-8 h-8 text-white" />
-              ) : (
-                <XCircle className="w-8 h-8 text-white" />
-              )}
-              <div>
-                <p className="font-bold text-white text-lg">
-                  {isCorrect ? "Chính xác!" : "Chưa đúng!"}
-                </p>
-                {!isCorrect && (
-                  <p className="text-white/80 text-sm">
-                    Đáp án đúng:{" "}
-                    {
-                      currentQ.options.find(
-                        (o) => o.id === currentQ.correctAnswer
-                      )?.text
-                    }
+        <div className="safe-area-bottom">
+          {isAnswered ? (
+            // Result bottom sheet - Duolingo style
+            <div className="px-4 py-4">
+              <div className="flex items-start gap-3 mb-4">
+                <div
+                  className={cn(
+                    "w-12 h-12 rounded-full flex items-center justify-center shrink-0",
+                    isCorrect ? "bg-[var(--duo-green)]" : "bg-[var(--duo-red)]"
+                  )}
+                >
+                  {isCorrect ? (
+                    <CheckCircle2 className="w-7 h-7 text-white" />
+                  ) : (
+                    <XCircle className="w-7 h-7 text-white" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p
+                    className={cn(
+                      "font-bold text-xl",
+                      isCorrect
+                        ? "text-[var(--duo-green)]"
+                        : "text-[var(--duo-red)]"
+                    )}
+                  >
+                    {isCorrect ? "Tuyệt vời!" : "Sai rồi!"}
                   </p>
-                )}
+                  {!isCorrect && (
+                    <p className="text-[var(--duo-red)] text-sm mt-1">
+                      Đáp án đúng:{" "}
+                      <span className="font-semibold">
+                        {
+                          currentQ.options.find(
+                            (o) => o.id === currentQ.correctAnswer
+                          )?.text
+                        }
+                      </span>
+                    </p>
+                  )}
+                </div>
               </div>
+              <button
+                onClick={nextQuestion}
+                className={cn(
+                  "w-full py-4 rounded-2xl font-bold text-base shadow-md active:scale-[0.98] transition-transform",
+                  isCorrect
+                    ? "bg-[var(--duo-green)] text-white"
+                    : "bg-[var(--duo-red)] text-white"
+                )}
+              >
+                {isLastQuestion ? "Xem kết quả" : "Tiếp tục"}
+              </button>
             </div>
-            <button
-              onClick={nextQuestion}
-              className="w-full py-3.5 rounded-2xl font-bold text-base bg-white text-[var(--duo-green)] shadow-lg"
-            >
-              {isLastQuestion ? "Xem kết quả" : "Tiếp tục"}
-            </button>
-          </div>
-        ) : (
-          // Check button
-          <div className="max-w-lg mx-auto">
-            <button
-              onClick={handleCheckAnswer}
-              disabled={!pendingAnswer}
-              className={cn(
-                "w-full py-3.5 rounded-2xl font-bold text-base transition-all",
-                pendingAnswer
-                  ? "btn-3d btn-3d-green"
-                  : "bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed"
-              )}
-            >
-              Kiểm tra
-            </button>
-          </div>
-        )}
+          ) : (
+            // Check button
+            <div className="px-4 py-4">
+              <button
+                onClick={handleCheckAnswer}
+                disabled={!pendingAnswer}
+                className={cn(
+                  "w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]",
+                  pendingAnswer
+                    ? "bg-[var(--duo-green)] text-white shadow-[0_4px_0_0_#58a700]"
+                    : "bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed"
+                )}
+              >
+                Kiểm tra
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Spacer for bottom sheet */}

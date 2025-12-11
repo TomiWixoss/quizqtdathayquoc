@@ -1,13 +1,5 @@
 import { Page, useNavigate } from "zmp-ui";
-import {
-  ArrowLeft,
-  RotateCcw,
-  Trophy,
-  Gem,
-  Bot,
-  Play,
-  Pause,
-} from "lucide-react";
+import { ArrowLeft, RotateCcw, Trophy, Gem, Bot, Pause } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect, useCallback, useRef } from "react";
 import confetti from "canvas-confetti";

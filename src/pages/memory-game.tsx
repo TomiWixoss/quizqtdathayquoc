@@ -275,7 +275,11 @@ function MemoryGamePage() {
                   <span className={`font-bold ${style.text}`}>
                     +{cfg.reward}
                   </span>
-                  <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                  <img
+                    src="/AppAssets/BlueDiamond.png"
+                    alt="gem"
+                    className="w-4 h-4"
+                  />
                 </div>
               </button>
             );
@@ -344,7 +348,11 @@ function MemoryGamePage() {
             </div>
           </div>
           <div className="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full">
-            <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+            <img
+              src="/AppAssets/BlueDiamond.png"
+              alt="gem"
+              className="w-5 h-5"
+            />
             <span className="font-bold text-white">{user?.gems ?? 0}</span>
           </div>
         </div>

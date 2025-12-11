@@ -80,6 +80,7 @@ function MinigamePage() {
     canSpin,
     getTimeUntilNextSpin,
     updateLastSpinTime,
+    updateMinigameStats,
   } = useUserStore();
   const [isSpinning, setIsSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
@@ -124,6 +125,7 @@ function MinigamePage() {
       await updateLastSpinTime();
 
       // Award prize
+      let gemsEarned = 0;
       if (selectedPrize.type === "heart") {
         // Add hearts
         const currentHearts = user?.hearts ?? 5;
@@ -133,8 +135,11 @@ function MinigamePage() {
         }
       } else if (selectedPrize.type === "gems") {
         await addGems(selectedPrize.amount);
+        gemsEarned = selectedPrize.amount;
       }
-      // XP prizes are just displayed for now
+
+      // Update minigame stats
+      await updateMinigameStats("spin", true, gemsEarned);
     }, 4000);
   };
 
@@ -271,6 +276,33 @@ function MinigamePage() {
             <div className="flex items-center gap-1">
               <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
               <span className="font-bold">{user.gems ?? 0}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Spin Stats */}
+        {user?.minigameStats?.spin && (
+          <div className="card-3d p-4 mt-4 w-full max-w-xs">
+            <h3 className="font-bold text-foreground mb-3 text-center">
+              Thống kê quay
+            </h3>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                <p className="text-lg font-bold text-[var(--duo-orange)]">
+                  {user.minigameStats.spin.totalSpins}
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)]">
+                  Lần quay
+                </p>
+              </div>
+              <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                <p className="text-lg font-bold text-[var(--duo-blue)]">
+                  {user.minigameStats.spin.totalGemsEarned}
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)]">
+                  Gems nhận
+                </p>
+              </div>
             </div>
           </div>
         )}

@@ -1,5 +1,5 @@
 import { Page } from "zmp-ui";
-import { Gift, Clock, Sparkles, Grid3X3 } from "lucide-react";
+import { Gift, Clock, Sparkles, Grid3X3, Brain } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useNavigate } from "zmp-ui";
 import { useState, useEffect } from "react";
@@ -206,11 +206,30 @@ function ShopPage() {
               <div className="flex-1 text-left">
                 <p className="font-bold text-foreground">Caro vs AI</p>
                 <p className="text-xs text-[var(--muted-foreground)]">
-                  Thắng AI để nhận 10 gems
+                  Thắng AI để nhận gems
                 </p>
               </div>
               <div className="px-3 py-1 rounded-full bg-[var(--duo-blue)] text-white text-xs font-bold">
                 Chơi
+              </div>
+            </button>
+
+            {/* Memory game */}
+            <button
+              onClick={() => navigate("/memory-game")}
+              className="card-3d p-4 w-full flex items-center gap-4"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--duo-pink)] to-[var(--duo-purple)] flex items-center justify-center">
+                <Brain className="w-7 h-7 text-white" />
+              </div>
+              <div className="flex-1 text-left">
+                <p className="font-bold text-foreground">Trò chơi trí nhớ</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Lật thẻ tìm cặp - Nhận gems
+                </p>
+              </div>
+              <div className="px-3 py-1 rounded-full bg-[var(--duo-purple)] text-white text-xs font-bold">
+                Mới
               </div>
             </button>
           </div>

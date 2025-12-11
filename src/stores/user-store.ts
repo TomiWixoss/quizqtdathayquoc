@@ -2,7 +2,12 @@ import { create } from "zustand";
 import { getUserInfo } from "zmp-sdk";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import type { UserStats, ChapterProgress, QuestProgress } from "@/types/quiz";
+import type {
+  UserStats,
+  ChapterProgress,
+  QuestProgress,
+  MinigameStats,
+} from "@/types/quiz";
 
 interface UserState {
   user: UserStats | null;
@@ -43,6 +48,12 @@ interface UserState {
   updateLastSpinTime: () => Promise<void>;
   canSpin: () => boolean;
   getTimeUntilNextSpin: () => string | null;
+  updateMinigameStats: (
+    game: keyof MinigameStats,
+    won: boolean,
+    gemsEarned?: number,
+    extraData?: Record<string, unknown>
+  ) => Promise<void>;
 }
 
 const getWeekStart = () => {
@@ -61,6 +72,27 @@ const DEFAULT_QUEST_PROGRESS: QuestProgress = {
   weeklyStartDate: getWeekStart(),
   claimedDailyQuests: [],
   claimedWeeklyQuests: [],
+};
+
+const DEFAULT_MINIGAME_STATS: MinigameStats = {
+  spin: {
+    totalSpins: 0,
+    totalGemsEarned: 0,
+    lastSpinTime: "",
+  },
+  caro: {
+    gamesPlayed: 0,
+    wins: 0,
+    losses: 0,
+    totalGemsEarned: 0,
+    bestDifficulty: "",
+  },
+  memory: {
+    gamesPlayed: 0,
+    wins: 0,
+    totalGemsEarned: 0,
+    bestTime: 0,
+  },
 };
 
 const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
@@ -99,6 +131,7 @@ const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
   claimedMails: [],
   usedRedeemCodes: [],
   lastSpinTime: "",
+  minigameStats: DEFAULT_MINIGAME_STATS,
 };
 
 export const useUserStore = create<UserState>((set, get) => ({
@@ -434,6 +467,20 @@ export const useUserStore = create<UserState>((set, get) => ({
         case "gems":
           earned = user.gems >= achievement.requirement;
           break;
+        // Minigame achievements
+        case "spin":
+          earned =
+            (user.minigameStats?.spin?.totalSpins ?? 0) >=
+            achievement.requirement;
+          break;
+        case "caro_wins":
+          earned =
+            (user.minigameStats?.caro?.wins ?? 0) >= achievement.requirement;
+          break;
+        case "memory_wins":
+          earned =
+            (user.minigameStats?.memory?.wins ?? 0) >= achievement.requirement;
+          break;
       }
 
       if (earned) {
@@ -653,5 +700,57 @@ export const useUserStore = create<UserState>((set, get) => ({
     const hours = Math.floor(remaining / (60 * 60 * 1000));
     const minutes = Math.floor((remaining % (60 * 60 * 1000)) / 60000);
     return `${hours}h ${minutes}m`;
+  },
+
+  updateMinigameStats: async (game, won, gemsEarned = 0, extraData = {}) => {
+    const { user, checkAchievements } = get();
+    if (!user) return;
+
+    const currentStats = user.minigameStats || DEFAULT_MINIGAME_STATS;
+    let newStats = { ...currentStats };
+
+    switch (game) {
+      case "spin":
+        newStats.spin = {
+          ...currentStats.spin,
+          totalSpins: currentStats.spin.totalSpins + 1,
+          totalGemsEarned: currentStats.spin.totalGemsEarned + gemsEarned,
+          lastSpinTime: new Date().toISOString(),
+        };
+        break;
+      case "caro":
+        newStats.caro = {
+          ...currentStats.caro,
+          gamesPlayed: currentStats.caro.gamesPlayed + 1,
+          wins: currentStats.caro.wins + (won ? 1 : 0),
+          losses: currentStats.caro.losses + (won ? 0 : 1),
+          totalGemsEarned: currentStats.caro.totalGemsEarned + gemsEarned,
+          bestDifficulty:
+            (extraData.difficulty as string) ||
+            currentStats.caro.bestDifficulty,
+        };
+        break;
+      case "memory":
+        newStats.memory = {
+          ...currentStats.memory,
+          gamesPlayed: currentStats.memory.gamesPlayed + 1,
+          wins: currentStats.memory.wins + (won ? 1 : 0),
+          totalGemsEarned: currentStats.memory.totalGemsEarned + gemsEarned,
+          bestTime: extraData.time
+            ? Math.max(currentStats.memory.bestTime, extraData.time as number)
+            : currentStats.memory.bestTime,
+        };
+        break;
+    }
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { minigameStats: newStats });
+      set({ user: { ...user, minigameStats: newStats } });
+      await checkAchievements();
+    } catch (error) {
+      console.error("Error updating minigame stats:", error);
+      set({ user: { ...user, minigameStats: newStats } });
+    }
   },
 }));

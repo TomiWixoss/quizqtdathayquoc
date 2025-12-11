@@ -60,6 +60,7 @@ export interface UserStats {
   usedRedeemCodes?: string[];
   // Minigame tracking
   lastSpinTime?: string;
+  minigameStats?: MinigameStats;
 }
 
 // Quest Progress Types
@@ -72,6 +73,28 @@ export interface QuestProgress {
   weeklyStartDate: string;
   claimedDailyQuests: string[];
   claimedWeeklyQuests: string[];
+}
+
+// Minigame Stats Types
+export interface MinigameStats {
+  spin: {
+    totalSpins: number;
+    totalGemsEarned: number;
+    lastSpinTime: string;
+  };
+  caro: {
+    gamesPlayed: number;
+    wins: number;
+    losses: number;
+    totalGemsEarned: number;
+    bestDifficulty: string;
+  };
+  memory: {
+    gamesPlayed: number;
+    wins: number;
+    totalGemsEarned: number;
+    bestTime: number;
+  };
 }
 
 // Conquest/Chinh Chiến Types
@@ -131,7 +154,10 @@ export interface Achievement {
     | "Coins"
     | "Swords"
     | "Shield"
-    | "Award";
+    | "Award"
+    | "Gamepad2"
+    | "Brain"
+    | "Dices";
   requirement: number;
   type:
     | "streak"
@@ -142,7 +168,10 @@ export interface Achievement {
     | "chapters"
     | "conquest"
     | "conquest_wins"
-    | "rank_points";
+    | "rank_points"
+    | "spin"
+    | "caro_wins"
+    | "memory_wins";
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
@@ -360,5 +389,72 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: "Trophy",
     requirement: 2000,
     type: "rank_points",
+  },
+  // Minigame achievements - Spin
+  {
+    id: "spin_10",
+    name: "May mắn",
+    description: "Quay vòng quay 10 lần",
+    icon: "Dices",
+    requirement: 10,
+    type: "spin",
+  },
+  {
+    id: "spin_50",
+    name: "Tay quay vàng",
+    description: "Quay vòng quay 50 lần",
+    icon: "Star",
+    requirement: 50,
+    type: "spin",
+  },
+  // Minigame achievements - Caro
+  {
+    id: "caro_wins_5",
+    name: "Kỳ thủ",
+    description: "Thắng 5 ván Caro",
+    icon: "Gamepad2",
+    requirement: 5,
+    type: "caro_wins",
+  },
+  {
+    id: "caro_wins_20",
+    name: "Cao thủ Caro",
+    description: "Thắng 20 ván Caro",
+    icon: "Trophy",
+    requirement: 20,
+    type: "caro_wins",
+  },
+  {
+    id: "caro_wins_50",
+    name: "Bậc thầy Caro",
+    description: "Thắng 50 ván Caro",
+    icon: "Crown",
+    requirement: 50,
+    type: "caro_wins",
+  },
+  // Minigame achievements - Memory
+  {
+    id: "memory_wins_5",
+    name: "Trí nhớ tốt",
+    description: "Thắng 5 ván Memory",
+    icon: "Brain",
+    requirement: 5,
+    type: "memory_wins",
+  },
+  {
+    id: "memory_wins_20",
+    name: "Siêu trí nhớ",
+    description: "Thắng 20 ván Memory",
+    icon: "Star",
+    requirement: 20,
+    type: "memory_wins",
+  },
+  {
+    id: "memory_wins_50",
+    name: "Thiên tài trí nhớ",
+    description: "Thắng 50 ván Memory",
+    icon: "Crown",
+    requirement: 50,
+    type: "memory_wins",
   },
 ];

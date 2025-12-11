@@ -85,7 +85,7 @@ const DIFFICULTY_CONFIG: Record<
 
 function CaroPage() {
   const navigate = useNavigate();
-  const { user, addGems } = useUserStore();
+  const { user, addGems, updateMinigameStats } = useUserStore();
   const [board, setBoard] = useState<CellValue[][]>(() => createEmptyBoard());
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [gameStatus, setGameStatus] = useState<GameStatus>("playing");
@@ -174,13 +174,19 @@ function CaroPage() {
         const winning = checkWin(newBoard, row, col, player);
         if (winning) {
           setWinningCells(winning);
-          setGameStatus(player === 1 ? "won" : "lost");
-          if (player === 1) addGems(config.reward);
+          const won = player === 1;
+          setGameStatus(won ? "won" : "lost");
+          if (won) {
+            addGems(config.reward);
+            updateMinigameStats("caro", true, config.reward, { difficulty });
+          } else {
+            updateMinigameStats("caro", false, 0, { difficulty });
+          }
         }
         return newBoard;
       });
     },
-    [checkWin, addGems, config.reward]
+    [checkWin, addGems, config.reward, updateMinigameStats, difficulty]
   );
 
   const handleCellClick = (row: number, col: number) => {
@@ -318,6 +324,48 @@ function CaroPage() {
               </button>
             );
           })}
+          {/* Caro Stats */}
+          {user?.minigameStats?.caro && (
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3">
+                Thống kê của bạn
+              </h3>
+              <div className="grid grid-cols-4 gap-2">
+                <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                  <p className="text-lg font-bold text-foreground">
+                    {user.minigameStats.caro.gamesPlayed}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Đã chơi
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                  <p className="text-lg font-bold text-[var(--duo-green)]">
+                    {user.minigameStats.caro.wins}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Thắng
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                  <p className="text-lg font-bold text-[var(--duo-red)]">
+                    {user.minigameStats.caro.losses}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Thua
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                  <p className="text-lg font-bold text-[var(--duo-blue)]">
+                    {user.minigameStats.caro.totalGemsEarned}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Gems
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </Page>
     );

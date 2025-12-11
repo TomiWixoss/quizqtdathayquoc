@@ -64,7 +64,27 @@ Lưu thông tin người dùng
   "claimedAchievementRewards": "string[] - ID thành tựu đã nhận thưởng",
   "claimedMails": "string[] - ID thư đã nhận",
   "usedRedeemCodes": "string[] - ID mã đã sử dụng",
-  "lastSpinTime": "string - ISO date - Lần quay cuối"
+  "lastSpinTime": "string - ISO date - Lần quay cuối",
+  "minigameStats": {
+    "spin": {
+      "totalSpins": "number - Tổng số lần quay",
+      "totalGemsEarned": "number - Tổng gems nhận từ quay",
+      "lastSpinTime": "string - ISO date"
+    },
+    "caro": {
+      "gamesPlayed": "number - Tổng số ván đã chơi",
+      "wins": "number - Số ván thắng",
+      "losses": "number - Số ván thua",
+      "totalGemsEarned": "number - Tổng gems nhận từ Caro",
+      "bestDifficulty": "string - Độ khó cao nhất đã thắng"
+    },
+    "memory": {
+      "gamesPlayed": "number - Tổng số ván đã chơi",
+      "wins": "number - Số ván thắng",
+      "totalGemsEarned": "number - Tổng gems nhận từ Memory",
+      "bestTime": "number - Thời gian còn lại tốt nhất khi thắng"
+    }
+  }
 }
 ```
 

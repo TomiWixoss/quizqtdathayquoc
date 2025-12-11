@@ -20,6 +20,7 @@ import MailboxPage from "../pages/mailbox";
 import ShopPage from "../pages/shop";
 import MinigamePage from "../pages/minigame";
 import CaroPage from "../pages/caro";
+import MemoryGamePage from "../pages/memory-game";
 import BattlePage from "../pages/battle";
 import ConquestPage from "../pages/conquest";
 import TestFirebasePage from "../pages/test-firebase";
@@ -55,6 +56,7 @@ const Layout = () => {
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/minigame" element={<MinigamePage />} />
             <Route path="/caro" element={<CaroPage />} />
+            <Route path="/memory-game" element={<MemoryGamePage />} />
             <Route path="/battle" element={<BattlePage />} />
             <Route path="/conquest" element={<ConquestPage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />

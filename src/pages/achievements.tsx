@@ -19,6 +19,9 @@ import {
   ArrowLeft,
   Swords,
   Shield,
+  Gamepad2,
+  Brain,
+  Dices,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
@@ -41,6 +44,9 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Swords,
   Shield,
   Award,
+  Gamepad2,
+  Brain,
+  Dices,
 };
 
 // Reward gems for each achievement
@@ -71,6 +77,15 @@ const ACHIEVEMENT_REWARDS: Record<string, number> = {
   rank_500: 75,
   rank_1000: 150,
   rank_2000: 300,
+  // Minigame achievements
+  spin_10: 20,
+  spin_50: 50,
+  caro_wins_5: 25,
+  caro_wins_20: 60,
+  caro_wins_50: 150,
+  memory_wins_5: 25,
+  memory_wins_20: 60,
+  memory_wins_50: 150,
 };
 
 function AchievementsPage() {

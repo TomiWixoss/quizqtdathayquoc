@@ -83,6 +83,13 @@ Lưu thông tin người dùng
       "wins": "number - Số ván thắng",
       "totalGemsEarned": "number - Tổng gems nhận từ Memory",
       "bestTime": "number - Thời gian còn lại tốt nhất khi thắng"
+    },
+    "game2048": {
+      "gamesPlayed": "number - Tổng số ván đã chơi",
+      "wins": "number - Số lần đạt 2048",
+      "totalGemsEarned": "number - Tổng gems nhận từ 2048",
+      "bestTile": "number - Tile cao nhất đạt được",
+      "bestScore": "number - Điểm cao nhất"
     }
   }
 }

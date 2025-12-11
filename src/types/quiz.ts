@@ -95,6 +95,13 @@ export interface MinigameStats {
     totalGemsEarned: number;
     bestTime: number;
   };
+  game2048: {
+    gamesPlayed: number;
+    wins: number;
+    totalGemsEarned: number;
+    bestTile: number;
+    bestScore: number;
+  };
 }
 
 // Conquest/Chinh Chiến Types
@@ -157,7 +164,8 @@ export interface Achievement {
     | "Award"
     | "Gamepad2"
     | "Brain"
-    | "Dices";
+    | "Dices"
+    | "Grid2X2";
   requirement: number;
   type:
     | "streak"
@@ -171,7 +179,8 @@ export interface Achievement {
     | "rank_points"
     | "spin"
     | "caro_wins"
-    | "memory_wins";
+    | "memory_wins"
+    | "game2048_tile";
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
@@ -456,5 +465,38 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: "Crown",
     requirement: 50,
     type: "memory_wins",
+  },
+  // Minigame achievements - 2048
+  {
+    id: "game2048_512",
+    name: "Người chơi 2048",
+    description: "Đạt tile 512 trong 2048",
+    icon: "Grid2X2",
+    requirement: 512,
+    type: "game2048_tile",
+  },
+  {
+    id: "game2048_1024",
+    name: "Gần đích",
+    description: "Đạt tile 1024 trong 2048",
+    icon: "Star",
+    requirement: 1024,
+    type: "game2048_tile",
+  },
+  {
+    id: "game2048_2048",
+    name: "Chinh phục 2048",
+    description: "Đạt tile 2048!",
+    icon: "Trophy",
+    requirement: 2048,
+    type: "game2048_tile",
+  },
+  {
+    id: "game2048_4096",
+    name: "Vượt giới hạn",
+    description: "Đạt tile 4096 trong 2048",
+    icon: "Crown",
+    requirement: 4096,
+    type: "game2048_tile",
   },
 ];

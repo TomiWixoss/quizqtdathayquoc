@@ -93,6 +93,13 @@ const DEFAULT_MINIGAME_STATS: MinigameStats = {
     totalGemsEarned: 0,
     bestTime: 0,
   },
+  game2048: {
+    gamesPlayed: 0,
+    wins: 0,
+    totalGemsEarned: 0,
+    bestTile: 0,
+    bestScore: 0,
+  },
 };
 
 const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
@@ -481,6 +488,11 @@ export const useUserStore = create<UserState>((set, get) => ({
           earned =
             (user.minigameStats?.memory?.wins ?? 0) >= achievement.requirement;
           break;
+        case "game2048_tile":
+          earned =
+            (user.minigameStats?.game2048?.bestTile ?? 0) >=
+            achievement.requirement;
+          break;
       }
 
       if (earned) {
@@ -739,6 +751,22 @@ export const useUserStore = create<UserState>((set, get) => ({
           bestTime: extraData.time
             ? Math.max(currentStats.memory.bestTime, extraData.time as number)
             : currentStats.memory.bestTime,
+        };
+        break;
+      case "game2048":
+        newStats.game2048 = {
+          ...currentStats.game2048,
+          gamesPlayed: currentStats.game2048.gamesPlayed + 1,
+          wins: currentStats.game2048.wins + (won ? 1 : 0),
+          totalGemsEarned: currentStats.game2048.totalGemsEarned + gemsEarned,
+          bestTile: Math.max(
+            currentStats.game2048.bestTile,
+            (extraData.maxTile as number) || 0
+          ),
+          bestScore: Math.max(
+            currentStats.game2048.bestScore,
+            (extraData.score as number) || 0
+          ),
         };
         break;
     }

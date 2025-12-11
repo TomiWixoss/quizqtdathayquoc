@@ -16,6 +16,7 @@ import {
   Gamepad2,
   Dices,
   Brain,
+  Grid2X2,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
@@ -482,7 +483,8 @@ function StatsPage() {
                   <p className="text-xl font-bold text-foreground">
                     {(user?.minigameStats?.spin?.totalSpins ?? 0) +
                       (user?.minigameStats?.caro?.gamesPlayed ?? 0) +
-                      (user?.minigameStats?.memory?.gamesPlayed ?? 0)}
+                      (user?.minigameStats?.memory?.gamesPlayed ?? 0) +
+                      (user?.minigameStats?.game2048?.gamesPlayed ?? 0)}
                   </p>
                   <p className="text-[10px] text-[var(--muted-foreground)]">
                     Tổng lượt chơi
@@ -491,7 +493,8 @@ function StatsPage() {
                 <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
                   <p className="text-xl font-bold text-[var(--duo-green)]">
                     {(user?.minigameStats?.caro?.wins ?? 0) +
-                      (user?.minigameStats?.memory?.wins ?? 0)}
+                      (user?.minigameStats?.memory?.wins ?? 0) +
+                      (user?.minigameStats?.game2048?.wins ?? 0)}
                   </p>
                   <p className="text-[10px] text-[var(--muted-foreground)]">
                     Tổng thắng
@@ -501,7 +504,8 @@ function StatsPage() {
                   <p className="text-xl font-bold text-[var(--duo-blue)]">
                     {(user?.minigameStats?.spin?.totalGemsEarned ?? 0) +
                       (user?.minigameStats?.caro?.totalGemsEarned ?? 0) +
-                      (user?.minigameStats?.memory?.totalGemsEarned ?? 0)}
+                      (user?.minigameStats?.memory?.totalGemsEarned ?? 0) +
+                      (user?.minigameStats?.game2048?.totalGemsEarned ?? 0)}
                   </p>
                   <p className="text-[10px] text-[var(--muted-foreground)]">
                     Tổng Gems
@@ -660,6 +664,50 @@ function StatsPage() {
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* 2048 Stats */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Grid2X2 className="w-5 h-5 text-[#edc22e]" />
+                2048
+              </h3>
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <p className="text-2xl font-bold text-foreground">
+                    {user?.minigameStats?.game2048?.gamesPlayed ?? 0}
+                  </p>
+                  <p className="text-xs text-[var(--muted-foreground)]">
+                    Đã chơi
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <p className="text-2xl font-bold text-[var(--duo-blue)]">
+                    {user?.minigameStats?.game2048?.totalGemsEarned ?? 0}
+                  </p>
+                  <p className="text-xs text-[var(--muted-foreground)]">
+                    Gems nhận
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <p className="text-2xl font-bold text-[#edc22e]">
+                    {user?.minigameStats?.game2048?.bestTile ?? 0}
+                  </p>
+                  <p className="text-xs text-[var(--muted-foreground)]">
+                    Tile cao nhất
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <p className="text-2xl font-bold text-[var(--duo-green)]">
+                    {user?.minigameStats?.game2048?.wins ?? 0}
+                  </p>
+                  <p className="text-xs text-[var(--muted-foreground)]">
+                    Đạt 2048
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}

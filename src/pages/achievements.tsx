@@ -22,6 +22,7 @@ import {
   Gamepad2,
   Brain,
   Dices,
+  Grid2X2,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
@@ -47,6 +48,7 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Gamepad2,
   Brain,
   Dices,
+  Grid2X2,
 };
 
 // Reward gems for each achievement
@@ -86,6 +88,11 @@ const ACHIEVEMENT_REWARDS: Record<string, number> = {
   memory_wins_5: 25,
   memory_wins_20: 60,
   memory_wins_50: 150,
+  // 2048 achievements
+  game2048_512: 30,
+  game2048_1024: 60,
+  game2048_2048: 150,
+  game2048_4096: 300,
 };
 
 function AchievementsPage() {

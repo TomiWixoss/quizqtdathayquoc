@@ -13,9 +13,12 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import confetti from "canvas-confetti";
 
 type GameStatus = "playing" | "won" | "lost";
-type Cell =
-  | { value: number; id: number; merged?: boolean; isNew?: boolean }
-  | null;
+type Cell = {
+  value: number;
+  id: number;
+  merged?: boolean;
+  isNew?: boolean;
+} | null;
 
 const GRID_SIZE = 4;
 const WIN_VALUE = 2048;
@@ -456,9 +459,13 @@ function Game2048Page() {
 
       {/* Game Status Overlay */}
       {gameStatus !== "playing" && (
-        <div className="mx-4 mb-4 p-4 rounded-2xl text-center" style={{
-          background: gameStatus === "won" ? "var(--duo-green)" : "var(--duo-red)",
-        }}>
+        <div
+          className="mx-4 mb-4 p-4 rounded-2xl text-center"
+          style={{
+            background:
+              gameStatus === "won" ? "var(--duo-green)" : "var(--duo-red)",
+          }}
+        >
           <div className="flex items-center justify-center gap-2 mb-2">
             {gameStatus === "won" && <Trophy className="w-6 h-6 text-white" />}
             <span className="font-bold text-lg text-white">
@@ -482,4 +489,124 @@ function Game2048Page() {
             )}
             <button
               onClick={initGame}
-              className="px-4 py-2 bg-white/20 rounded-xl text-whit
+              className="px-4 py-2 bg-white/20 rounded-xl text-white font-bold text-sm"
+            >
+              Chơi lại
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Grid */}
+      <div
+        className="px-4 flex justify-center"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div
+          className="bg-[#bbada0] rounded-xl p-2 grid gap-2"
+          style={{
+            gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+            width: "min(90vw, 340px)",
+            aspectRatio: "1",
+          }}
+        >
+          {grid.flat().map((cell, index) => (
+            <div
+              key={index}
+              className="rounded-lg flex items-center justify-center font-bold transition-all duration-100"
+              style={{
+                backgroundColor: cell
+                  ? TILE_COLORS[cell.value]?.bg || "#3c3a32"
+                  : "#cdc1b4",
+                color: cell
+                  ? TILE_COLORS[cell.value]?.text || "#f9f6f2"
+                  : "transparent",
+                fontSize:
+                  cell && cell.value >= 1000
+                    ? "1.2rem"
+                    : cell && cell.value >= 100
+                    ? "1.5rem"
+                    : "1.8rem",
+                transform: cell?.merged
+                  ? "scale(1.1)"
+                  : cell?.isNew
+                  ? "scale(0.9)"
+                  : "scale(1)",
+              }}
+            >
+              {cell?.value || ""}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Controls hint */}
+      <div className="px-4 py-4 text-center">
+        <p className="text-sm text-[var(--muted-foreground)]">
+          Vuốt hoặc dùng phím mũi tên để di chuyển
+        </p>
+      </div>
+
+      {/* Rewards info */}
+      <div className="px-4 pb-6">
+        <div className="card-3d p-4">
+          <h3 className="font-bold text-foreground mb-2 text-sm">
+            Phần thưởng
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(REWARDS).map(([tile, gems]) => (
+              <div
+                key={tile}
+                className={`px-2 py-1 rounded-lg text-xs font-bold ${
+                  maxTile >= parseInt(tile)
+                    ? "bg-[var(--duo-green)]/20 text-[var(--duo-green)]"
+                    : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
+                }`}
+              >
+                {tile}: {gems}💎
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Stats */}
+      {user?.minigameStats?.game2048 && (
+        <div className="px-4 pb-28">
+          <div className="card-3d p-4">
+            <h3 className="font-bold text-foreground mb-3">Thống kê của bạn</h3>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                <p className="text-lg font-bold text-foreground">
+                  {user.minigameStats.game2048.gamesPlayed}
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)]">
+                  Đã chơi
+                </p>
+              </div>
+              <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                <p className="text-lg font-bold text-[var(--duo-yellow)]">
+                  {user.minigameStats.game2048.bestTile}
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)]">
+                  Tile cao nhất
+                </p>
+              </div>
+              <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                <p className="text-lg font-bold text-[var(--duo-blue)]">
+                  {user.minigameStats.game2048.totalGemsEarned}
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)]">
+                  Gems
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </Page>
+  );
+}
+
+export default Game2048Page;

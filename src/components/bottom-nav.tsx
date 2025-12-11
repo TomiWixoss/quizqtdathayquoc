@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "zmp-ui";
 import { Home, Trophy, Target, Gift, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useConquestStore } from "@/stores/conquest-store";
 
 const navItems = [
   { path: "/", icon: Home, label: "Trang chủ" },
@@ -13,9 +14,14 @@ const navItems = [
 export function BottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isActive: isConquestActive } = useConquestStore();
 
-  // Hide on quiz and minigame pages
-  if (location.pathname === "/quiz" || location.pathname === "/minigame")
+  // Hide on quiz, minigame pages, and during conquest quiz
+  if (
+    location.pathname === "/quiz" ||
+    location.pathname === "/minigame" ||
+    (location.pathname === "/conquest" && isConquestActive)
+  )
     return null;
 
   return (

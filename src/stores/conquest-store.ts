@@ -163,27 +163,12 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
   },
 
   nextQuestion: async () => {
-    const { currentIndex, questions, rank } = get();
+    const { currentIndex, questions } = get();
     const nextIndex = currentIndex + 1;
 
+    // Nếu hết câu hỏi, return false để kết thúc
     if (nextIndex >= questions.length) {
-      // Load thêm câu hỏi mới
-      set({ isLoading: true });
-      try {
-        const newQuestions = await generateAIQuestions(
-          rank,
-          QUESTIONS_PER_ROUND
-        );
-        set({
-          questions: newQuestions,
-          currentIndex: 0,
-          isLoading: false,
-        });
-        return true;
-      } catch {
-        set({ isLoading: false });
-        return false;
-      }
+      return false;
     }
 
     set({ currentIndex: nextIndex });

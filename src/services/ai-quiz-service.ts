@@ -1238,13 +1238,11 @@ export function getRankFromPoints(points: number): UserRank {
 
   // Xử lý đặc biệt cho rank Master (Huyền Thoại)
   if (currentRank.id === "master") {
-    // Rank Master không có tier, hiển thị điểm thay vì tier
-    const masterPoints = points - currentRank.minScore;
     return {
       rankId: currentRank.id as RankId,
       tier: 0, // Không có tier
       points,
-      rankName: `${currentRank.name} (${masterPoints} LP)`, // LP = Legend Points
+      rankName: currentRank.name, // Chỉ hiện "Huyền Thoại"
     };
   }
 

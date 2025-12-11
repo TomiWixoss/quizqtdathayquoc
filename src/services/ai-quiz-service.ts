@@ -257,6 +257,8 @@ function buildQuestionPrompt(rank: UserRank, questionCount: number): string {
 
   return `Bạn là AI tạo câu hỏi trắc nghiệm về Quản Trị Dự Án CNTT.
 
+⚠️ BẮT BUỘC: TẤT CẢ CÂU HỎI, ĐÁP ÁN, GIẢI THÍCH PHẢI BẰNG TIẾNG VIỆT. KHÔNG DÙNG TIẾNG ANH HAY NGÔN NGỮ KHÁC.
+
 RANK HIỆN TẠI: ${rank.rankName} (Độ khó: ${totalDifficulty.toFixed(1)}/12)
 MỨC ĐỘ: ${difficultyDesc}
 SÁNG TẠO: ${creativity}
@@ -264,6 +266,7 @@ SÁNG TẠO: ${creativity}
 Tạo ${questionCount} câu hỏi với các loại: ${questionTypes}
 
 QUY TẮC:
+- NGÔN NGỮ: Chỉ dùng tiếng Việt cho tất cả nội dung
 - multiple_choice: 4 options, correctAnswer là 1 trong các options
 - true_false: options là ["Đúng", "Sai"], correctAnswer là "Đúng" hoặc "Sai"
 - fill_blank: question có chỗ trống ___, correctAnswer là từ cần điền

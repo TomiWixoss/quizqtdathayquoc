@@ -1240,6 +1240,23 @@ export function getRankImage(rank: UserRank): string {
   return `/Rank/${rankInfo.folder}/rank-${rank.rankId}-${imageNumber}_NoOL_large.png`;
 }
 
+// Danh sách đầy đủ 13 chương để random
+const CHAPTERS = [
+  "Chương 1: Tổng quan dự án",
+  "Chương 2: Giao tiếp và truyền thông",
+  "Chương 3: Ước lượng dự án",
+  "Chương 4: Lập lịch dự án",
+  "Chương 5: Kiểm soát và giám sát",
+  "Chương 6: Quản lý phạm vi",
+  "Chương 7: Quản lý thời gian",
+  "Chương 8: Quản lý chi phí",
+  "Chương 9: Quản lý chất lượng",
+  "Chương 10: Quản lý nhân lực",
+  "Chương 11: Truyền thông và giao tiếp",
+  "Chương 12: Quản lý rủi ro",
+  "Chương 13: Quản lý tích hợp",
+];
+
 // Tạo prompt dựa trên rank và tier
 function buildQuestionPrompt(rank: UserRank, questionCount: number): string {
   const difficulty =
@@ -1280,15 +1297,38 @@ function buildQuestionPrompt(rank: UserRank, questionCount: number): string {
       "Tạo câu hỏi theo lối hoàn toàn khác, kết hợp đa chương, phân tích case study";
   }
 
+  // Random chọn các chương để tạo câu hỏi đa dạng
+  const shuffledChapters = [...CHAPTERS].sort(() => Math.random() - 0.5);
+  const selectedChapters = shuffledChapters.slice(
+    0,
+    Math.min(questionCount, CHAPTERS.length)
+  );
+
+  // Tạo seed ngẫu nhiên để AI tạo câu hỏi khác nhau mỗi lần
+  const randomSeed = Math.floor(Math.random() * 1000000);
+  const timestamp = Date.now();
+
   return `Bạn là AI tạo câu hỏi trắc nghiệm về Quản Trị Dự Án CNTT.
 
 ⚠️ BẮT BUỘC: TẤT CẢ CÂU HỎI, ĐÁP ÁN, GIẢI THÍCH PHẢI BẰNG TIẾNG VIỆT. KHÔNG DÙNG TIẾNG ANH HAY NGÔN NGỮ KHÁC.
+
+🎲 SESSION ID: ${randomSeed}-${timestamp}
+(Dùng session ID này để tạo bộ câu hỏi HOÀN TOÀN MỚI, KHÁC với các lần trước)
 
 RANK HIỆN TẠI: ${rank.rankName} (Độ khó: ${totalDifficulty.toFixed(1)}/12)
 MỨC ĐỘ: ${difficultyDesc}
 SÁNG TẠO: ${creativity}
 
+📚 CHỌN CÂU HỎI TỪ CÁC CHƯƠNG SAU (mỗi chương ít nhất 1 câu nếu có thể):
+${selectedChapters.map((ch, i) => `${i + 1}. ${ch}`).join("\n")}
+
 Tạo ${questionCount} câu hỏi với các loại: ${questionTypes}
+
+⚠️ YÊU CẦU QUAN TRỌNG:
+- PHẢI tạo câu hỏi KHÁC NHAU mỗi lần gọi, KHÔNG lặp lại câu hỏi cũ
+- Chọn NGẪU NHIÊN các câu hỏi từ tài liệu, ưu tiên các chương được chỉ định
+- Có thể BIẾN ĐỔI cách diễn đạt, thay đổi thứ tự đáp án
+- Mỗi câu hỏi phải có ID duy nhất (dùng format: q_${randomSeed}_1, q_${randomSeed}_2, ...)
 
 QUY TẮC:
 - NGÔN NGỮ: Chỉ dùng tiếng Việt cho tất cả nội dung
@@ -1313,6 +1353,7 @@ export async function generateAIQuestions(
     const prompt = buildQuestionPrompt(rank, questionCount);
 
     // Sử dụng model gpt-oss-120b với Structured Outputs
+    // Temperature cao hơn (0.9) để tạo câu hỏi đa dạng hơn mỗi lần gọi
     const response = await client.chat.completions.create({
       model: "gpt-oss-120b",
       messages: [
@@ -1320,7 +1361,7 @@ export async function generateAIQuestions(
         { role: "user", content: prompt },
       ],
       max_completion_tokens: 65536,
-      temperature: 0.7,
+      temperature: 0.9,
       top_p: 0.95,
       reasoning_effort: "high",
       response_format: {

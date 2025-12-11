@@ -35,9 +35,7 @@ function SettingsPage() {
   const [unreadMail, setUnreadMail] = useState(0);
 
   const earnedCount = (user?.achievements ?? []).length;
-  const claimedRewards = JSON.parse(
-    localStorage.getItem("claimedAchievementRewards") || "[]"
-  );
+  const claimedRewards = user?.claimedAchievementRewards ?? [];
   const claimableCount = ACHIEVEMENTS.filter(
     (a) =>
       (user?.achievements ?? []).includes(a.id) &&

@@ -247,86 +247,73 @@ export function QuizCard() {
       {/* Bottom Sheet - Result or Check Button */}
       <div
         className={cn(
-          "fixed bottom-0 left-0 right-0 transition-all duration-300 z-40",
+          "fixed bottom-0 left-0 right-0 z-40 safe-bottom",
           isAnswered
             ? isCorrect
               ? "bg-[#d7ffb8]"
               : "bg-[#ffdfe0]"
-            : "bg-[var(--card)] border-t border-[var(--border)]"
+            : "bg-[var(--card)] border-t-2 border-[var(--border)]"
         )}
       >
-        <div className="safe-area-bottom">
-          {isAnswered ? (
-            // Result bottom sheet - Duolingo style
-            <div className="px-4 py-4">
-              <div className="flex items-start gap-3 mb-4">
-                <div
+        {isAnswered ? (
+          // Result bottom sheet - Duolingo style
+          <div className="px-4 pt-4 pb-6">
+            <div className="flex items-center gap-4 mb-4">
+              {isCorrect ? (
+                <CheckCircle2 className="w-10 h-10 text-[var(--duo-green)]" />
+              ) : (
+                <XCircle className="w-10 h-10 text-[var(--duo-red)]" />
+              )}
+              <div className="flex-1">
+                <p
                   className={cn(
-                    "w-12 h-12 rounded-full flex items-center justify-center shrink-0",
-                    isCorrect ? "bg-[var(--duo-green)]" : "bg-[var(--duo-red)]"
+                    "font-bold text-xl",
+                    isCorrect
+                      ? "text-[var(--duo-green)]"
+                      : "text-[var(--duo-red)]"
                   )}
                 >
-                  {isCorrect ? (
-                    <CheckCircle2 className="w-7 h-7 text-white" />
-                  ) : (
-                    <XCircle className="w-7 h-7 text-white" />
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p
-                    className={cn(
-                      "font-bold text-xl",
-                      isCorrect
-                        ? "text-[var(--duo-green)]"
-                        : "text-[var(--duo-red)]"
-                    )}
-                  >
-                    {isCorrect ? "Tuyệt vời!" : "Sai rồi!"}
+                  {isCorrect ? "Chính xác!" : "Sai mất rồi!"}
+                </p>
+                {!isCorrect && (
+                  <p className="text-[var(--duo-red)]/80 text-sm">
+                    Đáp án:{" "}
+                    {
+                      currentQ.options.find(
+                        (o) => o.id === currentQ.correctAnswer
+                      )?.text
+                    }
                   </p>
-                  {!isCorrect && (
-                    <p className="text-[var(--duo-red)] text-sm mt-1">
-                      Đáp án đúng:{" "}
-                      <span className="font-semibold">
-                        {
-                          currentQ.options.find(
-                            (o) => o.id === currentQ.correctAnswer
-                          )?.text
-                        }
-                      </span>
-                    </p>
-                  )}
-                </div>
+                )}
               </div>
-              <button
-                onClick={nextQuestion}
-                className={cn(
-                  "w-full py-4 rounded-2xl font-bold text-base shadow-md active:scale-[0.98] transition-transform",
-                  isCorrect
-                    ? "bg-[var(--duo-green)] text-white"
-                    : "bg-[var(--duo-red)] text-white"
-                )}
-              >
-                {isLastQuestion ? "Xem kết quả" : "Tiếp tục"}
-              </button>
             </div>
-          ) : (
-            // Check button
-            <div className="px-4 py-4">
-              <button
-                onClick={handleCheckAnswer}
-                disabled={!pendingAnswer}
-                className={cn(
-                  "w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]",
-                  pendingAnswer
-                    ? "bg-[var(--duo-green)] text-white shadow-[0_4px_0_0_#58a700]"
-                    : "bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed"
-                )}
-              >
-                Kiểm tra
-              </button>
-            </div>
-          )}
-        </div>
+            <button
+              onClick={nextQuestion}
+              className={cn(
+                "btn-3d w-full py-3.5 text-base",
+                isCorrect ? "btn-3d-green" : "btn-3d-orange"
+              )}
+            >
+              {isLastQuestion ? "XEM KẾT QUẢ" : "TIẾP TỤC"}
+            </button>
+          </div>
+        ) : (
+          // Check button
+          <div className="px-4 pt-4 pb-6">
+            <button
+              onClick={handleCheckAnswer}
+              disabled={!pendingAnswer}
+              className={cn(
+                "btn-3d w-full py-3.5 text-base",
+                pendingAnswer
+                  ? "btn-3d-green"
+                  : "bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed shadow-[0_5px_0_var(--border)]"
+              )}
+            >
+              KIỂM TRA
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Spacer for bottom sheet */}

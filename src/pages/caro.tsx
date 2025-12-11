@@ -2,6 +2,7 @@ import { Page, useNavigate } from "zmp-ui";
 import { ArrowLeft, RotateCcw, Trophy, Gem } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { createCaroWorker, CaroWorkerType } from "@/lib/inline-workers";
 
 const BOARD_SIZE = 15;
 const WIN_LENGTH = 5;
@@ -23,7 +24,7 @@ const DIFFICULTY_CONFIG: Record<
     depth: number;
     reward: number;
     label: string;
-    worker: string;
+    workerType: CaroWorkerType;
     time?: number;
     desc: string;
   }
@@ -32,21 +33,21 @@ const DIFFICULTY_CONFIG: Record<
     depth: 4,
     reward: 5,
     label: "Dễ",
-    worker: "/AI/caro-ai-worker-v2.js",
+    workerType: "v2",
     desc: "AI suy nghĩ nông",
   },
   medium: {
     depth: 6,
     reward: 10,
     label: "Trung bình",
-    worker: "/AI/caro-ai-worker-v2.js",
+    workerType: "v2",
     desc: "AI cân bằng",
   },
   hard: {
     depth: 8,
     reward: 20,
     label: "Khó",
-    worker: "/AI/caro-ai-worker.js",
+    workerType: "v1",
     time: 3000,
     desc: "AI suy nghĩ sâu",
   },
@@ -54,7 +55,7 @@ const DIFFICULTY_CONFIG: Record<
     depth: 0,
     reward: 50,
     label: "Siêu khó",
-    worker: "/AI/caro-ai-worker-v3.js",
+    workerType: "v3",
     time: 5000,
     desc: "AI không giới hạn",
   },
@@ -62,14 +63,14 @@ const DIFFICULTY_CONFIG: Record<
     depth: 6,
     reward: 100,
     label: "Bậc thầy",
-    worker: "/AI/caro-ai-worker-v4.js",
+    workerType: "v4",
     desc: "NegaScout - AI mạnh",
   },
   legend: {
     depth: 0,
     reward: 200,
     label: "Huyền thoại",
-    worker: "/AI/caro-ai-worker-v5.js",
+    workerType: "v5",
     time: 8000,
     desc: "NegaScout + Iterative",
   },
@@ -77,7 +78,7 @@ const DIFFICULTY_CONFIG: Record<
     depth: 0,
     reward: 500,
     label: "Tối thượng",
-    worker: "/AI/caro-ai-ultimate.js",
+    workerType: "ultimate",
     time: 3000,
     desc: "Siêu phàm - Killer Moves + History",
   },
@@ -106,7 +107,8 @@ function CaroPage() {
   useEffect(() => {
     if (!gameStarted) return;
     workerRef.current?.terminate();
-    workerRef.current = new Worker(config.worker);
+    // Sử dụng inline worker để tránh CORS khi deploy lên Zalo
+    workerRef.current = createCaroWorker(config.workerType);
     workerRef.current.onmessage = (e) => {
       const { bestmove } = e.data;
       if (bestmove && gameStatus === "playing") {
@@ -114,6 +116,11 @@ function CaroPage() {
         setIsThinking(false);
         setIsPlayerTurn(true);
       }
+    };
+    workerRef.current.onerror = (err) => {
+      console.error("Worker error:", err);
+      setIsThinking(false);
+      setIsPlayerTurn(true);
     };
     return () => workerRef.current?.terminate();
   }, [gameStarted, difficulty]);
@@ -319,7 +326,11 @@ function CaroPage() {
                   <span className={`font-bold ${style.text}`}>
                     +{cfg.reward}
                   </span>
-                  <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                  <img
+                    src="/AppAssets/BlueDiamond.png"
+                    alt="gem"
+                    className="w-4 h-4"
+                  />
                 </div>
               </button>
             );
@@ -392,7 +403,11 @@ function CaroPage() {
             </div>
           </div>
           <div className="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full">
-            <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+            <img
+              src="/AppAssets/BlueDiamond.png"
+              alt="gem"
+              className="w-5 h-5"
+            />
             <span className="font-bold text-white">{user?.gems ?? 0}</span>
           </div>
         </div>

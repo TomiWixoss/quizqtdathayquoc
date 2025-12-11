@@ -3,6 +3,7 @@ import { ArrowLeft, RotateCcw, Trophy, Gem, Bot, Pause } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect, useCallback, useRef } from "react";
 import confetti from "canvas-confetti";
+import { create2048Worker } from "@/lib/inline-workers";
 
 type GameStatus = "playing" | "won" | "lost";
 type Cell = {
@@ -108,13 +109,17 @@ function Game2048Page() {
     const saved = localStorage.getItem("2048-best-score");
     if (saved) setBestScore(parseInt(saved, 10));
 
-    // Initialize AI worker
-    workerRef.current = new Worker("/AI/2048-ai-worker.js");
+    // Initialize AI worker - sử dụng inline worker để tránh CORS
+    workerRef.current = create2048Worker();
     workerRef.current.onmessage = (e) => {
       const { move } = e.data;
       if (move !== -1 && move !== undefined) {
         handleMove(move);
       }
+    };
+    workerRef.current.onerror = (err) => {
+      console.error("2048 AI Worker error:", err);
+      setIsAIPlaying(false);
     };
 
     return () => {
@@ -405,7 +410,11 @@ function Game2048Page() {
             </div>
           </div>
           <div className="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full">
-            <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+            <img
+              src="/AppAssets/BlueDiamond.png"
+              alt="gem"
+              className="w-5 h-5"
+            />
             <span className="font-bold text-white">{user?.gems ?? 0}</span>
           </div>
         </div>

@@ -11,7 +11,7 @@ Lưu thông tin người dùng
   "oderId": "string - Zalo user ID",
   "odername": "string - Tên người dùng",
   "avatar": "string - URL avatar",
-  "totalScore": "number",
+  "totalScore": "number - Sync với conquestStats.rankPoints",
   "totalCorrect": "number",
   "totalWrong": "number",
   "totalQuizzes": "number",
@@ -40,11 +40,75 @@ Lưu thông tin người dùng
   "achievements": "string[] - achievement IDs",
   "totalPlayTime": "number",
   "perfectLessons": "number",
-  "longestStreak": "number"
+  "longestStreak": "number",
+  "conquestStats": {
+    "rankPoints": "number - Điểm rank hiện tại",
+    "highestRankId": "string - Rank cao nhất đạt được",
+    "totalConquests": "number - Tổng số trận đã chơi",
+    "totalConquestCorrect": "number - Tổng câu đúng trong Chinh Chiến",
+    "totalConquestWrong": "number - Tổng câu sai trong Chinh Chiến",
+    "bestWinStreak": "number - Chuỗi thắng tốt nhất",
+    "currentWinStreak": "number - Chuỗi thắng hiện tại",
+    "lastConquestDate": "string - ISO date"
+  },
+  "questProgress": {
+    "dailyCorrect": "number - Số câu đúng hôm nay",
+    "dailyQuizzes": "number - Số quiz hoàn thành hôm nay",
+    "dailyDate": "string - Ngày hiện tại (để reset)",
+    "weeklyXP": "number - XP kiếm được trong tuần",
+    "weeklyPerfect": "number - Số quiz 100% trong tuần",
+    "weeklyStartDate": "string - Ngày bắt đầu tuần (để reset)",
+    "claimedDailyQuests": "string[] - ID nhiệm vụ ngày đã nhận",
+    "claimedWeeklyQuests": "string[] - ID nhiệm vụ tuần đã nhận"
+  },
+  "claimedAchievementRewards": "string[] - ID thành tựu đã nhận thưởng",
+  "claimedMails": "string[] - ID thư đã nhận",
+  "usedRedeemCodes": "string[] - ID mã đã sử dụng",
+  "lastSpinTime": "string - ISO date - Lần quay cuối"
 }
 ```
 
-### 2. mails
+### 2. conquestSessions
+
+Lưu lịch sử các phiên Chinh Chiến
+
+```json
+{
+  "oderId": "string - Zalo user ID",
+  "startTime": "string - ISO date",
+  "endTime": "string - ISO date",
+  "rankBefore": "string - Rank ID trước khi chơi",
+  "rankAfter": "string - Rank ID sau khi chơi",
+  "pointsBefore": "number - Điểm trước khi chơi",
+  "pointsAfter": "number - Điểm sau khi chơi",
+  "pointsGained": "number - Điểm thay đổi (có thể âm)",
+  "correctCount": "number - Số câu đúng",
+  "wrongCount": "number - Số câu sai",
+  "totalQuestions": "number - Tổng số câu hỏi",
+  "accuracy": "number - Độ chính xác (%)"
+}
+```
+
+**Ví dụ:**
+
+```json
+{
+  "oderId": "user123",
+  "startTime": "2024-12-11T10:00:00.000Z",
+  "endTime": "2024-12-11T10:15:00.000Z",
+  "rankBefore": "bronze_3",
+  "rankAfter": "bronze_4",
+  "pointsBefore": 250,
+  "pointsAfter": 320,
+  "pointsGained": 70,
+  "correctCount": 8,
+  "wrongCount": 2,
+  "totalQuestions": 10,
+  "accuracy": 80
+}
+```
+
+### 3. mails
 
 Hòm thư - gửi quà cho tất cả người dùng
 
@@ -70,7 +134,7 @@ Hòm thư - gửi quà cho tất cả người dùng
 }
 ```
 
-### 3. redeemCodes
+### 4. redeemCodes
 
 Mã đổi thưởng
 
@@ -107,6 +171,12 @@ service cloud.firestore {
     // Users - chỉ đọc/ghi document của chính mình
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Conquest Sessions - user chỉ đọc/ghi session của mình
+    match /conquestSessions/{sessionId} {
+      allow read: if request.auth != null && resource.data.oderId == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.oderId == request.auth.uid;
     }
 
     // Mails - chỉ đọc

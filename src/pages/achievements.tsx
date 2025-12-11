@@ -17,8 +17,9 @@ import {
   CheckCircle,
   Gift,
   ArrowLeft,
+  Swords,
+  Shield,
 } from "lucide-react";
-// Keep Lucide icons for ICON_MAP
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
 import { useState } from "react";
@@ -37,6 +38,9 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Sparkles,
   Medal,
   Coins,
+  Swords,
+  Shield,
+  Award,
 };
 
 // Reward gems for each achievement
@@ -48,51 +52,43 @@ const ACHIEVEMENT_REWARDS: Record<string, number> = {
   correct_50: 25,
   correct_100: 50,
   correct_500: 150,
+  correct_1000: 300,
   perfect_5: 30,
   perfect_20: 80,
+  perfect_50: 200,
   level_5: 25,
   level_10: 50,
+  level_20: 100,
   gems_100: 20,
+  gems_500: 50,
+  gems_1000: 100,
+  conquest_first: 20,
+  conquest_10: 50,
+  conquest_50: 150,
+  conquest_wins_5: 40,
+  conquest_wins_10: 100,
+  rank_100: 30,
+  rank_500: 75,
+  rank_1000: 150,
+  rank_2000: 300,
 };
 
 function AchievementsPage() {
   const navigate = useNavigate();
-  const { user, addGems } = useUserStore();
-  const [claimedRewards, setClaimedRewards] = useState<string[]>(() => {
-    const saved = localStorage.getItem("claimedAchievementRewards");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { user, addGems, claimAchievementReward } = useUserStore();
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [currentReward, setCurrentReward] = useState<{
     achievement: Achievement;
     gems: number;
   } | null>(null);
 
+  // Get claimed rewards from Firebase user data
+  const claimedRewards = user?.claimedAchievementRewards || [];
+
   const getProgress = (achievement: Achievement) => {
     if (!user) return 0;
-    switch (achievement.type) {
-      case "streak":
-        return Math.min((user.streak / achievement.requirement) * 100, 100);
-      case "correct":
-        return Math.min(
-          (user.totalCorrect / achievement.requirement) * 100,
-          100
-        );
-      case "perfect":
-        return Math.min(
-          ((user.perfectLessons ?? 0) / achievement.requirement) * 100,
-          100
-        );
-      case "level":
-        return Math.min((user.level / achievement.requirement) * 100, 100);
-      case "gems":
-        return Math.min(
-          ((user.gems ?? 0) / achievement.requirement) * 100,
-          100
-        );
-      default:
-        return 0;
-    }
+    const current = getCurrentValue(achievement);
+    return Math.min((current / achievement.requirement) * 100, 100);
   };
 
   const getCurrentValue = (achievement: Achievement) => {
@@ -108,6 +104,12 @@ function AchievementsPage() {
         return user.level ?? 1;
       case "gems":
         return user.gems ?? 0;
+      case "conquest":
+        return user.conquestStats?.totalConquests ?? 0;
+      case "conquest_wins":
+        return user.conquestStats?.bestWinStreak ?? 0;
+      case "rank_points":
+        return user.conquestStats?.rankPoints ?? 0;
       default:
         return 0;
     }
@@ -125,13 +127,8 @@ function AchievementsPage() {
     // Add gems
     await addGems(gems);
 
-    // Mark as claimed
-    const newClaimed = [...claimedRewards, achievement.id];
-    setClaimedRewards(newClaimed);
-    localStorage.setItem(
-      "claimedAchievementRewards",
-      JSON.stringify(newClaimed)
-    );
+    // Mark as claimed in Firebase
+    await claimAchievementReward(achievement.id);
 
     // Show reward modal
     setCurrentReward({ achievement, gems });

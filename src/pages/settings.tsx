@@ -26,7 +26,7 @@ import { db } from "@/lib/firebase";
 function SettingsPage() {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useThemeStore();
-  const { user, addGems } = useUserStore();
+  const { user, addGems, useRedeemCode } = useUserStore();
   const [showRedeemModal, setShowRedeemModal] = useState(false);
   const [redeemCode, setRedeemCode] = useState("");
   const [redeemStatus, setRedeemStatus] = useState<
@@ -49,9 +49,8 @@ function SettingsPage() {
     const checkMail = async () => {
       if (!user?.oderId) return;
       try {
-        const claimedMails = JSON.parse(
-          localStorage.getItem("claimedMails") || "[]"
-        );
+        // Get claimed mails from Firebase user data
+        const claimedMails = user.claimedMails || [];
         const mailRef = collection(db, "mails");
         const q = query(mailRef, where("active", "==", true));
         const snapshot = await getDocs(q);
@@ -64,7 +63,7 @@ function SettingsPage() {
       }
     };
     checkMail();
-  }, [user?.oderId]);
+  }, [user?.oderId, user?.claimedMails]);
 
   // Redeem code handler
   const handleRedeem = async () => {
@@ -83,10 +82,8 @@ function SettingsPage() {
       const codeDoc = snapshot.docs[0];
       const codeData = codeDoc.data();
 
-      // Check if already used
-      const usedCodes = JSON.parse(
-        localStorage.getItem("usedRedeemCodes") || "[]"
-      );
+      // Check if already used (from Firebase user data)
+      const usedCodes = user.usedRedeemCodes || [];
       if (usedCodes.includes(codeDoc.id)) {
         setRedeemStatus("error");
         return;
@@ -101,9 +98,8 @@ function SettingsPage() {
       // Add gems
       await addGems(codeData.reward);
 
-      // Mark as used
-      usedCodes.push(codeDoc.id);
-      localStorage.setItem("usedRedeemCodes", JSON.stringify(usedCodes));
+      // Mark as used in Firebase
+      await useRedeemCode(codeDoc.id);
 
       // Update usage count in Firebase
       await updateDoc(doc(db, "redeemCodes", codeDoc.id), {

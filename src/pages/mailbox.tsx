@@ -16,9 +16,8 @@ interface MailItem {
 
 function MailboxPage() {
   const navigate = useNavigate();
-  const { addGems } = useUserStore();
+  const { user, addGems, claimMail } = useUserStore();
   const [mails, setMails] = useState<MailItem[]>([]);
-  const [claimedMails, setClaimedMails] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [currentReward, setCurrentReward] = useState<{
@@ -26,15 +25,13 @@ function MailboxPage() {
     gems: number;
   } | null>(null);
 
+  // Get claimed mails from Firebase user data
+  const claimedMails = user?.claimedMails || [];
+
   // Load mails from Firebase
   useEffect(() => {
     const loadMails = async () => {
       try {
-        const claimed = JSON.parse(
-          localStorage.getItem("claimedMails") || "[]"
-        );
-        setClaimedMails(claimed);
-
         const mailRef = collection(db, "mails");
         const q = query(mailRef, where("active", "==", true));
         const snapshot = await getDocs(q);
@@ -65,9 +62,8 @@ function MailboxPage() {
 
     await addGems(mail.reward);
 
-    const newClaimed = [...claimedMails, mail.id];
-    setClaimedMails(newClaimed);
-    localStorage.setItem("claimedMails", JSON.stringify(newClaimed));
+    // Sync to Firebase
+    await claimMail(mail.id);
 
     setCurrentReward({ title: mail.title, gems: mail.reward });
     setShowRewardModal(true);

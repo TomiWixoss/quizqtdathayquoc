@@ -16,6 +16,8 @@ import {
   Sparkles,
   Medal,
   Coins,
+  Swords,
+  Shield,
 } from "lucide-react";
 
 // Keep Lucide icons for ICON_MAP (achievements use them)
@@ -38,6 +40,9 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Sparkles,
   Medal,
   Coins,
+  Swords,
+  Shield,
+  Award,
 };
 
 export function QuizResult() {
@@ -59,6 +64,10 @@ export function QuizResult() {
     addPerfectLesson,
     addGems,
     checkAchievements,
+    incrementDailyQuizzes,
+    incrementDailyCorrect,
+    incrementWeeklyXP,
+    incrementWeeklyPerfect,
   } = useUserStore();
   const [bonusGems, setBonusGems] = useState(0);
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
@@ -86,19 +95,20 @@ export function QuizResult() {
 
   useEffect(() => {
     const saveProgress = async () => {
-      // Track daily quiz completion for quests
-      const today = new Date().toDateString();
-      const dailyQuiz = parseInt(
-        localStorage.getItem(`daily_quiz_${today}`) || "0"
-      );
-      localStorage.setItem(`daily_quiz_${today}`, (dailyQuiz + 1).toString());
+      // Track daily quiz completion for quests - sync to Firebase
+      await incrementDailyQuizzes();
+
+      // Track daily correct answers
+      for (let i = 0; i < correctCount; i++) {
+        await incrementDailyCorrect();
+      }
+
+      // Track weekly XP
+      await incrementWeeklyXP(score);
 
       // Track weekly perfect for quests
       if (isPerfect) {
-        const weeklyPerfect = parseInt(
-          localStorage.getItem("weekly_perfect") || "0"
-        );
-        localStorage.setItem("weekly_perfect", (weeklyPerfect + 1).toString());
+        await incrementWeeklyPerfect();
       }
 
       // Update chapter progress

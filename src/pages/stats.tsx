@@ -12,12 +12,19 @@ import {
   Clock,
   Star,
   ArrowLeft,
+  Swords,
+  Gem,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
+import {
+  getRankFromPoints,
+  getRankImage,
+  RANK_LEVELS,
+} from "@/services/ai-quiz-service";
 import { useState, useEffect } from "react";
 
-type TabType = "overview" | "chapters" | "history";
+type TabType = "overview" | "conquest" | "chapters" | "history";
 
 function StatsPage() {
   const navigate = useNavigate();
@@ -37,10 +44,25 @@ function StatsPage() {
       ? Math.round(((user?.totalCorrect ?? 0) / totalAnswered) * 100)
       : 0;
 
+  // Conquest stats
+  const conquestStats = user?.conquestStats;
+  const rankPoints = conquestStats?.rankPoints ?? 0;
+  const currentRank = getRankFromPoints(rankPoints);
+  const conquestAccuracy =
+    (conquestStats?.totalConquestCorrect ?? 0) +
+      (conquestStats?.totalConquestWrong ?? 0) >
+    0
+      ? Math.round(
+          ((conquestStats?.totalConquestCorrect ?? 0) /
+            ((conquestStats?.totalConquestCorrect ?? 0) +
+              (conquestStats?.totalConquestWrong ?? 0))) *
+            100
+        )
+      : 0;
+
   // Weekly data (mock based on streak)
   const weekDays = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
   const weeklyData = weekDays.map((_, i) => {
-    // Simulate activity based on streak
     if (i >= 7 - (user?.streak ?? 0)) {
       return Math.floor(Math.random() * 50) + 20;
     }
@@ -88,22 +110,23 @@ function StatsPage() {
 
       {/* Tabs */}
       <div className="px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           {[
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
+            { id: "conquest", label: "Chinh Chiến", icon: Swords },
             { id: "chapters", label: "Chương", icon: BookOpen },
             { id: "history", label: "Lịch sử", icon: Calendar },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as TabType)}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-sm font-semibold ${
+              className={`flex-1 flex items-center justify-center gap-1 py-2 px-2 rounded-xl text-xs font-semibold ${
                 activeTab === tab.id
                   ? "bg-[var(--duo-green)] text-white"
                   : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
               }`}
             >
-              <tab.icon className="w-4 h-4" />
+              <tab.icon className="w-3.5 h-3.5" />
               {tab.label}
             </button>
           ))}
@@ -145,7 +168,7 @@ function StatsPage() {
             <div className="card-3d p-4">
               <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
                 <Target className="w-5 h-5 text-[var(--duo-blue)]" />
-                Độ chính xác
+                Độ chính xác tổng
               </h3>
               <div className="flex items-center gap-4">
                 <div className="relative w-24 h-24">
@@ -206,13 +229,59 @@ function StatsPage() {
               </div>
             </div>
 
+            {/* More Stats */}
+            <div className="grid grid-cols-4 gap-2">
+              <div className="card-3d p-3 text-center">
+                <img
+                  src="/Lighting.png"
+                  alt="xp"
+                  className="w-5 h-5 mx-auto mb-1"
+                />
+                <p className="text-sm font-bold text-foreground">
+                  {user?.exp ?? 0}
+                </p>
+                <p className="text-[9px] text-[var(--muted-foreground)]">XP</p>
+              </div>
+              <div className="card-3d p-3 text-center">
+                <Trophy className="w-5 h-5 text-[var(--duo-yellow)] mx-auto mb-1" />
+                <p className="text-sm font-bold text-foreground">
+                  Lv.{user?.level ?? 1}
+                </p>
+                <p className="text-[9px] text-[var(--muted-foreground)]">
+                  Cấp độ
+                </p>
+              </div>
+              <div className="card-3d p-3 text-center">
+                <Star className="w-5 h-5 text-[var(--duo-yellow)] mx-auto mb-1" />
+                <p className="text-sm font-bold text-foreground">
+                  {user?.perfectLessons ?? 0}
+                </p>
+                <p className="text-[9px] text-[var(--muted-foreground)]">
+                  100%
+                </p>
+              </div>
+              <div className="card-3d p-3 text-center">
+                <img
+                  src="/BlueDiamond.png"
+                  alt="gem"
+                  className="w-5 h-5 mx-auto mb-1"
+                />
+                <p className="text-sm font-bold text-foreground">
+                  {user?.gems ?? 0}
+                </p>
+                <p className="text-[9px] text-[var(--muted-foreground)]">
+                  Gems
+                </p>
+              </div>
+            </div>
+
             {/* Weekly Chart */}
             <div className="card-3d p-4">
               <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-[var(--duo-purple)]" />
                 Hoạt động tuần này
               </h3>
-              <div className="flex items-end justify-between h-32 gap-1">
+              <div className="flex items-end justify-between h-24 gap-1">
                 {weekDays.map((day, i) => (
                   <div
                     key={day}
@@ -244,39 +313,155 @@ function StatsPage() {
                 </span>
               </div>
             </div>
+          </div>
+        )}
 
-            {/* More Stats */}
-            <div className="grid grid-cols-3 gap-2">
-              <div className="card-3d p-3 text-center">
-                <img
-                  src="/Lighting.png"
-                  alt="xp"
-                  className="w-6 h-6 mx-auto mb-1"
-                />
-                <p className="text-lg font-bold text-foreground">
-                  {user?.exp ?? 0}
+        {/* Conquest Tab */}
+        {activeTab === "conquest" && (
+          <div className="space-y-4">
+            {/* Current Rank */}
+            <div className="card-3d p-5 text-center">
+              <img
+                src={getRankImage(currentRank)}
+                alt={currentRank.rankName}
+                className="w-20 h-20 mx-auto mb-3 object-contain"
+              />
+              <h2 className="text-xl font-bold text-foreground mb-1">
+                {currentRank.rankName}
+              </h2>
+              <p className="text-[var(--duo-purple)] font-bold text-lg">
+                {rankPoints} RP
+              </p>
+
+              {/* Progress to next rank */}
+              <div className="mt-4">
+                <div className="flex justify-between text-xs text-[var(--muted-foreground)] mb-1">
+                  <span>{currentRank.rankName}</span>
+                  <span>Rank tiếp theo</span>
+                </div>
+                <div className="progress-duo h-2.5">
+                  <div
+                    className="progress-duo-fill"
+                    style={{
+                      width: `${(() => {
+                        const currentRankIndex = RANK_LEVELS.findIndex(
+                          (r) => r.id === currentRank.rankId
+                        );
+                        if (
+                          currentRankIndex === -1 ||
+                          currentRankIndex >= RANK_LEVELS.length - 1
+                        )
+                          return 100;
+                        const currentRankMin =
+                          RANK_LEVELS[currentRankIndex].minScore;
+                        const nextRankMin =
+                          RANK_LEVELS[currentRankIndex + 1].minScore;
+                        return Math.min(
+                          100,
+                          Math.max(
+                            0,
+                            ((rankPoints - currentRankMin) /
+                              (nextRankMin - currentRankMin)) *
+                              100
+                          )
+                        );
+                      })()}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Conquest Stats Grid */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="card-3d p-4 text-center">
+                <Swords className="w-6 h-6 text-[var(--duo-purple)] mx-auto mb-2" />
+                <p className="text-2xl font-bold text-foreground">
+                  {conquestStats?.totalConquests ?? 0}
                 </p>
-                <p className="text-[10px] text-[var(--muted-foreground)]">
-                  Tổng XP
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Tổng trận
                 </p>
               </div>
-              <div className="card-3d p-3 text-center">
-                <Trophy className="w-5 h-5 text-[var(--duo-yellow)] mx-auto mb-1" />
-                <p className="text-lg font-bold text-foreground">
-                  Lv.{user?.level ?? 1}
+              <div className="card-3d p-4 text-center">
+                <Target className="w-6 h-6 text-[var(--duo-blue)] mx-auto mb-2" />
+                <p className="text-2xl font-bold text-foreground">
+                  {conquestAccuracy}%
                 </p>
-                <p className="text-[10px] text-[var(--muted-foreground)]">
-                  Cấp độ
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Độ chính xác
                 </p>
               </div>
-              <div className="card-3d p-3 text-center">
-                <Star className="w-5 h-5 text-[var(--duo-yellow)] mx-auto mb-1" />
-                <p className="text-lg font-bold text-foreground">
-                  {user?.perfectLessons ?? 0}
-                </p>
-                <p className="text-[10px] text-[var(--muted-foreground)]">
-                  100%
-                </p>
+            </div>
+
+            {/* Conquest Details */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-[var(--duo-blue)]" />
+                Chi tiết Chinh Chiến
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--muted-foreground)]">
+                    Câu đúng
+                  </span>
+                  <span className="font-bold text-[var(--duo-green)]">
+                    {conquestStats?.totalConquestCorrect ?? 0}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--muted-foreground)]">
+                    Câu sai
+                  </span>
+                  <span className="font-bold text-[var(--duo-red)]">
+                    {conquestStats?.totalConquestWrong ?? 0}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--muted-foreground)]">
+                    Chuỗi thắng hiện tại
+                  </span>
+                  <span className="font-bold text-[var(--duo-orange)]">
+                    {conquestStats?.currentWinStreak ?? 0}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--muted-foreground)]">
+                    Chuỗi thắng tốt nhất
+                  </span>
+                  <span className="font-bold text-[var(--duo-yellow)]">
+                    {conquestStats?.bestWinStreak ?? 0}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Rank Tiers */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Trophy className="w-5 h-5 text-[var(--duo-yellow)]" />
+                Các bậc Rank
+              </h3>
+              <div className="grid grid-cols-4 gap-2">
+                {RANK_LEVELS.map((r) => (
+                  <div
+                    key={r.id}
+                    className={`p-2 rounded-xl text-center ${
+                      r.id === currentRank.rankId
+                        ? "bg-[var(--duo-purple)]/20 border-2 border-[var(--duo-purple)]"
+                        : rankPoints >= r.minScore
+                        ? "bg-[var(--duo-green)]/10 border border-[var(--duo-green)]/30"
+                        : "bg-[var(--secondary)]"
+                    }`}
+                  >
+                    <p className="text-[10px] font-bold text-foreground">
+                      {r.shortName}
+                    </p>
+                    <p className="text-[8px] text-[var(--muted-foreground)]">
+                      {r.minScore}+
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -285,7 +470,6 @@ function StatsPage() {
         {/* Chapters Tab */}
         {activeTab === "chapters" && (
           <div className="space-y-4">
-            {/* Summary */}
             <div className="card-3d p-4">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-bold text-foreground">Tiến độ chương</h3>
@@ -297,13 +481,14 @@ function StatsPage() {
                 <div
                   className="progress-duo-fill"
                   style={{
-                    width: `${(completedChapters / chapters.length) * 100}%`,
+                    width: `${
+                      (completedChapters / Math.max(chapters.length, 1)) * 100
+                    }%`,
                   }}
                 />
               </div>
             </div>
 
-            {/* Chapter List */}
             <div className="space-y-2">
               {chapterStats.map((chapter, index) => {
                 const colors = [
@@ -384,33 +569,37 @@ function StatsPage() {
         {/* History Tab */}
         {activeTab === "history" && (
           <div className="space-y-4">
-            {/* Time Stats */}
             <div className="card-3d p-4">
               <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
                 <Clock className="w-5 h-5 text-[var(--duo-blue)]" />
-                Thời gian học
+                Streak
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-foreground">
+                  <img
+                    src="/Fire.png"
+                    alt="streak"
+                    className="w-8 h-8 mx-auto mb-1"
+                  />
+                  <p className="text-2xl font-bold text-[var(--duo-orange)]">
                     {user?.streak ?? 0}
                   </p>
                   <p className="text-xs text-[var(--muted-foreground)]">
-                    Streak hiện tại
+                    Hiện tại
                   </p>
                 </div>
                 <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-foreground">
+                  <Flame className="w-8 h-8 text-[var(--duo-red)] mx-auto mb-1" />
+                  <p className="text-2xl font-bold text-[var(--duo-red)]">
                     {user?.longestStreak ?? 0}
                   </p>
                   <p className="text-xs text-[var(--muted-foreground)]">
-                    Streak dài nhất
+                    Dài nhất
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Daily Goal History */}
             <div className="card-3d p-4">
               <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
                 <Target className="w-5 h-5 text-[var(--duo-green)]" />
@@ -450,7 +639,6 @@ function StatsPage() {
               </div>
             </div>
 
-            {/* Milestones */}
             <div className="card-3d p-4">
               <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-[var(--duo-yellow)]" />
@@ -487,6 +675,12 @@ function StatsPage() {
                     value: 7,
                     current: user?.streak ?? 0,
                     icon: Flame,
+                  },
+                  {
+                    label: "100 Rank Points",
+                    value: 100,
+                    current: conquestStats?.rankPoints ?? 0,
+                    icon: Swords,
                   },
                 ].map((milestone, i) => {
                   const achieved = milestone.current >= milestone.value;

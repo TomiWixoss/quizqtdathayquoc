@@ -10,7 +10,7 @@ import confetti from "canvas-confetti";
 
 interface Props {
   question: AIQuestion;
-  onEnd: () => void;
+  onEnd: () => void | Promise<void>;
 }
 
 export function ConquestQuizCard({ question, onEnd }: Props) {

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { getUserInfo } from "zmp-sdk";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import type { UserStats, ChapterProgress } from "@/types/quiz";
+import type { UserStats, ChapterProgress, QuestProgress } from "@/types/quiz";
 
 interface UserState {
   user: UserStats | null;
@@ -27,7 +27,41 @@ interface UserState {
   updateDailyProgress: (xp: number) => Promise<void>;
   checkAchievements: () => Promise<string[]>;
   addPerfectLesson: () => Promise<void>;
+  // Quest tracking methods
+  updateQuestProgress: (updates: Partial<QuestProgress>) => Promise<void>;
+  claimDailyQuest: (questId: string) => Promise<void>;
+  claimWeeklyQuest: (questId: string) => Promise<void>;
+  incrementDailyCorrect: () => Promise<void>;
+  incrementDailyQuizzes: () => Promise<void>;
+  incrementWeeklyXP: (xp: number) => Promise<void>;
+  incrementWeeklyPerfect: () => Promise<void>;
+  // Claimed rewards methods
+  claimAchievementReward: (achievementId: string) => Promise<void>;
+  claimMail: (mailId: string) => Promise<void>;
+  useRedeemCode: (codeId: string) => Promise<void>;
+  // Minigame methods
+  updateLastSpinTime: () => Promise<void>;
+  canSpin: () => boolean;
+  getTimeUntilNextSpin: () => string | null;
 }
+
+const getWeekStart = () => {
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  const diff = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
+  return new Date(now.setDate(diff)).toDateString();
+};
+
+const DEFAULT_QUEST_PROGRESS: QuestProgress = {
+  dailyCorrect: 0,
+  dailyQuizzes: 0,
+  dailyDate: new Date().toDateString(),
+  weeklyXP: 0,
+  weeklyPerfect: 0,
+  weeklyStartDate: getWeekStart(),
+  claimedDailyQuests: [],
+  claimedWeeklyQuests: [],
+};
 
 const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
   totalScore: 0,
@@ -50,6 +84,21 @@ const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
   totalPlayTime: 0,
   perfectLessons: 0,
   longestStreak: 0,
+  conquestStats: {
+    rankPoints: 0,
+    highestRankId: "wood_1",
+    totalConquests: 0,
+    totalConquestCorrect: 0,
+    totalConquestWrong: 0,
+    bestWinStreak: 0,
+    currentWinStreak: 0,
+    lastConquestDate: "",
+  },
+  questProgress: DEFAULT_QUEST_PROGRESS,
+  claimedAchievementRewards: [],
+  claimedMails: [],
+  usedRedeemCodes: [],
+  lastSpinTime: "",
 };
 
 export const useUserStore = create<UserState>((set, get) => ({
@@ -364,10 +413,23 @@ export const useUserStore = create<UserState>((set, get) => ({
           earned = user.totalCorrect >= achievement.requirement;
           break;
         case "perfect":
-          earned = user.perfectLessons >= achievement.requirement;
+          earned = (user.perfectLessons ?? 0) >= achievement.requirement;
           break;
         case "level":
-          earned = user.level >= achievement.requirement;
+          earned = (user.level ?? 1) >= achievement.requirement;
+          break;
+        case "conquest":
+          earned =
+            (user.conquestStats?.totalConquests ?? 0) >=
+            achievement.requirement;
+          break;
+        case "conquest_wins":
+          earned =
+            (user.conquestStats?.bestWinStreak ?? 0) >= achievement.requirement;
+          break;
+        case "rank_points":
+          earned =
+            (user.conquestStats?.rankPoints ?? 0) >= achievement.requirement;
           break;
         case "gems":
           earned = user.gems >= achievement.requirement;
@@ -396,5 +458,200 @@ export const useUserStore = create<UserState>((set, get) => ({
       }
     }
     return newAchievements;
+  },
+
+  // Quest tracking methods
+  updateQuestProgress: async (updates) => {
+    const { user } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    const today = new Date().toDateString();
+    const weekStart = getWeekStart();
+
+    // Reset daily if new day
+    let newProgress = { ...currentProgress };
+    if (currentProgress.dailyDate !== today) {
+      newProgress = {
+        ...newProgress,
+        dailyCorrect: 0,
+        dailyQuizzes: 0,
+        dailyDate: today,
+        claimedDailyQuests: [],
+      };
+    }
+
+    // Reset weekly if new week
+    if (currentProgress.weeklyStartDate !== weekStart) {
+      newProgress = {
+        ...newProgress,
+        weeklyXP: 0,
+        weeklyPerfect: 0,
+        weeklyStartDate: weekStart,
+        claimedWeeklyQuests: [],
+      };
+    }
+
+    newProgress = { ...newProgress, ...updates };
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { questProgress: newProgress });
+      set({ user: { ...user, questProgress: newProgress } });
+    } catch (error) {
+      console.error("Error updating quest progress:", error);
+      set({ user: { ...user, questProgress: newProgress } });
+    }
+  },
+
+  claimDailyQuest: async (questId) => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    const newClaimed = [...currentProgress.claimedDailyQuests, questId];
+    await updateQuestProgress({ claimedDailyQuests: newClaimed });
+  },
+
+  claimWeeklyQuest: async (questId) => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    const newClaimed = [...currentProgress.claimedWeeklyQuests, questId];
+    await updateQuestProgress({ claimedWeeklyQuests: newClaimed });
+  },
+
+  incrementDailyCorrect: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyCorrect: currentProgress.dailyCorrect + 1,
+    });
+  },
+
+  incrementDailyQuizzes: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyQuizzes: currentProgress.dailyQuizzes + 1,
+    });
+  },
+
+  incrementWeeklyXP: async (xp) => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({ weeklyXP: currentProgress.weeklyXP + xp });
+  },
+
+  incrementWeeklyPerfect: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      weeklyPerfect: currentProgress.weeklyPerfect + 1,
+    });
+  },
+
+  // Claimed rewards methods
+  claimAchievementReward: async (achievementId) => {
+    const { user } = get();
+    if (!user) return;
+
+    const currentClaimed = user.claimedAchievementRewards || [];
+    if (currentClaimed.includes(achievementId)) return;
+
+    const newClaimed = [...currentClaimed, achievementId];
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { claimedAchievementRewards: newClaimed });
+      set({ user: { ...user, claimedAchievementRewards: newClaimed } });
+    } catch (error) {
+      console.error("Error claiming achievement reward:", error);
+      set({ user: { ...user, claimedAchievementRewards: newClaimed } });
+    }
+  },
+
+  claimMail: async (mailId) => {
+    const { user } = get();
+    if (!user) return;
+
+    const currentClaimed = user.claimedMails || [];
+    if (currentClaimed.includes(mailId)) return;
+
+    const newClaimed = [...currentClaimed, mailId];
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { claimedMails: newClaimed });
+      set({ user: { ...user, claimedMails: newClaimed } });
+    } catch (error) {
+      console.error("Error claiming mail:", error);
+      set({ user: { ...user, claimedMails: newClaimed } });
+    }
+  },
+
+  useRedeemCode: async (codeId) => {
+    const { user } = get();
+    if (!user) return;
+
+    const currentUsed = user.usedRedeemCodes || [];
+    if (currentUsed.includes(codeId)) return;
+
+    const newUsed = [...currentUsed, codeId];
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { usedRedeemCodes: newUsed });
+      set({ user: { ...user, usedRedeemCodes: newUsed } });
+    } catch (error) {
+      console.error("Error using redeem code:", error);
+      set({ user: { ...user, usedRedeemCodes: newUsed } });
+    }
+  },
+
+  // Minigame methods
+  updateLastSpinTime: async () => {
+    const { user } = get();
+    if (!user) return;
+
+    const now = new Date().toISOString();
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { lastSpinTime: now });
+      set({ user: { ...user, lastSpinTime: now } });
+    } catch (error) {
+      console.error("Error updating spin time:", error);
+      set({ user: { ...user, lastSpinTime: now } });
+    }
+  },
+
+  canSpin: () => {
+    const { user } = get();
+    if (!user?.lastSpinTime) return true;
+
+    const lastSpin = new Date(user.lastSpinTime).getTime();
+    const elapsed = Date.now() - lastSpin;
+    return elapsed >= 4 * 60 * 60 * 1000; // 4 hours
+  },
+
+  getTimeUntilNextSpin: () => {
+    const { user } = get();
+    if (!user?.lastSpinTime) return null;
+
+    const lastSpin = new Date(user.lastSpinTime).getTime();
+    const elapsed = Date.now() - lastSpin;
+    const remaining = 4 * 60 * 60 * 1000 - elapsed;
+
+    if (remaining <= 0) return null;
+
+    const hours = Math.floor(remaining / (60 * 60 * 1000));
+    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / 60000);
+    return `${hours}h ${minutes}m`;
   },
 }));

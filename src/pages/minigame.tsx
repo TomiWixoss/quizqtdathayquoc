@@ -73,35 +73,22 @@ const PRIZES = [
 
 function MinigamePage() {
   const navigate = useNavigate();
-  const { user, addGems, refillHearts } = useUserStore();
+  const {
+    user,
+    addGems,
+    refillHearts,
+    canSpin,
+    getTimeUntilNextSpin,
+    updateLastSpinTime,
+  } = useUserStore();
   const [isSpinning, setIsSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [prize, setPrize] = useState<(typeof PRIZES)[0] | null>(null);
 
   const wheelRef = useRef<HTMLDivElement>(null);
 
-  // Check if can spin (every 4 hours)
-  const checkCanSpin = () => {
-    const lastSpin = localStorage.getItem("lastSpinTime");
-    if (!lastSpin) return true;
-    const elapsed = Date.now() - parseInt(lastSpin);
-    return elapsed >= 4 * 60 * 60 * 1000; // 4 hours
-  };
-
-  const getTimeUntilNextSpin = () => {
-    const lastSpin = localStorage.getItem("lastSpinTime");
-    if (!lastSpin) return null;
-    const elapsed = Date.now() - parseInt(lastSpin);
-    const remaining = 4 * 60 * 60 * 1000 - elapsed;
-    if (remaining <= 0) return null;
-
-    const hours = Math.floor(remaining / (60 * 60 * 1000));
-    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / 60000);
-    return `${hours}h ${minutes}m`;
-  };
-
   const handleSpin = async () => {
-    if (isSpinning || !checkCanSpin()) return;
+    if (isSpinning || !canSpin()) return;
 
     setIsSpinning(true);
     setPrize(null);
@@ -132,7 +119,9 @@ function MinigamePage() {
     setTimeout(async () => {
       setPrize(selectedPrize);
       setIsSpinning(false);
-      localStorage.setItem("lastSpinTime", Date.now().toString());
+
+      // Sync to Firebase
+      await updateLastSpinTime();
 
       // Award prize
       if (selectedPrize.type === "heart") {
@@ -150,7 +139,7 @@ function MinigamePage() {
   };
 
   const timeUntilNext = getTimeUntilNextSpin();
-  const canSpinNow = checkCanSpin();
+  const canSpinNow = canSpin();
 
   return (
     <Page className="bg-background min-h-screen">

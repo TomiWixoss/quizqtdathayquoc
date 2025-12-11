@@ -45,12 +45,7 @@ const DAILY_QUESTS: Quest[] = [
     type: "daily",
     requirement: 10,
     reward: 15,
-    getValue: () => {
-      const today = new Date().toDateString();
-      return localStorage.getItem(`daily_correct_${today}`)
-        ? parseInt(localStorage.getItem(`daily_correct_${today}`) || "0")
-        : 0;
-    },
+    getValue: (user) => user?.questProgress?.dailyCorrect ?? 0,
   },
   {
     id: "daily_quiz_3",
@@ -60,10 +55,7 @@ const DAILY_QUESTS: Quest[] = [
     type: "daily",
     requirement: 3,
     reward: 20,
-    getValue: () => {
-      const today = new Date().toDateString();
-      return parseInt(localStorage.getItem(`daily_quiz_${today}`) || "0");
-    },
+    getValue: (user) => user?.questProgress?.dailyQuizzes ?? 0,
   },
 ];
 
@@ -86,9 +78,7 @@ const WEEKLY_QUESTS: Quest[] = [
     type: "weekly",
     requirement: 500,
     reward: 75,
-    getValue: () => {
-      return parseInt(localStorage.getItem("weekly_xp") || "0");
-    },
+    getValue: (user) => user?.questProgress?.weeklyXP ?? 0,
   },
   {
     id: "weekly_perfect_3",
@@ -98,57 +88,23 @@ const WEEKLY_QUESTS: Quest[] = [
     type: "weekly",
     requirement: 3,
     reward: 100,
-    getValue: () => {
-      return parseInt(localStorage.getItem("weekly_perfect") || "0");
-    },
+    getValue: (user) => user?.questProgress?.weeklyPerfect ?? 0,
   },
 ];
 
 function QuestsPage() {
-  const { user, addGems } = useUserStore();
-  const [claimedQuests, setClaimedQuests] = useState<string[]>([]);
+  const { user, addGems, claimDailyQuest, claimWeeklyQuest } = useUserStore();
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [currentReward, setCurrentReward] = useState<{
     quest: Quest;
     gems: number;
   } | null>(null);
 
-  // Load claimed quests from localStorage
-  useEffect(() => {
-    const today = new Date().toDateString();
-    const weekStart = getWeekStart();
-
-    // Reset daily claims if new day
-    const lastDailyReset = localStorage.getItem("lastDailyQuestReset");
-    if (lastDailyReset !== today) {
-      localStorage.setItem("lastDailyQuestReset", today);
-      localStorage.removeItem("claimedDailyQuests");
-    }
-
-    // Reset weekly claims if new week
-    const lastWeeklyReset = localStorage.getItem("lastWeeklyQuestReset");
-    if (lastWeeklyReset !== weekStart) {
-      localStorage.setItem("lastWeeklyQuestReset", weekStart);
-      localStorage.removeItem("claimedWeeklyQuests");
-      localStorage.setItem("weekly_xp", "0");
-      localStorage.setItem("weekly_perfect", "0");
-    }
-
-    const dailyClaimed = JSON.parse(
-      localStorage.getItem("claimedDailyQuests") || "[]"
-    );
-    const weeklyClaimed = JSON.parse(
-      localStorage.getItem("claimedWeeklyQuests") || "[]"
-    );
-    setClaimedQuests([...dailyClaimed, ...weeklyClaimed]);
-  }, []);
-
-  const getWeekStart = () => {
-    const now = new Date();
-    const dayOfWeek = now.getDay();
-    const diff = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
-    return new Date(now.setDate(diff)).toDateString();
-  };
+  // Get claimed quests from Firebase user data
+  const claimedQuests = [
+    ...(user?.questProgress?.claimedDailyQuests || []),
+    ...(user?.questProgress?.claimedWeeklyQuests || []),
+  ];
 
   const canClaim = (quest: Quest) => {
     const value = quest.getValue(user);
@@ -165,23 +121,11 @@ function QuestsPage() {
   const handleClaimReward = async (quest: Quest) => {
     await addGems(quest.reward);
 
-    const newClaimed = [...claimedQuests, quest.id];
-    setClaimedQuests(newClaimed);
-
+    // Sync to Firebase
     if (quest.type === "daily") {
-      localStorage.setItem(
-        "claimedDailyQuests",
-        JSON.stringify(
-          newClaimed.filter((id) => DAILY_QUESTS.some((q) => q.id === id))
-        )
-      );
+      await claimDailyQuest(quest.id);
     } else {
-      localStorage.setItem(
-        "claimedWeeklyQuests",
-        JSON.stringify(
-          newClaimed.filter((id) => WEEKLY_QUESTS.some((q) => q.id === id))
-        )
-      );
+      await claimWeeklyQuest(quest.id);
     }
 
     setCurrentReward({ quest, gems: quest.reward });

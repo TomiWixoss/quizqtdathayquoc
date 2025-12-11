@@ -50,6 +50,55 @@ export interface UserStats {
   totalPlayTime: number;
   perfectLessons: number;
   longestStreak: number;
+  // Conquest/Chinh Chiến stats
+  conquestStats?: ConquestStats;
+  // Quest tracking (synced to Firebase)
+  questProgress?: QuestProgress;
+  // Claimed rewards tracking
+  claimedAchievementRewards?: string[];
+  claimedMails?: string[];
+  usedRedeemCodes?: string[];
+  // Minigame tracking
+  lastSpinTime?: string;
+}
+
+// Quest Progress Types
+export interface QuestProgress {
+  dailyCorrect: number;
+  dailyQuizzes: number;
+  dailyDate: string;
+  weeklyXP: number;
+  weeklyPerfect: number;
+  weeklyStartDate: string;
+  claimedDailyQuests: string[];
+  claimedWeeklyQuests: string[];
+}
+
+// Conquest/Chinh Chiến Types
+export interface ConquestStats {
+  rankPoints: number;
+  highestRankId: string;
+  totalConquests: number;
+  totalConquestCorrect: number;
+  totalConquestWrong: number;
+  bestWinStreak: number;
+  currentWinStreak: number;
+  lastConquestDate: string;
+}
+
+export interface ConquestSession {
+  oderId: string;
+  startTime: string;
+  endTime: string;
+  rankBefore: string;
+  rankAfter: string;
+  pointsBefore: number;
+  pointsAfter: number;
+  pointsGained: number;
+  correctCount: number;
+  wrongCount: number;
+  totalQuestions: number;
+  accuracy: number;
 }
 
 export interface ChapterProgress {
@@ -79,16 +128,29 @@ export interface Achievement {
     | "Star"
     | "Sparkles"
     | "Medal"
-    | "Coins";
+    | "Coins"
+    | "Swords"
+    | "Shield"
+    | "Award";
   requirement: number;
-  type: "streak" | "correct" | "perfect" | "level" | "gems" | "chapters";
+  type:
+    | "streak"
+    | "correct"
+    | "perfect"
+    | "level"
+    | "gems"
+    | "chapters"
+    | "conquest"
+    | "conquest_wins"
+    | "rank_points";
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
+  // Streak achievements
   {
     id: "first_quiz",
     name: "Khởi đầu",
-    description: "Hoàn thành bài quiz đầu tiên",
+    description: "Trả lời đúng câu đầu tiên",
     icon: "Target",
     requirement: 1,
     type: "correct",
@@ -117,6 +179,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     requirement: 30,
     type: "streak",
   },
+  // Correct answers achievements
   {
     id: "correct_50",
     name: "Học sinh giỏi",
@@ -142,6 +205,15 @@ export const ACHIEVEMENTS: Achievement[] = [
     type: "correct",
   },
   {
+    id: "correct_1000",
+    name: "Huyền thoại",
+    description: "Trả lời đúng 1000 câu",
+    icon: "Crown",
+    requirement: 1000,
+    type: "correct",
+  },
+  // Perfect quiz achievements
+  {
     id: "perfect_5",
     name: "Hoàn hảo",
     description: "5 bài quiz 100%",
@@ -157,6 +229,15 @@ export const ACHIEVEMENTS: Achievement[] = [
     requirement: 20,
     type: "perfect",
   },
+  {
+    id: "perfect_50",
+    name: "Thiên tài",
+    description: "50 bài quiz 100%",
+    icon: "Sparkles",
+    requirement: 50,
+    type: "perfect",
+  },
+  // Level achievements
   {
     id: "level_5",
     name: "Cấp 5",
@@ -174,11 +255,110 @@ export const ACHIEVEMENTS: Achievement[] = [
     type: "level",
   },
   {
+    id: "level_20",
+    name: "Cấp 20",
+    description: "Đạt level 20",
+    icon: "Trophy",
+    requirement: 20,
+    type: "level",
+  },
+  // Gems achievements
+  {
     id: "gems_100",
     name: "Nhà giàu",
     description: "Sở hữu 100 gems",
     icon: "Coins",
     requirement: 100,
     type: "gems",
+  },
+  {
+    id: "gems_500",
+    name: "Triệu phú",
+    description: "Sở hữu 500 gems",
+    icon: "Gem",
+    requirement: 500,
+    type: "gems",
+  },
+  {
+    id: "gems_1000",
+    name: "Tỷ phú",
+    description: "Sở hữu 1000 gems",
+    icon: "Crown",
+    requirement: 1000,
+    type: "gems",
+  },
+  // Conquest achievements
+  {
+    id: "conquest_first",
+    name: "Chiến binh",
+    description: "Hoàn thành trận Chinh Chiến đầu tiên",
+    icon: "Swords",
+    requirement: 1,
+    type: "conquest",
+  },
+  {
+    id: "conquest_10",
+    name: "Dũng sĩ",
+    description: "Hoàn thành 10 trận Chinh Chiến",
+    icon: "Shield",
+    requirement: 10,
+    type: "conquest",
+  },
+  {
+    id: "conquest_50",
+    name: "Chiến tướng",
+    description: "Hoàn thành 50 trận Chinh Chiến",
+    icon: "Award",
+    requirement: 50,
+    type: "conquest",
+  },
+  {
+    id: "conquest_wins_5",
+    name: "Chuỗi thắng",
+    description: "Đạt chuỗi thắng 5 trận",
+    icon: "Zap",
+    requirement: 5,
+    type: "conquest_wins",
+  },
+  {
+    id: "conquest_wins_10",
+    name: "Bất bại",
+    description: "Đạt chuỗi thắng 10 trận",
+    icon: "Crown",
+    requirement: 10,
+    type: "conquest_wins",
+  },
+  // Rank points achievements
+  {
+    id: "rank_100",
+    name: "Tân binh",
+    description: "Đạt 100 Rank Points",
+    icon: "Target",
+    requirement: 100,
+    type: "rank_points",
+  },
+  {
+    id: "rank_500",
+    name: "Tinh anh",
+    description: "Đạt 500 Rank Points",
+    icon: "Star",
+    requirement: 500,
+    type: "rank_points",
+  },
+  {
+    id: "rank_1000",
+    name: "Cao thủ",
+    description: "Đạt 1000 Rank Points",
+    icon: "Medal",
+    requirement: 1000,
+    type: "rank_points",
+  },
+  {
+    id: "rank_2000",
+    name: "Đại cao thủ",
+    description: "Đạt 2000 Rank Points",
+    icon: "Trophy",
+    requirement: 2000,
+    type: "rank_points",
   },
 ];

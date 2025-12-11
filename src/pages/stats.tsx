@@ -57,10 +57,18 @@ function StatsPage() {
         )
       : 0;
 
-  // Weekly data (mock based on streak)
+  // Weekly data based on actual day and streak
   const weekDays = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+  const today = new Date();
+  // getDay(): 0=CN, 1=T2, 2=T3, ... 6=T7
+  // Convert to our index: T2=0, T3=1, ... T7=5, CN=6
+  const todayIndex = today.getDay() === 0 ? 6 : today.getDay() - 1;
+  const streak = user?.streak ?? 0;
+
   const weeklyData = weekDays.map((_, i) => {
-    if (i >= 7 - (user?.streak ?? 0)) {
+    // Hiển thị hoạt động cho các ngày từ (hôm nay - streak + 1) đến hôm nay
+    const daysFromToday = todayIndex - i;
+    if (daysFromToday >= 0 && daysFromToday < streak) {
       return Math.floor(Math.random() * 50) + 20;
     }
     return 0;

@@ -27,7 +27,7 @@ export function BottomNav() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50">
       <div className="bg-[var(--card)] border-t-2 border-[var(--border)] pb-[env(safe-area-inset-bottom)]">
-        <div className="flex items-center justify-around py-1">
+        <div className="flex items-center justify-around py-1 px-1">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
@@ -37,7 +37,7 @@ export function BottomNav() {
                 key={item.path}
                 onClick={() => navigate(item.path)}
                 className={cn(
-                  "flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl",
+                  "flex-1 flex flex-col items-center gap-0.5 py-2 rounded-xl min-w-0",
                   isActive
                     ? "text-[var(--duo-green)]"
                     : "text-[var(--muted-foreground)]"
@@ -51,7 +51,9 @@ export function BottomNav() {
                 >
                   <Icon className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-semibold">{item.label}</span>
+                <span className="text-[10px] font-semibold whitespace-nowrap truncate max-w-full px-1">
+                  {item.label}
+                </span>
               </button>
             );
           })}

@@ -14,6 +14,7 @@ interface UserState {
   isLoading: boolean;
   error: string | null;
   initUser: () => Promise<void>;
+  updateUsername: (newName: string) => Promise<boolean>;
   updateStats: (
     correct: boolean,
     chapter: number,
@@ -145,6 +146,24 @@ export const useUserStore = create<UserState>((set, get) => ({
   user: null,
   isLoading: false,
   error: null,
+
+  updateUsername: async (newName: string) => {
+    const { user } = get();
+    if (!user || !newName.trim()) return false;
+
+    const trimmedName = newName.trim();
+    if (trimmedName.length < 2 || trimmedName.length > 20) return false;
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { odername: trimmedName });
+      set({ user: { ...user, odername: trimmedName } });
+      return true;
+    } catch (error) {
+      console.error("Error updating username:", error);
+      return false;
+    }
+  },
 
   initUser: async () => {
     set({ isLoading: true, error: null });

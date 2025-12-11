@@ -8,6 +8,7 @@ import {
   BarChart3,
   Mail,
   Gift,
+  Pencil,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
@@ -26,13 +27,18 @@ import { db } from "@/lib/firebase";
 function SettingsPage() {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useThemeStore();
-  const { user, addGems, useRedeemCode } = useUserStore();
+  const { user, addGems, useRedeemCode, updateUsername } = useUserStore();
   const [showRedeemModal, setShowRedeemModal] = useState(false);
   const [redeemCode, setRedeemCode] = useState("");
   const [redeemStatus, setRedeemStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
   const [unreadMail, setUnreadMail] = useState(0);
+  const [showNameModal, setShowNameModal] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [nameStatus, setNameStatus] = useState<"idle" | "success" | "error">(
+    "idle"
+  );
 
   const earnedCount = (user?.achievements ?? []).length;
   const claimedRewards = user?.claimedAchievementRewards ?? [];
@@ -62,6 +68,23 @@ function SettingsPage() {
     };
     checkMail();
   }, [user?.oderId, user?.claimedMails]);
+
+  // Change name handler
+  const handleChangeName = async () => {
+    if (!newName.trim()) return;
+
+    const success = await updateUsername(newName);
+    if (success) {
+      setNameStatus("success");
+      setTimeout(() => {
+        setShowNameModal(false);
+        setNewName("");
+        setNameStatus("idle");
+      }, 1000);
+    } else {
+      setNameStatus("error");
+    }
+  };
 
   // Redeem code handler
   const handleRedeem = async () => {
@@ -114,6 +137,67 @@ function SettingsPage() {
 
   return (
     <Page className="bg-background min-h-screen">
+      {/* Change Name Modal */}
+      {showNameModal && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-[var(--card)] rounded-3xl p-6 max-w-sm w-full">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--duo-blue)]/20 flex items-center justify-center">
+              <Pencil className="w-8 h-8 text-[var(--duo-blue)]" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground text-center mb-2">
+              Đổi tên hiển thị
+            </h2>
+            <p className="text-sm text-[var(--muted-foreground)] text-center mb-4">
+              Tên từ 2-20 ký tự
+            </p>
+
+            <input
+              type="text"
+              value={newName}
+              onChange={(e) => {
+                setNewName(e.target.value);
+                setNameStatus("idle");
+              }}
+              placeholder={user?.odername || "Nhập tên mới"}
+              maxLength={20}
+              className="w-full p-3 rounded-xl bg-[var(--secondary)] text-foreground text-center font-bold text-lg mb-3"
+            />
+
+            {nameStatus === "success" && (
+              <p className="text-[var(--duo-green)] text-center text-sm mb-3">
+                Đổi tên thành công!
+              </p>
+            )}
+
+            {nameStatus === "error" && (
+              <p className="text-[var(--duo-red)] text-center text-sm mb-3">
+                Không thể đổi tên. Vui lòng thử lại.
+              </p>
+            )}
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setShowNameModal(false);
+                  setNewName("");
+                  setNameStatus("idle");
+                }}
+                className="flex-1 py-3 rounded-xl bg-[var(--secondary)] text-foreground font-bold"
+              >
+                Hủy
+              </button>
+              <button
+                onClick={handleChangeName}
+                disabled={!newName.trim() || newName.trim().length < 2}
+                className="flex-1 btn-3d btn-3d-blue py-3 disabled:opacity-50"
+              >
+                Lưu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Redeem Code Modal */}
       {showRedeemModal && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
@@ -141,7 +225,11 @@ function SettingsPage() {
 
             {redeemStatus === "success" && (
               <div className="flex items-center justify-center gap-2 text-[var(--duo-green)] mb-3">
-                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-6 h-6" />
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-6 h-6"
+                />
                 <span className="font-bold">Đổi mã thành công!</span>
               </div>
             )}
@@ -196,10 +284,21 @@ function SettingsPage() {
                   user.odername.charAt(0).toUpperCase()
                 )}
               </div>
-              <div>
-                <h2 className="font-bold text-lg text-foreground">
-                  {user.odername}
-                </h2>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h2 className="font-bold text-lg text-foreground">
+                    {user.odername}
+                  </h2>
+                  <button
+                    onClick={() => {
+                      setNewName(user.odername);
+                      setShowNameModal(true);
+                    }}
+                    className="p-1.5 rounded-lg bg-[var(--secondary)] hover:bg-[var(--duo-blue)]/20 transition-colors"
+                  >
+                    <Pencil className="w-4 h-4 text-[var(--muted-foreground)]" />
+                  </button>
+                </div>
                 <p className="text-sm text-[var(--muted-foreground)]">
                   Level {user.level} • {user.exp} XP
                 </p>

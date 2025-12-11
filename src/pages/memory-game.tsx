@@ -1,16 +1,9 @@
 import { Page, useNavigate } from "zmp-ui";
-import {
-  ArrowLeft,
-  RotateCcw,
-  Trophy,
-  Gem,
-  Clock,
-  Star,
-  Zap,
-} from "lucide-react";
+import { ArrowLeft, RotateCcw, Clock, Star, Zap } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect, useCallback } from "react";
 import confetti from "canvas-confetti";
+import { RewardModal } from "@/components/ui/reward-modal";
 
 type Difficulty = "easy" | "medium" | "hard";
 type GameStatus = "menu" | "playing" | "won" | "lost";
@@ -76,6 +69,8 @@ function MemoryGamePage() {
   const [moves, setMoves] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [earnedReward, setEarnedReward] = useState(0);
 
   const config = DIFFICULTY_CONFIG[difficulty];
 
@@ -136,6 +131,9 @@ function MemoryGamePage() {
 
     await addGems(totalReward);
     await updateMinigameStats("memory", true, totalReward);
+
+    setEarnedReward(totalReward);
+    setShowRewardModal(true);
 
     confetti({
       particleCount: 100,
@@ -201,6 +199,8 @@ function MemoryGamePage() {
     setFlippedCards([]);
     setMatchedPairs(0);
     setMoves(0);
+    setShowRewardModal(false);
+    setEarnedReward(0);
   };
 
   // Menu screen
@@ -393,32 +393,24 @@ function MemoryGamePage() {
         </div>
       </div>
 
-      {/* Result overlay */}
-      {(gameStatus === "won" || gameStatus === "lost") && (
+      {/* Reward Modal */}
+      <RewardModal
+        isOpen={showRewardModal}
+        onClose={() => setShowRewardModal(false)}
+        title="Chiến thắng!"
+        subtitle={`Hoàn thành độ khó ${config.label}`}
+        rewards={[{ type: "gems", amount: earnedReward }]}
+        gradientFrom="var(--duo-purple)"
+        gradientTo="var(--duo-pink)"
+      />
+
+      {/* Result overlay for lost */}
+      {gameStatus === "lost" && (
         <div
           className="mx-4 mb-4 p-4 rounded-2xl text-center"
-          style={{
-            background:
-              gameStatus === "won" ? "var(--duo-green)" : "var(--duo-red)",
-          }}
+          style={{ background: "var(--duo-red)" }}
         >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            {gameStatus === "won" && <Trophy className="w-6 h-6 text-white" />}
-            <span className="font-bold text-lg text-white">
-              {gameStatus === "won" ? "Chiến thắng!" : "Hết giờ!"}
-            </span>
-          </div>
-          {gameStatus === "won" && (
-            <div className="flex items-center justify-center gap-1 text-white/90">
-              <span>
-                +
-                {config.reward +
-                  Math.floor(timeLeft / 10) +
-                  Math.max(0, config.pairs * 2 - moves)}
-              </span>
-              <Gem className="w-4 h-4" />
-            </div>
-          )}
+          <span className="font-bold text-lg text-white">Hết giờ!</span>
         </div>
       )}
 

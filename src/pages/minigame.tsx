@@ -3,6 +3,8 @@ import { ArrowLeft, Heart, Gem, Zap, Gift, Star } from "lucide-react";
 // Keep Lucide icons for PRIZES array
 import { useUserStore } from "@/stores/user-store";
 import { useState, useRef } from "react";
+import { RewardModal, RewardItem } from "@/components/ui/reward-modal";
+import confetti from "canvas-confetti";
 
 const PRIZES = [
   {
@@ -85,6 +87,8 @@ function MinigamePage() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [prize, setPrize] = useState<(typeof PRIZES)[0] | null>(null);
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [rewardItems, setRewardItems] = useState<RewardItem[]>([]);
 
   const wheelRef = useRef<HTMLDivElement>(null);
 
@@ -133,10 +137,24 @@ function MinigamePage() {
         if (currentHearts < maxHearts) {
           await refillHearts(); // For simplicity, refill all
         }
+        setRewardItems([{ type: "hearts", amount: selectedPrize.amount }]);
       } else if (selectedPrize.type === "gems") {
         await addGems(selectedPrize.amount);
         gemsEarned = selectedPrize.amount;
+        setRewardItems([{ type: "gems", amount: selectedPrize.amount }]);
+      } else if (selectedPrize.type === "xp") {
+        setRewardItems([{ type: "xp", amount: selectedPrize.amount }]);
       }
+
+      // Show reward modal
+      setShowRewardModal(true);
+
+      confetti({
+        particleCount: 80,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ["#58cc02", "#ffc800", "#1cb0f6"],
+      });
 
       // Update minigame stats
       await updateMinigameStats("spin", true, gemsEarned);
@@ -230,21 +248,16 @@ function MinigamePage() {
           </div>
         </div>
 
-        {/* Prize Display */}
-        {prize && (
-          <div className="card-3d p-4 mb-4 text-center w-full max-w-xs">
-            <div
-              className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-2"
-              style={{ background: `${prize.color}20` }}
-            >
-              <prize.icon className="w-8 h-8" style={{ color: prize.color }} />
-            </div>
-            <p className="font-bold text-lg text-foreground">Chúc mừng!</p>
-            <p className="text-[var(--muted-foreground)]">
-              Bạn nhận được {prize.label}
-            </p>
-          </div>
-        )}
+        {/* Reward Modal */}
+        <RewardModal
+          isOpen={showRewardModal}
+          onClose={() => setShowRewardModal(false)}
+          title="Chúc mừng!"
+          subtitle={prize ? `Bạn nhận được ${prize.label}` : undefined}
+          rewards={rewardItems}
+          gradientFrom="var(--duo-orange)"
+          gradientTo="var(--duo-red)"
+        />
 
         {/* Spin Button */}
         {canSpinNow ? (
@@ -274,7 +287,11 @@ function MinigamePage() {
               <span className="font-bold">{user.hearts ?? 5}</span>
             </div>
             <div className="flex items-center gap-1">
-              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-5 h-5"
+              />
               <span className="font-bold">{user.gems ?? 0}</span>
             </div>
           </div>

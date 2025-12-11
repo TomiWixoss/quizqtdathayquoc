@@ -1,17 +1,10 @@
 import { Page, useNavigate } from "zmp-ui";
-import {
-  ArrowLeft,
-  RotateCcw,
-  Trophy,
-  Gem,
-  Bot,
-  Pause,
-  AlertTriangle,
-} from "lucide-react";
+import { ArrowLeft, RotateCcw, Bot, Pause, AlertTriangle } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect, useCallback, useRef } from "react";
 import confetti from "canvas-confetti";
 import { create2048Worker } from "@/lib/inline-workers";
+import { RewardModal } from "@/components/ui/reward-modal";
 
 type GameStatus = "playing" | "won" | "lost";
 type Cell = {
@@ -70,6 +63,8 @@ function Game2048Page() {
   const [isAIPlaying, setIsAIPlaying] = useState(false);
   const [aiGemsSpent, setAiGemsSpent] = useState(0);
   const [aiUsedThisGame, setAiUsedThisGame] = useState(false); // Track if AI was ever used
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [earnedReward, setEarnedReward] = useState(0);
   const workerRef = useRef<Worker | null>(null);
   const aiIntervalRef = useRef<number | null>(null);
   const aiCostIntervalRef = useRef<number | null>(null);
@@ -114,6 +109,8 @@ function Game2048Page() {
     setIsAIPlaying(false);
     setAiGemsSpent(0);
     setAiUsedThisGame(false);
+    setShowRewardModal(false);
+    setEarnedReward(0);
     if (aiIntervalRef.current) {
       clearInterval(aiIntervalRef.current);
       aiIntervalRef.current = null;
@@ -325,6 +322,8 @@ function Game2048Page() {
     if (reward > 0) {
       await addGems(reward);
       setRewardClaimed(true);
+      setEarnedReward(reward);
+      setShowRewardModal(true);
     }
     await updateMinigameStats("game2048", true, reward, { maxTile: tile });
     confetti({
@@ -356,6 +355,8 @@ function Game2048Page() {
     if (reward > 0 && !rewardClaimed) {
       await addGems(reward);
       setRewardClaimed(true);
+      setEarnedReward(reward);
+      setShowRewardModal(true);
     }
     await updateMinigameStats("game2048", false, reward, { maxTile: tile });
   };
@@ -485,6 +486,19 @@ function Game2048Page() {
 
   return (
     <Page className="bg-background min-h-screen">
+      {/* Reward Modal */}
+      <RewardModal
+        isOpen={showRewardModal}
+        onClose={() => setShowRewardModal(false)}
+        title={gameStatus === "won" ? `Đạt ${maxTile}!` : "Game Over!"}
+        subtitle={earnedReward > 0 ? "Bạn đã nhận được phần thưởng" : undefined}
+        rewards={
+          earnedReward > 0 ? [{ type: "gems", amount: earnedReward }] : []
+        }
+        gradientFrom="#edc22e"
+        gradientTo="#f2b179"
+      />
+
       {/* Header */}
       <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[#edc22e] to-[#f2b179]">
         <div className="flex items-center justify-between">
@@ -573,25 +587,16 @@ function Game2048Page() {
               gameStatus === "won" ? "var(--duo-green)" : "var(--duo-red)",
           }}
         >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            {gameStatus === "won" && <Trophy className="w-6 h-6 text-white" />}
-            <span className="font-bold text-lg text-white">
-              {gameStatus === "won" ? `Đạt ${maxTile}!` : "Game Over!"}
-            </span>
-          </div>
-          {rewardClaimed && !aiUsedThisGame && (
-            <div className="flex items-center justify-center gap-1 text-white/90 mb-2">
-              <span>+{REWARDS[maxTile] || 0}</span>
-              <Gem className="w-4 h-4" />
-            </div>
-          )}
+          <span className="font-bold text-lg text-white">
+            {gameStatus === "won" ? `Đạt ${maxTile}!` : "Game Over!"}
+          </span>
           {aiUsedThisGame && (
-            <div className="flex items-center justify-center gap-1 text-white/80 text-sm mb-2">
+            <div className="flex items-center justify-center gap-1 text-white/80 text-sm mt-2">
               <Bot className="w-4 h-4" />
               <span>Đã dùng AI - Không nhận thưởng</span>
             </div>
           )}
-          <div className="flex gap-2 justify-center">
+          <div className="flex gap-2 justify-center mt-2">
             {gameStatus === "won" && (
               <button
                 onClick={continueAfterWin}

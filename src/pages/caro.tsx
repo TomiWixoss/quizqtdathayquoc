@@ -1,8 +1,10 @@
 import { Page, useNavigate } from "zmp-ui";
-import { ArrowLeft, RotateCcw, Trophy, Gem } from "lucide-react";
+import { ArrowLeft, RotateCcw } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { createCaroWorker, CaroWorkerType } from "@/lib/inline-workers";
+import { RewardModal } from "@/components/ui/reward-modal";
+import confetti from "canvas-confetti";
 
 const BOARD_SIZE = 15;
 const WIN_LENGTH = 5;
@@ -94,6 +96,8 @@ function CaroPage() {
   const [isThinking, setIsThinking] = useState(false);
   const [difficulty, setDifficulty] = useState<Difficulty>("medium");
   const [gameStarted, setGameStarted] = useState(false);
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [earnedReward, setEarnedReward] = useState(0);
   const workerRef = useRef<Worker | null>(null);
 
   function createEmptyBoard(): CellValue[][] {
@@ -186,6 +190,14 @@ function CaroPage() {
           if (won) {
             addGems(config.reward);
             updateMinigameStats("caro", true, config.reward, { difficulty });
+            setEarnedReward(config.reward);
+            setShowRewardModal(true);
+            confetti({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ["#58cc02", "#ffc800", "#1cb0f6"],
+            });
           } else {
             updateMinigameStats("caro", false, 0, { difficulty });
           }
@@ -222,6 +234,8 @@ function CaroPage() {
     setWinningCells([]);
     setIsThinking(false);
     setGameStarted(false);
+    setShowRewardModal(false);
+    setEarnedReward(0);
   };
 
   const startGame = (diff: Difficulty) => {
@@ -384,6 +398,17 @@ function CaroPage() {
 
   return (
     <Page className="bg-background min-h-screen">
+      {/* Reward Modal */}
+      <RewardModal
+        isOpen={showRewardModal}
+        onClose={() => setShowRewardModal(false)}
+        title="Chiến thắng!"
+        subtitle={`Bạn đã thắng AI độ khó ${config.label}`}
+        rewards={[{ type: "gems", amount: earnedReward }]}
+        gradientFrom="var(--duo-purple)"
+        gradientTo="var(--duo-blue)"
+      />
+
       <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -412,37 +437,6 @@ function CaroPage() {
           </div>
         </div>
       </div>
-
-      {gameStatus !== "playing" && (
-        <div
-          className="mx-4 mt-4 p-4 rounded-2xl text-center"
-          style={{
-            background:
-              gameStatus === "won"
-                ? "var(--duo-green)"
-                : gameStatus === "lost"
-                ? "var(--duo-red)"
-                : "var(--duo-yellow)",
-          }}
-        >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            {gameStatus === "won" && <Trophy className="w-6 h-6 text-white" />}
-            <span className="font-bold text-lg text-white">
-              {gameStatus === "won"
-                ? "Chiến thắng!"
-                : gameStatus === "lost"
-                ? "Thua cuộc!"
-                : "Hòa!"}
-            </span>
-          </div>
-          {gameStatus === "won" && (
-            <div className="flex items-center justify-center gap-1 text-white/90">
-              <span>+{config.reward}</span>
-              <Gem className="w-4 h-4" />
-            </div>
-          )}
-        </div>
-      )}
 
       {gameStatus === "playing" && (
         <div className="mx-4 mt-4 p-3 rounded-xl bg-[var(--card)] text-center">

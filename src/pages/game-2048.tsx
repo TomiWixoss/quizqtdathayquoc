@@ -16,6 +16,10 @@ type Cell = {
 const GRID_SIZE = 4;
 const WIN_VALUE = 2048;
 
+// AI cost settings
+const AI_COST_PER_INTERVAL = 1; // Gem cost per interval
+const AI_COST_INTERVAL = 5000; // Charge every 5 seconds
+
 // Rewards based on max tile achieved
 const REWARDS: Record<number, number> = {
   128: 5,
@@ -56,8 +60,11 @@ function Game2048Page() {
   const [maxTile, setMaxTile] = useState(0);
   const [rewardClaimed, setRewardClaimed] = useState(false);
   const [isAIPlaying, setIsAIPlaying] = useState(false);
+  const [aiGemsSpent, setAiGemsSpent] = useState(0);
+  const [aiUsedThisGame, setAiUsedThisGame] = useState(false); // Track if AI was ever used
   const workerRef = useRef<Worker | null>(null);
   const aiIntervalRef = useRef<number | null>(null);
+  const aiCostIntervalRef = useRef<number | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   function createEmptyGrid(): Cell[][] {
@@ -97,9 +104,15 @@ function Game2048Page() {
     setMaxTile(0);
     setRewardClaimed(false);
     setIsAIPlaying(false);
+    setAiGemsSpent(0);
+    setAiUsedThisGame(false);
     if (aiIntervalRef.current) {
       clearInterval(aiIntervalRef.current);
       aiIntervalRef.current = null;
+    }
+    if (aiCostIntervalRef.current) {
+      clearInterval(aiCostIntervalRef.current);
+      aiCostIntervalRef.current = null;
     }
   }, [addRandomTile]);
 
@@ -125,6 +138,7 @@ function Game2048Page() {
     return () => {
       workerRef.current?.terminate();
       if (aiIntervalRef.current) clearInterval(aiIntervalRef.current);
+      if (aiCostIntervalRef.current) clearInterval(aiCostIntervalRef.current);
     };
   }, []);
 
@@ -277,6 +291,22 @@ function Game2048Page() {
   );
 
   const handleWin = async (tile: number) => {
+    // No reward if AI was used
+    if (aiUsedThisGame) {
+      setRewardClaimed(true); // Mark as claimed to prevent future rewards
+      await updateMinigameStats("game2048", true, 0, {
+        maxTile: tile,
+        aiUsed: true,
+      });
+      confetti({
+        particleCount: 50,
+        spread: 50,
+        origin: { y: 0.6 },
+        colors: ["#888", "#aaa", "#ccc"], // Gray confetti for AI win
+      });
+      return;
+    }
+
     const reward = REWARDS[tile] || 0;
     if (reward > 0) {
       await addGems(reward);
@@ -292,6 +322,16 @@ function Game2048Page() {
   };
 
   const handleGameOver = async (tile: number) => {
+    // No reward if AI was used
+    if (aiUsedThisGame) {
+      setRewardClaimed(true);
+      await updateMinigameStats("game2048", false, 0, {
+        maxTile: tile,
+        aiUsed: true,
+      });
+      return;
+    }
+
     // Give partial reward based on max tile
     let reward = 0;
     for (const [tileVal, gems] of Object.entries(REWARDS)) {
@@ -352,18 +392,46 @@ function Game2048Page() {
     touchStartRef.current = null;
   };
 
-  // AI Auto-play
+  // AI Auto-play with gem cost
+  const stopAI = useCallback(() => {
+    setIsAIPlaying(false);
+    if (aiIntervalRef.current) {
+      clearInterval(aiIntervalRef.current);
+      aiIntervalRef.current = null;
+    }
+    if (aiCostIntervalRef.current) {
+      clearInterval(aiCostIntervalRef.current);
+      aiCostIntervalRef.current = null;
+    }
+  }, []);
+
   const toggleAI = () => {
     if (isAIPlaying) {
-      setIsAIPlaying(false);
-      if (aiIntervalRef.current) {
-        clearInterval(aiIntervalRef.current);
-        aiIntervalRef.current = null;
-      }
+      stopAI();
     } else {
+      // Check if user has enough gems
+      if ((user?.gems ?? 0) < AI_COST_PER_INTERVAL) {
+        alert("Không đủ gem để sử dụng AI!");
+        return;
+      }
       setIsAIPlaying(true);
+      setAiUsedThisGame(true); // Mark AI as used - no rewards for this game
       runAI();
+      startAICostTimer();
     }
+  };
+
+  const startAICostTimer = () => {
+    if (aiCostIntervalRef.current) clearInterval(aiCostIntervalRef.current);
+    aiCostIntervalRef.current = window.setInterval(async () => {
+      if ((user?.gems ?? 0) >= AI_COST_PER_INTERVAL) {
+        await addGems(-AI_COST_PER_INTERVAL);
+        setAiGemsSpent((prev) => prev + AI_COST_PER_INTERVAL);
+      } else {
+        // Not enough gems, stop AI
+        stopAI();
+      }
+    }, AI_COST_INTERVAL);
   };
 
   const runAI = () => {
@@ -386,7 +454,11 @@ function Game2048Page() {
     if (isAIPlaying && gameStatus === "playing") {
       runAI();
     }
-  }, [isAIPlaying, grid, gameStatus]);
+    // Stop AI when game ends
+    if (gameStatus !== "playing" && isAIPlaying) {
+      stopAI();
+    }
+  }, [isAIPlaying, grid, gameStatus, stopAI]);
 
   const continueAfterWin = () => {
     setGameStatus("playing");
@@ -435,20 +507,30 @@ function Game2048Page() {
           </div>
         </div>
         <div className="flex gap-2">
-          <button
-            onClick={toggleAI}
-            className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-              isAIPlaying
-                ? "bg-[var(--duo-red)] text-white"
-                : "bg-[var(--card)] text-foreground"
-            }`}
-          >
-            {isAIPlaying ? (
-              <Pause className="w-5 h-5" />
-            ) : (
-              <Bot className="w-5 h-5" />
+          <div className="relative">
+            <button
+              onClick={toggleAI}
+              className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                isAIPlaying
+                  ? "bg-[var(--duo-red)] text-white"
+                  : "bg-[var(--card)] text-foreground"
+              }`}
+              title={`AI: ${AI_COST_PER_INTERVAL} gem/${
+                AI_COST_INTERVAL / 1000
+              }s`}
+            >
+              {isAIPlaying ? (
+                <Pause className="w-5 h-5" />
+              ) : (
+                <Bot className="w-5 h-5" />
+              )}
+            </button>
+            {isAIPlaying && (
+              <span className="absolute -top-1 -right-1 bg-[var(--duo-red)] text-white text-[10px] px-1 rounded-full">
+                -{aiGemsSpent}💎
+              </span>
             )}
-          </button>
+          </div>
           <button
             onClick={initGame}
             className="w-10 h-10 rounded-xl bg-[var(--card)] flex items-center justify-center"
@@ -473,10 +555,15 @@ function Game2048Page() {
               {gameStatus === "won" ? `Đạt ${maxTile}!` : "Game Over!"}
             </span>
           </div>
-          {rewardClaimed && (
+          {rewardClaimed && !aiUsedThisGame && (
             <div className="flex items-center justify-center gap-1 text-white/90 mb-2">
               <span>+{REWARDS[maxTile] || 0}</span>
               <Gem className="w-4 h-4" />
+            </div>
+          )}
+          {aiUsedThisGame && (
+            <div className="text-white/80 text-sm mb-2">
+              🤖 Đã dùng AI - Không nhận thưởng
             </div>
           )}
           <div className="flex gap-2 justify-center">
@@ -547,6 +634,14 @@ function Game2048Page() {
         <p className="text-sm text-[var(--muted-foreground)]">
           Vuốt hoặc dùng phím mũi tên để di chuyển
         </p>
+        <p className="text-xs text-[var(--muted-foreground)] mt-1">
+          🤖 AI: {AI_COST_PER_INTERVAL} gem mỗi {AI_COST_INTERVAL / 1000} giây
+        </p>
+        {aiUsedThisGame && (
+          <p className="text-xs text-[var(--duo-red)] mt-1 font-medium">
+            ⚠️ Đã dùng AI - Ván này không nhận thưởng
+          </p>
+        )}
       </div>
 
       {/* Rewards info */}

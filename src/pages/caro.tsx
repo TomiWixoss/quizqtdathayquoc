@@ -8,7 +8,14 @@ const WIN_LENGTH = 5;
 
 type CellValue = 0 | 1 | -1;
 type GameStatus = "playing" | "won" | "lost" | "draw";
-type Difficulty = "easy" | "medium" | "hard" | "expert" | "master" | "legend";
+type Difficulty =
+  | "easy"
+  | "medium"
+  | "hard"
+  | "expert"
+  | "master"
+  | "legend"
+  | "ultimate";
 
 const DIFFICULTY_CONFIG: Record<
   Difficulty,
@@ -64,7 +71,15 @@ const DIFFICULTY_CONFIG: Record<
     label: "Huyền thoại",
     worker: "/caro-ai-worker-v5.js",
     time: 8000,
-    desc: "NegaScout + Timeout - Tối thượng",
+    desc: "NegaScout + Iterative",
+  },
+  ultimate: {
+    depth: 0,
+    reward: 500,
+    label: "Tối thượng",
+    worker: "/caro-ai-ultimate.js",
+    time: 3000,
+    desc: "Siêu phàm - Killer Moves + History",
   },
 };
 
@@ -218,7 +233,7 @@ function CaroPage() {
             <h1 className="font-bold text-xl text-white">Caro vs AI</h1>
           </div>
         </div>
-        <div className="p-4 space-y-4">
+        <div className="p-4 pb-28 space-y-3">
           <div className="card-3d p-4 text-center">
             <h2 className="font-bold text-lg text-[var(--foreground)] mb-2">
               Chọn độ khó
@@ -235,29 +250,74 @@ function CaroPage() {
               "expert",
               "master",
               "legend",
+              "ultimate",
             ] as Difficulty[]
-          ).map((diff) => (
-            <button
-              key={diff}
-              onClick={() => startGame(diff)}
-              className="card-3d p-4 w-full flex items-center justify-between"
-            >
-              <div className="text-left">
-                <p className="font-bold text-[var(--foreground)]">
-                  {DIFFICULTY_CONFIG[diff].label}
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  {DIFFICULTY_CONFIG[diff].desc}
-                </p>
-              </div>
-              <div className="flex items-center gap-1 bg-[var(--duo-blue)]/20 px-3 py-1.5 rounded-full">
-                <span className="font-bold text-[var(--duo-blue)]">
-                  +{DIFFICULTY_CONFIG[diff].reward}
-                </span>
-                <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
-              </div>
-            </button>
-          ))}
+          ).map((diff) => {
+            const cfg = DIFFICULTY_CONFIG[diff];
+            const colors: Record<
+              Difficulty,
+              { bg: string; border: string; text: string }
+            > = {
+              easy: {
+                bg: "bg-[var(--duo-green)]/10",
+                border: "border-[var(--duo-green)]/30",
+                text: "text-[var(--duo-green)]",
+              },
+              medium: {
+                bg: "bg-[var(--duo-blue)]/10",
+                border: "border-[var(--duo-blue)]/30",
+                text: "text-[var(--duo-blue)]",
+              },
+              hard: {
+                bg: "bg-[var(--duo-orange)]/10",
+                border: "border-[var(--duo-orange)]/30",
+                text: "text-[var(--duo-orange)]",
+              },
+              expert: {
+                bg: "bg-[var(--duo-red)]/10",
+                border: "border-[var(--duo-red)]/30",
+                text: "text-[var(--duo-red)]",
+              },
+              master: {
+                bg: "bg-[var(--duo-purple)]/10",
+                border: "border-[var(--duo-purple)]/30",
+                text: "text-[var(--duo-purple)]",
+              },
+              legend: {
+                bg: "bg-gradient-to-r from-[var(--duo-yellow)]/20 to-[var(--duo-orange)]/20",
+                border: "border-[var(--duo-yellow)]/50",
+                text: "text-[var(--duo-yellow)]",
+              },
+              ultimate: {
+                bg: "bg-gradient-to-r from-[var(--duo-purple)]/20 via-[var(--duo-red)]/20 to-[var(--duo-orange)]/20",
+                border: "border-[var(--duo-red)]/50",
+                text: "text-[var(--duo-red)]",
+              },
+            };
+            const style = colors[diff];
+            return (
+              <button
+                key={diff}
+                onClick={() => startGame(diff)}
+                className={`card-3d p-4 w-full flex items-center justify-between border-l-4 ${style.border} transition-all active:scale-[0.98]`}
+              >
+                <div className="text-left">
+                  <p className={`font-bold ${style.text}`}>{cfg.label}</p>
+                  <p className="text-xs text-[var(--muted-foreground)]">
+                    {cfg.desc}
+                  </p>
+                </div>
+                <div
+                  className={`flex items-center gap-1 ${style.bg} px-3 py-1.5 rounded-full`}
+                >
+                  <span className={`font-bold ${style.text}`}>
+                    +{cfg.reward}
+                  </span>
+                  <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                </div>
+              </button>
+            );
+          })}
         </div>
       </Page>
     );

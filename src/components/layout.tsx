@@ -21,6 +21,7 @@ import ShopPage from "../pages/shop";
 import MinigamePage from "../pages/minigame";
 import CaroPage from "../pages/caro";
 import BattlePage from "../pages/battle";
+import ConquestPage from "../pages/conquest";
 import TestFirebasePage from "../pages/test-firebase";
 import { BottomNav } from "./bottom-nav";
 import { useThemeStore } from "@/stores/theme-store";
@@ -55,6 +56,7 @@ const Layout = () => {
             <Route path="/minigame" element={<MinigamePage />} />
             <Route path="/caro" element={<CaroPage />} />
             <Route path="/battle" element={<BattlePage />} />
+            <Route path="/conquest" element={<ConquestPage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />
           </AnimationRoutes>
           <BottomNav />

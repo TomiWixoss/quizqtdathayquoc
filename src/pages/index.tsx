@@ -7,7 +7,6 @@ import {
   CheckCircle,
   Swords,
   Dumbbell,
-  Lock,
 } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -200,21 +199,17 @@ function HomePage() {
           <span>LUYỆN TẬP</span>
         </button>
 
-        {/* Battle Button - Coming Soon */}
+        {/* Conquest Button */}
         <button
-          disabled
-          className="w-full mb-5 py-3 px-4 rounded-2xl font-bold text-white/60 text-base flex items-center justify-center gap-2 relative overflow-hidden"
+          onClick={() => navigate("/conquest")}
+          className="btn-battle w-full mb-5 py-4 px-4 rounded-2xl font-bold text-white text-lg flex items-center justify-center gap-3"
           style={{
-            background: "linear-gradient(135deg, #4a4a4a 0%, #3a3a3a 100%)",
-            boxShadow: "0 4px 0 #2a2a2a",
+            background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)",
+            boxShadow: "0 6px 0 #7c3aed, 0 8px 20px rgba(139, 92, 246, 0.4)",
           }}
         >
-          <Swords className="w-5 h-5" />
+          <Swords className="w-7 h-7" />
           <span>CHINH CHIẾN</span>
-          <Lock className="w-4 h-4" />
-          <span className="absolute top-1 right-2 text-[10px] bg-[var(--duo-orange)] text-white px-1.5 py-0.5 rounded font-bold">
-            SẮP RA MẮT
-          </span>
         </button>
 
         {/* Chapter List */}

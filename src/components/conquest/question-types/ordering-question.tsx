@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GripVertical, ArrowUp, ArrowDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { AIQuestion } from "@/services/ai-quiz-service";
 
 interface Props {
@@ -9,7 +10,6 @@ interface Props {
 }
 
 export function OrderingQuestion({ question, onAnswer, disabled }: Props) {
-  // Shuffle items initially
   const [items, setItems] = useState<string[]>(() => {
     const original = question.items || [];
     return [...original].sort(() => Math.random() - 0.5);
@@ -40,10 +40,10 @@ export function OrderingQuestion({ question, onAnswer, disabled }: Props) {
         {items.map((item, index) => (
           <div
             key={`${item}-${index}`}
-            className="flex items-center gap-2 p-3 rounded-xl border-2 border-[var(--border)] bg-[var(--card)]"
+            className="option-btn flex items-center gap-2 p-3"
           >
             <GripVertical className="w-5 h-5 text-[var(--muted-foreground)]" />
-            <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-sm font-bold flex items-center justify-center">
+            <span className="w-7 h-7 rounded-lg bg-[var(--duo-blue)] text-white text-sm font-bold flex items-center justify-center">
               {index + 1}
             </span>
             <span className="flex-1 text-foreground text-sm">{item}</span>
@@ -53,14 +53,24 @@ export function OrderingQuestion({ question, onAnswer, disabled }: Props) {
                 <button
                   onClick={() => moveItem(index, "up")}
                   disabled={index === 0}
-                  className="p-1.5 rounded-lg bg-[var(--muted)] disabled:opacity-30"
+                  className={cn(
+                    "w-8 h-8 rounded-lg flex items-center justify-center",
+                    index === 0
+                      ? "bg-[var(--secondary)] opacity-30"
+                      : "bg-[var(--duo-blue)] text-white"
+                  )}
                 >
                   <ArrowUp className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => moveItem(index, "down")}
                   disabled={index === items.length - 1}
-                  className="p-1.5 rounded-lg bg-[var(--muted)] disabled:opacity-30"
+                  className={cn(
+                    "w-8 h-8 rounded-lg flex items-center justify-center",
+                    index === items.length - 1
+                      ? "bg-[var(--secondary)] opacity-30"
+                      : "bg-[var(--duo-blue)] text-white"
+                  )}
                 >
                   <ArrowDown className="w-4 h-4" />
                 </button>
@@ -71,9 +81,17 @@ export function OrderingQuestion({ question, onAnswer, disabled }: Props) {
       </div>
 
       {disabled && question.correctAnswer && (
-        <div className="p-3 rounded-lg bg-green-500/20">
-          <p className="text-xs text-green-600 mb-1">Thứ tự đúng:</p>
-          <ol className="list-decimal list-inside text-sm text-green-700">
+        <div
+          className="card-3d p-3"
+          style={{
+            background: "rgba(88, 204, 2, 0.15)",
+            borderColor: "var(--duo-green)",
+          }}
+        >
+          <p className="text-xs text-[var(--duo-green)] mb-1 font-bold">
+            Thứ tự đúng:
+          </p>
+          <ol className="list-decimal list-inside text-sm text-[var(--duo-green)]">
             {(question.correctAnswer as string[]).map((item, i) => (
               <li key={i}>{item}</li>
             ))}

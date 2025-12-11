@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { AIQuestion } from "@/services/ai-quiz-service";
 
 interface Props {
@@ -27,7 +28,6 @@ export function MatchingQuestion({ question, onAnswer, disabled }: Props) {
     setMatches(newMatches);
     setSelectedLeft(null);
 
-    // Convert to answer format
     const answer = Object.entries(newMatches).map(([l, r]) => `${l}-${r}`);
     onAnswer(answer);
   };
@@ -58,13 +58,11 @@ export function MatchingQuestion({ question, onAnswer, disabled }: Props) {
                 key={`left-${item.index}`}
                 onClick={() => handleLeftClick(item.index)}
                 disabled={disabled}
-                className={`w-full p-3 rounded-lg text-left text-sm border-2 transition-all ${
-                  isSelected
-                    ? "border-primary bg-primary/20"
-                    : isMatched
-                    ? "border-green-500 bg-green-500/20"
-                    : "border-[var(--border)] bg-[var(--card)]"
-                }`}
+                className={cn(
+                  "option-btn w-full p-3 text-left text-sm",
+                  isSelected && "selected",
+                  isMatched && "correct"
+                )}
               >
                 {item.text}
               </button>
@@ -82,13 +80,13 @@ export function MatchingQuestion({ question, onAnswer, disabled }: Props) {
                 key={`right-${item.index}`}
                 onClick={() => handleRightClick(item.index)}
                 disabled={disabled || selectedLeft === null || isMatched}
-                className={`w-full p-3 rounded-lg text-left text-sm border-2 transition-all ${
-                  isMatched
-                    ? "border-green-500 bg-green-500/20"
-                    : selectedLeft !== null && !isMatched
-                    ? "border-primary/50 bg-primary/10 cursor-pointer"
-                    : "border-[var(--border)] bg-[var(--card)] opacity-70"
-                }`}
+                className={cn(
+                  "option-btn w-full p-3 text-left text-sm",
+                  isMatched && "correct",
+                  selectedLeft !== null &&
+                    !isMatched &&
+                    "border-[var(--duo-blue)]/50"
+                )}
               >
                 {item.text}
               </button>
@@ -99,7 +97,7 @@ export function MatchingQuestion({ question, onAnswer, disabled }: Props) {
 
       {/* Matched pairs display */}
       {Object.keys(matches).length > 0 && (
-        <div className="mt-4 p-3 rounded-lg bg-[var(--muted)]/50">
+        <div className="card-3d p-3">
           <p className="text-xs text-[var(--muted-foreground)] mb-2">Đã nối:</p>
           <div className="space-y-1">
             {Object.entries(matches).map(([leftIdx, rightIdx]) => (

@@ -27,12 +27,14 @@ export function FillBlankQuestion({ question, onAnswer, disabled }: Props) {
         onChange={handleChange}
         disabled={disabled}
         placeholder="Nhập câu trả lời..."
-        className="w-full p-4 rounded-xl border-2 border-[var(--border)] bg-[var(--card)] text-foreground placeholder:text-[var(--muted-foreground)] focus:border-primary focus:outline-none disabled:opacity-50"
+        className="w-full p-4 rounded-xl border-2 border-[var(--border)] bg-[var(--card)] text-foreground placeholder:text-[var(--muted-foreground)] focus:border-[var(--duo-blue)] focus:outline-none disabled:opacity-50 box-shadow-[0_4px_0_var(--border)]"
       />
       {disabled && question.correctAnswer && (
-        <p className="text-sm text-green-600">
-          Đáp án đúng: <strong>{String(question.correctAnswer)}</strong>
-        </p>
+        <div className="p-3 rounded-xl bg-[var(--duo-green)]/20">
+          <p className="text-sm text-[var(--duo-green)]">
+            Đáp án đúng: <strong>{String(question.correctAnswer)}</strong>
+          </p>
+        </div>
       )}
     </div>
   );

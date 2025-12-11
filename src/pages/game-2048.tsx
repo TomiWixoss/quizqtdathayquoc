@@ -1,5 +1,13 @@
 import { Page, useNavigate } from "zmp-ui";
-import { ArrowLeft, RotateCcw, Trophy, Gem, Bot, Pause } from "lucide-react";
+import {
+  ArrowLeft,
+  RotateCcw,
+  Trophy,
+  Gem,
+  Bot,
+  Pause,
+  AlertTriangle,
+} from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect, useCallback, useRef } from "react";
 import confetti from "canvas-confetti";
@@ -123,17 +131,23 @@ function Game2048Page() {
     if (saved) setBestScore(parseInt(saved, 10));
 
     // Initialize AI worker - sử dụng inline worker để tránh CORS
-    workerRef.current = create2048Worker();
-    workerRef.current.onmessage = (e) => {
-      const { move } = e.data;
-      if (move !== -1 && move !== undefined) {
-        handleMove(move);
-      }
-    };
-    workerRef.current.onerror = (err) => {
-      console.error("2048 AI Worker error:", err);
-      setIsAIPlaying(false);
-    };
+    try {
+      workerRef.current = create2048Worker();
+      workerRef.current.onmessage = (e) => {
+        const { move } = e.data;
+        if (move !== -1 && move !== undefined) {
+          handleMove(move);
+        }
+      };
+      workerRef.current.onerror = (err) => {
+        console.error("2048 AI Worker error:", err);
+        setIsAIPlaying(false);
+      };
+    } catch (err) {
+      console.error("Failed to create AI worker:", err);
+      // Worker không khả dụng - AI sẽ bị disable
+      workerRef.current = null;
+    }
 
     return () => {
       workerRef.current?.terminate();
@@ -409,6 +423,11 @@ function Game2048Page() {
     if (isAIPlaying) {
       stopAI();
     } else {
+      // Check if worker is available
+      if (!workerRef.current) {
+        alert("AI không khả dụng trên thiết bị này!");
+        return;
+      }
       // Check if user has enough gems
       if ((user?.gems ?? 0) < AI_COST_PER_INTERVAL) {
         alert("Không đủ gem để sử dụng AI!");
@@ -526,8 +545,13 @@ function Game2048Page() {
               )}
             </button>
             {isAIPlaying && (
-              <span className="absolute -top-1 -right-1 bg-[var(--duo-red)] text-white text-[10px] px-1 rounded-full">
-                -{aiGemsSpent}💎
+              <span className="absolute -top-1 -right-1 bg-[var(--duo-red)] text-white text-[10px] px-1 rounded-full flex items-center gap-0.5">
+                -{aiGemsSpent}
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-3 h-3"
+                />
               </span>
             )}
           </div>
@@ -562,8 +586,9 @@ function Game2048Page() {
             </div>
           )}
           {aiUsedThisGame && (
-            <div className="text-white/80 text-sm mb-2">
-              🤖 Đã dùng AI - Không nhận thưởng
+            <div className="flex items-center justify-center gap-1 text-white/80 text-sm mb-2">
+              <Bot className="w-4 h-4" />
+              <span>Đã dùng AI - Không nhận thưởng</span>
             </div>
           )}
           <div className="flex gap-2 justify-center">
@@ -634,12 +659,16 @@ function Game2048Page() {
         <p className="text-sm text-[var(--muted-foreground)]">
           Vuốt hoặc dùng phím mũi tên để di chuyển
         </p>
-        <p className="text-xs text-[var(--muted-foreground)] mt-1">
-          🤖 AI: {AI_COST_PER_INTERVAL} gem mỗi {AI_COST_INTERVAL / 1000} giây
+        <p className="text-xs text-[var(--muted-foreground)] mt-1 flex items-center justify-center gap-1">
+          <Bot className="w-3 h-3" />
+          <span>
+            AI: {AI_COST_PER_INTERVAL} gem mỗi {AI_COST_INTERVAL / 1000} giây
+          </span>
         </p>
         {aiUsedThisGame && (
-          <p className="text-xs text-[var(--duo-red)] mt-1 font-medium">
-            ⚠️ Đã dùng AI - Ván này không nhận thưởng
+          <p className="text-xs text-[var(--duo-red)] mt-1 font-medium flex items-center justify-center gap-1">
+            <AlertTriangle className="w-3 h-3" />
+            <span>Đã dùng AI - Ván này không nhận thưởng</span>
           </p>
         )}
       </div>
@@ -660,7 +689,14 @@ function Game2048Page() {
                     : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
                 }`}
               >
-                {tile}: {gems}💎
+                <span className="flex items-center gap-1">
+                  {tile}: {gems}
+                  <img
+                    src="/AppAssets/BlueDiamond.png"
+                    alt="gem"
+                    className="w-3 h-3"
+                  />
+                </span>
               </div>
             ))}
           </div>

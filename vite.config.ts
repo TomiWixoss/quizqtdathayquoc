@@ -16,4 +16,10 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 0,
   },
+  server: {
+    headers: {
+      "Content-Security-Policy":
+        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; worker-src 'self' blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.cloudfunctions.net; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline';",
+    },
+  },
 });

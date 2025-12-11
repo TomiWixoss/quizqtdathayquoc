@@ -70,9 +70,10 @@ function ConquestPage() {
   };
 
   const handleEnd = async () => {
+    // Set showResult TRƯỚC khi endConquest để tránh flash về trang chính
+    setShowResult(true);
     const result = await endConquest();
     setFinalResult(result);
-    setShowResult(true);
     // Reload user data to get updated stats
     await initUser();
     // Reload conquest stats
@@ -88,8 +89,19 @@ function ConquestPage() {
     resetConquest();
   };
 
-  // Màn hình kết quả
-  if (showResult && finalResult) {
+  // Màn hình kết quả - check TRƯỚC để tránh flash
+  if (showResult) {
+    if (!finalResult) {
+      // Đang tính kết quả
+      return (
+        <Page className="bg-background min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <Loader2 className="w-12 h-12 animate-spin text-[var(--duo-purple)] mx-auto mb-4" />
+            <p className="text-foreground font-bold">Đang tính kết quả...</p>
+          </div>
+        </Page>
+      );
+    }
     return (
       <ConquestResult
         result={finalResult}
@@ -332,7 +344,11 @@ function ConquestPage() {
             <button
               onClick={handleStart}
               disabled={isLoading || !user?.oderId}
-              className="btn-3d btn-3d-purple w-full py-4 text-lg flex items-center justify-center gap-2"
+              className={`btn-3d w-full py-4 text-lg flex items-center justify-center gap-2 ${
+                isLoading
+                  ? "bg-[var(--secondary)] text-[var(--muted-foreground)] shadow-[0_5px_0_var(--border)] cursor-not-allowed"
+                  : "btn-3d-purple"
+              }`}
             >
               {isLoading ? (
                 <>

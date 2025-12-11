@@ -30,11 +30,17 @@ export function QuizCard() {
   const [showXP, setShowXP] = useState(false);
   const [showHeartLost, setShowHeartLost] = useState(false);
   const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
+  const [pendingAnswer, setPendingAnswer] = useState<string | null>(null);
 
   const currentQ = currentQuestions[currentIndex];
   const progress = ((currentIndex + 1) / currentQuestions.length) * 100;
   const isCorrect = selectedAnswer === currentQ?.correctAnswer;
   const isLastQuestion = currentIndex === currentQuestions.length - 1;
+
+  // Reset pending answer when question changes
+  useEffect(() => {
+    setPendingAnswer(null);
+  }, [currentIndex]);
 
   useEffect(() => {
     if (isAnswered) {
@@ -54,14 +60,24 @@ export function QuizCard() {
     }
   }, [isAnswered, isCorrect]);
 
-  const handleSelectAnswer = async (answerId: string) => {
+  // Select answer (just highlight, don't check yet)
+  const handleSelectOption = (answerId: string) => {
+    if (isAnswered) return;
+    setPendingAnswer(answerId);
+  };
+
+  // Check answer when pressing "Kiểm tra" button
+  const handleCheckAnswer = async () => {
+    if (!pendingAnswer || isAnswered) return;
+
     // Check if user has hearts
     if (user && user.hearts <= 0) {
-      return; // Can't answer without hearts
+      setShowNoHeartsModal(true);
+      return;
     }
 
-    selectAnswer(answerId);
-    const correct = answerId === currentQ.correctAnswer;
+    selectAnswer(pendingAnswer);
+    const correct = pendingAnswer === currentQ.correctAnswer;
 
     if (!correct) {
       await loseHeart();
@@ -106,12 +122,6 @@ export function QuizCard() {
   };
 
   if (!currentQ) return null;
-
-  // Show modal when out of hearts
-  if (user && user.hearts <= 0 && !showNoHeartsModal) {
-    // Auto show modal when hearts reach 0
-    setTimeout(() => setShowNoHeartsModal(true), 100);
-  }
 
   return (
     <div className="flex flex-col h-full">
@@ -185,15 +195,17 @@ export function QuizCard() {
         {/* Options */}
         <div className="space-y-2.5">
           {currentQ.options.map((option) => {
-            const isSelected = selectedAnswer === option.id;
+            const isSelected = pendingAnswer === option.id;
+            const isAnsweredSelected = selectedAnswer === option.id;
             const isCorrectOption = option.id === currentQ.correctAnswer;
             const showCorrect = isAnswered && isCorrectOption;
-            const showWrong = isAnswered && isSelected && !isCorrectOption;
+            const showWrong =
+              isAnswered && isAnsweredSelected && !isCorrectOption;
 
             return (
               <button
                 key={option.id}
-                onClick={() => !isAnswered && handleSelectAnswer(option.id)}
+                onClick={() => handleSelectOption(option.id)}
                 disabled={isAnswered}
                 className={cn(
                   "option-btn w-full p-3 text-left flex items-center gap-3",
@@ -208,6 +220,7 @@ export function QuizCard() {
                     showCorrect && "bg-[var(--duo-green)] text-white",
                     showWrong && "bg-[var(--duo-red)] text-white",
                     !isAnswered &&
+                      !isSelected &&
                       "bg-[var(--secondary)] text-[var(--muted-foreground)]",
                     isSelected &&
                       !isAnswered &&
@@ -231,49 +244,70 @@ export function QuizCard() {
         </div>
       </div>
 
-      {/* Bottom Action */}
-      {isAnswered && (
-        <div className="mt-5">
-          <div
-            className={cn(
-              "p-3 rounded-2xl mb-3",
-              isCorrect ? "bg-[var(--duo-green)]/20" : "bg-[var(--duo-red)]/20"
-            )}
-          >
-            <div className="flex items-center gap-2">
+      {/* Bottom Sheet - Result or Check Button */}
+      <div
+        className={cn(
+          "fixed bottom-0 left-0 right-0 p-4 pb-6 transition-all duration-300 z-40",
+          isAnswered
+            ? isCorrect
+              ? "bg-[var(--duo-green)]/95"
+              : "bg-[var(--duo-red)]/95"
+            : "bg-[var(--card)] border-t border-[var(--border)]"
+        )}
+      >
+        {isAnswered ? (
+          // Result bottom sheet
+          <div className="max-w-lg mx-auto">
+            <div className="flex items-center gap-3 mb-3">
               {isCorrect ? (
-                <CheckCircle2 className="w-5 h-5 text-[var(--duo-green)]" />
+                <CheckCircle2 className="w-8 h-8 text-white" />
               ) : (
-                <XCircle className="w-5 h-5 text-[var(--duo-red)]" />
+                <XCircle className="w-8 h-8 text-white" />
               )}
-              <span
-                className={cn(
-                  "font-bold",
-                  isCorrect
-                    ? "text-[var(--duo-green)]"
-                    : "text-[var(--duo-red)]"
+              <div>
+                <p className="font-bold text-white text-lg">
+                  {isCorrect ? "Chính xác!" : "Chưa đúng!"}
+                </p>
+                {!isCorrect && (
+                  <p className="text-white/80 text-sm">
+                    Đáp án đúng:{" "}
+                    {
+                      currentQ.options.find(
+                        (o) => o.id === currentQ.correctAnswer
+                      )?.text
+                    }
+                  </p>
                 )}
-              >
-                {isCorrect ? "Chính xác!" : "Chưa đúng!"}
-              </span>
+              </div>
             </div>
-            {!isCorrect && (
-              <p className="text-xs text-[var(--muted-foreground)] mt-1">
-                Đáp án: {currentQ.correctAnswer}
-              </p>
-            )}
+            <button
+              onClick={nextQuestion}
+              className="w-full py-3.5 rounded-2xl font-bold text-base bg-white text-[var(--duo-green)] shadow-lg"
+            >
+              {isLastQuestion ? "Xem kết quả" : "Tiếp tục"}
+            </button>
           </div>
-          <button
-            onClick={nextQuestion}
-            className={cn(
-              "btn-3d w-full py-3.5 text-base",
-              isCorrect ? "btn-3d-green" : "btn-3d-blue"
-            )}
-          >
-            {isLastQuestion ? "Xem kết quả" : "Tiếp tục"}
-          </button>
-        </div>
-      )}
+        ) : (
+          // Check button
+          <div className="max-w-lg mx-auto">
+            <button
+              onClick={handleCheckAnswer}
+              disabled={!pendingAnswer}
+              className={cn(
+                "w-full py-3.5 rounded-2xl font-bold text-base transition-all",
+                pendingAnswer
+                  ? "btn-3d btn-3d-green"
+                  : "bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed"
+              )}
+            >
+              Kiểm tra
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Spacer for bottom sheet */}
+      <div className="h-24" />
 
       {/* No Hearts Modal */}
       <NoHeartsModal

@@ -175,18 +175,20 @@ function ConquestPage() {
             </div>
           </div>
 
-          {/* Rank tiers preview */}
+          {/* Rank tiers preview - 2 hàng x 4 cột */}
           <div className="grid grid-cols-4 gap-2">
             {RANK_LEVELS.slice(0, 8).map((r) => (
               <div
                 key={r.id}
-                className={`p-2 rounded-lg text-center ${
+                className={`h-11 rounded-xl flex items-center justify-center ${
                   r.id === rank.rankId
                     ? "bg-[var(--duo-purple)]/20 border-2 border-[var(--duo-purple)]"
-                    : "bg-[var(--secondary)]"
+                    : "bg-[var(--secondary)] border-2 border-transparent"
                 }`}
               >
-                <p className="text-xs font-medium text-foreground">{r.name}</p>
+                <p className="text-[11px] font-bold text-foreground">
+                  {r.shortName}
+                </p>
               </div>
             ))}
           </div>

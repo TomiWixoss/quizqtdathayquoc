@@ -5,6 +5,7 @@ export const RANK_LEVELS = [
   {
     id: "wood",
     name: "Gỗ",
+    shortName: "Gỗ",
     tiers: 7,
     minScore: 0,
     difficulty: 1,
@@ -13,6 +14,7 @@ export const RANK_LEVELS = [
   {
     id: "stone",
     name: "Đá",
+    shortName: "Đá",
     tiers: 7,
     minScore: 100,
     difficulty: 2,
@@ -21,6 +23,7 @@ export const RANK_LEVELS = [
   {
     id: "bronze",
     name: "Đồng",
+    shortName: "Đồng",
     tiers: 7,
     minScore: 300,
     difficulty: 3,
@@ -29,6 +32,7 @@ export const RANK_LEVELS = [
   {
     id: "silver",
     name: "Bạc",
+    shortName: "Bạc",
     tiers: 7,
     minScore: 600,
     difficulty: 4,
@@ -37,6 +41,7 @@ export const RANK_LEVELS = [
   {
     id: "gold",
     name: "Vàng",
+    shortName: "Vàng",
     tiers: 7,
     minScore: 1000,
     difficulty: 5,
@@ -45,6 +50,7 @@ export const RANK_LEVELS = [
   {
     id: "platinum",
     name: "Bạch Kim",
+    shortName: "B.Kim",
     tiers: 7,
     minScore: 1500,
     difficulty: 6,
@@ -53,6 +59,7 @@ export const RANK_LEVELS = [
   {
     id: "amethyst",
     name: "Thạch Anh",
+    shortName: "T.Anh",
     tiers: 7,
     minScore: 2200,
     difficulty: 7,
@@ -61,6 +68,7 @@ export const RANK_LEVELS = [
   {
     id: "onyx",
     name: "Hắc Ngọc",
+    shortName: "H.Ngọc",
     tiers: 7,
     minScore: 3000,
     difficulty: 8,

@@ -100,7 +100,7 @@ function LeaderboardPage() {
         case "score":
           return (
             <div className="flex items-center gap-1 text-[var(--duo-yellow)]">
-              <img src="/Lighting.png" alt="xp" className="w-5 h-5" />
+              <Trophy className="w-5 h-5" />
               <span className="font-bold text-lg">{value}</span>
             </div>
           );
@@ -122,7 +122,7 @@ function LeaderboardPage() {
           );
           return userRank.rankName;
         case "score":
-          return "XP";
+          return "Điểm";
         case "gems":
           return "Gems";
       }

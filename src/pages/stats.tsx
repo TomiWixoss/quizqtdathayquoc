@@ -13,18 +13,13 @@ import {
   Star,
   ArrowLeft,
   Swords,
-  Gem,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
-import {
-  getRankFromPoints,
-  getRankImage,
-  RANK_LEVELS,
-} from "@/services/ai-quiz-service";
+import { getRankFromPoints, getRankImage } from "@/services/ai-quiz-service";
 import { useState, useEffect } from "react";
 
-type TabType = "overview" | "conquest" | "chapters" | "history";
+type TabType = "overview" | "chapters" | "history";
 
 function StatsPage() {
   const navigate = useNavigate();
@@ -48,15 +43,13 @@ function StatsPage() {
   const conquestStats = user?.conquestStats;
   const rankPoints = conquestStats?.rankPoints ?? 0;
   const currentRank = getRankFromPoints(rankPoints);
-  const conquestAccuracy =
+  const conquestTotal =
     (conquestStats?.totalConquestCorrect ?? 0) +
-      (conquestStats?.totalConquestWrong ?? 0) >
-    0
+    (conquestStats?.totalConquestWrong ?? 0);
+  const conquestAccuracy =
+    conquestTotal > 0
       ? Math.round(
-          ((conquestStats?.totalConquestCorrect ?? 0) /
-            ((conquestStats?.totalConquestCorrect ?? 0) +
-              (conquestStats?.totalConquestWrong ?? 0))) *
-            100
+          ((conquestStats?.totalConquestCorrect ?? 0) / conquestTotal) * 100
         )
       : 0;
 
@@ -110,23 +103,22 @@ function StatsPage() {
 
       {/* Tabs */}
       <div className="px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
-        <div className="flex gap-1.5">
+        <div className="flex gap-2">
           {[
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
-            { id: "conquest", label: "Chinh Chiến", icon: Swords },
             { id: "chapters", label: "Chương", icon: BookOpen },
             { id: "history", label: "Lịch sử", icon: Calendar },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as TabType)}
-              className={`flex-1 flex items-center justify-center gap-1 py-2 px-2 rounded-xl text-xs font-semibold ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-sm font-semibold ${
                 activeTab === tab.id
                   ? "bg-[var(--duo-green)] text-white"
                   : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
               }`}
             >
-              <tab.icon className="w-3.5 h-3.5" />
+              <tab.icon className="w-4 h-4" />
               {tab.label}
             </button>
           ))}
@@ -313,155 +305,61 @@ function StatsPage() {
                 </span>
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Conquest Tab */}
-        {activeTab === "conquest" && (
-          <div className="space-y-4">
-            {/* Current Rank */}
-            <div className="card-3d p-5 text-center">
-              <img
-                src={getRankImage(currentRank)}
-                alt={currentRank.rankName}
-                className="w-20 h-20 mx-auto mb-3 object-contain"
-              />
-              <h2 className="text-xl font-bold text-foreground mb-1">
-                {currentRank.rankName}
-              </h2>
-              <p className="text-[var(--duo-purple)] font-bold text-lg">
-                {rankPoints} RP
-              </p>
-
-              {/* Progress to next rank */}
-              <div className="mt-4">
-                <div className="flex justify-between text-xs text-[var(--muted-foreground)] mb-1">
-                  <span>{currentRank.rankName}</span>
-                  <span>Rank tiếp theo</span>
-                </div>
-                <div className="progress-duo h-2.5">
-                  <div
-                    className="progress-duo-fill"
-                    style={{
-                      width: `${(() => {
-                        const currentRankIndex = RANK_LEVELS.findIndex(
-                          (r) => r.id === currentRank.rankId
-                        );
-                        if (
-                          currentRankIndex === -1 ||
-                          currentRankIndex >= RANK_LEVELS.length - 1
-                        )
-                          return 100;
-                        const currentRankMin =
-                          RANK_LEVELS[currentRankIndex].minScore;
-                        const nextRankMin =
-                          RANK_LEVELS[currentRankIndex + 1].minScore;
-                        return Math.min(
-                          100,
-                          Math.max(
-                            0,
-                            ((rankPoints - currentRankMin) /
-                              (nextRankMin - currentRankMin)) *
-                              100
-                          )
-                        );
-                      })()}%`,
-                    }}
+            {/* Conquest Stats */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Swords className="w-5 h-5 text-[var(--duo-purple)]" />
+                Chinh Chiến
+              </h3>
+              <div className="flex items-center gap-4">
+                <div className="text-center">
+                  <img
+                    src={getRankImage(currentRank)}
+                    alt={currentRank.rankName}
+                    className="w-16 h-16 mx-auto object-contain"
                   />
+                  <p className="text-sm font-bold text-foreground mt-1">
+                    {currentRank.rankName}
+                  </p>
+                  <p className="text-xs text-[var(--duo-purple)] font-bold">
+                    {rankPoints} RP
+                  </p>
                 </div>
-              </div>
-            </div>
-
-            {/* Conquest Stats Grid */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="card-3d p-4 text-center">
-                <Swords className="w-6 h-6 text-[var(--duo-purple)] mx-auto mb-2" />
-                <p className="text-2xl font-bold text-foreground">
-                  {conquestStats?.totalConquests ?? 0}
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Tổng trận
-                </p>
-              </div>
-              <div className="card-3d p-4 text-center">
-                <Target className="w-6 h-6 text-[var(--duo-blue)] mx-auto mb-2" />
-                <p className="text-2xl font-bold text-foreground">
-                  {conquestAccuracy}%
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Độ chính xác
-                </p>
-              </div>
-            </div>
-
-            {/* Conquest Details */}
-            <div className="card-3d p-4">
-              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-[var(--duo-blue)]" />
-                Chi tiết Chinh Chiến
-              </h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-[var(--muted-foreground)]">
-                    Câu đúng
-                  </span>
-                  <span className="font-bold text-[var(--duo-green)]">
-                    {conquestStats?.totalConquestCorrect ?? 0}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[var(--muted-foreground)]">
-                    Câu sai
-                  </span>
-                  <span className="font-bold text-[var(--duo-red)]">
-                    {conquestStats?.totalConquestWrong ?? 0}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[var(--muted-foreground)]">
-                    Chuỗi thắng hiện tại
-                  </span>
-                  <span className="font-bold text-[var(--duo-orange)]">
-                    {conquestStats?.currentWinStreak ?? 0}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-[var(--muted-foreground)]">
-                    Chuỗi thắng tốt nhất
-                  </span>
-                  <span className="font-bold text-[var(--duo-yellow)]">
-                    {conquestStats?.bestWinStreak ?? 0}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Rank Tiers */}
-            <div className="card-3d p-4">
-              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                <Trophy className="w-5 h-5 text-[var(--duo-yellow)]" />
-                Các bậc Rank
-              </h3>
-              <div className="grid grid-cols-4 gap-2">
-                {RANK_LEVELS.map((r) => (
-                  <div
-                    key={r.id}
-                    className={`p-2 rounded-xl text-center ${
-                      r.id === currentRank.rankId
-                        ? "bg-[var(--duo-purple)]/20 border-2 border-[var(--duo-purple)]"
-                        : rankPoints >= r.minScore
-                        ? "bg-[var(--duo-green)]/10 border border-[var(--duo-green)]/30"
-                        : "bg-[var(--secondary)]"
-                    }`}
-                  >
-                    <p className="text-[10px] font-bold text-foreground">
-                      {r.shortName}
+                <div className="flex-1 grid grid-cols-2 gap-2">
+                  <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                    <p className="text-lg font-bold text-foreground">
+                      {conquestStats?.totalConquests ?? 0}
                     </p>
-                    <p className="text-[8px] text-[var(--muted-foreground)]">
-                      {r.minScore}+
+                    <p className="text-[10px] text-[var(--muted-foreground)]">
+                      Tổng trận
                     </p>
                   </div>
-                ))}
+                  <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                    <p className="text-lg font-bold text-foreground">
+                      {conquestAccuracy}%
+                    </p>
+                    <p className="text-[10px] text-[var(--muted-foreground)]">
+                      Độ chính xác
+                    </p>
+                  </div>
+                  <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                    <p className="text-lg font-bold text-[var(--duo-green)]">
+                      {conquestStats?.totalConquestCorrect ?? 0}
+                    </p>
+                    <p className="text-[10px] text-[var(--muted-foreground)]">
+                      Câu đúng
+                    </p>
+                  </div>
+                  <div className="bg-[var(--secondary)] rounded-xl p-2 text-center">
+                    <p className="text-lg font-bold text-[var(--duo-orange)]">
+                      {conquestStats?.bestWinStreak ?? 0}
+                    </p>
+                    <p className="text-[10px] text-[var(--muted-foreground)]">
+                      Win streak
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

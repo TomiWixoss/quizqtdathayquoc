@@ -19,6 +19,7 @@ import StatsPage from "../pages/stats";
 import MailboxPage from "../pages/mailbox";
 import ShopPage from "../pages/shop";
 import MinigamePage from "../pages/minigame";
+import CaroPage from "../pages/caro";
 import BattlePage from "../pages/battle";
 import TestFirebasePage from "../pages/test-firebase";
 import { BottomNav } from "./bottom-nav";
@@ -52,6 +53,7 @@ const Layout = () => {
             <Route path="/mailbox" element={<MailboxPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/minigame" element={<MinigamePage />} />
+            <Route path="/caro" element={<CaroPage />} />
             <Route path="/battle" element={<BattlePage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />
           </AnimationRoutes>

@@ -270,11 +270,11 @@ function MinigamePage() {
         {user && (
           <div className="flex items-center gap-4 mt-6">
             <div className="flex items-center gap-1">
-              <img src="/Heart.png" alt="heart" className="w-5 h-5" />
+              <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
               <span className="font-bold">{user.hearts ?? 5}</span>
             </div>
             <div className="flex items-center gap-1">
-              <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
               <span className="font-bold">{user.gems ?? 0}</span>
             </div>
           </div>

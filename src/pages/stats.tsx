@@ -230,7 +230,7 @@ function StatsPage() {
             <div className="grid grid-cols-4 gap-2">
               <div className="card-3d p-3 text-center">
                 <img
-                  src="/Lighting.png"
+                  src="/AppAssets/Lighting.png"
                   alt="xp"
                   className="w-5 h-5 mx-auto mb-1"
                 />
@@ -259,7 +259,7 @@ function StatsPage() {
               </div>
               <div className="card-3d p-3 text-center">
                 <img
-                  src="/BlueDiamond.png"
+                  src="/AppAssets/BlueDiamond.png"
                   alt="gem"
                   className="w-5 h-5 mx-auto mb-1"
                 />
@@ -304,7 +304,7 @@ function StatsPage() {
                 ))}
               </div>
               <div className="flex items-center justify-center gap-2 mt-3 pt-3 border-t border-[var(--border)]">
-                <img src="/Fire.png" alt="streak" className="w-6 h-6" />
+                <img src="/AppAssets/Fire.png" alt="streak" className="w-6 h-6" />
                 <span className="font-bold text-[var(--duo-orange)]">
                   {user?.streak ?? 0} ngày streak
                 </span>
@@ -723,7 +723,7 @@ function StatsPage() {
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
                   <img
-                    src="/Fire.png"
+                    src="/AppAssets/Fire.png"
                     alt="streak"
                     className="w-8 h-8 mx-auto mb-1"
                   />

@@ -83,7 +83,7 @@ export function NoHeartsModal({
         <div className="text-center">
           <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[var(--duo-blue)]/20 flex items-center justify-center">
             <img
-              src="/BlueDiamond.png"
+              src="/AppAssets/BlueDiamond.png"
               alt="gem"
               className="w-12 h-12 grayscale opacity-50"
             />
@@ -100,7 +100,7 @@ export function NoHeartsModal({
                 Cần
               </span>
               <div className="flex items-center gap-1">
-                <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
                 <span className="font-bold text-foreground">{heartCost}</span>
               </div>
             </div>
@@ -109,7 +109,7 @@ export function NoHeartsModal({
                 Hiện có
               </span>
               <div className="flex items-center gap-1">
-                <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
                 <span className="font-bold text-[var(--duo-blue)]">
                   {userGems}
                 </span>
@@ -119,7 +119,7 @@ export function NoHeartsModal({
               <div className="flex items-center justify-between">
                 <span className="text-sm text-[var(--duo-red)]">Thiếu</span>
                 <div className="flex items-center gap-1">
-                  <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                  <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
                   <span className="font-bold text-[var(--duo-red)]">
                     {heartCost - userGems}
                   </span>
@@ -139,7 +139,7 @@ export function NoHeartsModal({
                 boxShadow: "0 4px 0 #1682c4",
               }}
             >
-              <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
               <span>Kiếm thêm Gems</span>
             </button>
             <button
@@ -159,7 +159,7 @@ export function NoHeartsModal({
       <div className="text-center">
         <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[var(--duo-red)]/20 flex items-center justify-center">
           <img
-            src="/Heart.png"
+            src="/AppAssets/Heart.png"
             alt="heart"
             className="w-12 h-12 grayscale opacity-50"
           />
@@ -178,10 +178,10 @@ export function NoHeartsModal({
               boxShadow: "0 4px 0 #3d8c02",
             }}
           >
-            <img src="/Heart.png" alt="heart" className="w-5 h-5" />
+            <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
             <span>Hồi đầy tim</span>
             <div className="flex items-center gap-1 ml-2 bg-white/20 px-2 py-0.5 rounded-full">
-              <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
               <span>{heartCost}</span>
             </div>
           </button>

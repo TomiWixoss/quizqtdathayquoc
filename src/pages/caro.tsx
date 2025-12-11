@@ -32,21 +32,21 @@ const DIFFICULTY_CONFIG: Record<
     depth: 4,
     reward: 5,
     label: "Dễ",
-    worker: "/caro-ai-worker-v2.js",
+    worker: "/AI/caro-ai-worker-v2.js",
     desc: "AI suy nghĩ nông",
   },
   medium: {
     depth: 6,
     reward: 10,
     label: "Trung bình",
-    worker: "/caro-ai-worker-v2.js",
+    worker: "/AI/caro-ai-worker-v2.js",
     desc: "AI cân bằng",
   },
   hard: {
     depth: 8,
     reward: 20,
     label: "Khó",
-    worker: "/caro-ai-worker.js",
+    worker: "/AI/caro-ai-worker.js",
     time: 3000,
     desc: "AI suy nghĩ sâu",
   },
@@ -54,7 +54,7 @@ const DIFFICULTY_CONFIG: Record<
     depth: 0,
     reward: 50,
     label: "Siêu khó",
-    worker: "/caro-ai-worker-v3.js",
+    worker: "/AI/caro-ai-worker-v3.js",
     time: 5000,
     desc: "AI không giới hạn",
   },
@@ -62,14 +62,14 @@ const DIFFICULTY_CONFIG: Record<
     depth: 6,
     reward: 100,
     label: "Bậc thầy",
-    worker: "/caro-ai-worker-v4.js",
+    worker: "/AI/caro-ai-worker-v4.js",
     desc: "NegaScout - AI mạnh",
   },
   legend: {
     depth: 0,
     reward: 200,
     label: "Huyền thoại",
-    worker: "/caro-ai-worker-v5.js",
+    worker: "/AI/caro-ai-worker-v5.js",
     time: 8000,
     desc: "NegaScout + Iterative",
   },
@@ -77,7 +77,7 @@ const DIFFICULTY_CONFIG: Record<
     depth: 0,
     reward: 500,
     label: "Tối thượng",
-    worker: "/caro-ai-ultimate.js",
+    worker: "/AI/caro-ai-ultimate.js",
     time: 3000,
     desc: "Siêu phàm - Killer Moves + History",
   },
@@ -319,7 +319,7 @@ function CaroPage() {
                   <span className={`font-bold ${style.text}`}>
                     +{cfg.reward}
                   </span>
-                  <img src="/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                  <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
                 </div>
               </button>
             );
@@ -392,7 +392,7 @@ function CaroPage() {
             </div>
           </div>
           <div className="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full">
-            <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+            <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
             <span className="font-bold text-white">{user?.gems ?? 0}</span>
           </div>
         </div>

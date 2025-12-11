@@ -116,11 +116,11 @@ function BattlePage() {
       {user && (
         <div className="px-4 py-3 flex items-center justify-center gap-6 bg-[var(--card)] border-b-2 border-[var(--border)]">
           <div className="flex items-center gap-1.5">
-            <img src="/Heart.png" alt="heart" className="w-5 h-5" />
+            <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
             <span className="font-bold text-foreground">{user.hearts}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <img src="/Lighting.png" alt="xp" className="w-5 h-5" />
+            <img src="/AppAssets/Lighting.png" alt="xp" className="w-5 h-5" />
             <span className="font-bold text-foreground">{user.exp} XP</span>
           </div>
         </div>

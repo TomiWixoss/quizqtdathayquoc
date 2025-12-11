@@ -224,7 +224,7 @@ export function QuizResult() {
               })}
             </div>
             <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)] mb-4">
-              <img src="/BlueDiamond.png" alt="gem" className="w-6 h-6" />
+              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-6 h-6" />
               <span className="font-bold">
                 +{newAchievements.length * 10} Gems
               </span>
@@ -327,7 +327,7 @@ export function QuizResult() {
           </div>
           <div>
             <div className="w-8 h-8 mx-auto rounded-lg bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-1">
-              <img src="/Lighting.png" alt="xp" className="w-5 h-5" />
+              <img src="/AppAssets/Lighting.png" alt="xp" className="w-5 h-5" />
             </div>
             <div className="text-xl font-bold text-[var(--duo-yellow)]">
               {score}
@@ -340,7 +340,7 @@ export function QuizResult() {
         {bonusGems > 0 && (
           <div className="mt-3 pt-3 border-t border-[var(--border)] text-center">
             <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-              <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
               <span className="font-bold">+{bonusGems} Gems bonus!</span>
             </div>
           </div>
@@ -349,7 +349,7 @@ export function QuizResult() {
         {user && (
           <div className="mt-3 pt-3 border-t border-[var(--border)] flex items-center justify-center gap-4">
             <div className="flex items-center gap-1">
-              <img src="/Fire.png" alt="streak" className="w-5 h-5" />
+              <img src="/AppAssets/Fire.png" alt="streak" className="w-5 h-5" />
               <span className="font-bold text-sm text-[var(--duo-orange)]">
                 {user.streak}
               </span>

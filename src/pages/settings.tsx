@@ -141,7 +141,7 @@ function SettingsPage() {
 
             {redeemStatus === "success" && (
               <div className="flex items-center justify-center gap-2 text-[var(--duo-green)] mb-3">
-                <img src="/BlueDiamond.png" alt="gem" className="w-6 h-6" />
+                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-6 h-6" />
                 <span className="font-bold">Đổi mã thành công!</span>
               </div>
             )}

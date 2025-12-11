@@ -144,7 +144,7 @@ export function QuizCard() {
                 {[...Array(user.maxHearts ?? 5)].map((_, i) => (
                   <img
                     key={i}
-                    src="/Heart.png"
+                    src="/AppAssets/Heart.png"
                     alt="heart"
                     className={`w-4 h-4 ${
                       i >= (user.hearts ?? 5) ? "opacity-30 grayscale" : ""
@@ -155,7 +155,7 @@ export function QuizCard() {
             )}
             {/* XP */}
             <div className="flex items-center gap-1 text-[var(--duo-yellow)]">
-              <img src="/Lighting.png" alt="xp" className="w-4 h-4" />
+              <img src="/AppAssets/Lighting.png" alt="xp" className="w-4 h-4" />
               <span className="font-bold">{score}</span>
             </div>
           </div>
@@ -166,7 +166,7 @@ export function QuizCard() {
       {showXP && (
         <div className="fixed top-1/3 left-1/2 -translate-x-1/2 z-50">
           <div className="xp-pop flex items-center gap-2 bg-[var(--duo-green)] text-white px-4 py-2 rounded-full font-bold">
-            <img src="/Lighting.png" alt="xp" className="w-5 h-5" />
+            <img src="/AppAssets/Lighting.png" alt="xp" className="w-5 h-5" />
             +10 XP
           </div>
         </div>
@@ -176,7 +176,7 @@ export function QuizCard() {
       {showHeartLost && (
         <div className="fixed top-1/3 left-1/2 -translate-x-1/2 z-50">
           <div className="xp-pop flex items-center gap-2 bg-[var(--duo-red)] text-white px-4 py-2 rounded-full font-bold">
-            <img src="/Heart.png" alt="heart" className="w-5 h-5" />
+            <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
             -1
           </div>
         </div>

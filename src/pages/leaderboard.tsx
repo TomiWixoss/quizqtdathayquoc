@@ -107,7 +107,7 @@ function LeaderboardPage() {
         case "gems":
           return (
             <div className="flex items-center gap-1 text-[var(--duo-blue)]">
-              <img src="/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
               <span className="font-bold text-lg">{value}</span>
             </div>
           );
@@ -172,7 +172,7 @@ function LeaderboardPage() {
             </p>
             <div className="flex items-center gap-3 text-xs">
               <span className="flex items-center gap-1 text-[var(--duo-orange)]">
-                <img src="/Fire.png" alt="streak" className="w-4 h-4" />
+                <img src="/AppAssets/Fire.png" alt="streak" className="w-4 h-4" />
                 {leader.streak ?? 0}
               </span>
               <span className="text-[var(--muted-foreground)]">

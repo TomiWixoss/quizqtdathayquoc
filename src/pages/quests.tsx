@@ -163,7 +163,7 @@ function QuestsPage() {
 
             <div className="bg-[var(--secondary)] rounded-2xl p-4 mb-4">
               <div className="flex items-center justify-center gap-2">
-                <img src="/BlueDiamond.png" alt="gem" className="w-10 h-10" />
+                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-10 h-10" />
                 <span className="text-3xl font-bold text-[var(--duo-blue)]">
                   +{currentReward.gems}
                 </span>
@@ -275,7 +275,7 @@ function QuestsPage() {
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1 text-[var(--duo-blue)]">
                         <img
-                          src="/BlueDiamond.png"
+                          src="/AppAssets/BlueDiamond.png"
                           alt="gem"
                           className="w-4 h-4"
                         />
@@ -373,7 +373,7 @@ function QuestsPage() {
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1 text-[var(--duo-blue)]">
                         <img
-                          src="/BlueDiamond.png"
+                          src="/AppAssets/BlueDiamond.png"
                           alt="gem"
                           className="w-4 h-4"
                         />

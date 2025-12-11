@@ -6,6 +6,8 @@ import { useConquestStore } from "@/stores/conquest-store";
 import { MatchingQuestion } from "@/components/conquest/question-types/matching-question";
 import { OrderingQuestion } from "@/components/conquest/question-types/ordering-question";
 import { FillBlankQuestion } from "@/components/conquest/question-types/fill-blank-question";
+import { MultiSelectQuestion } from "@/components/conquest/question-types/multi-select-question";
+import { ScenarioQuestion } from "@/components/conquest/question-types/scenario-question";
 import confetti from "canvas-confetti";
 
 interface Props {
@@ -132,6 +134,22 @@ export function ConquestQuizCard({ question, onEnd }: Props) {
             disabled={isSubmitted}
           />
         );
+      case "multi_select":
+        return (
+          <MultiSelectQuestion
+            question={question}
+            onAnswer={setSelectedAnswer}
+            disabled={isSubmitted}
+          />
+        );
+      case "scenario":
+        return (
+          <ScenarioQuestion
+            question={question}
+            onAnswer={setSelectedAnswer}
+            disabled={isSubmitted}
+          />
+        );
       case "multiple_choice":
       case "true_false":
       default:
@@ -157,12 +175,25 @@ export function ConquestQuizCard({ question, onEnd }: Props) {
       </div>
 
       {/* Question Type Badge */}
-      <div className="inline-block px-3 py-1 rounded-full bg-[var(--secondary)] text-xs text-[var(--muted-foreground)] mb-3 w-fit">
+      <div
+        className={cn(
+          "inline-block px-3 py-1 rounded-full text-xs mb-3 w-fit",
+          question.type === "multi_select" &&
+            "bg-[var(--duo-purple)]/20 text-[var(--duo-purple)]",
+          question.type === "scenario" &&
+            "bg-[var(--duo-orange)]/20 text-[var(--duo-orange)]",
+          question.type !== "multi_select" &&
+            question.type !== "scenario" &&
+            "bg-[var(--secondary)] text-[var(--muted-foreground)]"
+        )}
+      >
         {question.type === "multiple_choice" && "Trắc nghiệm"}
         {question.type === "true_false" && "Đúng/Sai"}
         {question.type === "fill_blank" && "Điền từ"}
         {question.type === "matching" && "Nối cặp"}
         {question.type === "ordering" && "Sắp xếp"}
+        {question.type === "multi_select" && "Chọn nhiều"}
+        {question.type === "scenario" && "Tình huống"}
       </div>
 
       {/* Question */}

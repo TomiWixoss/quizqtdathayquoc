@@ -8,49 +8,54 @@ interface Props {
   disabled: boolean;
 }
 
+// Fallback distractors nếu AI không trả về
+const FALLBACK_DISTRACTORS = [
+  "dự án",
+  "quản lý",
+  "kế hoạch",
+  "tiến độ",
+  "chi phí",
+  "chất lượng",
+  "rủi ro",
+  "phạm vi",
+  "nguồn lực",
+  "thời gian",
+  "giao tiếp",
+  "truyền thông",
+  "kiểm soát",
+  "giám sát",
+  "đánh giá",
+];
+
 export function FillBlankQuestion({ question, onAnswer, disabled }: Props) {
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
 
-  // Tạo danh sách từ gợi ý (đáp án đúng + các từ nhiễu)
+  // Tạo danh sách từ gợi ý (đáp án đúng + các từ nhiễu từ AI)
   const wordOptions = useMemo(() => {
     const correctAnswer = String(question.correctAnswer);
 
-    // Các từ nhiễu phổ biến trong QTDA
-    const distractors = [
-      "dự án",
-      "quản lý",
-      "kế hoạch",
-      "tiến độ",
-      "chi phí",
-      "chất lượng",
-      "rủi ro",
-      "phạm vi",
-      "nguồn lực",
-      "thời gian",
-      "giao tiếp",
-      "truyền thông",
-      "kiểm soát",
-      "giám sát",
-      "đánh giá",
-      "ước lượng",
-      "lập lịch",
-      "tích hợp",
-      "nhân lực",
-      "khách hàng",
-    ];
+    // Ưu tiên dùng distractors từ AI, fallback nếu không có
+    let distractors: string[] = [];
 
-    const filteredDistractors = distractors.filter(
-      (d) => d.toLowerCase() !== correctAnswer.toLowerCase()
-    );
+    if (question.distractors && question.distractors.length >= 3) {
+      // Dùng distractors từ AI
+      distractors = question.distractors.slice(0, 3);
+    } else {
+      // Fallback: random từ danh sách có sẵn
+      const filtered = FALLBACK_DISTRACTORS.filter(
+        (d) => d.toLowerCase() !== correctAnswer.toLowerCase()
+      );
+      const shuffled = filtered.sort(() => Math.random() - 0.5);
+      distractors = shuffled.slice(0, 3);
+    }
 
-    const shuffled = filteredDistractors.sort(() => Math.random() - 0.5);
-    const selected = shuffled.slice(0, 3);
-    const allOptions = [...selected, correctAnswer].sort(
+    // Trộn đáp án đúng với các từ nhiễu
+    const allOptions = [...distractors, correctAnswer].sort(
       () => Math.random() - 0.5
     );
 
     return allOptions;
-  }, [question.correctAnswer]);
+  }, [question.correctAnswer, question.distractors]);
 
   const handleSelectWord = (word: string) => {
     if (disabled) return;

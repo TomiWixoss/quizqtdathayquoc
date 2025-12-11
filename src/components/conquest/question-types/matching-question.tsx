@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AIQuestion } from "@/services/ai-quiz-service";
 
@@ -30,6 +31,13 @@ export function MatchingQuestion({ question, onAnswer, disabled }: Props) {
 
     const answer = Object.entries(newMatches).map(([l, r]) => `${l}-${r}`);
     onAnswer(answer);
+  };
+
+  const handleReset = () => {
+    if (disabled) return;
+    setMatches({});
+    setSelectedLeft(null);
+    onAnswer([]);
   };
 
   const getMatchedRight = (leftIndex: number): number | undefined => {
@@ -98,7 +106,18 @@ export function MatchingQuestion({ question, onAnswer, disabled }: Props) {
       {/* Matched pairs display */}
       {Object.keys(matches).length > 0 && (
         <div className="card-3d p-3">
-          <p className="text-xs text-[var(--muted-foreground)] mb-2">Đã nối:</p>
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs text-[var(--muted-foreground)]">Đã nối:</p>
+            {!disabled && (
+              <button
+                onClick={handleReset}
+                className="flex items-center gap-1 px-2 py-1 rounded-lg bg-[var(--duo-orange)]/20 text-[var(--duo-orange)] text-xs font-bold"
+              >
+                <RotateCcw className="w-3 h-3" />
+                Làm lại
+              </button>
+            )}
+          </div>
           <div className="space-y-1">
             {Object.entries(matches).map(([leftIdx, rightIdx]) => (
               <p key={leftIdx} className="text-sm text-foreground">

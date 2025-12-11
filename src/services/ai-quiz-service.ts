@@ -74,6 +74,16 @@ export const RANK_LEVELS = [
     difficulty: 8,
     folder: "Onyx",
   },
+  {
+    id: "master",
+    name: "Huyền Thoại",
+    shortName: "H.Thoại",
+    tiers: 0, // Không có tier, tính theo điểm tăng dần
+    minScore: 4000,
+    difficulty: 10,
+    folder: "Master",
+    isMaster: true, // Flag đặc biệt cho rank Huyền Thoại
+  },
 ] as const;
 
 export type RankId = (typeof RANK_LEVELS)[number]["id"];
@@ -92,13 +102,17 @@ export interface AIQuestion {
     | "fill_blank"
     | "matching"
     | "true_false"
-    | "ordering";
+    | "ordering"
+    | "multi_select" // Chọn nhiều đáp án đúng
+    | "scenario"; // Tình huống thực tế
   question: string;
   options?: string[];
   correctAnswer: string | string[];
   explanation?: string;
   pairs?: { left: string; right: string }[];
+  scenario?: string; // Mô tả tình huống cho câu hỏi scenario
   items?: string[];
+  distractors?: string[]; // Các từ gây nhiễu cho fill_blank (AI tự sinh)
 }
 
 export interface AIQuizSession {
@@ -1159,6 +1173,8 @@ const questionSchema = {
               "fill_blank",
               "matching",
               "ordering",
+              "multi_select",
+              "scenario",
             ],
           },
           question: { type: "string" },
@@ -1189,6 +1205,15 @@ const questionSchema = {
             type: "array",
             items: { type: "string" },
           },
+          distractors: {
+            type: "array",
+            items: { type: "string" },
+            description: "3 từ gây nhiễu cho câu hỏi fill_blank",
+          },
+          scenario: {
+            type: "string",
+            description: "Mô tả tình huống thực tế cho câu hỏi scenario",
+          },
         },
         required: ["id", "type", "question", "correctAnswer", "explanation"],
         additionalProperties: false,
@@ -1209,6 +1234,18 @@ export function getRankFromPoints(points: number): UserRank {
     } else {
       break;
     }
+  }
+
+  // Xử lý đặc biệt cho rank Master (Huyền Thoại)
+  if (currentRank.id === "master") {
+    // Rank Master không có tier, hiển thị điểm thay vì tier
+    const masterPoints = points - currentRank.minScore;
+    return {
+      rankId: currentRank.id as RankId,
+      tier: 0, // Không có tier
+      points,
+      rankName: `${currentRank.name} (${masterPoints} LP)`, // LP = Legend Points
+    };
   }
 
   const nextRank = RANK_LEVELS.find((r) => r.minScore > currentRank.minScore);
@@ -1235,6 +1272,12 @@ export function getRankFromPoints(points: number): UserRank {
 export function getRankImage(rank: UserRank): string {
   const rankInfo = RANK_LEVELS.find((r) => r.id === rank.rankId);
   if (!rankInfo) return "/Rank/Wood/rank-wood-1_NoOL_large.png";
+
+  // Rank Master dùng icon riêng
+  if (rank.rankId === "master") {
+    return "/Rank/master.png";
+  }
+
   // Đảo ngược: tier 7 -> ảnh 1, tier 1 -> ảnh 7
   const imageNumber = 8 - rank.tier;
   return `/Rank/${rankInfo.folder}/rank-${rank.rankId}-${imageNumber}_NoOL_large.png`;
@@ -1281,20 +1324,25 @@ function buildQuestionPrompt(rank: UserRank, questionCount: number): string {
     creativity = "Có thể diễn đạt lại câu hỏi theo cách khác, thêm ngữ cảnh";
   } else if (totalDifficulty <= 8) {
     difficultyDesc = "KHÓ - Câu hỏi đòi hỏi hiểu sâu kiến thức";
-    questionTypes = "multiple_choice, fill_blank, matching, ordering";
+    questionTypes =
+      "multiple_choice, fill_blank, matching, ordering, multi_select";
     creativity =
       "Tạo câu hỏi suy luận, kết hợp nhiều khái niệm, tình huống thực tế";
   } else if (totalDifficulty <= 10) {
     difficultyDesc =
       "RẤT KHÓ - Câu hỏi nâng cao, cần nắm vững toàn bộ lý thuyết";
-    questionTypes = "multiple_choice, fill_blank, matching, ordering";
+    questionTypes =
+      "multiple_choice, fill_blank, matching, ordering, multi_select, scenario";
     creativity =
       "Tạo câu hỏi hoàn toàn mới dựa trên kiến thức, tình huống phức tạp";
   } else {
-    difficultyDesc = "SIÊU KHÓ - Bậc thầy, cần hiểu sâu và vận dụng linh hoạt";
-    questionTypes = "multiple_choice, fill_blank, matching, ordering";
+    // Rank Master (Huyền Thoại) - Độ khó cao nhất
+    difficultyDesc =
+      "HUYỀN THOẠI - Bậc thầy, cần hiểu sâu và vận dụng linh hoạt";
+    questionTypes =
+      "multiple_choice, fill_blank, matching, ordering, multi_select, scenario";
     creativity =
-      "Tạo câu hỏi theo lối hoàn toàn khác, kết hợp đa chương, phân tích case study";
+      "Tạo câu hỏi theo lối hoàn toàn khác, kết hợp đa chương, phân tích case study phức tạp, tình huống thực tế đa chiều";
   }
 
   // Random chọn các chương để tạo câu hỏi đa dạng
@@ -1334,9 +1382,11 @@ QUY TẮC:
 - NGÔN NGỮ: Chỉ dùng tiếng Việt cho tất cả nội dung
 - multiple_choice: 4 options, correctAnswer là 1 trong các options
 - true_false: options là ["Đúng", "Sai"], correctAnswer là "Đúng" hoặc "Sai"
-- fill_blank: question có chỗ trống ___, correctAnswer là từ cần điền
+- fill_blank: question có chỗ trống ___, correctAnswer là từ cần điền, distractors là mảng 3 từ gây nhiễu (từ liên quan nhưng SAI, phải khác correctAnswer)
 - matching: pairs là mảng {left, right}, correctAnswer là mảng ["0-0", "1-1"...] 
-- ordering: items là mảng cần sắp xếp, correctAnswer là mảng đúng thứ tự`;
+- ordering: items là mảng cần sắp xếp, correctAnswer là mảng đúng thứ tự
+- multi_select: 5-6 options, correctAnswer là MẢNG các đáp án đúng (2-3 đáp án), câu hỏi phải ghi rõ "Chọn TẤT CẢ đáp án đúng"
+- scenario: scenario là mô tả tình huống thực tế (2-3 câu), question là câu hỏi về tình huống đó, 4 options, correctAnswer là 1 đáp án`;
 }
 
 // Cerebras client
@@ -1475,7 +1525,8 @@ export function checkAnswer(
   switch (question.type) {
     case "multiple_choice":
     case "true_false":
-    case "fill_blank": {
+    case "fill_blank":
+    case "scenario": {
       const correct = String(question.correctAnswer).toLowerCase().trim();
       const user = String(userAnswer).toLowerCase().trim();
       return (
@@ -1506,6 +1557,19 @@ export function checkAnswer(
       return (
         JSON.stringify(userAnswer) === JSON.stringify(question.correctAnswer)
       );
+    }
+
+    case "multi_select": {
+      // Multi-select: phải chọn đúng TẤT CẢ đáp án, không thừa không thiếu
+      if (
+        !Array.isArray(userAnswer) ||
+        !Array.isArray(question.correctAnswer)
+      ) {
+        return false;
+      }
+      const userSorted = [...userAnswer].sort();
+      const correctSorted = [...(question.correctAnswer as string[])].sort();
+      return JSON.stringify(userSorted) === JSON.stringify(correctSorted);
     }
 
     default:

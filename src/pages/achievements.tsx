@@ -28,6 +28,7 @@ import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
 import { useState } from "react";
 import confetti from "canvas-confetti";
+import { RewardModal } from "@/components/ui/reward-modal";
 
 const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Target,
@@ -171,44 +172,17 @@ function AchievementsPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Reward Modal */}
-      {showRewardModal && currentReward && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-          <div className="bg-[var(--card)] rounded-3xl p-6 max-w-sm w-full text-center">
-            {/* Gift animation */}
-            <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-[var(--duo-yellow)] to-[var(--duo-orange)] flex items-center justify-center">
-              <Gift className="w-12 h-12 text-white" />
-            </div>
-
-            <h2 className="text-2xl font-bold text-[var(--duo-yellow)] mb-2">
-              Nhận quà thành công!
-            </h2>
-
-            <p className="text-[var(--muted-foreground)] mb-4">
-              Thành tựu: {currentReward.achievement.name}
-            </p>
-
-            {/* Gems reward */}
-            <div className="bg-[var(--secondary)] rounded-2xl p-4 mb-4">
-              <div className="flex items-center justify-center gap-2">
-                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-10 h-10" />
-                <span className="text-3xl font-bold text-[var(--duo-blue)]">
-                  +{currentReward.gems}
-                </span>
-              </div>
-              <p className="text-sm text-[var(--muted-foreground)] mt-1">
-                Gems
-              </p>
-            </div>
-
-            <button
-              onClick={() => setShowRewardModal(false)}
-              className="btn-3d btn-3d-green w-full py-3"
-            >
-              Tuyệt vời!
-            </button>
-          </div>
-        </div>
-      )}
+      <RewardModal
+        isOpen={showRewardModal && !!currentReward}
+        onClose={() => setShowRewardModal(false)}
+        title="Nhận quà thành công!"
+        subtitle={`Thành tựu: ${currentReward?.achievement.name}`}
+        rewards={
+          currentReward ? [{ type: "gems", amount: currentReward.gems }] : []
+        }
+        gradientFrom="var(--duo-yellow)"
+        gradientTo="var(--duo-orange)"
+      />
 
       {/* Header */}
       <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">

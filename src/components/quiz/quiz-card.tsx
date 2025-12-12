@@ -55,12 +55,13 @@ export function QuizCard() {
           colors: ["#58cc02", "#89e219", "#ffc800"],
         });
         setTimeout(() => setShowXP(false), 800);
-      } else {
+      } else if (quizMode === "chapter" && !hasUnlimitedHearts()) {
+        // Chỉ hiện mất tim ở chế độ học chương và không có tim vô hạn
         setShowHeartLost(true);
         setTimeout(() => setShowHeartLost(false), 800);
       }
     }
-  }, [isAnswered, isCorrect]);
+  }, [isAnswered, isCorrect, quizMode]);
 
   // Select answer (just highlight, don't check yet)
   const handleSelectOption = (answerId: string) => {
@@ -144,8 +145,9 @@ export function QuizCard() {
             Câu {currentIndex + 1}/{currentQuestions.length}
           </span>
           <div className="flex items-center gap-3">
-            {/* Hearts */}
+            {/* Hearts - chỉ hiện ở chế độ học chương, không hiện ở luyện tập */}
             {user &&
+              quizMode === "chapter" &&
               (hasUnlimitedHearts() ? (
                 <div className="flex items-center gap-1 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-2 py-0.5 rounded-full">
                   <img

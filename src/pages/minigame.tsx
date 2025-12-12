@@ -127,9 +127,12 @@ function MinigamePage() {
 
     const selectedPrize = PRIZES[prizeIndex];
     const segmentAngle = 360 / PRIZES.length;
-    const targetAngle = 360 - prizeIndex * segmentAngle - segmentAngle / 2;
+    // Kim chỉ ở trên (góc 0), segment đầu tiên bắt đầu từ góc 0
+    // Để segment prizeIndex nằm dưới kim, cần quay: -prizeIndex * segmentAngle - segmentAngle/2
+    const targetAngle = -(prizeIndex * segmentAngle + segmentAngle / 2);
     const spins = 5; // Number of full rotations
-    const finalRotation = rotation + spins * 360 + targetAngle;
+    // Đảm bảo quay theo chiều kim đồng hồ và dừng đúng vị trí
+    const finalRotation = rotation + spins * 360 + (360 + targetAngle);
 
     setRotation(finalRotation);
 

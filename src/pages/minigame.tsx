@@ -126,13 +126,14 @@ function MinigamePage() {
     }
 
     const selectedPrize = PRIZES[prizeIndex];
-    const segmentAngle = 360 / PRIZES.length;
-    // Kim chỉ ở trên (góc 0), segment đầu tiên bắt đầu từ góc 0
-    // Để segment prizeIndex nằm dưới kim, cần quay: -prizeIndex * segmentAngle - segmentAngle/2
-    const targetAngle = -(prizeIndex * segmentAngle + segmentAngle / 2);
+    const segmentAngle = 360 / PRIZES.length; // 45° per segment
+    // SVG vẽ segment 0 ở trên (12 giờ), kim cũng ở trên
+    // Khi rotation=0, segment 0 nằm dưới kim
+    // Để segment prizeIndex nằm dưới kim, cần quay ngược lại prizeIndex * segmentAngle
+    // Thêm offset segmentAngle/2 để kim chỉ vào giữa segment
+    const targetAngle = 360 - prizeIndex * segmentAngle - segmentAngle / 2;
     const spins = 5; // Number of full rotations
-    // Đảm bảo quay theo chiều kim đồng hồ và dừng đúng vị trí
-    const finalRotation = rotation + spins * 360 + (360 + targetAngle);
+    const finalRotation = spins * 360 + targetAngle;
 
     setRotation(finalRotation);
 

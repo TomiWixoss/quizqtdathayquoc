@@ -360,42 +360,6 @@ function ShopPage() {
             </button>
           </div>
         </div>
-
-        {/* Gems Packages */}
-        <div>
-          <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
-            <img
-              src="/AppAssets/BlueDiamond.png"
-              alt="gem"
-              className="w-4 h-4"
-            />
-            Gói Gems (Sắp ra mắt)
-          </h2>
-
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { gems: 100, price: "10K" },
-              { gems: 500, price: "45K" },
-              { gems: 1000, price: "80K" },
-            ].map((pkg) => (
-              <button
-                key={pkg.gems}
-                className="card-3d p-3 text-center opacity-50"
-                disabled
-              >
-                <img
-                  src="/AppAssets/BlueDiamond.png"
-                  alt="gem"
-                  className="w-8 h-8 mx-auto mb-1"
-                />
-                <p className="font-bold text-foreground">{pkg.gems}</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  {pkg.price}
-                </p>
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Reward Modal for Unlimited Hearts */}

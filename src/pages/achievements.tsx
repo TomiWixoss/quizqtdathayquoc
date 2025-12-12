@@ -133,6 +133,15 @@ function AchievementsPage() {
         return user.conquestStats?.bestWinStreak ?? 0;
       case "rank_points":
         return user.conquestStats?.rankPoints ?? 0;
+      // Minigame achievements
+      case "spin":
+        return user.minigameStats?.spin?.totalSpins ?? 0;
+      case "caro_wins":
+        return user.minigameStats?.caro?.wins ?? 0;
+      case "memory_wins":
+        return user.minigameStats?.memory?.wins ?? 0;
+      case "game2048_tile":
+        return user.minigameStats?.game2048?.bestTile ?? 0;
       default:
         return 0;
     }

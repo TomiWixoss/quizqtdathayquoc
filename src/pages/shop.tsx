@@ -6,12 +6,27 @@ import { useState, useEffect } from "react";
 
 function ShopPage() {
   const navigate = useNavigate();
-  const { user, spendGems, refillHearts } = useUserStore();
+  const {
+    user,
+    spendGems,
+    refillHearts,
+    buyUnlimitedHearts,
+    hasUnlimitedHearts,
+    getUnlimitedHeartsTimeLeft,
+  } = useUserStore();
   const [nextHeartTime, setNextHeartTime] = useState<string | null>(null);
+  const [unlimitedTimeLeft, setUnlimitedTimeLeft] = useState<string | null>(
+    null
+  );
+  const [isPurchasing, setIsPurchasing] = useState(false);
 
-  // Realtime timer for next heart
+  // Realtime timer for next heart and unlimited hearts
   useEffect(() => {
     const updateTimer = () => {
+      // Update unlimited hearts timer
+      const timeLeft = getUnlimitedHeartsTimeLeft();
+      setUnlimitedTimeLeft(timeLeft);
+
       if (!user?.lastHeartRefill) {
         setNextHeartTime(null);
         return;
@@ -39,7 +54,12 @@ function ShopPage() {
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
-  }, [user?.lastHeartRefill, user?.hearts, user?.maxHearts]);
+  }, [
+    user?.lastHeartRefill,
+    user?.hearts,
+    user?.maxHearts,
+    getUnlimitedHeartsTimeLeft,
+  ]);
 
   const handleBuyFullHearts = async () => {
     if (!user) return;
@@ -65,7 +85,11 @@ function ShopPage() {
         {user && (
           <div className="flex items-center gap-4 mt-3">
             <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
-              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-4 h-4"
+              />
               <span className="font-bold text-white">{user.gems ?? 0}</span>
             </div>
             <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
@@ -110,11 +134,19 @@ function ShopPage() {
                   className="card-3d p-4 text-center"
                 >
                   <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
-                    <img src="/AppAssets/Heart.png" alt="heart" className="w-8 h-8" />
+                    <img
+                      src="/AppAssets/Heart.png"
+                      alt="heart"
+                      className="w-8 h-8"
+                    />
                   </div>
                   <p className="font-bold text-foreground mb-1">Hồi đầy tim</p>
                   <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-                    <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+                    <img
+                      src="/AppAssets/BlueDiamond.png"
+                      alt="gem"
+                      className="w-4 h-4"
+                    />
                     <span className="font-bold">50</span>
                   </div>
                 </button>
@@ -126,7 +158,11 @@ function ShopPage() {
               (user.gems ?? 0) < 50 && (
                 <div className="card-3d p-4 text-center opacity-50">
                   <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
-                    <img src="/AppAssets/Heart.png" alt="heart" className="w-8 h-8" />
+                    <img
+                      src="/AppAssets/Heart.png"
+                      alt="heart"
+                      className="w-8 h-8"
+                    />
                   </div>
                   <p className="font-bold text-foreground mb-1">Hồi đầy tim</p>
                   <div className="flex items-center justify-center gap-1 text-[var(--duo-red)]">
@@ -144,7 +180,11 @@ function ShopPage() {
             {user && (user.hearts ?? 5) >= (user.maxHearts ?? 5) && (
               <div className="card-3d p-4 text-center opacity-50">
                 <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-green)]/20 flex items-center justify-center mb-2">
-                  <img src="/AppAssets/Heart.png" alt="heart" className="w-8 h-8" />
+                  <img
+                    src="/AppAssets/Heart.png"
+                    alt="heart"
+                    className="w-8 h-8"
+                  />
                 </div>
                 <p className="font-bold text-foreground mb-1">Tim đã đầy</p>
                 <p className="text-xs text-[var(--duo-green)]">5/5</p>
@@ -152,19 +192,53 @@ function ShopPage() {
             )}
 
             {/* Unlimited hearts (1 hour) */}
-            <button
-              onClick={() => alert("Tính năng sắp ra mắt!")}
-              className="card-3d p-4 text-center opacity-60"
-            >
-              <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-2">
-                <Sparkles className="w-6 h-6 text-[var(--duo-yellow)]" />
+            {hasUnlimitedHearts() ? (
+              <div className="card-3d p-4 text-center border-2 border-[var(--duo-yellow)]">
+                <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-2">
+                  <Sparkles className="w-6 h-6 text-[var(--duo-yellow)] animate-pulse" />
+                </div>
+                <p className="font-bold text-[var(--duo-yellow)] mb-1">
+                  Tim vô hạn
+                </p>
+                <p className="text-xs text-[var(--duo-green)] font-bold">
+                  Còn {unlimitedTimeLeft}
+                </p>
               </div>
-              <p className="font-bold text-foreground mb-1">Tim vô hạn 1h</p>
-              <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
-                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
-                <span className="font-bold">100</span>
-              </div>
-            </button>
+            ) : (
+              <button
+                onClick={async () => {
+                  if ((user?.gems ?? 0) < 1000) {
+                    alert("Không đủ gems! Cần 1000 gems.");
+                    return;
+                  }
+                  setIsPurchasing(true);
+                  const success = await buyUnlimitedHearts();
+                  setIsPurchasing(false);
+                  if (success) {
+                    alert("Đã kích hoạt tim vô hạn trong 1 giờ!");
+                  } else {
+                    alert("Có lỗi xảy ra!");
+                  }
+                }}
+                disabled={isPurchasing || (user?.gems ?? 0) < 1000}
+                className={`card-3d p-4 text-center ${
+                  (user?.gems ?? 0) < 1000 ? "opacity-50" : ""
+                }`}
+              >
+                <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-2">
+                  <Sparkles className="w-6 h-6 text-[var(--duo-yellow)]" />
+                </div>
+                <p className="font-bold text-foreground mb-1">Tim vô hạn 1h</p>
+                <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
+                  <img
+                    src="/AppAssets/BlueDiamond.png"
+                    alt="gem"
+                    className="w-4 h-4"
+                  />
+                  <span className="font-bold">1000</span>
+                </div>
+              </button>
+            )}
           </div>
         </div>
 
@@ -257,7 +331,11 @@ function ShopPage() {
         {/* Gems Packages */}
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
-            <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-4 h-4" />
+            <img
+              src="/AppAssets/BlueDiamond.png"
+              alt="gem"
+              className="w-4 h-4"
+            />
             Gói Gems (Sắp ra mắt)
           </h2>
 

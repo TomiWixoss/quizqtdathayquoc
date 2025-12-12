@@ -55,6 +55,10 @@ interface UserState {
     gemsEarned?: number,
     extraData?: Record<string, unknown>
   ) => Promise<void>;
+  // Unlimited hearts
+  buyUnlimitedHearts: () => Promise<boolean>;
+  hasUnlimitedHearts: () => boolean;
+  getUnlimitedHeartsTimeLeft: () => string | null;
 }
 
 const getWeekStart = () => {
@@ -250,8 +254,13 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   loseHeart: async () => {
-    const { user } = get();
-    if (!user || user.hearts <= 0) return false;
+    const { user, hasUnlimitedHearts } = get();
+    if (!user) return false;
+
+    // Nếu có tim vô hạn, không mất tim
+    if (hasUnlimitedHearts()) return true;
+
+    if (user.hearts <= 0) return false;
 
     const newHearts = user.hearts - 1;
     try {
@@ -799,5 +808,57 @@ export const useUserStore = create<UserState>((set, get) => ({
       console.error("Error updating minigame stats:", error);
       set({ user: { ...user, minigameStats: newStats } });
     }
+  },
+
+  // Unlimited hearts methods
+  buyUnlimitedHearts: async () => {
+    const { user, spendGems } = get();
+    if (!user) return false;
+
+    const UNLIMITED_HEARTS_COST = 1000;
+    const UNLIMITED_HEARTS_DURATION = 60 * 60 * 1000; // 1 hour in ms
+
+    if (user.gems < UNLIMITED_HEARTS_COST) return false;
+
+    const success = await spendGems(UNLIMITED_HEARTS_COST);
+    if (!success) return false;
+
+    const unlimitedHeartsUntil = new Date(
+      Date.now() + UNLIMITED_HEARTS_DURATION
+    ).toISOString();
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { unlimitedHeartsUntil });
+      set({
+        user: { ...get().user!, unlimitedHeartsUntil },
+      });
+      return true;
+    } catch (error) {
+      console.error("Error buying unlimited hearts:", error);
+      return false;
+    }
+  },
+
+  hasUnlimitedHearts: () => {
+    const { user } = get();
+    if (!user?.unlimitedHeartsUntil) return false;
+
+    const until = new Date(user.unlimitedHeartsUntil).getTime();
+    return Date.now() < until;
+  },
+
+  getUnlimitedHeartsTimeLeft: () => {
+    const { user } = get();
+    if (!user?.unlimitedHeartsUntil) return null;
+
+    const until = new Date(user.unlimitedHeartsUntil).getTime();
+    const remaining = until - Date.now();
+
+    if (remaining <= 0) return null;
+
+    const minutes = Math.floor(remaining / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   },
 }));

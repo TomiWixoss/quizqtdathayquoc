@@ -36,7 +36,7 @@ const DIFFICULTY_CONFIG: Record<
     reward: 5,
     label: "Dễ",
     workerType: "ultimate",
-    time: 3000,
+    time: 800,
     desc: "Claude Opus 4.5",
   },
   medium: {
@@ -58,7 +58,7 @@ const DIFFICULTY_CONFIG: Record<
     reward: 50,
     label: "Siêu khó",
     workerType: "v1",
-    time: 3000,
+    time: 1500,
     desc: "Minimax + Alpha-Beta",
   },
   master: {
@@ -66,7 +66,7 @@ const DIFFICULTY_CONFIG: Record<
     reward: 100,
     label: "Bậc thầy",
     workerType: "v3",
-    time: 5000,
+    time: 2000,
     desc: "Iterative Deepening",
   },
   legend: {
@@ -81,7 +81,7 @@ const DIFFICULTY_CONFIG: Record<
     reward: 500,
     label: "Tối thượng",
     workerType: "v5",
-    time: 8000,
+    time: 3000,
     desc: "NegaScout + Iterative",
   },
 };
@@ -187,20 +187,25 @@ function CaroPage() {
           setWinningCells(winning);
           const won = player === 1;
           setGameStatus(won ? "won" : "lost");
-          if (won) {
-            addGems(config.reward);
-            updateMinigameStats("caro", true, config.reward, { difficulty });
-            setEarnedReward(config.reward);
-            setShowRewardModal(true);
-            confetti({
-              particleCount: 100,
-              spread: 70,
-              origin: { y: 0.6 },
-              colors: ["#58cc02", "#ffc800", "#1cb0f6"],
-            });
-          } else {
-            updateMinigameStats("caro", false, 0, { difficulty });
-          }
+          // Xử lý async bên ngoài setBoard để đảm bảo sync với Firebase
+          setTimeout(async () => {
+            if (won) {
+              await addGems(config.reward);
+              await updateMinigameStats("caro", true, config.reward, {
+                difficulty,
+              });
+              setEarnedReward(config.reward);
+              setShowRewardModal(true);
+              confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ["#58cc02", "#ffc800", "#1cb0f6"],
+              });
+            } else {
+              await updateMinigameStats("caro", false, 0, { difficulty });
+            }
+          }, 0);
         }
         return newBoard;
       });

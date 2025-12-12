@@ -232,10 +232,10 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
             lastConquestDate: new Date().toISOString(),
           };
 
-          // Update user document with conquest stats and totalScore
+          // Update user document with conquest stats
+          // NOTE: totalScore là điểm từ luyện tập, KHÔNG ghi đè bằng rankPoints
           await updateDoc(userRef, {
             conquestStats: newConquestStats,
-            totalScore: rankPoints, // Sync totalScore with rankPoints
             totalCorrect: (userData.totalCorrect || 0) + correctCount,
             totalWrong: (userData.totalWrong || 0) + wrongCount,
             exp: (userData.exp || 0) + correctCount * 10,

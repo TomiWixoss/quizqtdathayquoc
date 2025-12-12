@@ -61,6 +61,8 @@ export interface UserStats {
   // Minigame tracking
   lastSpinTime?: string;
   minigameStats?: MinigameStats;
+  // Unlimited hearts
+  unlimitedHeartsUntil?: string;
 }
 
 // Quest Progress Types

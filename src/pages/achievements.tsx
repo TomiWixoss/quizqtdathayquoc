@@ -147,8 +147,16 @@ function AchievementsPage() {
     }
   };
 
+  // Kiểm tra xem đã đạt điều kiện chưa (dựa trên requirement, không chỉ dựa vào achievements array)
+  const isEarned = (achievement: Achievement) => {
+    const current = getCurrentValue(achievement);
+    return current >= achievement.requirement;
+  };
+
   const canClaim = (achievementId: string) => {
-    const earned = (user?.achievements ?? []).includes(achievementId);
+    const achievement = ACHIEVEMENTS.find((a) => a.id === achievementId);
+    if (!achievement) return false;
+    const earned = isEarned(achievement);
     const claimed = claimedRewards.includes(achievementId);
     return earned && !claimed;
   };
@@ -175,7 +183,7 @@ function AchievementsPage() {
     });
   };
 
-  const earnedCount = (user?.achievements ?? []).length;
+  const earnedCount = ACHIEVEMENTS.filter((a) => isEarned(a)).length;
   const claimableCount = ACHIEVEMENTS.filter((a) => canClaim(a.id)).length;
 
   return (
@@ -224,7 +232,7 @@ function AchievementsPage() {
       {/* Content */}
       <div className="px-4 py-4 pb-28 space-y-3">
         {ACHIEVEMENTS.map((achievement) => {
-          const earned = (user?.achievements ?? []).includes(achievement.id);
+          const earned = isEarned(achievement);
           const claimed = claimedRewards.includes(achievement.id);
           const canClaimReward = earned && !claimed;
           const progress = getProgress(achievement);

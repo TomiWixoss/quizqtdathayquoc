@@ -74,7 +74,7 @@ function BattlePage() {
       <div className="pt-16 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/")}
             className="btn-back-3d w-10 h-10 flex items-center justify-center"
           >
             <ArrowLeft className="w-5 h-5 text-white" />

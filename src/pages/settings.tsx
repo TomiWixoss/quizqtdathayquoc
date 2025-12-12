@@ -44,12 +44,48 @@ function SettingsPage() {
     "idle"
   );
 
-  const earnedCount = (user?.achievements ?? []).length;
   const claimedRewards = user?.claimedAchievementRewards ?? [];
+
+  // Helper để kiểm tra điều kiện thành tựu
+  const getCurrentValue = (type: string) => {
+    if (!user) return 0;
+    switch (type) {
+      case "streak":
+        return user.streak;
+      case "correct":
+        return user.totalCorrect;
+      case "perfect":
+        return user.perfectLessons ?? 0;
+      case "level":
+        return user.level ?? 1;
+      case "gems":
+        return user.gems ?? 0;
+      case "conquest":
+        return user.conquestStats?.totalConquests ?? 0;
+      case "conquest_wins":
+        return user.conquestStats?.bestWinStreak ?? 0;
+      case "rank_points":
+        return user.conquestStats?.rankPoints ?? 0;
+      case "spin":
+        return user.minigameStats?.spin?.totalSpins ?? 0;
+      case "caro_wins":
+        return user.minigameStats?.caro?.wins ?? 0;
+      case "memory_wins":
+        return user.minigameStats?.memory?.wins ?? 0;
+      case "game2048_tile":
+        return user.minigameStats?.game2048?.bestTile ?? 0;
+      default:
+        return 0;
+    }
+  };
+
+  const isEarned = (achievement: (typeof ACHIEVEMENTS)[0]) => {
+    return getCurrentValue(achievement.type) >= achievement.requirement;
+  };
+
+  const earnedCount = ACHIEVEMENTS.filter((a) => isEarned(a)).length;
   const claimableCount = ACHIEVEMENTS.filter(
-    (a) =>
-      (user?.achievements ?? []).includes(a.id) &&
-      !claimedRewards.includes(a.id)
+    (a) => isEarned(a) && !claimedRewards.includes(a.id)
   ).length;
 
   // Check unread mail count

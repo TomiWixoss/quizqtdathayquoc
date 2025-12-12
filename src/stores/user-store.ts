@@ -649,7 +649,8 @@ export const useUserStore = create<UserState>((set, get) => ({
 
   // Claimed rewards methods
   claimAchievementReward: async (achievementId) => {
-    const { user } = get();
+    // Lấy user mới nhất từ store để tránh race condition
+    const user = get().user;
     if (!user) return;
 
     const currentClaimed = user.claimedAchievementRewards || [];
@@ -659,10 +660,17 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       const userRef = doc(db, "users", user.oderId);
       await updateDoc(userRef, { claimedAchievementRewards: newClaimed });
-      set({ user: { ...user, claimedAchievementRewards: newClaimed } });
+      // Lấy lại user mới nhất trước khi set để giữ các thay đổi khác (như gems)
+      const latestUser = get().user;
+      if (latestUser) {
+        set({ user: { ...latestUser, claimedAchievementRewards: newClaimed } });
+      }
     } catch (error) {
       console.error("Error claiming achievement reward:", error);
-      set({ user: { ...user, claimedAchievementRewards: newClaimed } });
+      const latestUser = get().user;
+      if (latestUser) {
+        set({ user: { ...latestUser, claimedAchievementRewards: newClaimed } });
+      }
     }
   },
 

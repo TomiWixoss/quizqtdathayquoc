@@ -164,11 +164,11 @@ function AchievementsPage() {
   const handleClaimReward = async (achievement: Achievement) => {
     const gems = ACHIEVEMENT_REWARDS[achievement.id] || 10;
 
-    // Add gems
-    await addGems(gems);
-
-    // Mark as claimed in Firebase
+    // Mark as claimed FIRST to prevent double claim
     await claimAchievementReward(achievement.id);
+
+    // Then add gems
+    await addGems(gems);
 
     // Show reward modal
     setCurrentReward({ achievement, gems });

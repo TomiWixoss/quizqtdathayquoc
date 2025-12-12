@@ -3,8 +3,6 @@ import { Page } from "zmp-ui";
 import { ArrowLeft, Shuffle, Infinity, Clock, Skull } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
-import { useState } from "react";
-import { NoHeartsModal } from "@/components/ui/custom-modal";
 
 const gameModes = [
   {
@@ -45,9 +43,7 @@ function BattlePage() {
   const navigate = useNavigate();
   const { startRandomQuiz, startAllQuiz, startTimeAttack, startSurvival } =
     useQuizStore();
-  const { user, spendGems, refillHearts, hasUnlimitedHearts } = useUserStore();
-  const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
-  const [pendingModeId, setPendingModeId] = useState<string | null>(null);
+  const { user } = useUserStore();
 
   const startMode = (modeId: string) => {
     switch (modeId) {
@@ -67,30 +63,9 @@ function BattlePage() {
     navigate("/quiz");
   };
 
+  // Chế độ luyện tập không cần tim - chơi thoải mái
   const handleMode = (modeId: string) => {
-    // Bỏ qua kiểm tra tim nếu có unlimited hearts
-    if (user && user.hearts <= 0 && !hasUnlimitedHearts()) {
-      setPendingModeId(modeId);
-      setShowNoHeartsModal(true);
-      return;
-    }
     startMode(modeId);
-  };
-
-  const handleBuyHearts = async () => {
-    const success = await spendGems(50);
-    if (success) {
-      await refillHearts();
-      setShowNoHeartsModal(false);
-      if (pendingModeId) {
-        startMode(pendingModeId);
-      }
-    }
-  };
-
-  const handleGoToShop = () => {
-    setShowNoHeartsModal(false);
-    navigate("/shop");
   };
 
   return (
@@ -113,20 +88,14 @@ function BattlePage() {
         </div>
       </div>
 
-      {/* User Stats */}
+      {/* User Stats - Luyện tập không cần tim */}
       {user && (
         <div className="px-4 py-3 flex items-center justify-center gap-6 bg-[var(--card)] border-b-2 border-[var(--border)]">
-          {hasUnlimitedHearts() ? (
-            <div className="flex items-center gap-1.5 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-2.5 py-1 rounded-full">
-              <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
-              <span className="font-bold text-white">∞</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1.5">
-              <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
-              <span className="font-bold text-foreground">{user.hearts}</span>
-            </div>
-          )}
+          <div className="flex items-center gap-1.5 bg-[var(--duo-green)]/20 px-3 py-1 rounded-full">
+            <span className="text-sm font-bold text-[var(--duo-green)]">
+              Không giới hạn tim
+            </span>
+          </div>
           <div className="flex items-center gap-1.5">
             <img src="/AppAssets/Lighting.png" alt="xp" className="w-5 h-5" />
             <span className="font-bold text-foreground">{user.exp} XP</span>
@@ -162,19 +131,6 @@ function BattlePage() {
           );
         })}
       </div>
-
-      {/* No Hearts Modal */}
-      <NoHeartsModal
-        isOpen={showNoHeartsModal}
-        onClose={() => {
-          setShowNoHeartsModal(false);
-          setPendingModeId(null);
-        }}
-        onBuyHearts={handleBuyHearts}
-        onGoToShop={handleGoToShop}
-        userGems={user?.gems ?? 0}
-        heartCost={50}
-      />
     </Page>
   );
 }

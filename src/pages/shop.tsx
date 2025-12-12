@@ -261,7 +261,7 @@ function ShopPage() {
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
             <img src="/AppAssets/Lighting.png" alt="xp" className="w-4 h-4" />
-            Mini Game - Nhận tim miễn phí
+            Mini Game - Kiếm Gems
           </h2>
 
           <div className="space-y-3">
@@ -276,7 +276,7 @@ function ShopPage() {
               <div className="flex-1 text-left">
                 <p className="font-bold text-foreground">Vòng quay may mắn</p>
                 <p className="text-xs text-[var(--muted-foreground)]">
-                  Quay mỗi 4 giờ - Nhận tim, gems, XP
+                  5 gems/lần - Nhận tim, gems, XP
                 </p>
               </div>
               <div className="px-3 py-1 rounded-full bg-[var(--duo-green)] text-white text-xs font-bold">

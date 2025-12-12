@@ -17,6 +17,7 @@ export function QuizCard() {
     selectAnswer,
     nextQuestion,
     score,
+    quizMode,
   } = useQuizStore();
   const {
     user,
@@ -71,8 +72,11 @@ export function QuizCard() {
   const handleCheckAnswer = async () => {
     if (!pendingAnswer || isAnswered) return;
 
-    // Check if user has hearts (bỏ qua nếu có unlimited hearts)
-    if (user && user.hearts <= 0 && !hasUnlimitedHearts()) {
+    // Chế độ luyện tập (battle) không cần tim, chỉ chế độ học chương mới cần
+    const isPracticeMode = quizMode !== "chapter";
+
+    // Check if user has hearts (bỏ qua nếu có unlimited hearts hoặc đang ở chế độ luyện tập)
+    if (user && user.hearts <= 0 && !hasUnlimitedHearts() && !isPracticeMode) {
       setShowNoHeartsModal(true);
       return;
     }
@@ -80,7 +84,8 @@ export function QuizCard() {
     selectAnswer(pendingAnswer);
     const correct = pendingAnswer === currentQ.correctAnswer;
 
-    if (!correct) {
+    // Chỉ trừ tim khi sai ở chế độ học chương
+    if (!correct && !isPracticeMode) {
       await loseHeart();
     }
 

@@ -37,7 +37,7 @@ export function RewardModal({
       case "gems":
         return "/AppAssets/BlueDiamond.png";
       case "xp":
-        return "/AppAssets/XP.png";
+        return "/AppAssets/Lighting.png";
       case "hearts":
         return "/AppAssets/Heart.png";
       default:

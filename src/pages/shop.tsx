@@ -3,6 +3,8 @@ import { Gift, Clock, Sparkles, Grid3X3, Brain, Grid2X2 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useNavigate } from "zmp-ui";
 import { useState, useEffect } from "react";
+import { RewardModal } from "@/components/ui/reward-modal";
+import confetti from "canvas-confetti";
 
 function ShopPage() {
   const navigate = useNavigate();
@@ -19,6 +21,8 @@ function ShopPage() {
     null
   );
   const [isPurchasing, setIsPurchasing] = useState(false);
+  const [showUnlimitedModal, setShowUnlimitedModal] = useState(false);
+  const [showRefillModal, setShowRefillModal] = useState(false);
 
   // Realtime timer for next heart and unlimited hearts
   useEffect(() => {
@@ -70,7 +74,34 @@ function ShopPage() {
     const success = await spendGems(50);
     if (success) {
       await refillHearts();
-      alert("Đã hồi đầy tim!");
+      setShowRefillModal(true);
+      confetti({
+        particleCount: 60,
+        spread: 50,
+        origin: { y: 0.6 },
+        colors: ["#ff4b4b", "#ff6b6b", "#ffc800"],
+      });
+    }
+  };
+
+  const handleBuyUnlimitedHearts = async () => {
+    if ((user?.gems ?? 0) < 1000) {
+      alert("Không đủ gems! Cần 1000 gems.");
+      return;
+    }
+    setIsPurchasing(true);
+    const success = await buyUnlimitedHearts();
+    setIsPurchasing(false);
+    if (success) {
+      setShowUnlimitedModal(true);
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ["#ffc800", "#ff9600", "#ce82ff"],
+      });
+    } else {
+      alert("Có lỗi xảy ra!");
     }
   };
 
@@ -221,20 +252,7 @@ function ShopPage() {
               </div>
             ) : (
               <button
-                onClick={async () => {
-                  if ((user?.gems ?? 0) < 1000) {
-                    alert("Không đủ gems! Cần 1000 gems.");
-                    return;
-                  }
-                  setIsPurchasing(true);
-                  const success = await buyUnlimitedHearts();
-                  setIsPurchasing(false);
-                  if (success) {
-                    alert("Đã kích hoạt tim vô hạn trong 24 giờ!");
-                  } else {
-                    alert("Có lỗi xảy ra!");
-                  }
-                }}
+                onClick={handleBuyUnlimitedHearts}
                 disabled={isPurchasing || (user?.gems ?? 0) < 1000}
                 className={`card-3d p-4 text-center ${
                   (user?.gems ?? 0) < 1000 ? "opacity-50" : ""
@@ -379,6 +397,43 @@ function ShopPage() {
           </div>
         </div>
       </div>
+
+      {/* Reward Modal for Unlimited Hearts */}
+      <RewardModal
+        isOpen={showUnlimitedModal}
+        onClose={() => setShowUnlimitedModal(false)}
+        title="Tim vô hạn đã kích hoạt!"
+        subtitle="Bạn có thể học không giới hạn trong 24 giờ"
+        rewards={[
+          {
+            type: "custom",
+            amount: 24,
+            icon: "/AppAssets/Heart.png",
+            label: "giờ tim vô hạn ∞",
+          },
+        ]}
+        buttonText="Tuyệt vời!"
+        gradientFrom="var(--duo-yellow)"
+        gradientTo="var(--duo-orange)"
+      />
+
+      {/* Reward Modal for Heart Refill */}
+      <RewardModal
+        isOpen={showRefillModal}
+        onClose={() => setShowRefillModal(false)}
+        title="Hồi tim thành công!"
+        subtitle="Tim của bạn đã được hồi đầy"
+        rewards={[
+          {
+            type: "hearts",
+            amount: 5,
+            label: "Tim",
+          },
+        ]}
+        buttonText="Tiếp tục học!"
+        gradientFrom="var(--duo-red)"
+        gradientTo="var(--duo-pink)"
+      />
     </Page>
   );
 }

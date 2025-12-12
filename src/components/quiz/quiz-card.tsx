@@ -26,6 +26,7 @@ export function QuizCard() {
     updateDailyProgress,
     spendGems,
     refillHearts,
+    hasUnlimitedHearts,
   } = useUserStore();
   const [showXP, setShowXP] = useState(false);
   const [showHeartLost, setShowHeartLost] = useState(false);
@@ -70,8 +71,8 @@ export function QuizCard() {
   const handleCheckAnswer = async () => {
     if (!pendingAnswer || isAnswered) return;
 
-    // Check if user has hearts
-    if (user && user.hearts <= 0) {
+    // Check if user has hearts (bỏ qua nếu có unlimited hearts)
+    if (user && user.hearts <= 0 && !hasUnlimitedHearts()) {
       setShowNoHeartsModal(true);
       return;
     }
@@ -139,20 +140,30 @@ export function QuizCard() {
           </span>
           <div className="flex items-center gap-3">
             {/* Hearts */}
-            {user && (
-              <div className="flex items-center gap-0.5">
-                {[...Array(user.maxHearts ?? 5)].map((_, i) => (
+            {user &&
+              (hasUnlimitedHearts() ? (
+                <div className="flex items-center gap-1 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-2 py-0.5 rounded-full">
                   <img
-                    key={i}
                     src="/AppAssets/Heart.png"
                     alt="heart"
-                    className={`w-4 h-4 ${
-                      i >= (user.hearts ?? 5) ? "opacity-30 grayscale" : ""
-                    }`}
+                    className="w-4 h-4"
                   />
-                ))}
-              </div>
-            )}
+                  <span className="text-white font-bold text-sm">∞</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-0.5">
+                  {[...Array(user.maxHearts ?? 5)].map((_, i) => (
+                    <img
+                      key={i}
+                      src="/AppAssets/Heart.png"
+                      alt="heart"
+                      className={`w-4 h-4 ${
+                        i >= (user.hearts ?? 5) ? "opacity-30 grayscale" : ""
+                      }`}
+                    />
+                  ))}
+                </div>
+              ))}
             {/* XP */}
             <div className="flex items-center gap-1 text-[var(--duo-yellow)]">
               <img src="/AppAssets/Lighting.png" alt="xp" className="w-4 h-4" />

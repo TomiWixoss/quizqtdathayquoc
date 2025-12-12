@@ -92,12 +92,27 @@ function ShopPage() {
               />
               <span className="font-bold text-white">{user.gems ?? 0}</span>
             </div>
-            <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
-              <img src="/AppAssets/Heart.png" alt="heart" className="w-4 h-4" />
-              <span className="font-bold text-white">
-                {user.hearts ?? 5}/{user.maxHearts ?? 5}
-              </span>
-            </div>
+            {hasUnlimitedHearts() ? (
+              <div className="flex items-center gap-1 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-3 py-1.5 rounded-full">
+                <img
+                  src="/AppAssets/Heart.png"
+                  alt="heart"
+                  className="w-4 h-4"
+                />
+                <span className="font-bold text-white">∞</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
+                <img
+                  src="/AppAssets/Heart.png"
+                  alt="heart"
+                  className="w-4 h-4"
+                />
+                <span className="font-bold text-white">
+                  {user.hearts ?? 5}/{user.maxHearts ?? 5}
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -191,7 +206,7 @@ function ShopPage() {
               </div>
             )}
 
-            {/* Unlimited hearts (1 hour) */}
+            {/* Unlimited hearts (1 day) */}
             {hasUnlimitedHearts() ? (
               <div className="card-3d p-4 text-center border-2 border-[var(--duo-yellow)]">
                 <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-2">
@@ -215,7 +230,7 @@ function ShopPage() {
                   const success = await buyUnlimitedHearts();
                   setIsPurchasing(false);
                   if (success) {
-                    alert("Đã kích hoạt tim vô hạn trong 1 giờ!");
+                    alert("Đã kích hoạt tim vô hạn trong 24 giờ!");
                   } else {
                     alert("Có lỗi xảy ra!");
                   }
@@ -228,7 +243,7 @@ function ShopPage() {
                 <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-2">
                   <Sparkles className="w-6 h-6 text-[var(--duo-yellow)]" />
                 </div>
-                <p className="font-bold text-foreground mb-1">Tim vô hạn 1h</p>
+                <p className="font-bold text-foreground mb-1">Tim vô hạn 24h</p>
                 <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
                   <img
                     src="/AppAssets/BlueDiamond.png"

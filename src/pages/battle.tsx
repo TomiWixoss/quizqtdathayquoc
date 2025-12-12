@@ -45,7 +45,7 @@ function BattlePage() {
   const navigate = useNavigate();
   const { startRandomQuiz, startAllQuiz, startTimeAttack, startSurvival } =
     useQuizStore();
-  const { user, spendGems, refillHearts } = useUserStore();
+  const { user, spendGems, refillHearts, hasUnlimitedHearts } = useUserStore();
   const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
   const [pendingModeId, setPendingModeId] = useState<string | null>(null);
 
@@ -68,7 +68,8 @@ function BattlePage() {
   };
 
   const handleMode = (modeId: string) => {
-    if (user && user.hearts <= 0) {
+    // Bỏ qua kiểm tra tim nếu có unlimited hearts
+    if (user && user.hearts <= 0 && !hasUnlimitedHearts()) {
       setPendingModeId(modeId);
       setShowNoHeartsModal(true);
       return;
@@ -115,10 +116,17 @@ function BattlePage() {
       {/* User Stats */}
       {user && (
         <div className="px-4 py-3 flex items-center justify-center gap-6 bg-[var(--card)] border-b-2 border-[var(--border)]">
-          <div className="flex items-center gap-1.5">
-            <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
-            <span className="font-bold text-foreground">{user.hearts}</span>
-          </div>
+          {hasUnlimitedHearts() ? (
+            <div className="flex items-center gap-1.5 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-2.5 py-1 rounded-full">
+              <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
+              <span className="font-bold text-white">∞</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5">
+              <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
+              <span className="font-bold text-foreground">{user.hearts}</span>
+            </div>
+          )}
           <div className="flex items-center gap-1.5">
             <img src="/AppAssets/Lighting.png" alt="xp" className="w-5 h-5" />
             <span className="font-bold text-foreground">{user.exp} XP</span>

@@ -824,7 +824,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     if (!user) return false;
 
     const UNLIMITED_HEARTS_COST = 1000;
-    const UNLIMITED_HEARTS_DURATION = 60 * 60 * 1000; // 1 hour in ms
+    const UNLIMITED_HEARTS_DURATION = 24 * 60 * 60 * 1000; // 1 day (24 hours) in ms
 
     if (user.gems < UNLIMITED_HEARTS_COST) return false;
 
@@ -865,8 +865,8 @@ export const useUserStore = create<UserState>((set, get) => ({
 
     if (remaining <= 0) return null;
 
-    const minutes = Math.floor(remaining / 60000);
-    const seconds = Math.floor((remaining % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    const hours = Math.floor(remaining / (60 * 60 * 1000));
+    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / 60000);
+    return `${hours}h ${minutes}m`;
   },
 }));

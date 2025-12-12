@@ -16,7 +16,8 @@ import { NoHeartsModal } from "@/components/ui/custom-modal";
 function HomePage() {
   const navigate = useNavigate();
   const { loadQuiz, chapters } = useQuizStore();
-  const { initUser, user, spendGems, refillHearts } = useUserStore();
+  const { initUser, user, spendGems, refillHearts, hasUnlimitedHearts } =
+    useUserStore();
   const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
   const [pendingChapterId, setPendingChapterId] = useState<number | null>(null);
 
@@ -26,7 +27,8 @@ function HomePage() {
   }, []);
 
   const handleChapter = (id: number) => {
-    if (user && user.hearts <= 0) {
+    // Bỏ qua kiểm tra tim nếu có unlimited hearts
+    if (user && user.hearts <= 0 && !hasUnlimitedHearts()) {
       setPendingChapterId(id);
       setShowNoHeartsModal(true);
       return;
@@ -106,21 +108,36 @@ function HomePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               {/* Hearts */}
-              <div className="flex items-center gap-0.5">
-                {[...Array(user.maxHearts ?? 5)].map((_, i) => (
+              {hasUnlimitedHearts() ? (
+                <div className="flex items-center gap-1 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-2 py-0.5 rounded-full">
                   <img
-                    key={i}
                     src="/AppAssets/Heart.png"
                     alt="heart"
-                    className={`w-4 h-4 ${
-                      i >= (user.hearts ?? 5) ? "opacity-30 grayscale" : ""
-                    }`}
+                    className="w-4 h-4"
                   />
-                ))}
-              </div>
+                  <span className="text-white font-bold text-sm">∞</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-0.5">
+                  {[...Array(user.maxHearts ?? 5)].map((_, i) => (
+                    <img
+                      key={i}
+                      src="/AppAssets/Heart.png"
+                      alt="heart"
+                      className={`w-4 h-4 ${
+                        i >= (user.hearts ?? 5) ? "opacity-30 grayscale" : ""
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
               {/* Streak */}
               <div className="flex items-center gap-1">
-                <img src="/AppAssets/Fire.png" alt="streak" className="w-5 h-5" />
+                <img
+                  src="/AppAssets/Fire.png"
+                  alt="streak"
+                  className="w-5 h-5"
+                />
                 <span className="font-bold text-sm text-[var(--duo-orange)]">
                   {user.streak}
                 </span>
@@ -129,14 +146,22 @@ function HomePage() {
             <div className="flex items-center gap-3">
               {/* Gems */}
               <div className="flex items-center gap-1">
-                <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-5 h-5"
+                />
                 <span className="font-bold text-sm text-[var(--duo-blue)]">
                   {user.gems}
                 </span>
               </div>
               {/* XP */}
               <div className="flex items-center gap-1">
-                <img src="/AppAssets/Lighting.png" alt="xp" className="w-5 h-5" />
+                <img
+                  src="/AppAssets/Lighting.png"
+                  alt="xp"
+                  className="w-5 h-5"
+                />
                 <span className="font-bold text-sm text-[var(--duo-yellow)]">
                   {user.exp}
                 </span>

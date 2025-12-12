@@ -79,10 +79,9 @@ function MinigamePage() {
     user,
     addGems,
     refillHearts,
-    canSpin,
-    getTimeUntilNextSpin,
-    updateLastSpinTime,
+    spendGems,
     updateMinigameStats,
+    hasUnlimitedHearts,
   } = useUserStore();
   const [isSpinning, setIsSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
@@ -90,10 +89,24 @@ function MinigamePage() {
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [rewardItems, setRewardItems] = useState<RewardItem[]>([]);
 
+  const SPIN_COST = 5; // 5 gems per spin
   const wheelRef = useRef<HTMLDivElement>(null);
 
   const handleSpin = async () => {
-    if (isSpinning || !canSpin()) return;
+    if (isSpinning) return;
+
+    // Check if user has enough gems
+    if ((user?.gems ?? 0) < SPIN_COST) {
+      alert(`Không đủ gems! Cần ${SPIN_COST} gems để quay.`);
+      return;
+    }
+
+    // Spend gems first
+    const success = await spendGems(SPIN_COST);
+    if (!success) {
+      alert("Có lỗi xảy ra!");
+      return;
+    }
 
     setIsSpinning(true);
     setPrize(null);
@@ -124,9 +137,6 @@ function MinigamePage() {
     setTimeout(async () => {
       setPrize(selectedPrize);
       setIsSpinning(false);
-
-      // Sync to Firebase
-      await updateLastSpinTime();
 
       // Award prize
       let gemsEarned = 0;
@@ -161,8 +171,7 @@ function MinigamePage() {
     }, 4000);
   };
 
-  const timeUntilNext = getTimeUntilNextSpin();
-  const canSpinNow = canSpin();
+  const canSpinNow = (user?.gems ?? 0) >= SPIN_COST;
 
   return (
     <Page className="bg-background min-h-screen">
@@ -177,7 +186,9 @@ function MinigamePage() {
           </button>
           <div>
             <h1 className="font-bold text-xl text-white">Vòng quay may mắn</h1>
-            <p className="text-white/80 text-xs">Quay mỗi 4 giờ</p>
+            <p className="text-white/80 text-xs">
+              Mỗi lần quay tốn {SPIN_COST} gems
+            </p>
           </div>
         </div>
       </div>
@@ -260,32 +271,56 @@ function MinigamePage() {
         />
 
         {/* Spin Button */}
-        {canSpinNow ? (
-          <button
-            onClick={handleSpin}
-            disabled={isSpinning}
-            className={`btn-3d btn-3d-green w-full max-w-xs py-4 text-lg ${
-              isSpinning ? "opacity-50" : ""
-            }`}
-          >
-            {isSpinning ? "Đang quay..." : "Quay ngay!"}
-          </button>
-        ) : (
-          <div className="text-center">
-            <p className="text-[var(--muted-foreground)] mb-2">Quay tiếp sau</p>
-            <p className="font-bold text-xl text-[var(--duo-blue)]">
-              {timeUntilNext}
-            </p>
-          </div>
+        <button
+          onClick={handleSpin}
+          disabled={isSpinning || !canSpinNow}
+          className={`btn-3d w-full max-w-xs py-4 text-lg flex items-center justify-center gap-2 ${
+            isSpinning || !canSpinNow
+              ? "bg-[var(--secondary)] text-[var(--muted-foreground)] shadow-[0_5px_0_var(--border)]"
+              : "btn-3d-green"
+          }`}
+        >
+          {isSpinning ? (
+            "Đang quay..."
+          ) : (
+            <>
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-5 h-5"
+              />
+              Quay ({SPIN_COST} gems)
+            </>
+          )}
+        </button>
+        {!canSpinNow && !isSpinning && (
+          <p className="text-sm text-[var(--duo-red)] mt-2">
+            Không đủ gems để quay
+          </p>
         )}
 
         {/* Stats */}
         {user && (
           <div className="flex items-center gap-4 mt-6">
-            <div className="flex items-center gap-1">
-              <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
-              <span className="font-bold">{user.hearts ?? 5}</span>
-            </div>
+            {hasUnlimitedHearts() ? (
+              <div className="flex items-center gap-1 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-2.5 py-1 rounded-full">
+                <img
+                  src="/AppAssets/Heart.png"
+                  alt="heart"
+                  className="w-5 h-5"
+                />
+                <span className="font-bold text-white">∞</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1">
+                <img
+                  src="/AppAssets/Heart.png"
+                  alt="heart"
+                  className="w-5 h-5"
+                />
+                <span className="font-bold">{user.hearts ?? 5}</span>
+              </div>
+            )}
             <div className="flex items-center gap-1">
               <img
                 src="/AppAssets/BlueDiamond.png"

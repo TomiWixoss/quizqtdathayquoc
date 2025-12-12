@@ -133,7 +133,8 @@ function MinigamePage() {
     // Thêm offset segmentAngle/2 để kim chỉ vào giữa segment
     const targetAngle = 360 - prizeIndex * segmentAngle - segmentAngle / 2;
     const spins = 5; // Number of full rotations
-    const finalRotation = spins * 360 + targetAngle;
+    // Cộng thêm rotation hiện tại để luôn quay thêm từ vị trí hiện tại
+    const finalRotation = rotation + spins * 360 + targetAngle;
 
     setRotation(finalRotation);
 

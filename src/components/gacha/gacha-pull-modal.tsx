@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, Star } from "lucide-react";
+import { Sparkles, Star } from "lucide-react";
 import type { GachaPullResult } from "@/types/gacha";
 import {
   getScarcityName,
@@ -66,13 +66,13 @@ export function GachaPullModal({
         className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button - hide when showing results (has its own close button) */}
-        {!showAll && (
+        {/* Skip button - show during reveal phase only */}
+        {revealPhase === "reveal" && results.length > 1 && (
           <button
-            onClick={onClose}
-            className="absolute top-12 right-4 p-2 rounded-full bg-white/10 z-10"
+            onClick={handleSkip}
+            className="absolute top-12 right-4 px-4 py-2 rounded-xl bg-white/10 z-10 text-white text-sm font-medium"
           >
-            <X className="w-6 h-6 text-white" />
+            Bỏ qua
           </button>
         )}
 
@@ -215,19 +215,6 @@ export function GachaPullModal({
             >
               Chạm để tiếp tục ({currentIndex + 1}/{results.length})
             </motion.p>
-
-            {/* Skip button */}
-            {results.length > 1 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleSkip();
-                }}
-                className="mt-4 px-4 py-2 bg-white/10 rounded-xl text-white text-sm"
-              >
-                Bỏ qua
-              </button>
-            )}
           </motion.div>
         )}
 

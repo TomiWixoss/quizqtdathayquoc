@@ -420,7 +420,7 @@ function GachaDetailPage() {
             disabled={
               isPulling || !user || user.gems < GACHA_CONFIG.COST_PER_PULL * 10
             }
-            className="flex-1 btn-3d btn-3d-yellow py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 btn-3d btn-3d-red py-3 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="flex items-center justify-center gap-2">
               <Sparkles className="w-5 h-5" />

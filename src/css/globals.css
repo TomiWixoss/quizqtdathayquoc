@@ -165,6 +165,27 @@
   box-shadow: 0 0 0 var(--duo-purple-dark);
 }
 
+.btn-3d-red {
+  background: var(--duo-red);
+  box-shadow: 0 5px 0 var(--duo-red-dark);
+}
+
+.btn-3d-red:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--duo-red-dark);
+}
+
+.btn-3d-yellow {
+  background: var(--duo-yellow);
+  box-shadow: 0 5px 0 #d4a600;
+  color: #1a1a1a;
+}
+
+.btn-3d-yellow:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #d4a600;
+}
+
 /* Card 3D Effect - NO animation, instant press */
 .card-3d {
   background: var(--card);

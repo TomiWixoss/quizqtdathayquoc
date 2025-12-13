@@ -11,6 +11,7 @@ import {
   Package,
   X,
   Check,
+  Star,
 } from "lucide-react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -52,6 +53,12 @@ function ProfilePage() {
   >([]);
   const [selectedCards, setSelectedCards] = useState<ShowcaseCard[]>([]);
   const [loadingOwnedCards, setLoadingOwnedCards] = useState(false);
+  const [filterScarcity, setFilterScarcity] = useState<number | null>(null);
+
+  // View card modal
+  const [viewingCard, setViewingCard] = useState<
+    (GachaCard & { collectionId: number }) | null
+  >(null);
 
   const isOwnProfile = currentUser?.oderId === id;
 
@@ -441,9 +448,10 @@ function ProfilePage() {
           ) : (
             <div className="grid grid-cols-3 gap-2">
               {showcaseCards.map((card, idx) => (
-                <div
+                <button
                   key={`${card.collectionId}-${card.card_img}-${idx}`}
-                  className="relative aspect-[3/4] rounded-xl overflow-hidden border-2"
+                  onClick={() => setViewingCard(card)}
+                  className="relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-transform hover:scale-105 active:scale-95"
                   style={{ borderColor: getScarcityColor(card.card_scarcity) }}
                 >
                   <img
@@ -460,12 +468,85 @@ function ProfilePage() {
                   >
                     {getScarcityName(card.card_scarcity)}
                   </div>
-                </div>
+                  {card.video_list && card.video_list.length > 1 && (
+                    <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50">
+                      <Sparkles className="w-3 h-3 text-white" />
+                    </div>
+                  )}
+                </button>
               ))}
             </div>
           )}
         </div>
       </div>
+
+      {/* View Card Modal */}
+      {viewingCard && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setViewingCard(null)}
+        >
+          <div
+            className="bg-background rounded-2xl overflow-hidden max-w-sm w-full max-h-[85vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className="relative flex-1 min-h-0"
+              style={{
+                aspectRatio:
+                  viewingCard.width > 0 && viewingCard.height > 0
+                    ? viewingCard.width / viewingCard.height
+                    : 2 / 3,
+              }}
+            >
+              {viewingCard.video_list && viewingCard.video_list.length > 1 ? (
+                <video
+                  className="w-full h-full object-contain"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  poster={getFullImage(viewingCard.card_img, 600)}
+                  src={viewingCard.video_list[1]}
+                />
+              ) : (
+                <img
+                  src={getFullImage(viewingCard.card_img, 600)}
+                  alt=""
+                  className="w-full h-full object-contain"
+                  referrerPolicy="no-referrer"
+                />
+              )}
+            </div>
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <span
+                  className="px-3 py-1 rounded-lg text-sm font-bold text-white"
+                  style={{
+                    backgroundColor: getScarcityColor(
+                      viewingCard.card_scarcity
+                    ),
+                  }}
+                >
+                  {getScarcityName(viewingCard.card_scarcity)}
+                </span>
+                {viewingCard.video_list?.length > 0 && (
+                  <span className="flex items-center gap-1 text-xs text-[var(--muted-foreground)]">
+                    <Sparkles className="w-3 h-3" />
+                    Thẻ động
+                  </span>
+                )}
+              </div>
+              <button
+                onClick={() => setViewingCard(null)}
+                className="w-full btn-3d btn-3d-purple py-2"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Edit Showcase Modal */}
       {isEditing && (
@@ -490,6 +571,49 @@ function ProfilePage() {
             <p className="text-sm text-[var(--muted-foreground)] mt-2 text-center">
               Chọn tối đa 6 thẻ ({selectedCards.length}/6)
             </p>
+          </div>
+
+          {/* Filter Tabs */}
+          <div className="bg-[var(--card)] px-4 py-2 border-b border-[var(--border)]">
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+              <button
+                onClick={() => setFilterScarcity(null)}
+                className={`flex items-center gap-1 py-1.5 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                  filterScarcity === null
+                    ? "bg-[var(--duo-purple)] text-white"
+                    : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
+                }`}
+              >
+                Tất cả
+              </button>
+              {[40, 30, 20, 10].map((scarcity) => (
+                <button
+                  key={scarcity}
+                  onClick={() => setFilterScarcity(scarcity)}
+                  className="flex items-center gap-1 py-1.5 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-all"
+                  style={{
+                    backgroundColor:
+                      filterScarcity === scarcity
+                        ? getScarcityColor(scarcity)
+                        : "var(--secondary)",
+                    color:
+                      filterScarcity === scarcity
+                        ? "white"
+                        : "var(--muted-foreground)",
+                  }}
+                >
+                  <Star
+                    className="w-3 h-3"
+                    fill={
+                      filterScarcity === scarcity
+                        ? "white"
+                        : getScarcityColor(scarcity)
+                    }
+                  />
+                  {getScarcityName(scarcity)}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Selected Preview */}
@@ -539,47 +663,55 @@ function ProfilePage() {
               </div>
             ) : (
               <div className="grid grid-cols-3 gap-2">
-                {ownedCards.map((card, idx) => {
-                  const isSelected = selectedCards.some(
-                    (s) =>
-                      s.cardImg === card.card_img &&
-                      s.collectionId === card.collectionId
-                  );
-                  return (
-                    <button
-                      key={`${card.collectionId}-${card.card_img}-${idx}`}
-                      onClick={() => toggleCardSelection(card)}
-                      className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${
-                        isSelected
-                          ? "ring-2 ring-[var(--duo-green)] ring-offset-2"
-                          : ""
-                      }`}
-                      style={{
-                        borderColor: getScarcityColor(card.card_scarcity),
-                      }}
-                    >
-                      <img
-                        src={getHQImage(card.card_img, 200)}
-                        alt=""
-                        className="w-full h-full object-cover object-top"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div
-                        className="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[10px] font-bold text-white"
+                {ownedCards
+                  .filter(
+                    (card) =>
+                      filterScarcity === null ||
+                      card.card_scarcity === filterScarcity
+                  )
+                  .map((card, idx) => {
+                    const isSelected = selectedCards.some(
+                      (s) =>
+                        s.cardImg === card.card_img &&
+                        s.collectionId === card.collectionId
+                    );
+                    return (
+                      <button
+                        key={`${card.collectionId}-${card.card_img}-${idx}`}
+                        onClick={() => toggleCardSelection(card)}
+                        className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${
+                          isSelected
+                            ? "ring-2 ring-[var(--duo-green)] ring-offset-2"
+                            : ""
+                        }`}
                         style={{
-                          backgroundColor: getScarcityColor(card.card_scarcity),
+                          borderColor: getScarcityColor(card.card_scarcity),
                         }}
                       >
-                        {getScarcityName(card.card_scarcity)}
-                      </div>
-                      {isSelected && (
-                        <div className="absolute inset-0 bg-[var(--duo-green)]/30 flex items-center justify-center">
-                          <Check className="w-8 h-8 text-white" />
+                        <img
+                          src={getHQImage(card.card_img, 200)}
+                          alt=""
+                          className="w-full h-full object-cover object-top"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div
+                          className="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[10px] font-bold text-white"
+                          style={{
+                            backgroundColor: getScarcityColor(
+                              card.card_scarcity
+                            ),
+                          }}
+                        >
+                          {getScarcityName(card.card_scarcity)}
                         </div>
-                      )}
-                    </button>
-                  );
-                })}
+                        {isSelected && (
+                          <div className="absolute inset-0 bg-[var(--duo-green)]/30 flex items-center justify-center">
+                            <Check className="w-8 h-8 text-white" />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
               </div>
             )}
           </div>

@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   Sparkles,
   Package,
+  User,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
@@ -510,14 +511,23 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
-            {/* Customize Button */}
-            <button
-              onClick={() => navigate("/customize")}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
-            >
-              <Sparkles className="w-5 h-5" />
-              <span>Đổi Avatar, Khung & Huy hiệu</span>
-            </button>
+            {/* Buttons */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => navigate(`/profile/${user.oderId}`)}
+                className="flex-1 py-3 px-4 rounded-xl bg-[var(--secondary)] text-foreground font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+              >
+                <User className="w-5 h-5" />
+                <span>Hồ sơ</span>
+              </button>
+              <button
+                onClick={() => navigate("/customize")}
+                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+              >
+                <Sparkles className="w-5 h-5" />
+                <span>Trang trí</span>
+              </button>
+            </div>
           </div>
         )}
 

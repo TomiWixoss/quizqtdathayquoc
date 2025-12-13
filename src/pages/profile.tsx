@@ -548,172 +548,203 @@ function ProfilePage() {
         </div>
       )}
 
-      {/* Edit Showcase Modal */}
+      {/* Edit Showcase Bottom Sheet */}
       {isEditing && (
-        <div className="fixed inset-0 z-[100] bg-black/80 flex flex-col">
-          {/* Modal Header */}
-          <div className="bg-[var(--card)] pt-12 pb-4 px-4 border-b border-[var(--border)]">
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => setIsEditing(false)}
-                className="p-2 rounded-xl bg-[var(--secondary)]"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              <h2 className="font-bold text-lg">Chọn thẻ Showcase</h2>
-              <button
-                onClick={saveShowcase}
-                className="p-2 rounded-xl bg-[var(--duo-green)]"
-              >
-                <Check className="w-5 h-5 text-white" />
-              </button>
+        <div
+          className="fixed inset-0 z-[100] bg-black/60"
+          onClick={() => setIsEditing(false)}
+        >
+          <div
+            className="absolute bottom-0 left-0 right-0 bg-[var(--card)] rounded-t-3xl max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Handle bar */}
+            <div className="flex justify-center pt-3 pb-2">
+              <div className="w-10 h-1 bg-[var(--border)] rounded-full" />
             </div>
-            <p className="text-sm text-[var(--muted-foreground)] mt-2 text-center">
-              Chọn tối đa 6 thẻ ({selectedCards.length}/6)
-            </p>
-          </div>
 
-          {/* Filter Tabs */}
-          <div className="bg-[var(--card)] px-4 py-2 border-b border-[var(--border)]">
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-              <button
-                onClick={() => setFilterScarcity(null)}
-                className={`flex items-center gap-1 py-1.5 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
-                  filterScarcity === null
-                    ? "bg-[var(--duo-purple)] text-white"
-                    : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
-                }`}
-              >
-                Tất cả
-              </button>
-              {[40, 30, 20, 10].map((scarcity) => (
+            {/* Header */}
+            <div className="px-4 pb-3 border-b border-[var(--border)]">
+              <div className="flex items-center justify-between">
                 <button
-                  key={scarcity}
-                  onClick={() => setFilterScarcity(scarcity)}
-                  className="flex items-center gap-1 py-1.5 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-all"
-                  style={{
-                    backgroundColor:
-                      filterScarcity === scarcity
-                        ? getScarcityColor(scarcity)
-                        : "var(--secondary)",
-                    color:
-                      filterScarcity === scarcity
-                        ? "white"
-                        : "var(--muted-foreground)",
-                  }}
+                  onClick={() => setIsEditing(false)}
+                  className="p-2 rounded-xl bg-[var(--secondary)]"
                 >
-                  <Star
-                    className="w-3 h-3"
-                    fill={
-                      filterScarcity === scarcity
-                        ? "white"
-                        : getScarcityColor(scarcity)
-                    }
-                  />
-                  {getScarcityName(scarcity)}
+                  <X className="w-5 h-5" />
                 </button>
-              ))}
+                <h2 className="font-bold text-lg">Chọn thẻ Showcase</h2>
+                <button
+                  onClick={saveShowcase}
+                  className="btn-3d btn-3d-green px-4 py-2 text-sm"
+                >
+                  Lưu
+                </button>
+              </div>
+              <p className="text-sm text-[var(--muted-foreground)] mt-2 text-center">
+                Chọn tối đa 6 thẻ ({selectedCards.length}/6)
+              </p>
             </div>
-          </div>
 
-          {/* Selected Preview */}
-          {selectedCards.length > 0 && (
-            <div className="bg-[var(--card)] px-4 py-3 border-b border-[var(--border)]">
-              <div className="flex gap-2 overflow-x-auto">
-                {selectedCards.map((s, idx) => {
-                  const card = ownedCards.find(
-                    (c) =>
-                      c.card_img === s.cardImg &&
-                      c.collectionId === s.collectionId
-                  );
-                  if (!card) return null;
-                  return (
-                    <div
-                      key={idx}
-                      className="w-12 h-16 rounded-lg overflow-hidden border-2 shrink-0"
-                      style={{
-                        borderColor: getScarcityColor(card.card_scarcity),
-                      }}
-                    >
-                      <img
-                        src={getHQImage(card.card_img, 100)}
-                        alt=""
-                        className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Cards Grid */}
-          <div className="flex-1 overflow-y-auto p-4 bg-background">
-            {loadingOwnedCards ? (
-              <div className="flex justify-center py-12">
-                <Loader2 className="w-8 h-8 animate-spin text-[var(--muted-foreground)]" />
-              </div>
-            ) : ownedCards.length === 0 ? (
-              <div className="text-center py-12">
-                <Package className="w-16 h-16 text-[var(--muted-foreground)] mx-auto mb-4" />
-                <p className="text-[var(--muted-foreground)]">
-                  Chưa có thẻ nào
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-3 gap-2">
-                {ownedCards
-                  .filter(
-                    (card) =>
-                      filterScarcity === null ||
-                      card.card_scarcity === filterScarcity
-                  )
-                  .map((card, idx) => {
-                    const isSelected = selectedCards.some(
-                      (s) =>
-                        s.cardImg === card.card_img &&
-                        s.collectionId === card.collectionId
-                    );
-                    return (
-                      <button
-                        key={`${card.collectionId}-${card.card_img}-${idx}`}
-                        onClick={() => toggleCardSelection(card)}
-                        className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${
-                          isSelected
-                            ? "ring-2 ring-[var(--duo-green)] ring-offset-2"
-                            : ""
-                        }`}
-                        style={{
-                          borderColor: getScarcityColor(card.card_scarcity),
-                        }}
-                      >
-                        <img
-                          src={getHQImage(card.card_img, 200)}
-                          alt=""
-                          className="w-full h-full object-cover object-top"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div
-                          className="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[10px] font-bold text-white"
+            {/* Selected Preview */}
+            <div className="px-4 py-3 border-b border-[var(--border)]">
+              <div className="flex items-center gap-2">
+                <div className="flex gap-2 overflow-x-auto flex-1">
+                  {selectedCards.length === 0 ? (
+                    <p className="text-xs text-[var(--muted-foreground)] py-2">
+                      Chưa chọn thẻ nào
+                    </p>
+                  ) : (
+                    selectedCards.map((s, idx) => {
+                      const card = ownedCards.find(
+                        (c) =>
+                          c.card_img === s.cardImg &&
+                          c.collectionId === s.collectionId
+                      );
+                      if (!card) return null;
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => toggleCardSelection(card)}
+                          className="relative w-12 h-16 rounded-lg overflow-hidden border-2 shrink-0 group"
                           style={{
-                            backgroundColor: getScarcityColor(
-                              card.card_scarcity
-                            ),
+                            borderColor: getScarcityColor(card.card_scarcity),
                           }}
                         >
-                          {getScarcityName(card.card_scarcity)}
-                        </div>
-                        {isSelected && (
-                          <div className="absolute inset-0 bg-[var(--duo-green)]/30 flex items-center justify-center">
-                            <Check className="w-8 h-8 text-white" />
+                          <img
+                            src={getHQImage(card.card_img, 100)}
+                            alt=""
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-active:opacity-100">
+                            <X className="w-4 h-4 text-white" />
                           </div>
-                        )}
-                      </button>
-                    );
-                  })}
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
+                {selectedCards.length > 0 && (
+                  <button
+                    onClick={() => setSelectedCards([])}
+                    className="p-2 rounded-lg bg-[var(--duo-red)]/20 text-[var(--duo-red)] shrink-0"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="px-4 py-2 border-b border-[var(--border)]">
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                <button
+                  onClick={() => setFilterScarcity(null)}
+                  className={`flex items-center gap-1 py-1.5 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                    filterScarcity === null
+                      ? "bg-[var(--duo-purple)] text-white"
+                      : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
+                  }`}
+                >
+                  Tất cả
+                </button>
+                {[40, 30, 20, 10].map((scarcity) => (
+                  <button
+                    key={scarcity}
+                    onClick={() => setFilterScarcity(scarcity)}
+                    className="flex items-center gap-1 py-1.5 px-3 rounded-full text-xs font-semibold whitespace-nowrap transition-all"
+                    style={{
+                      backgroundColor:
+                        filterScarcity === scarcity
+                          ? getScarcityColor(scarcity)
+                          : "var(--secondary)",
+                      color:
+                        filterScarcity === scarcity
+                          ? "white"
+                          : "var(--muted-foreground)",
+                    }}
+                  >
+                    <Star
+                      className="w-3 h-3"
+                      fill={
+                        filterScarcity === scarcity
+                          ? "white"
+                          : getScarcityColor(scarcity)
+                      }
+                    />
+                    {getScarcityName(scarcity)}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Cards Grid */}
+            <div className="flex-1 overflow-y-auto p-4">
+              {loadingOwnedCards ? (
+                <div className="flex justify-center py-12">
+                  <Loader2 className="w-8 h-8 animate-spin text-[var(--muted-foreground)]" />
+                </div>
+              ) : ownedCards.length === 0 ? (
+                <div className="text-center py-12">
+                  <Package className="w-16 h-16 text-[var(--muted-foreground)] mx-auto mb-4" />
+                  <p className="text-[var(--muted-foreground)]">
+                    Chưa có thẻ nào
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-3 gap-2 pb-4">
+                  {ownedCards
+                    .filter(
+                      (card) =>
+                        filterScarcity === null ||
+                        card.card_scarcity === filterScarcity
+                    )
+                    .map((card, idx) => {
+                      const isSelected = selectedCards.some(
+                        (s) =>
+                          s.cardImg === card.card_img &&
+                          s.collectionId === card.collectionId
+                      );
+                      return (
+                        <button
+                          key={`${card.collectionId}-${card.card_img}-${idx}`}
+                          onClick={() => toggleCardSelection(card)}
+                          className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${
+                            isSelected
+                              ? "ring-2 ring-[var(--duo-green)] ring-offset-2"
+                              : ""
+                          }`}
+                          style={{
+                            borderColor: getScarcityColor(card.card_scarcity),
+                          }}
+                        >
+                          <img
+                            src={getHQImage(card.card_img, 200)}
+                            alt=""
+                            className="w-full h-full object-cover object-top"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div
+                            className="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[10px] font-bold text-white"
+                            style={{
+                              backgroundColor: getScarcityColor(
+                                card.card_scarcity
+                              ),
+                            }}
+                          >
+                            {getScarcityName(card.card_scarcity)}
+                          </div>
+                          {isSelected && (
+                            <div className="absolute inset-0 bg-[var(--duo-green)]/30 flex items-center justify-center">
+                              <Check className="w-8 h-8 text-white" />
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

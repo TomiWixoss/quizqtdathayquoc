@@ -245,3 +245,53 @@ export async function claimReward(
     return false;
   }
 }
+
+// Claim all rewards for a collection
+export async function claimAllRewards(
+  userId: string,
+  collectionId: number,
+  rewards: CollectReward[]
+): Promise<boolean> {
+  try {
+    const inventory = await getUserGachaInventory(userId);
+
+    for (const reward of rewards) {
+      // Check xem đã claim chưa
+      const alreadyClaimed = inventory.rewards.some(
+        (r) =>
+          r.collectionId === collectionId &&
+          r.image === reward.redeem_item_image
+      );
+      if (alreadyClaimed) continue;
+
+      // Xác định type
+      let rewardType: "avatar" | "frame" | "badge" = "badge";
+      if (reward.redeem_item_type === 1000) rewardType = "avatar";
+      else if (reward.redeem_item_type === 3) rewardType = "frame";
+      else if (reward.redeem_item_type === 1001) rewardType = "badge";
+
+      inventory.rewards.push({
+        type: rewardType,
+        image: reward.redeem_item_image || "",
+        name: reward.redeem_item_name || "",
+        obtainedAt: new Date().toISOString(),
+        collectionId,
+      });
+    }
+
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, { gachaInventory: inventory });
+    return true;
+  } catch (error) {
+    console.error("Error claiming all rewards:", error);
+    return false;
+  }
+}
+
+// Check if rewards already claimed for a collection
+export function hasClaimedRewards(
+  inventory: GachaInventory,
+  collectionId: number
+): boolean {
+  return inventory.rewards.some((r) => r.collectionId === collectionId);
+}

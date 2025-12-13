@@ -25,6 +25,8 @@ import {
   pullGacha,
   getUserGachaInventory,
   hasCard,
+  hasClaimedRewards,
+  claimAllRewards,
 } from "@/services/gacha-pull-service";
 import { GachaPullModal } from "@/components/gacha/gacha-pull-modal";
 import { useUserStore } from "@/stores/user-store";
@@ -51,8 +53,18 @@ function GachaDetailPage() {
   const [isPulling, setIsPulling] = useState(false);
   const [pullResults, setPullResults] = useState<GachaPullResult[]>([]);
   const [showPullModal, setShowPullModal] = useState(false);
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [rewardsClaimed, setRewardsClaimed] = useState(false);
 
   const collectionId = id ? parseInt(id) : 0;
+
+  // Check if claimed rewards from inventory
+  useEffect(() => {
+    if (inventory) {
+      const claimed = hasClaimedRewards(inventory, collectionId);
+      setRewardsClaimed(claimed);
+    }
+  }, [inventory, collectionId]);
 
   useEffect(() => {
     if (id) {
@@ -153,6 +165,34 @@ function GachaDetailPage() {
     ? Object.keys(inventory.cards[collectionId]).length
     : 0;
   const totalCards = currentLottery?.item_list?.length || 0;
+  const isCollectionComplete = totalCards > 0 && ownedCount >= totalCards;
+
+  // Get rewards for claiming
+  const getCollectionRewards = () => {
+    if (!currentLottery) return [];
+    const REWARD_TYPES = [3, 1001, 1000]; // Frame, Badge, Avatar
+    const collectInfos =
+      currentLottery.collect_list?.collect_infos?.filter((r) =>
+        REWARD_TYPES.includes(r.redeem_item_type || 0)
+      ) || [];
+    const collectChain =
+      currentLottery.collect_list?.collect_chain?.filter((r) =>
+        REWARD_TYPES.includes(r.redeem_item_type || 0)
+      ) || [];
+    return [...collectInfos, ...collectChain];
+  };
+
+  const handleClaimRewards = async () => {
+    if (!user?.oderId) return;
+    const rewards = getCollectionRewards();
+    const success = await claimAllRewards(user.oderId, collectionId, rewards);
+    if (success) {
+      setRewardsClaimed(true);
+      setShowRewardModal(false);
+      // Reload inventory to sync
+      await loadInventory();
+    }
+  };
 
   if (loading) {
     return (
@@ -394,48 +434,69 @@ function GachaDetailPage() {
 
       {/* Fixed Pull Buttons */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-[var(--border)]">
-        <div className="flex gap-3">
+        {isCollectionComplete ? (
+          // Show claim rewards button when collection complete
           <button
-            onClick={() => handlePull(1)}
-            disabled={
-              isPulling || !user || user.gems < GACHA_CONFIG.COST_PER_PULL
-            }
-            className="flex-1 btn-3d btn-3d-purple py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => !rewardsClaimed && setShowRewardModal(true)}
+            disabled={rewardsClaimed}
+            className={`w-full btn-3d py-3 ${
+              rewardsClaimed ? "btn-3d-gray opacity-60" : "btn-3d-yellow"
+            }`}
           >
             <div className="flex items-center justify-center gap-2">
-              <Sparkles className="w-5 h-5" />
-              <span>Quay x1</span>
-            </div>
-            <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
-              <img
-                src="/AppAssets/BlueDiamond.png"
-                alt="gem"
-                className="w-3 h-3"
-              />
-              <span>{GACHA_CONFIG.COST_PER_PULL}</span>
+              <Gift className="w-5 h-5" />
+              <span>
+                {rewardsClaimed ? "Đã nhận phần thưởng" : "Nhận phần thưởng"}
+              </span>
             </div>
           </button>
-          <button
-            onClick={() => handlePull(10)}
-            disabled={
-              isPulling || !user || user.gems < GACHA_CONFIG.COST_PER_PULL * 10
-            }
-            className="flex-1 btn-3d btn-3d-red py-3 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <div className="flex items-center justify-center gap-2">
-              <Sparkles className="w-5 h-5" />
-              <span>Quay x10</span>
-            </div>
-            <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
-              <img
-                src="/AppAssets/BlueDiamond.png"
-                alt="gem"
-                className="w-3 h-3"
-              />
-              <span>{GACHA_CONFIG.COST_PER_PULL * 10}</span>
-            </div>
-          </button>
-        </div>
+        ) : (
+          // Show pull buttons
+          <div className="flex gap-3">
+            <button
+              onClick={() => handlePull(1)}
+              disabled={
+                isPulling || !user || user.gems < GACHA_CONFIG.COST_PER_PULL
+              }
+              className="flex-1 btn-3d btn-3d-purple py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <div className="flex items-center justify-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                <span>Quay x1</span>
+              </div>
+              <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-3 h-3"
+                />
+                <span>{GACHA_CONFIG.COST_PER_PULL}</span>
+              </div>
+            </button>
+            <button
+              onClick={() => handlePull(10)}
+              disabled={
+                isPulling ||
+                !user ||
+                user.gems < GACHA_CONFIG.COST_PER_PULL * 10
+              }
+              className="flex-1 btn-3d btn-3d-red py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <div className="flex items-center justify-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                <span>Quay x10</span>
+              </div>
+              <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-3 h-3"
+                />
+                <span>{GACHA_CONFIG.COST_PER_PULL * 10}</span>
+              </div>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Card Detail Modal */}
@@ -516,6 +577,73 @@ function GachaDetailPage() {
         results={pullResults}
         isLoading={isPulling}
       />
+
+      {/* Reward Claim Modal */}
+      {showRewardModal && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setShowRewardModal(false)}
+        >
+          <div
+            className="bg-background rounded-2xl overflow-hidden max-w-sm w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 border-b border-[var(--border)] text-center">
+              <h2 className="font-bold text-lg flex items-center justify-center gap-2">
+                <Gift className="w-5 h-5 text-[var(--duo-yellow)]" />
+                Phần thưởng sưu tập
+              </h2>
+              <p className="text-sm text-[var(--muted-foreground)] mt-1">
+                Chúc mừng bạn đã hoàn thành bộ sưu tập!
+              </p>
+            </div>
+            <div className="p-4">
+              <div className="flex justify-center gap-4 mb-4">
+                {getCollectionRewards().map((reward, idx) => {
+                  const getRewardLabel = (type: number) => {
+                    switch (type) {
+                      case 3:
+                        return "Khung";
+                      case 1001:
+                        return "Huy hiệu";
+                      case 1000:
+                        return "Avatar";
+                      default:
+                        return "Thưởng";
+                    }
+                  };
+                  return (
+                    <div key={idx} className="flex flex-col items-center gap-2">
+                      {reward.redeem_item_image && (
+                        <div className="w-20 h-20 rounded-xl overflow-hidden border-2 border-[var(--duo-yellow)] bg-[var(--secondary)]">
+                          <img
+                            src={getHQImage(reward.redeem_item_image, 100)}
+                            alt=""
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      )}
+                      <span className="text-xs font-medium text-[var(--muted-foreground)]">
+                        {getRewardLabel(reward.redeem_item_type || 0)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                onClick={handleClaimRewards}
+                className="w-full btn-3d btn-3d-yellow py-3"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Sparkles className="w-5 h-5" />
+                  <span>Nhận tất cả</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </Page>
   );
 }

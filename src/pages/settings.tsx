@@ -81,6 +81,21 @@ function SettingsPage() {
       requirement: 1,
       getValue: (u: any) => u?.questProgress?.dailyGachaPulls ?? 0,
     },
+    {
+      id: "daily_tower_3",
+      requirement: 3,
+      getValue: (u: any) => u?.questProgress?.dailyTowerFloors ?? 0,
+    },
+    {
+      id: "daily_avatar_1",
+      requirement: 1,
+      getValue: (u: any) => u?.questProgress?.dailyAvatarChanged ?? 0,
+    },
+    {
+      id: "daily_card_view_3",
+      requirement: 3,
+      getValue: (u: any) => u?.questProgress?.dailyCardViewed ?? 0,
+    },
   ];
   const WEEKLY_QUESTS = [
     {
@@ -112,6 +127,16 @@ function SettingsPage() {
       id: "weekly_gacha_10",
       requirement: 10,
       getValue: (u: any) => u?.questProgress?.weeklyGachaPulls ?? 0,
+    },
+    {
+      id: "weekly_tower_20",
+      requirement: 20,
+      getValue: (u: any) => u?.questProgress?.weeklyTowerFloors ?? 0,
+    },
+    {
+      id: "weekly_card_view_15",
+      requirement: 15,
+      getValue: (u: any) => u?.questProgress?.weeklyCardViewed ?? 0,
     },
   ];
   const claimedQuests = [

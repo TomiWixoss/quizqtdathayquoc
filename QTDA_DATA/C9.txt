@@ -1,0 +1,69 @@
+Chương 9. QUẢN LÝ CHẤT LƯỢNG CỦA DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được tầm quan trọng của việc quản lý chất lượng dự án.
+2. Hiểu được các qui trình quản lý chất lượng.
+3. Mô tả cách dùng phần mềm trong quản lý chất lượng dự án.
+
+9.1 Chất lượng là gì ?
+Tổ chức quốc tế về tiêu chuẩn hoá (ISO=International Standart Organisation) xác định chất lượng như tổng thể các chi tiết nhỏ của một sản phẩm mà nó phải thoả mãn những quy định đã được đề ra.
+Một số chuyên gia khác lại định nghĩa theo nguyên tắc cơ bản:
+- Yêu cầu phù hợp: thoả mãn các yêu cầu đòi hỏi
+- Tiện lợi cho sử dụng: chắc chắn rằng một sản phẩm có thể được sử dụng ngay từ khi có ý định sản xuất nó.
+
+9.2 Qui trình quản lý chất lượng
+Qui trình quản lý chất lượng bao gồm ba giai đọan:
+1) Lập kế hoạch chất lượng: nhận biết được tiêu chuẩn chất lượng nào có liên quan tới dự án và nhận biết như thế nào và làm thế nào thỏa mãn chúng.
+2) Đảm bảo chất lượng: đánh giá toàn bộ việc thực hiện dự án để chắc chắn dự án sẽ thoả mãn những vấn đề liên quan tới tiêu chuẩn chất lượng.
+3) Kiểm tra chất lượng: kiểm tra chi tiết những kết quả dự án để chắc chắn rằng chúng đã tuân thủ những tiêu chuẩn chất lượng có liên quan trong khi đó tìm ra những cách để cải tiến chất lượng tổng thể.
+
+9.2.1 Lập kế hoạch chất lượng
+- Điều quan trọng để thiết kế trong tiêu chuẩn chất lượng và truyền đạt những yếu tố quan trọng góp phần trực tiếp đáp ứng những đòi hỏi của khách hàng.
+- Những thử nghiệm trong thiết kế giúp nhận ra tác động có thể thay đổi trong toàn bộ kết quả của một quy trình.
+- Nhiều khía cạnh phạm vi của các dự án công nghệ thông tin ảnh hưởng chất lượng như các chức năng, đặc điểm, đầu ra của hệ thống, tính hoạt động, độ tin cậy, và khả năng duy trì.
+
+9.2.2 Đảm bảo chất lượng
+- Bảo đảm chất lượng bao gồm tất cả các hoạt động liên quan tới việc nhận biết những vấn đề của một dự án.
+- Một mục tiêu của việc bảo đảm chất lượng nữa là liên tục cải tiến chất lượng.
+- Qui trình đánh giá (Benchmarking) có thể sử dụng để phát minh những sáng kiến cải tiến chất lượng.
+- Kiểm định chất lượng giúp ta rút ra những bài học để cải tiến việc thực hiện ở hiện tại hay những dự án trong tương lai.
+
+9.2.3 Kiểm tra chất lượng
+Đầu ra cho việc quản lý chất lượng là:
+- Tán thành những sự quyết định.
+- Làm lại
+- Sửa đổi Qui trình
+Một số kỹ thật và công cụ bao gồm:
+- Phân tích Pareto
+- Mẫu thống kê
+- Độ lệch chuẩn.
+
+Phân tích Pareto.
+- Phân tích Pareto xác định các nguyên nhân gây ra vấn đề về chất lượng. Nó còn được gọi là qui tắc 80 -20, có nghĩa là 80% có vấn đề là do 20% nguyên nhân của các vấn đề còn lại. Sơ đồ Pareto là những sơ đồ giúp nhận biết và xác định ưu tiên cho các loại vấn đề
+
+9.3 Cải tiến chất lượng dự án công nghệ thông tin.
+Một vài đề xuất cải tiến chất lượng cho dự án là:
+- Lãnh đạo thúc đẩy chất lượng. Đây là thành phần hết sức quan trọng trên cùng của tầm quản lý chất lượng. Trong trường hợp thiếu sự thể hiện quan tâm lãnh đạo, những việc nhỏ nhất sẽ xảy ra sau này.
+- Đa số vấn đề chất lượng đều liên quan với quản lý, không phải là vấn đề kỹ thuật.
+- Hiểu biết rõ về chi phí chất lượng. Chi phí đảm bảo chất lượng là:
++ Chi phí hợp lý hoặc cung cấp những mặt hàng mà đáp ứng yêu cầu cần thiết và thuận tiện cho việc sử dụng.
++ Chi phí không hợp lệ hay làm sai bổn phận hay không thực hiện đúng yêu cầu đề ra.
+
+9.4 Năm loại chi phí liên quan đến vấn đề quản lý chất lượng:
+- Chi phí ngăn ngừa: chi phí dự tính và thực thi dự án có thể là không lỗi hay lỗi có thể chấp nhận được.
+- Chi phí cho sự đánh giá: chi phí đánh giá quá trình và sản phẩm đưa ra đạt chất lượng.
+- Chi phí cho sai sót trong công ty: chi phí dùng để chỉ định chính xác thiếu xót được định ra trước khi khách hàng nhận được sản phẩm.
+- Chi phí sai sót bên ngoài công ty: chi phí liên quan đến tất cả lỗi không được nhận ra trước khi đưa đến cho khách hàng.
+- Chi phí cho công cụ thử nghiệm và đo lường: vốn cho công cụ dùng để phòng tránh và những hoạt động đánh giá.
+
+Chú tâm vào những việc ảnh hưởng tới công ty và môi trường có thể ảnh hưởng tới chất lượng.
+- Những vấn đề thuộc về tổ chức có ảnh hưởng lớn đến năng suất làm việc của các nhân viên lập trình hơn là môi trường kỹ thuật cũng như ngôn ngữ lập trình.
+- Năng suất của nhân viên lập trình thay đổi theo tỉ lệ 1/10 giữa các tổ chức, nhưng chỉ 21% trong cùng một tổ chức. Không có sự liên quan nào giữa năng suất và ngôn ngữ lập trình, số năm làm việc hay mức lương.
+- Một không gian làm việc tận tâm, một môi trường làm việc yên tĩnh là yếu tố chính cho việc cải thiện năng suất của các lập trình viên.
+
+* Câu hỏi (bài tập) củng cố:
+1. Quản lý chất lượng dự án gồm những qui trình chính nào?
+2. Các loại thông tin trong kế hoạch bảo đảm chất lượng
+3. Ba đầu ra chính của kiểm soát chất lượng
+4. Lịch sử của qui trình chất lượng hiện đại.
+5. Mô tả 3 loại phần mềm hỗ trợ quản lý chất lượng dự án

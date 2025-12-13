@@ -20,6 +20,7 @@ import StatsPage from "../pages/stats";
 import MailboxPage from "../pages/mailbox";
 import ShopPage from "../pages/shop";
 import GachaPage from "../pages/gacha";
+import GachaDetailPage from "../pages/gacha-detail";
 
 import BattlePage from "../pages/battle";
 import ConquestPage from "../pages/conquest";
@@ -142,6 +143,7 @@ const Layout = () => {
             <Route path="/mailbox" element={<MailboxPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/gacha" element={<GachaPage />} />
+            <Route path="/gacha/:id" element={<GachaDetailPage />} />
 
             <Route path="/battle" element={<BattlePage />} />
             <Route path="/conquest" element={<ConquestPage />} />

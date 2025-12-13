@@ -10,14 +10,17 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getGachaCollections,
+  getHQImage,
   type GachaCollection,
 } from "@/services/gacha-service";
 
 const ITEMS_PER_PAGE = 6;
 
 function GachaPage() {
+  const navigate = useNavigate();
   const [collections, setCollections] = useState<GachaCollection[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -59,16 +62,6 @@ function GachaPage() {
     return num.toString();
   };
 
-  // Get high quality image from Bilibili CDN
-  const getHQImage = (url: string) => {
-    if (!url) return "";
-    // Add @400w suffix for 400px width, good quality for mobile
-    if (url.includes("hdslb.com")) {
-      return url + "@400w_400h_1c.webp";
-    }
-    return url;
-  };
-
   return (
     <Page className="bg-background min-h-screen">
       {/* Header - Fixed */}
@@ -102,10 +95,14 @@ function GachaPage() {
             {/* Grid */}
             <div className="grid grid-cols-2 gap-3">
               {currentItems.map((item) => (
-                <div key={item.id} className="card-3d overflow-hidden">
+                <button
+                  key={item.id}
+                  onClick={() => navigate(`/gacha/${item.id}`)}
+                  className="card-3d overflow-hidden text-left transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                >
                   <div className="aspect-square relative bg-[var(--secondary)]">
                     <img
-                      src={getHQImage(item.act_square_img)}
+                      src={getHQImage(item.act_square_img, 400)}
                       alt={item.name}
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -130,7 +127,7 @@ function GachaPage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
 

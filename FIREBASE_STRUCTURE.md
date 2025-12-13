@@ -2,6 +2,80 @@
 
 ## Collections
 
+### 0. gachaCollections
+
+Lưu thông tin bộ sưu tập gacha từ Bilibili
+
+```json
+{
+  "id": "number - Act ID",
+  "name": "string - Tên bộ sưu tập",
+  "description": "string - Mô tả ngắn",
+  "startTime": "number - Unix timestamp bắt đầu",
+  "end_time": "number - Unix timestamp kết thúc",
+  "relatedUsers": "number[] - Danh sách UID UP chủ",
+  "totalPreorderCount": "number - Số lượt đặt trước",
+  "totalPurchaseCount": "number - Số lượt mua",
+  "act_square_img": "string - URL ảnh vuông",
+  "lottery_image": "string - URL ảnh lottery",
+  "act_title": "string - Tiêu đề đầy đủ",
+  "product_introduce": "string - Giới thiệu chi tiết",
+  "total_book_cnt": "number - Tổng đặt trước",
+  "total_buy_cnt": "number - Tổng đã mua",
+  "related_user_infos": {
+    "[uid]": {
+      "nickname": "string",
+      "avatar": "string"
+    }
+  },
+  "collector_medal_info": "object[] - Thông tin huy hiệu",
+  "lottery_list": [
+    {
+      "lottery_id": "number",
+      "lottery_name": "string",
+      "price": "number (fen)",
+      "lottery_image": "string"
+    }
+  ],
+  "updatedAt": "timestamp"
+}
+```
+
+#### Subcollection: gachaCollections/{actId}/lotteries
+
+```json
+{
+  "lottery_id": "number",
+  "lottery_name": "string",
+  "price": "number (fen)",
+  "lottery_image": "string",
+  "item_list": [
+    {
+      "item_type": "number",
+      "card_name": "string",
+      "card_img": "string",
+      "card_scarcity": "number (40=UR, 30=SR, 20=R, 10=N)",
+      "width": "number",
+      "height": "number",
+      "video_list": "string[]",
+      "card_img_download": "string"
+    }
+  ],
+  "collect_list": {
+    "collect_infos": [
+      {
+        "redeem_text": "string",
+        "redeem_item_name": "string",
+        "redeem_item_image": "string",
+        "require_item_amount": "number"
+      }
+    ],
+    "collect_chain": []
+  },
+  "updatedAt": "timestamp"
+}
+```
+
 ### 1. users
 
 Lưu thông tin người dùng

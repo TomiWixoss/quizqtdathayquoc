@@ -9,6 +9,7 @@ import {
   Mail,
   Gift,
   Pencil,
+  Target,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
@@ -45,6 +46,53 @@ function SettingsPage() {
   );
 
   const claimedRewards = user?.claimedAchievementRewards ?? [];
+
+  // Quest data for badge calculation
+  const DAILY_QUESTS = [
+    {
+      id: "daily_xp_50",
+      requirement: 50,
+      getValue: (u: any) => u?.dailyProgress ?? 0,
+    },
+    {
+      id: "daily_correct_10",
+      requirement: 10,
+      getValue: (u: any) => u?.questProgress?.dailyCorrect ?? 0,
+    },
+    {
+      id: "daily_quiz_3",
+      requirement: 3,
+      getValue: (u: any) => u?.questProgress?.dailyQuizzes ?? 0,
+    },
+  ];
+  const WEEKLY_QUESTS = [
+    {
+      id: "weekly_streak_7",
+      requirement: 7,
+      getValue: (u: any) => u?.streak ?? 0,
+    },
+    {
+      id: "weekly_xp_500",
+      requirement: 500,
+      getValue: (u: any) => u?.questProgress?.weeklyXP ?? 0,
+    },
+    {
+      id: "weekly_perfect_3",
+      requirement: 3,
+      getValue: (u: any) => u?.questProgress?.weeklyPerfect ?? 0,
+    },
+  ];
+  const claimedQuests = [
+    ...(user?.questProgress?.claimedDailyQuests || []),
+    ...(user?.questProgress?.claimedWeeklyQuests || []),
+  ];
+  const questClaimableCount = [...DAILY_QUESTS, ...WEEKLY_QUESTS].filter(
+    (q) => q.getValue(user) >= q.requirement && !claimedQuests.includes(q.id)
+  ).length;
+  const questCompletedCount = [...DAILY_QUESTS, ...WEEKLY_QUESTS].filter(
+    (q) => q.getValue(user) >= q.requirement
+  ).length;
+  const totalQuests = DAILY_QUESTS.length + WEEKLY_QUESTS.length;
 
   // Helper để kiểm tra điều kiện thành tựu
   const getCurrentValue = (type: string) => {
@@ -353,6 +401,32 @@ function SettingsPage() {
 
         {/* Menu List */}
         <div className="space-y-3">
+          {/* Quests Link */}
+          <button
+            onClick={() => navigate("/quests")}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-green)]/20 flex items-center justify-center">
+                <Target className="w-5 h-5 text-[var(--duo-green)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Nhiệm vụ</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  {questCompletedCount}/{totalQuests} hoàn thành
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {questClaimableCount > 0 && (
+                <span className="bg-[var(--duo-red)] text-white text-xs px-2 py-0.5 rounded-full">
+                  {questClaimableCount}
+                </span>
+              )}
+              <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+            </div>
+          </button>
+
           {/* Stats Link */}
           <button
             onClick={() => navigate("/stats")}

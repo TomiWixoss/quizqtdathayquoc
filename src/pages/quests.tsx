@@ -1,4 +1,4 @@
-import { Page } from "zmp-ui";
+import { Page, useNavigate } from "zmp-ui";
 import {
   Target,
   Flame,
@@ -9,6 +9,7 @@ import {
   Calendar,
   CalendarDays,
   Star,
+  ArrowLeft,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState } from "react";
@@ -93,6 +94,7 @@ const WEEKLY_QUESTS: Quest[] = [
 ];
 
 function QuestsPage() {
+  const navigate = useNavigate();
   const { user, addGems, claimDailyQuest, claimWeeklyQuest } = useUserStore();
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [currentReward, setCurrentReward] = useState<{
@@ -160,8 +162,14 @@ function QuestsPage() {
 
       {/* Header */}
       <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-blue)]">
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate("/settings")}
+            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </button>
+          <div className="flex-1">
             <div className="flex items-center gap-2">
               <Trophy className="w-6 h-6 text-white" />
               <h1 className="font-bold text-xl text-white">Nhiệm vụ</h1>
@@ -173,7 +181,7 @@ function QuestsPage() {
           {totalClaimable > 0 && (
             <div className="bg-[var(--duo-red)] px-3 py-1.5 rounded-full">
               <span className="text-white text-sm font-bold">
-                {totalClaimable} quà
+                {totalClaimable}
               </span>
             </div>
           )}

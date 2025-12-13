@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from "zmp-ui";
-import { Home, Trophy, Target, Gift, User } from "lucide-react";
+import { Home, Trophy, Sparkles, Gift, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useConquestStore } from "@/stores/conquest-store";
 
 const navItems = [
   { path: "/", icon: Home, label: "Trang chủ" },
   { path: "/leaderboard", icon: Trophy, label: "Xếp hạng" },
-  { path: "/quests", icon: Target, label: "Nhiệm vụ" },
+  { path: "/gacha", icon: Sparkles, label: "Gacha" },
   { path: "/shop", icon: Gift, label: "Cửa hàng" },
   { path: "/settings", icon: User, label: "Tôi" },
 ];

@@ -1,4 +1,5 @@
 import { Page } from "zmp-ui";
+import { useNavigate } from "react-router-dom";
 import { Trophy, Crown, Medal, Swords, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
@@ -11,6 +12,7 @@ import type { UserStats } from "@/types/quiz";
 type TabType = "conquest" | "score" | "urCards";
 
 function LeaderboardPage() {
+  const navigate = useNavigate();
   const { user } = useUserStore();
   const [activeTab, setActiveTab] = useState<TabType>("conquest");
   const [leaders, setLeaders] = useState<UserStats[]>([]);
@@ -61,6 +63,10 @@ function LeaderboardPage() {
       case "urCards":
         return "from-[var(--duo-orange)] to-[var(--duo-yellow)]";
     }
+  };
+
+  const handleViewProfile = (userId: string) => {
+    navigate(`/profile/${userId}`);
   };
 
   const renderLeaderItem = (leader: UserStats, index: number) => {
@@ -130,9 +136,10 @@ function LeaderboardPage() {
     };
 
     return (
-      <div
+      <button
         key={leader.oderId}
-        className={`card-3d p-3 ${
+        onClick={() => handleViewProfile(leader.oderId)}
+        className={`card-3d p-3 w-full text-left ${
           isCurrentUser ? "border-[var(--duo-green)] border-2" : ""
         }`}
       >
@@ -223,7 +230,7 @@ function LeaderboardPage() {
             </p>
           </div>
         </div>
-      </div>
+      </button>
     );
   };
 

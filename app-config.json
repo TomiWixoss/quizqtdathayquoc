@@ -12,5 +12,8 @@
   },
   "listCSS": [],
   "listSyncJS": [],
-  "listAsyncJS": []
+  "listAsyncJS": [],
+  "template": {
+    "extendedDomains": ["workers.vrp.moe"]
+  }
 }

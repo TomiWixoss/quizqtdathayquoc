@@ -13,17 +13,13 @@ import {
   Star,
   ArrowLeft,
   Swords,
-  Gamepad2,
-  Dices,
-  Brain,
-  Grid2X2,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
 import { getRankFromPoints, getRankImage } from "@/services/ai-quiz-service";
 import { useState, useEffect } from "react";
 
-type TabType = "overview" | "chapters" | "history" | "minigames";
+type TabType = "overview" | "chapters" | "history";
 
 function StatsPage() {
   const navigate = useNavigate();
@@ -119,7 +115,6 @@ function StatsPage() {
           {[
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
             { id: "chapters", label: "Chương", icon: BookOpen },
-            { id: "minigames", label: "Minigame", icon: Gamepad2 },
             { id: "history", label: "Lịch sử", icon: Calendar },
           ].map((tab) => (
             <button
@@ -477,249 +472,6 @@ function StatsPage() {
                   </div>
                 );
               })}
-            </div>
-          </div>
-        )}
-
-        {/* Minigames Tab */}
-        {activeTab === "minigames" && (
-          <div className="space-y-4">
-            {/* Minigame Overview */}
-            <div className="card-3d p-4">
-              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                <Gamepad2 className="w-5 h-5 text-[var(--duo-purple)]" />
-                Tổng quan Minigame
-              </h3>
-              <div className="grid grid-cols-3 gap-2">
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-xl font-bold text-foreground">
-                    {(user?.minigameStats?.spin?.totalSpins ?? 0) +
-                      (user?.minigameStats?.caro?.gamesPlayed ?? 0) +
-                      (user?.minigameStats?.memory?.gamesPlayed ?? 0) +
-                      (user?.minigameStats?.game2048?.gamesPlayed ?? 0)}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Tổng lượt chơi
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-xl font-bold text-[var(--duo-green)]">
-                    {(user?.minigameStats?.caro?.wins ?? 0) +
-                      (user?.minigameStats?.memory?.wins ?? 0) +
-                      (user?.minigameStats?.game2048?.wins ?? 0)}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Tổng thắng
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-xl font-bold text-[var(--duo-blue)]">
-                    {(user?.minigameStats?.spin?.totalGemsEarned ?? 0) +
-                      (user?.minigameStats?.caro?.totalGemsEarned ?? 0) +
-                      (user?.minigameStats?.memory?.totalGemsEarned ?? 0) +
-                      (user?.minigameStats?.game2048?.totalGemsEarned ?? 0)}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Tổng Gems
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Spin Stats */}
-            <div className="card-3d p-4">
-              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                <Dices className="w-5 h-5 text-[var(--duo-orange)]" />
-                Vòng quay may mắn
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-orange)]">
-                    {user?.minigameStats?.spin?.totalSpins ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Lần quay
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-blue)]">
-                    {user?.minigameStats?.spin?.totalGemsEarned ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Gems nhận
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Caro Stats */}
-            <div className="card-3d p-4">
-              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                <Target className="w-5 h-5 text-[var(--duo-purple)]" />
-                Caro vs AI
-              </h3>
-              <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-foreground">
-                    {user?.minigameStats?.caro?.gamesPlayed ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Đã chơi
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-blue)]">
-                    {user?.minigameStats?.caro?.totalGemsEarned ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Gems nhận
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-[var(--muted-foreground)]">
-                      Tỷ lệ thắng
-                    </span>
-                    <span className="font-bold text-foreground">
-                      {user?.minigameStats?.caro?.gamesPlayed
-                        ? Math.round(
-                            ((user?.minigameStats?.caro?.wins ?? 0) /
-                              user.minigameStats.caro.gamesPlayed) *
-                              100
-                          )
-                        : 0}
-                      %
-                    </span>
-                  </div>
-                  <div className="progress-duo h-3">
-                    <div
-                      className="progress-duo-fill"
-                      style={{
-                        width: `${
-                          user?.minigameStats?.caro?.gamesPlayed
-                            ? ((user?.minigameStats?.caro?.wins ?? 0) /
-                                user.minigameStats.caro.gamesPlayed) *
-                              100
-                            : 0
-                        }%`,
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="text-center">
-                  <p className="text-lg font-bold text-[var(--duo-green)]">
-                    {user?.minigameStats?.caro?.wins ?? 0}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Thắng
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-lg font-bold text-[var(--duo-red)]">
-                    {user?.minigameStats?.caro?.losses ?? 0}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Thua
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Memory Stats */}
-            <div className="card-3d p-4">
-              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                <Brain className="w-5 h-5 text-[var(--duo-pink)]" />
-                Trò chơi trí nhớ
-              </h3>
-              <div className="grid grid-cols-3 gap-2">
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-xl font-bold text-foreground">
-                    {user?.minigameStats?.memory?.gamesPlayed ?? 0}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Đã chơi
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-xl font-bold text-[var(--duo-green)]">
-                    {user?.minigameStats?.memory?.wins ?? 0}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Thắng
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-xl font-bold text-[var(--duo-blue)]">
-                    {user?.minigameStats?.memory?.totalGemsEarned ?? 0}
-                  </p>
-                  <p className="text-[10px] text-[var(--muted-foreground)]">
-                    Gems
-                  </p>
-                </div>
-              </div>
-              {(user?.minigameStats?.memory?.gamesPlayed ?? 0) > 0 && (
-                <div className="mt-3 pt-3 border-t border-[var(--border)]">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-[var(--muted-foreground)]">
-                      Tỷ lệ thắng
-                    </span>
-                    <span className="font-bold text-[var(--duo-green)]">
-                      {Math.round(
-                        ((user?.minigameStats?.memory?.wins ?? 0) /
-                          (user?.minigameStats?.memory?.gamesPlayed ?? 1)) *
-                          100
-                      )}
-                      %
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 2048 Stats */}
-            <div className="card-3d p-4">
-              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                <Grid2X2 className="w-5 h-5 text-[#edc22e]" />
-                2048
-              </h3>
-              <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-foreground">
-                    {user?.minigameStats?.game2048?.gamesPlayed ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Đã chơi
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-blue)]">
-                    {user?.minigameStats?.game2048?.totalGemsEarned ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Gems nhận
-                  </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[#edc22e]">
-                    {user?.minigameStats?.game2048?.bestTile ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Tile cao nhất
-                  </p>
-                </div>
-                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
-                  <p className="text-2xl font-bold text-[var(--duo-green)]">
-                    {user?.minigameStats?.game2048?.wins ?? 0}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)]">
-                    Đạt 2048
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         )}

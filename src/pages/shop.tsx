@@ -1,5 +1,5 @@
 import { Page } from "zmp-ui";
-import { Gift, Clock, Sparkles, Grid3X3, Brain, Grid2X2 } from "lucide-react";
+import { Gift, Clock, Sparkles } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useNavigate } from "zmp-ui";
 import { useState, useEffect } from "react";
@@ -272,92 +272,6 @@ function ShopPage() {
                 </div>
               </button>
             )}
-          </div>
-        </div>
-
-        {/* Mini Games Section */}
-        <div>
-          <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
-            <img src="/AppAssets/Lighting.png" alt="xp" className="w-4 h-4" />
-            Mini Game - Kiếm Gems
-          </h2>
-
-          <div className="space-y-3">
-            {/* Spin wheel */}
-            <button
-              onClick={() => navigate("/minigame")}
-              className="card-3d p-4 w-full flex items-center gap-4"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--duo-orange)] to-[var(--duo-red)] flex items-center justify-center">
-                <Gift className="w-7 h-7 text-white" />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="font-bold text-foreground">Vòng quay may mắn</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  5 gems/lần - Nhận tim, gems, XP
-                </p>
-              </div>
-              <div className="px-3 py-1 rounded-full bg-[var(--duo-green)] text-white text-xs font-bold">
-                Chơi
-              </div>
-            </button>
-
-            {/* Caro game */}
-            <button
-              onClick={() => navigate("/caro")}
-              className="card-3d p-4 w-full flex items-center gap-4"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--duo-purple)] to-[var(--duo-blue)] flex items-center justify-center">
-                <Grid3X3 className="w-7 h-7 text-white" />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="font-bold text-foreground">Caro vs AI</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Thắng AI để nhận gems
-                </p>
-              </div>
-              <div className="px-3 py-1 rounded-full bg-[var(--duo-blue)] text-white text-xs font-bold">
-                Chơi
-              </div>
-            </button>
-
-            {/* Memory game */}
-            <button
-              onClick={() => navigate("/memory-game")}
-              className="card-3d p-4 w-full flex items-center gap-4"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--duo-pink)] to-[var(--duo-purple)] flex items-center justify-center">
-                <Brain className="w-7 h-7 text-white" />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="font-bold text-foreground">Trò chơi trí nhớ</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Lật thẻ tìm cặp - Nhận gems
-                </p>
-              </div>
-              <div className="px-3 py-1 rounded-full bg-[var(--duo-purple)] text-white text-xs font-bold">
-                Chơi
-              </div>
-            </button>
-
-            {/* 2048 game */}
-            <button
-              onClick={() => navigate("/game-2048")}
-              className="card-3d p-4 w-full flex items-center gap-4"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#edc22e] to-[#f2b179] flex items-center justify-center">
-                <Grid2X2 className="w-7 h-7 text-white" />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="font-bold text-foreground">2048</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Gộp số để đạt 2048 - Nhận gems
-                </p>
-              </div>
-              <div className="px-3 py-1 rounded-full bg-[#edc22e] text-white text-xs font-bold">
-                Mới
-              </div>
-            </button>
           </div>
         </div>
       </div>

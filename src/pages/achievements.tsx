@@ -19,10 +19,6 @@ import {
   ArrowLeft,
   Swords,
   Shield,
-  Gamepad2,
-  Brain,
-  Dices,
-  Grid2X2,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
@@ -46,10 +42,6 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Swords,
   Shield,
   Award,
-  Gamepad2,
-  Brain,
-  Dices,
-  Grid2X2,
 };
 
 // Reward gems for each achievement
@@ -80,20 +72,6 @@ const ACHIEVEMENT_REWARDS: Record<string, number> = {
   rank_500: 75,
   rank_1000: 150,
   rank_2000: 300,
-  // Minigame achievements
-  spin_10: 20,
-  spin_50: 50,
-  caro_wins_5: 25,
-  caro_wins_20: 60,
-  caro_wins_50: 150,
-  memory_wins_5: 25,
-  memory_wins_20: 60,
-  memory_wins_50: 150,
-  // 2048 achievements
-  game2048_512: 30,
-  game2048_1024: 60,
-  game2048_2048: 150,
-  game2048_4096: 300,
 };
 
 function AchievementsPage() {
@@ -133,15 +111,6 @@ function AchievementsPage() {
         return user.conquestStats?.bestWinStreak ?? 0;
       case "rank_points":
         return user.conquestStats?.rankPoints ?? 0;
-      // Minigame achievements
-      case "spin":
-        return user.minigameStats?.spin?.totalSpins ?? 0;
-      case "caro_wins":
-        return user.minigameStats?.caro?.wins ?? 0;
-      case "memory_wins":
-        return user.minigameStats?.memory?.wins ?? 0;
-      case "game2048_tile":
-        return user.minigameStats?.game2048?.bestTile ?? 0;
       default:
         return 0;
     }

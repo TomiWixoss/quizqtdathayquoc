@@ -16,10 +16,9 @@ export function BottomNav() {
   const navigate = useNavigate();
   const { isActive: isConquestActive } = useConquestStore();
 
-  // Hide on quiz, minigame pages, and during conquest quiz
+  // Hide on quiz pages and during conquest quiz
   if (
     location.pathname === "/quiz" ||
-    location.pathname === "/minigame" ||
     (location.pathname === "/conquest" && isConquestActive)
   )
     return null;

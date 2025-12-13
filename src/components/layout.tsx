@@ -19,10 +19,7 @@ import SettingsPage from "../pages/settings";
 import StatsPage from "../pages/stats";
 import MailboxPage from "../pages/mailbox";
 import ShopPage from "../pages/shop";
-import MinigamePage from "../pages/minigame";
-import CaroPage from "../pages/caro";
-import MemoryGamePage from "../pages/memory-game";
-import Game2048Page from "../pages/game-2048";
+
 import BattlePage from "../pages/battle";
 import ConquestPage from "../pages/conquest";
 import TestFirebasePage from "../pages/test-firebase";
@@ -143,10 +140,7 @@ const Layout = () => {
             <Route path="/stats" element={<StatsPage />} />
             <Route path="/mailbox" element={<MailboxPage />} />
             <Route path="/shop" element={<ShopPage />} />
-            <Route path="/minigame" element={<MinigamePage />} />
-            <Route path="/caro" element={<CaroPage />} />
-            <Route path="/memory-game" element={<MemoryGamePage />} />
-            <Route path="/game-2048" element={<Game2048Page />} />
+
             <Route path="/battle" element={<BattlePage />} />
             <Route path="/conquest" element={<ConquestPage />} />
             <Route path="/test-firebase" element={<TestFirebasePage />} />

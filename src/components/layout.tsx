@@ -20,6 +20,8 @@ import StatsPage from "../pages/stats";
 import MailboxPage from "../pages/mailbox";
 import ShopPage from "../pages/shop";
 import EventsPage from "../pages/events";
+import EventLogin7DaysPage from "../pages/event-login-7days";
+import EventLevelRewardsPage from "../pages/event-level-rewards";
 import GachaPage from "../pages/gacha";
 import GachaDetailPage from "../pages/gacha-detail";
 import CustomizePage from "../pages/customize";
@@ -147,6 +149,14 @@ const Layout = () => {
             <Route path="/mailbox" element={<MailboxPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/events" element={<EventsPage />} />
+            <Route
+              path="/event-login-7days"
+              element={<EventLogin7DaysPage />}
+            />
+            <Route
+              path="/event-level-rewards"
+              element={<EventLevelRewardsPage />}
+            />
             <Route path="/gacha" element={<GachaPage />} />
             <Route path="/gacha/:id" element={<GachaDetailPage />} />
             <Route path="/customize" element={<CustomizePage />} />

@@ -1,7 +1,43 @@
 import { Page } from "zmp-ui";
-import { Calendar, Clock, Gift, Sparkles } from "lucide-react";
+import { useNavigate } from "zmp-ui";
+import {
+  Calendar,
+  Gift,
+  Star,
+  ChevronRight,
+  CalendarCheck,
+  Trophy,
+} from "lucide-react";
+import { useUserStore } from "@/stores/user-store";
+
+// Định nghĩa các sự kiện
+const EVENTS = [
+  {
+    id: "login-7days",
+    title: "Đăng nhập 7 ngày",
+    description: "Nhận thưởng mỗi ngày đăng nhập",
+    icon: CalendarCheck,
+    color: "var(--duo-green)",
+    bgColor: "var(--duo-green)",
+    route: "/event-login-7days",
+    badge: "Hàng ngày",
+  },
+  {
+    id: "level-rewards",
+    title: "Thưởng cấp độ",
+    description: "Nhận quà khi đạt cấp độ mới",
+    icon: Trophy,
+    color: "var(--duo-purple)",
+    bgColor: "var(--duo-purple)",
+    route: "/event-level-rewards",
+    badge: "Vĩnh viễn",
+  },
+];
 
 function EventsPage() {
+  const navigate = useNavigate();
+  const { user } = useUserStore();
+
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
@@ -15,60 +51,81 @@ function EventsPage() {
 
       {/* Content */}
       <div className="px-4 pt-32 pb-28">
-        {/* Coming Soon Card */}
-        <div className="card-3d p-8 text-center">
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[var(--duo-purple)]/20 to-[var(--duo-pink)]/20 flex items-center justify-center">
-            <Sparkles className="w-10 h-10 text-[var(--duo-purple)]" />
+        {/* User Stats Summary */}
+        <div className="card-3d p-4 mb-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-[var(--duo-blue)]/20 flex items-center justify-center">
+                <Star className="w-6 h-6 text-[var(--duo-blue)]" />
+              </div>
+              <div>
+                <p className="text-sm text-[var(--muted-foreground)]">
+                  Cấp độ hiện tại
+                </p>
+                <p className="font-bold text-xl text-foreground">
+                  {user?.level || 1}
+                </p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-[var(--muted-foreground)]">Streak</p>
+              <div className="flex items-center gap-1 justify-end">
+                <p className="font-bold text-xl text-[var(--duo-orange)]">
+                  {user?.streak || 0}
+                </p>
+                <img src="/AppAssets/Fire.png" alt="fire" className="w-5 h-5" />
+              </div>
+            </div>
           </div>
-          <h2 className="text-xl font-bold text-foreground mb-2">
-            Sắp ra mắt!
-          </h2>
-          <p className="text-[var(--muted-foreground)] mb-6">
-            Các sự kiện hấp dẫn đang được chuẩn bị. Hãy quay lại sau nhé!
-          </p>
+        </div>
 
-          {/* Preview Features */}
-          <div className="space-y-3 text-left">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-[var(--secondary)]">
-              <div className="w-10 h-10 rounded-xl bg-[var(--duo-green)]/20 flex items-center justify-center">
-                <Gift className="w-5 h-5 text-[var(--duo-green)]" />
-              </div>
-              <div>
-                <p className="font-semibold text-foreground text-sm">
-                  Sự kiện đặc biệt
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Nhận thưởng giới hạn
-                </p>
-              </div>
-            </div>
+        {/* Events List */}
+        <div className="space-y-3">
+          {EVENTS.map((event) => {
+            const Icon = event.icon;
+            return (
+              <button
+                key={event.id}
+                onClick={() => navigate(event.route)}
+                className="w-full card-3d p-4 flex items-center gap-4 active:scale-[0.98] transition-transform"
+              >
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                  style={{ backgroundColor: `${event.bgColor}20` }}
+                >
+                  <Icon className="w-7 h-7" style={{ color: event.color }} />
+                </div>
+                <div className="flex-1 text-left">
+                  <div className="flex items-center gap-2">
+                    <p className="font-bold text-foreground">{event.title}</p>
+                    <span
+                      className="text-xs px-2 py-0.5 rounded-full text-white"
+                      style={{ backgroundColor: event.color }}
+                    >
+                      {event.badge}
+                    </span>
+                  </div>
+                  <p className="text-sm text-[var(--muted-foreground)]">
+                    {event.description}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+              </button>
+            );
+          })}
+        </div>
 
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-[var(--secondary)]">
-              <div className="w-10 h-10 rounded-xl bg-[var(--duo-orange)]/20 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-[var(--duo-orange)]" />
-              </div>
-              <div>
-                <p className="font-semibold text-foreground text-sm">
-                  Thử thách thời gian
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Hoàn thành trong thời hạn
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-[var(--secondary)]">
-              <div className="w-10 h-10 rounded-xl bg-[var(--duo-blue)]/20 flex items-center justify-center">
-                <Calendar className="w-5 h-5 text-[var(--duo-blue)]" />
-              </div>
-              <div>
-                <p className="font-semibold text-foreground text-sm">
-                  Sự kiện theo mùa
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Lễ hội, ngày đặc biệt
-                </p>
-              </div>
+        {/* Coming Soon */}
+        <div className="mt-6 p-4 rounded-2xl bg-[var(--secondary)] border-2 border-dashed border-[var(--border)]">
+          <div className="flex items-center gap-3">
+            <Gift className="w-6 h-6 text-[var(--muted-foreground)]" />
+            <div>
+              <p className="font-semibold text-foreground">
+                Sắp có thêm sự kiện!
+              </p>
+              <p className="text-sm text-[var(--muted-foreground)]">
+                Hãy quay lại sau nhé
+              </p>
             </div>
           </div>
         </div>

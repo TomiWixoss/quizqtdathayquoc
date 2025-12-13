@@ -75,6 +75,36 @@ const getWeekStart = () => {
   return new Date(now.setDate(diff)).toDateString();
 };
 
+// Helper: Tính tổng EXP cần để đạt level N
+// Level 1→2: 100, Level 2→3: 200, Level 3→4: 300, ...
+// Tổng EXP để đạt level N = 100 * (1 + 2 + ... + (N-1)) = 100 * N * (N-1) / 2
+export const getExpForLevel = (level: number): number => {
+  if (level <= 1) return 0;
+  return (100 * level * (level - 1)) / 2;
+};
+
+// Helper: Tính level từ tổng EXP
+export const getLevelFromExp = (exp: number): number => {
+  // Giải phương trình: exp = 100 * L * (L-1) / 2
+  // => L^2 - L - 2*exp/100 = 0
+  // => L = (1 + sqrt(1 + 8*exp/100)) / 2
+  const level = Math.floor((1 + Math.sqrt(1 + (8 * exp) / 100)) / 2);
+  return Math.max(1, level);
+};
+
+// Helper: Tính EXP hiện tại trong level (progress)
+export const getExpProgress = (
+  exp: number
+): { current: number; required: number } => {
+  const level = getLevelFromExp(exp);
+  const expForCurrentLevel = getExpForLevel(level);
+  const expForNextLevel = getExpForLevel(level + 1);
+  return {
+    current: exp - expForCurrentLevel,
+    required: expForNextLevel - expForCurrentLevel, // = level * 100
+  };
+};
+
 const DEFAULT_QUEST_PROGRESS: QuestProgress = {
   dailyCorrect: 0,
   dailyQuizzes: 0,
@@ -246,7 +276,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       exp: user.exp + xpGain,
       gems: user.gems + (correct ? 10 : 0),
     };
-    const newLevel = Math.floor(updates.exp / 100) + 1;
+    const newLevel = getLevelFromExp(updates.exp);
 
     try {
       const userRef = doc(db, "users", user.oderId);

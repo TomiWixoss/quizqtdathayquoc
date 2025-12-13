@@ -18,6 +18,10 @@ import {
   Coins,
   Swords,
   Shield,
+  Package,
+  Image,
+  Building,
+  Brain,
 } from "lucide-react";
 
 import { useQuizStore } from "@/stores/quiz-store";
@@ -43,6 +47,10 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Swords,
   Shield,
   Award,
+  Package,
+  Image,
+  Building,
+  Brain,
 };
 
 export function QuizResult() {
@@ -139,15 +147,15 @@ export function QuizResult() {
           ? 2 // Chạy đua x2
           : 1; // Bình thường
 
-      // Thưởng cơ bản: 10 gems mỗi câu đúng
-      const baseGems = correctCount * 10 * modeMultiplier;
+      // Thưởng cơ bản: 20 gems mỗi câu đúng (tăng từ 10)
+      const baseGems = correctCount * 20 * modeMultiplier;
       let bonusAmount = 0;
       let bonusLabel = "";
 
-      // Bonus theo tỷ lệ đúng
+      // Bonus theo tỷ lệ đúng (tăng thưởng đáng kể)
       if (isPerfect) {
         await addPerfectLesson();
-        bonusAmount = 50 * modeMultiplier;
+        bonusAmount = 100 * modeMultiplier; // Tăng từ 50 lên 100
         bonusLabel =
           quizMode === "survival"
             ? "Hardcore Perfect!"
@@ -155,10 +163,10 @@ export function QuizResult() {
             ? "Speed Perfect!"
             : "Hoàn hảo!";
       } else if (percentage >= 80) {
-        bonusAmount = 30 * modeMultiplier;
+        bonusAmount = 60 * modeMultiplier; // Tăng từ 30 lên 60
         bonusLabel = "Xuất sắc!";
       } else if (percentage >= 50) {
-        bonusAmount = 10 * modeMultiplier;
+        bonusAmount = 30 * modeMultiplier; // Tăng từ 10 lên 30
         bonusLabel = "Tốt lắm!";
       }
 
@@ -298,7 +306,7 @@ export function QuizResult() {
                 className="w-6 h-6"
               />
               <span className="font-bold">
-                +{newAchievements.length * 10} Gems
+                +{newAchievements.length * 50} Gems
               </span>
             </div>
             <button

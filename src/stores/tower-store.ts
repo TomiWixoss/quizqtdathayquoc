@@ -61,9 +61,9 @@ interface TowerState {
   getNextResetTime: () => number; // Lấy thời gian reset tiếp theo
 }
 
-// Tính gems cho mỗi tầng: tầng N = N * 10 gems
+// Tính gems cho mỗi tầng: tầng N = N * 25 gems (tăng từ 10)
 export function getFloorReward(floor: number): number {
-  return floor * 10;
+  return floor * 25;
 }
 
 export const useTowerStore = create<TowerState>()(
@@ -149,7 +149,7 @@ export const useTowerStore = create<TowerState>()(
       },
 
       completeFloor: () => {
-        const { activeFloor, highestFloor, currentFloor, totalFloors } = get();
+        const { activeFloor, highestFloor, totalFloors } = get();
         if (!activeFloor) return { gems: 0, isNewRecord: false };
 
         const isNewRecord = activeFloor > highestFloor;

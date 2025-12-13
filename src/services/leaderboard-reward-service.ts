@@ -15,38 +15,38 @@ import type { UserStats } from "@/types/quiz";
 // Icon types cho phần thưởng
 export type RewardIcon = "crown" | "medal" | "trophy" | "star";
 
-// Cấu hình phần thưởng BXH theo hạng mục
+// Cấu hình phần thưởng BXH theo hạng mục (tăng đáng kể cho 233 gói thẻ)
 export const LEADERBOARD_REWARDS = {
   conquest: {
     name: "Chinh Chiến",
     rewards: [
       {
         rank: 1,
-        gems: 500,
+        gems: 1500,
         title: "Top 1 Chinh Chiến",
         icon: "crown" as RewardIcon,
       },
       {
         rank: 2,
-        gems: 300,
+        gems: 1000,
         title: "Top 2 Chinh Chiến",
         icon: "medal" as RewardIcon,
       },
       {
         rank: 3,
-        gems: 200,
+        gems: 750,
         title: "Top 3 Chinh Chiến",
         icon: "medal" as RewardIcon,
       },
       {
         rank: [4, 10],
-        gems: 100,
+        gems: 400,
         title: "Top 4-10 Chinh Chiến",
         icon: "trophy" as RewardIcon,
       },
       {
         rank: [11, 20],
-        gems: 50,
+        gems: 200,
         title: "Top 11-20 Chinh Chiến",
         icon: "star" as RewardIcon,
       },
@@ -57,31 +57,31 @@ export const LEADERBOARD_REWARDS = {
     rewards: [
       {
         rank: 1,
-        gems: 500,
+        gems: 1500,
         title: "Top 1 Điểm Tổng",
         icon: "crown" as RewardIcon,
       },
       {
         rank: 2,
-        gems: 300,
+        gems: 1000,
         title: "Top 2 Điểm Tổng",
         icon: "medal" as RewardIcon,
       },
       {
         rank: 3,
-        gems: 200,
+        gems: 750,
         title: "Top 3 Điểm Tổng",
         icon: "medal" as RewardIcon,
       },
       {
         rank: [4, 10],
-        gems: 100,
+        gems: 400,
         title: "Top 4-10 Điểm Tổng",
         icon: "trophy" as RewardIcon,
       },
       {
         rank: [11, 20],
-        gems: 50,
+        gems: 200,
         title: "Top 11-20 Điểm Tổng",
         icon: "star" as RewardIcon,
       },
@@ -92,31 +92,31 @@ export const LEADERBOARD_REWARDS = {
     rewards: [
       {
         rank: 1,
-        gems: 500,
+        gems: 1500,
         title: "Top 1 Thẻ UR",
         icon: "crown" as RewardIcon,
       },
       {
         rank: 2,
-        gems: 300,
+        gems: 1000,
         title: "Top 2 Thẻ UR",
         icon: "medal" as RewardIcon,
       },
       {
         rank: 3,
-        gems: 200,
+        gems: 750,
         title: "Top 3 Thẻ UR",
         icon: "medal" as RewardIcon,
       },
       {
         rank: [4, 10],
-        gems: 100,
+        gems: 400,
         title: "Top 4-10 Thẻ UR",
         icon: "trophy" as RewardIcon,
       },
       {
         rank: [11, 20],
-        gems: 50,
+        gems: 200,
         title: "Top 11-20 Thẻ UR",
         icon: "star" as RewardIcon,
       },

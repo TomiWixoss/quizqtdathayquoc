@@ -8,15 +8,15 @@ import { db } from "@/lib/firebase";
 import { RewardModal } from "@/components/ui/reward-modal";
 import confetti from "canvas-confetti";
 
-// Phần thưởng cho 7 ngày đăng nhập
+// Phần thưởng cho 7 ngày đăng nhập (tăng đáng kể cho 233 gói thẻ)
 const LOGIN_REWARDS = [
-  { day: 1, gems: 20, label: "Ngày 1" },
-  { day: 2, gems: 30, label: "Ngày 2" },
-  { day: 3, gems: 40, label: "Ngày 3" },
-  { day: 4, gems: 50, label: "Ngày 4" },
-  { day: 5, gems: 75, label: "Ngày 5" },
-  { day: 6, gems: 100, label: "Ngày 6" },
-  { day: 7, gems: 200, label: "Ngày 7", special: true },
+  { day: 1, gems: 50, label: "Ngày 1" },
+  { day: 2, gems: 75, label: "Ngày 2" },
+  { day: 3, gems: 100, label: "Ngày 3" },
+  { day: 4, gems: 125, label: "Ngày 4" },
+  { day: 5, gems: 150, label: "Ngày 5" },
+  { day: 6, gems: 200, label: "Ngày 6" },
+  { day: 7, gems: 500, label: "Ngày 7", special: true },
 ];
 
 function EventLogin7DaysPage() {

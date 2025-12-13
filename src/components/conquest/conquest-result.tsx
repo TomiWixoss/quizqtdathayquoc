@@ -40,17 +40,17 @@ export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
       // Tạo danh sách phần thưởng
       const rewards: RewardItem[] = [];
 
-      // Thưởng cơ bản: 10 gems mỗi câu đúng
-      const baseGems = result.correct * 10;
+      // Thưởng cơ bản: 25 gems mỗi câu đúng (tăng từ 10)
+      const baseGems = result.correct * 25;
       let bonusAmount = 0;
       let bonusLabel = "";
 
-      // Bonus theo accuracy
+      // Bonus theo accuracy (tăng thưởng đáng kể)
       if (accuracy >= 90 && result.correct >= 3) {
-        bonusAmount = 50;
+        bonusAmount = 100; // Tăng từ 50 lên 100
         bonusLabel = "Bonus chinh chiến!";
       } else if (accuracy >= 70 && result.correct >= 3) {
-        bonusAmount = 30;
+        bonusAmount = 60; // Tăng từ 30 lên 60
         bonusLabel = "Chiến đấu tốt!";
       }
 

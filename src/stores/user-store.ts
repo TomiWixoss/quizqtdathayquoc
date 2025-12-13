@@ -154,7 +154,7 @@ const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
   hearts: 5,
   maxHearts: 5,
   lastHeartRefill: "",
-  gems: 50,
+  gems: 300, // Tăng từ 50 lên 300 để user mới có thể quay gacha ngay
   dailyGoal: 50,
   dailyProgress: 0,
   achievements: [],
@@ -291,7 +291,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       totalCorrect: user.totalCorrect + (correct ? 1 : 0),
       totalWrong: user.totalWrong + (correct ? 0 : 1),
       exp: user.exp + xpGain,
-      gems: user.gems + (correct ? 10 : 0),
+      gems: user.gems + (correct ? 15 : 0), // Tăng từ 10 lên 15 per correct
     };
     const newLevel = getLevelFromExp(updates.exp);
 
@@ -398,7 +398,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     if (!user) return;
 
     const newPerfect = user.perfectLessons + 1;
-    const bonusGems = 50;
+    const bonusGems = 150; // Tăng từ 50 lên 150 cho perfect lesson
     try {
       const userRef = doc(db, "users", user.oderId);
       await updateDoc(userRef, {
@@ -511,7 +511,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     const newFreezeCount = availableFreezes - freezesUsed;
 
     const longestStreak = Math.max(user.longestStreak, newStreak);
-    const bonusGems = newStreak % 7 === 0 ? 100 : 0; // Bonus every 7 days
+    const bonusGems = newStreak % 7 === 0 ? 300 : 0; // Bonus every 7 days (tăng từ 100 lên 300)
 
     try {
       const userRef = doc(db, "users", user.oderId);
@@ -637,13 +637,13 @@ export const useUserStore = create<UserState>((set, get) => ({
           const userRef = doc(db, "users", user.oderId);
           await updateDoc(userRef, {
             achievements: newAchievementsList,
-            gems: user.gems + 10,
+            gems: user.gems + 50, // Tăng từ 10 lên 50 cho mỗi achievement
           });
           set({
             user: {
               ...user,
               achievements: newAchievementsList,
-              gems: user.gems + 10,
+              gems: user.gems + 50, // Tăng từ 10 lên 50
             },
           });
         } catch (error) {

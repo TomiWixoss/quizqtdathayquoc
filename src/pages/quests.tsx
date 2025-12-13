@@ -41,7 +41,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: Target,
     type: "daily",
     requirement: 50,
-    reward: 10,
+    reward: 30, // Tăng từ 10
     getValue: (user) => user?.dailyProgress ?? 0,
   },
   {
@@ -51,7 +51,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: CheckCircle,
     type: "daily",
     requirement: 10,
-    reward: 15,
+    reward: 40, // Tăng từ 15
     getValue: (user) => user?.questProgress?.dailyCorrect ?? 0,
   },
   {
@@ -61,7 +61,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: BookOpen,
     type: "daily",
     requirement: 3,
-    reward: 20,
+    reward: 50, // Tăng từ 20
     getValue: (user) => user?.questProgress?.dailyQuizzes ?? 0,
   },
   {
@@ -71,7 +71,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: Swords,
     type: "daily",
     requirement: 1,
-    reward: 25,
+    reward: 60, // Tăng từ 25
     getValue: (user) => user?.questProgress?.dailyConquests ?? 0,
   },
   {
@@ -81,7 +81,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: Sparkles,
     type: "daily",
     requirement: 1,
-    reward: 15,
+    reward: 40, // Tăng từ 15
     getValue: (user) => user?.questProgress?.dailyGachaPulls ?? 0,
   },
   {
@@ -91,7 +91,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: Building,
     type: "daily",
     requirement: 3,
-    reward: 20,
+    reward: 50, // Tăng từ 20
     getValue: (user) => user?.questProgress?.dailyTowerFloors ?? 0,
   },
   {
@@ -101,7 +101,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: User,
     type: "daily",
     requirement: 1,
-    reward: 10,
+    reward: 25, // Tăng từ 10
     getValue: (user) => user?.questProgress?.dailyAvatarChanged ?? 0,
   },
   {
@@ -111,7 +111,7 @@ const DAILY_QUESTS: Quest[] = [
     icon: Image,
     type: "daily",
     requirement: 3,
-    reward: 10,
+    reward: 25, // Tăng từ 10
     getValue: (user) => user?.questProgress?.dailyCardViewed ?? 0,
   },
 ];
@@ -124,7 +124,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Flame,
     type: "weekly",
     requirement: 7,
-    reward: 50,
+    reward: 150, // Tăng từ 50
     getValue: (user) => user?.streak ?? 0,
   },
   {
@@ -134,7 +134,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Zap,
     type: "weekly",
     requirement: 500,
-    reward: 75,
+    reward: 200, // Tăng từ 75
     getValue: (user) => user?.questProgress?.weeklyXP ?? 0,
   },
   {
@@ -144,7 +144,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Star,
     type: "weekly",
     requirement: 3,
-    reward: 100,
+    reward: 250, // Tăng từ 100
     getValue: (user) => user?.questProgress?.weeklyPerfect ?? 0,
   },
   {
@@ -154,7 +154,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Swords,
     type: "weekly",
     requirement: 5,
-    reward: 80,
+    reward: 200, // Tăng từ 80
     getValue: (user) => user?.questProgress?.weeklyConquests ?? 0,
   },
   {
@@ -164,7 +164,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Award,
     type: "weekly",
     requirement: 3,
-    reward: 120,
+    reward: 300, // Tăng từ 120
     getValue: (user) => user?.questProgress?.weeklyConquestWins ?? 0,
   },
   {
@@ -174,7 +174,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Sparkles,
     type: "weekly",
     requirement: 10,
-    reward: 100,
+    reward: 250, // Tăng từ 100
     getValue: (user) => user?.questProgress?.weeklyGachaPulls ?? 0,
   },
   {
@@ -184,7 +184,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Building,
     type: "weekly",
     requirement: 20,
-    reward: 80,
+    reward: 200, // Tăng từ 80
     getValue: (user) => user?.questProgress?.weeklyTowerFloors ?? 0,
   },
   {
@@ -194,7 +194,7 @@ const WEEKLY_QUESTS: Quest[] = [
     icon: Image,
     type: "weekly",
     requirement: 15,
-    reward: 50,
+    reward: 150, // Tăng từ 50
     getValue: (user) => user?.questProgress?.weeklyCardViewed ?? 0,
   },
 ];

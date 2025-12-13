@@ -8,16 +8,16 @@ import { db } from "@/lib/firebase";
 import { RewardModal } from "@/components/ui/reward-modal";
 import confetti from "canvas-confetti";
 
-// Phần thưởng theo cấp độ
+// Phần thưởng theo cấp độ (tăng đáng kể cho 233 gói thẻ)
 const LEVEL_REWARDS = [
-  { level: 5, gems: 50, label: "Cấp 5" },
-  { level: 10, gems: 100, label: "Cấp 10", special: true },
-  { level: 15, gems: 150, label: "Cấp 15" },
-  { level: 20, gems: 200, label: "Cấp 20", special: true },
-  { level: 25, gems: 250, label: "Cấp 25" },
-  { level: 30, gems: 350, label: "Cấp 30", special: true },
-  { level: 40, gems: 500, label: "Cấp 40", special: true },
-  { level: 50, gems: 1000, label: "Cấp 50", special: true, legendary: true },
+  { level: 5, gems: 150, label: "Cấp 5" },
+  { level: 10, gems: 300, label: "Cấp 10", special: true },
+  { level: 15, gems: 400, label: "Cấp 15" },
+  { level: 20, gems: 500, label: "Cấp 20", special: true },
+  { level: 25, gems: 600, label: "Cấp 25" },
+  { level: 30, gems: 800, label: "Cấp 30", special: true },
+  { level: 40, gems: 1200, label: "Cấp 40", special: true },
+  { level: 50, gems: 2500, label: "Cấp 50", special: true, legendary: true },
 ];
 
 function EventLevelRewardsPage() {

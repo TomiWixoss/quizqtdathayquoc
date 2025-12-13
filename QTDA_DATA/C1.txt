@@ -1,0 +1,202 @@
+Chương 1. TỔNG QUAN VỀ QUẢN LÝ DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có thể:
+1. Hiểu được khái niệm về dự án, dự án CNTT là gì.
+2. Mô tả về qui trình quản lý dự án.
+3. Biết được các nhiệm vụ trong các hoạt động QLDA.
+4. Biết cách phân loại dự án.
+5. Phân loại được dự án. Xác định được công việc quản lý dự án.
+6. Xác định được các bên liên quan đến dự án.
+
+1.1 Khái niệm về dự án, dự án CNTT.
+1.1.1 Khái niệm dự án
+Dự án là một hoạt động tạo ra một cách có phương pháp, với các phương tiện và nguồn lực đã cho để tạo ra một sản phẩm mới hoặc một thực tế mới.
+Vì thế, dự án phải có tính cụ thể và mục tiêu xác định, nhằm đáp ứng một nhu cầu chuyên biệt (của người dùng). Dự án cũng không phải là một nghiên cứu trừu tượng mà phải cấu trúc nên một thực tế mới chưa tồn tại trước đó. Mặc dù việc nghiên cứu, thử nghiệm và phát triển có thể là một phần nhất định trong dự án, nhưng cũng chỉ đóng vai trò hỗ trợ trong quá trình thực hiện mục tiêu cuối cùng của dự án mà thôi. Do vậy, chúng ta cần phân biệt rõ sự khác nhau giữa dự án và các đề tài nghiên cứu triển khai mà các cơ quan, đơn vị nghiên cứu vẫn thường làm.
+
+[Hình ảnh: Hình 1.1 Các lĩnh vực trong QLDA]
+
+1.1.2 Dự án Công nghệ thông tin
+Quản lý dự án CNTT là tập hợp các công việc được thực hiện bởi một tập thể (có thể có chuyên môn khác nhau, thực hiện công việc khác nhau, thời gian tham gia dự án khác nhau) nhằm đạt được một kết quả như dự kiến, trong thời gian dự kiến, với một kinh phí dự kiến. Trong thuật ngữ của chuyên ngành Công nghệ phần mềm, Quản lý dự án phần mềm là các hoạt động trong lập kế hoạch, giám sát và điều khiển tài nguyên dự án (ví dụ như kinh phí, con người), thời gian thực hiện, các rủi ro và quy trình thực hiện dự án nhằm đảm bảo thành công cho dự án.
+Quản lý dự án phần mềm cần đảm bảo cân bằng giữa ba yếu tố: thời gian, tài nguyên và chất lượng. Ba yếu tố này được gọi là tam giác dự án.
+
+1.1.3 Đặc trưng của một dự án
+Mọi dự án thường bị ràng buộc theo bộ ba nhiều cách, do:
+- Mục tiêu về phạm vi (Scope): Đạt được cái gì?
+- Mục tiêu về thời gian (Time): Thời gian bao lâu?
+- Mục tiêu về chi phí (Cost): Sẽ tốn kém bao nhiêu?
+Nhiệm vụ của người quản lý dự án là phải cân đối những mục tiêu thường hay xung đột này.
+
+[Hình ảnh: Hình 1.2. Bộ 3 ràng buộc trong QLDA]
+
+1.1.4 Mục tiêu của dự án
+Mọi dự án đều bắt đầu khi có một vấn đề được đặt ra trong thực tế. Kèm theo đó phải là những yêu cầu cần được giải quyết. Mục tiêu của dự án là giải quyết được vấn đề này. Các mục tiêu của dự án nhất thiết phải được viết ra một cách rõ ràng ngay từ đầu, nếu không khó có thể hoàn thành được.
+Mỗi dự án CNTT cần phải cụ thể hoá các mục tiêu của mình cả về mặt định tính và định lượng. Muốn có mục tiêu cụ thể, chúng ta phải xác định được yêu cầu thật cụ thể.
+
+1.2 Quy trình quản lý dự án
+Quy trình quản lý dự án phần mềm là quy trình vận dụng những kiến thức, kỹ năng và kỹ thuật công nghệ vào hoạt động của dự án để đạt được mục tiêu của dự án đặt ra. Những ứng dụng này được đưa vào phần mềm theo một tiêu chuẩn hóa của quản lý dự án.
+Để đảm bảo dự án thành công, các thành viên dự án phải đảm bảo:
+• Lựa chọn quy trình phù hợp để đạt được mục tiêu của dự án
+• Tuân theo các yêu cầu để đáp ứng được nhu cầu và mong đợi của các bên liên quan.
+• Cân bằng được các yêu cầu (nhân tố) cạnh tranh trong dự án như: phạm vi công việc, ngân sách, tiến độ, chất lượng, rủi ro, thay đổi. Tùy theo quy mô của từng dự án mà các mỗi giai đoạn lại có thể gồm những quy trình nhỏ hơn.
+Ngoài các lợi ích chiến lược nêu trên phần mềm còn cung cấp đầy đủ các tính năng hệ thống. Việc bảo mật được tiến hành một cách tuyệt đối nghiêm ngặt. Việc phân quyền được cụ thể đến từng vai trò của người sử dụng.
+
+[Hình ảnh: Hình 1.3 Quy trình kiểm tra và giám sát QLDA phần mềm.]
+
+1.2.1 Khởi tạo dự án
+Giai đoạn này thực hiện việc định nghĩa một dự án mới hoặc một phát sinh (hoặc trộn lẫn) mới của một dự án có sẵn như: Xác định yêu cầu của dự án, mức độ ưu tiên của dự án, phân tích các yêu cầu đầu tư, phân công trách nhiệm cho các bộ phận triển khai.
+
+1.2.2 Lập kế hoạch dự án
+Giao đoạn này yêu cầu thiết lập phạm vi công việc của dự án, điều chỉnh lại mục tiêu và xác định đường đi tới mục tiêu đó.
+
+1.2.3 Triển khai
+Giai đoạn này thực hiện hoàn thành các công việc được xác định trong phần lập kế hoạch để đảm bảo các yêu cầu của dự án.
+
+1.2.4 Giám sát và kiểm soát
+Giai đoạn này yêu cầu việc theo dõi, rà soát và điều chỉnh lại tiến độ và khả năng thực hiện của dự án. Theo dõi các rủi ro, thay đổi, phát sinh trong quá trình thực hiện và có những đề xuất điều chỉnh kịp thời.
+
+1.2.5 Kết thúc
+Giai đoạn này thực hiện để kết thúc tất cả các hoạt động của dự án để chính thức đóng lại dự án.
+
+1.2.6 Các hoạt động chính trong quản lý dự án phần mềm
+1.2.6.1 Xác định các bước thực hiện dự án phần mềm
+Xác định yêu cầu chung
+Trước tiên, cần xác định các yêu cầu chức năng (công việc phần mềm thực hiện) cũng như phi chức năng (công nghệ dùng để phát triển phần mềm, sử dụng trong hệ điều hành) của phần mềm. Tiếp theo cần xác định rõ tài nguyên cần thiết để xây dựng phần mềm. Tài nguyên ở đây có thể gồm có nhân tố con người, các thành phần, phần mềm có thể sử dụng lại, các phần cứng hoặc công cụ có sẵn cần dùng đến; trong đó nhân tố con người là quan trọng nhất. Điều cuối cùng là xác định thời gian cần thiết để thực hiện dự án. Trong quá trình này cần phải nắm bắt được bài toán thực tế cần giải quyết cũng như các hoạt động mang tính nghiệp vụ của khách hàng để có thể xác định rõ ràng yêu cầu chung của đề án, xem xét dự án có khả thi hay không.
+
+Viết đề án
+Viết đề án là quá trình xây dựng tài liệu mô tả đề án để xác định phạm vi của dự án, trách nhiệm của những người tham gia dự án; là cam kết giữa người quản lý dự án, người tài trợ dự án và khách hàng. Nội dung của tài liệu mô tả đề án thường có những nội dung:
+- Bối cảnh thực hiện dự án: Căn cứ pháp lý để thực hiện dự án, hiện trạng công nghệ thông tin của khách hàng trước khi có dự án, nhu cầu ứng dụng phần mềm của khách hàng, đặc điểm và phạm vi của phần mềm sẽ xây dựng.
+- Mục đích và mục tiêu của dự án: xác định mục đích tổng thể, tin học hóa hoạt động nào trong quy trình nghiệp vụ của khách hàng, xác định mục tiêu của phần mềm gồm lượng dữ liệu xử lý, lợi ích phần mềm đem lại.
+- Phạm vi dự án: Những người liên quan tới dự án, các hoạt động nghiệp vụ cần tin học hóa.
+- Nguồn nhân lực tham gia dự án: Cán bộ nghiệp vụ, người phân tích, người thiết kế, người lập trình, người kiểm thử, người cài đặt triển khai dự án cho khách hàng, người hướng dẫn khách hàng sử dụng phần mềm, người bảo trì dự án phần mềm.
+- Ràng buộc thời gian thực hiện dự án: Ngày nghiệm thu dự án, ngày bàn giao dự án.
+- Ràng buộc kinh phí: Kinh phí trong từng giai đoạn thực hiện dự án.
+- Ràng buộc công nghệ phát triển: Công nghệ nào được phép sử dụng để thực hiện dự án.
+- Chữ ký các bên liên quan tới dự án.
+
+1.2.6.2 Lập kế hoạch thực hiện dự án
+Lập kế hoạch thực hiện dự án là hoạt động diễn ra trong suốt quá trình từ khi bắt đầu thực hiện dự án đến khi bàn giao sản phẩm với nhiều loại kế hoạch khác nhau nhằm hỗ trợ kế hoạch chính của dự án phần mềm về lịch trình và ngân sách.
+Các loại kế hoạch thực hiện dự án
+- Kế hoạch đảm bảo chất lượng: Mô tả các chuẩn, các qui trình được sử dụng trong dự án.
+- Kế hoạch thẩm định: Mô tả các phương pháp, nguồn lực, lịch trình thẩm định hệ thống.
+- Kế hoạch quản lý cấu hình: Mô tả các thủ tục, cấu trúc quản lý cấu hình được sử dụng.
+- Kế hoạch bảo trì: Dự tính các yêu cầu về hệ thống, chi phí, nỗ lực cần thiết cho bảo trì.
+- Kế hoạch phát triển đội ngũ: Mô tả kĩ năng và kinh nghiệm của các thành viên trong nhóm dự án sẽ phát triển như thế nào.
+
+1.2.6.3 Quy trình lập kế hoạch thực hiện dự án
+- Thiết lập các ràng buộc của dự án: thời gian, nhân lực, ngân sách
+- Đánh giá bước đầu về các "tham số" của dự án: quy mô, độ phức tạp, nguồn lực
+- Xác định các mốc thời gian trong thực hiện dự án và sản phẩm thu được ứng với mỗi mốc thời gian
+- Trong khi dự án chưa hoàn thành hoặc chưa bị hủy bỏ thì thực hiện lặp đi lặp lại các công việc sau:
+1. Lập lịch thực hiện dự án
+2. Thực hiện các hoạt động theo lịch trình
+3. Theo dõi sự tiến triển của dự án, so sánh với lịch trình
+4. Đánh giá lại các tham số của dự án
+5. Lập lại lịch thực hiện dự án cho các tham số mới
+6. Thỏa thuận lại các ràng buộc và sản phẩm bàn giao của mỗi mốc thời gian
+7. Nếu có vấn đề nảy sinh thì xem xét lại các kĩ thuật khởi đầu đưa ra các biện pháp cần thiết
+
+1.2.6.4 Cấu trúc kế hoạch thực hiện dự án
+1 Tổ chức dự án
+2 Phân tích các rủi ro
+3 Yêu cầu về tài nguyên phần cứng, phần mềm
+4 Phân công công việc
+5 Lập lịch dự án
+6 Cơ chế kiểm soát và báo cáo
+
+1.2.7 Mục đích của quản lý dự án
+Mục đích cuối cùng của việc quản lý dự án là nhằm đảm bảo cho dự án được thực hiện thành công. Một dự án được đánh giá là thành công nếu như đáp ứng được 4 vấn đề cơ bản sau:
+• Sản phẩm cuối cùng của dự án thực sự đáp ứng các yêu cầu của người dùng, đảm bảo thời gian và kinh phí không vượt quá 10-20% dự tính ban đầu;
+• Người dùng hài lòng với quá trình thực hiện dự án, thực sự tham dự và góp phần công sức của mình trong các hoạt động của dự án. Đặc biệt đối với các dự án ứng dụng CNTT, vai trò của những cán bộ nghiệp vụ trong việc xác định yêu cầu, phân tích quy trình, thông tin... tại chính đơn vị của mình là rất quan trọng;
+• Quản lý cấp trên của dự án cung cấp đầy đủ thông tin về tình hình thực hiện dự án.
+• Những người thực hiện dự án cũng phấn khởi, không bị quá gò bó, tích luỹ được kinh nghiệm, tăng thêm thu nhập...
+
+1.2.8 Phương pháp luận và kỹ thuật quản lý dự án
+Tất cả những vấn đề nêu trên cho thấy cần phải có thái độ hết sức nghiêm túc khi xây dựng và thực hiện một dự án, nhất là các dự án có những đầu tư rất lớn của Nhà nước. Do vậy, việc quản lý dự án đòi hỏi phải có những phương pháp luận khoa học và những công cụ mạnh để hỗ trợ cho việc lập kế hoạch và theo dõi dự án.
+
+1.2.9 Nguyên nhân khiến dự án thất bại
+Theo thống kê chung trên thế giới:
+• 33% các dự án bị huỷ bời vì
+- Vượt qua giới hạn về thời gian hoặc kinh phí;
+- Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại;
+- Người dùng hoặc khách hàng không cần tới nó nữa;
+- Những lý do chính trị.
+• 50 - 100% quá tải
+- Một dự án mà chi phí của nó vượt quá 50% kinh phí cho phép
+- Hoặc kéo dài quá 50% thời gian dự định thì coi như là đã thất bại.
+• Không sử dụng được
+Nhiều dự án không bao giờ đưa vào sử dụng được. Lý do có thể là:
+- Dự án không giải quyết được vấn đề đặt ra;
+- Quá khó sử dụng,
+- Không có đào tạo.
+• Nguyên nhân sâu xa của việc thất bại có thể xuất phát:
+- Ngay từ khi bắt đầu dự án, do thiếu một kế hoạch tốt:
+Dự án không thể triển khai được vì không xuất phát từ thực tế cụ thể. Người ta bắt tay vào việc lập trình mà không hiểu rõ tại sao lại có dự án đó và chính xác là cần phải hoàn thành cái gì; làm việc không có kế hoạch. Nếu không đánh giá xem là sẽ cần phải tốn bao nhiêu công sức để làm việc đó, ta sẽ không thể hình dung được số nhân công cần thiết, mà đó chính là chi phí chính của dự án. Nếu không thống nhất rõ ràng trước với người dùng về những gì họ yêu cầu dự án phải đạt được, thì sau này sẽ rất khó khăn để người dùng chấp nhận các kết quả của dự án. Tất cả những cam kết đều phải được ghi nhớ lại dưới dạng các văn bản. Ngoài ra, việc đặt ra những thời hạn và kinh phí không sát thực tế thường khiến cho những nhóm thực hiện không thể nào hoàn thành được công việc.
+- Trong các bước phát triển tiếp:
++ Dự án có thể mắc sai lầm trong giai đoạn phân tích và thiết kế.
++ Người quản lý dự án không phân công rõ nhiệm vụ của từng người.
++ Thiếu hoặc không hiểu rõ các công cụ hỗ trợ cho việc phát triển hệ thống cũng như cho việc quản lý - theo dõi dự án, sẽ làm ảnh hưởng đến thời gian và kết quả của dự án.
++ Không làm rõ lịch điều phối nhân sự và thông báo trước cho các đối tượng liên quan, thì sẽ rất khó khăn khi cần huy động nhân lực cần thiết để hoàn thành công việc.
++ Việc bắt đầu viết chương trình trước khi bản thiết kế được hoàn thành sẽ khiến cho dự án khó mà thành công một cách tốt đẹp, hoặc sẽ tốn thêm nhiều công sức để mà điều chỉnh về sau.
++ Không kịp thời phát hiện ra các vấn đề chính nảy sinh trước và sau giai đoạn phát triển. Đó là do thiếu sự rà soát chi tiết về mặt kỹ thuật (thiết kế, chương trình, tài liệu...) và xem xét lại về mặt quản lý (đề cương, kinh phí, lịch trình...) một cách khách quan từ bên ngoài.
++ Sự thay đổi công tác của các thành viên tham gia dự án cũng là một nguyên nhân phải xem xét.
++ Thiếu các chuẩn mực, qui định trong quá trình phát triển cũng làm cho dự án bị thất bại ở một mức độ nào đó.
++ Nhiều người tham gia dự án chưa chắc đã đẩy nhanh tốc độ mà có khi còn làm cho dự án chậm đi vì phải thêm việc đào tạo, huấn luyện, thêm việc giao tiếp giữa mọi người... tức là thêm thời gian và kinh phí.
+- Trong giai đoạn kết thúc:
++ Khi đã đến thời hạn cuối cùng, hoặc khi đã hết kinh phí mà mọi chuyện vẫn chưa xong, thì yêu cầu đối với dự án thường bị thoả hiệp. Người ta nghĩ rằng một phần (lớn) công việc đã hoàn thành rồi thế là được. Thế nhưng, đối với nhiều người dùng thì phải hoàn tất toàn bộ mới đáp ứng yêu cầu của họ.
++ Một số ứng dụng được tạo ra không có sự rà lỗi cẩn thận. Điều đó gây nên ấn tượng ban đầu không hay và gây khó khăn cho việc đưa vào sử dụng.
++ Một số hệ thống đưa ra không đáp ứng được đúng các chỉ tiêu kỹ thuật đã đề ra.
++ Nếu chi phí cho việc bảo trì quá lớn thì hệ thống cũng có thể bị ngừng hoạt động.
+Trong nhiều trường hợp, nếu ở thời điểm nào đó mà chứng minh được rằng không có ích lợi gì mà tiếp tục dự án nữa thì cũng nên mạnh dạng xem xét đến việc phải ngừng dự án lại.
+
+1.3 Các nhiệm vụ trong các hoạt động QLDA.
+1.3.1 Quản lý thời gian của dự án
+Đối với mỗi dự án phải xác định được một thời hạn tối đa phải hoàn thành, cụ thể hơn là phải có thời điểm bắt đầu và thời điểm kết thúc. Thời điểm bắt đầu là khi vấn đề giải quyết được đặt ra. Thời điểm kết thúc là hạn cuối cùng mà dự án phải hoàn thành. Thời điểm này phải được xác định rõ ràng, nếu không dự án có thể sẽ không bao giờ kết thúc.
+
+1.3.2 Quản lý kinh phí của dự án
+Mọi dự án đều phải xác định một kinh phí tối đa, hay nói khác đi là một khoản tiền tối đa mà dự án có thể sử dụng.
+Mỗi dự án CNTT đều phải xác định tổng dự toán kinh phí cho toàn bộ quá trình thực hiện, phân bổ theo từng năm hoặc từng giai thực hiện.
+
+1.3.3 Quản lý nguồn nhân lực của dự án
+Là tất cả những người tham gia vào dự án. Mỗi dự án phải xác định danh sách những người tham gia, từ mức quản lý dự án đến những người thực hiện, triển khai.
+
+1.3.4 Quản lý các kết quả chuyển giao của dự án
+Là kết quả của dự án hay nói khác đi là sản phẩm cuối cùng của dự án. Mục tiêu của dự án thông thường là giải quyết vấn đề bằng việc tạo ra các kết quả này. Các kết quả và các mục tiêu nhất thiết phải được viết ra rõ ràng, nếu không mục đích của dự án sẽ không đạt được; sẽ tạo ra những kết quả sai khác đi và sẽ không ai hài lòng cả.
+
+1.4 Phân loại dự án
+Dự án trong thực tế rất đa dạng, có thể phân loại theo nhiều cách khác nhau:
+1.4.1 Theo tầm cỡ dự án
+Dự án lớn: được đặc trưng bởi tổng kinh phí huy động lớn, số lượng các bên tham gia đông, thời gian dàn trải, qui mô rộng lớn. Chúng đòi hỏi phải thiết lập các cấu trúc tổ chức riêng biệt, với mức phân cấp trách nhiệm khác nhau, đề ra quy chế hoạt động và các phương pháp kiểm tra chặt chẽ.
+Dự án trung bình và nhỏ: không đòi hỏi kinh phí nhiều, thời gian ấn định ngắn, không quá phức tạp... Kinh nghiệm các nước cho thấy những dự án trung bình hoặc nhỏ là những dự án cỡ ít hơn 15 người trong một năm.
+Về lý thuyết, quản lý dự án lớn hay nhỏ cũng đều theo những phương pháp luận như nhau. Dự án lớn có thể gọi là chương trình; chương trình thường được phân thành nhiều dự án nhỏ hơn. Trong trường hợp đó sẽ tồn tại nhiều mức quản lý dự án khác nhau, và để phân biệt có thể gọi những người quản lý bằng những tên khác nhau như người quản lý chương trình, người quản lý dự án, người điều hành dự án, giám đốc dự án, nhóm trưởng,...Thậm chí, mỗi một người tham gia vào dự án cũng phải biết cách tổ chức và quản lý công việc mà mình được giao.
+
+1.4.2 Theo nội dung của dự án
+Có thể phân làm 3 loại chính:
+Dự án ứng dụng CNTT trong công tác quản lý và hoạt động nghiệp vụ.
+Dự án xây dựng cơ sở hạ tầng về CNTT: dự án Mạng truyền thông dữ liệu quốc gia; dự án xây dựng CSDL quốc gia;
+Các dự án nhằm thực hiện nhiệm vụ đã phân công cho các Bộ ngành như phát triển Công nghệ thông tin; đảm bảo đủ cán bộ tin học cho đất nước...
+
+1.4.3 Dự án một người hay dự án nhiều người
+Một dự án có thể được thực hiện bởi một người hoặc nhiều người. Việc quản lý dự án sẽ khó khăn hơn khi có từ hai người trở lên.
+
+1.4.4 Nội bộ hay bên ngoài
+- Dự án nội bộ là dự án của một đơn vị tổ chức thực hiện nhằm phục vụ cho yêu cầu của chính tổ chức đó.
+- Dự án bên ngoài là dự án được thực hiện để đáp ứng yêu cầu cho một đơn vị khác.
+
+1.5 Các bên liên quan đến dự án
+
+[Hình ảnh: Hình 1.4 Các bên liên quan của một dự án]
+
+Sơ đồ trên có thể xem như là một ví dụ đề cập tới tất cả các đơn vị và nhân sự có liên quan đến một dự án về tin học. Tình hình tiến độ và kết quả thực hiện của dự án là điều mà những nơi (người) này cần phải quan tâm đến.
+Về tổ chức quản lý, ta có thể phân biệt và phải biết rõ chức năng của từng người:
+
+| Giám đốc dự án | Tổ chức, phối hợp, đối ngoại |
+| :--- | :--- |
+| - Giám đốc điều hành: | - Trực tiếp điều hành, tích hợp |
+| - Nhóm trưởng kỹ thuật: | - Chịu trách nhiệm từng phần kỹ thuật |
+| - Nhân viên kỹ thuật trong mỗi nhóm: | - Thực hiện công việc kỹ thuật cụ thể. |
+
+Họ đều là những người quản lý dự án, nhưng ở những mức độ chi tiết khác nhau. Mức quản lý cuối cùng là các nhóm trưởng phụ trách từng công việc kỹ thuật.
+
+❖ Câu hỏi (bài tập) củng cố:
+1. Thế nào là QLDA CNTT; Bộ ba ràng buộc trong một dự án là gì? Để đảm bảo được bộ ba này theo anh chị phải làm như thế nào? Có mấy lọai dự án?
+2. Nguyên nhân nào dẫn đến dự án thất bại? Là một nhà QLDA anh chị hãy đưa ra những biện pháp nhằm khắc phục những nguyên nhân đó.

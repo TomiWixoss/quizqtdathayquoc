@@ -1,0 +1,71 @@
+Chương 11. QUẢN LÝ TRUYỀN THÔNG CỦA DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được tầm quan trọng của truyền thông tốt khi làm việc với dự án và mô tả các thành phần chính của một kế hoạch quản lý giao tiếp.
+2. Hiểu được qui trình quản lý truyền thông.
+3. Cung cấp một số phương pháp cải tiến truyền thông.
+4. Mô tả cách sử dụng phần mềm để hỗ trợ quản lý truyền thông.
+
+11.1 Tầm quan trọng của truyền thông tốt
+Nỗi sợ hãi lớn nhất đối với dự án là thất bại (kém) truyền thông. Các nhà chuyên môn về CNTT thường không phải là người truyền thông tốt Các nghiên cứu cho thấy nhà chuyên môn CNTT phải có khả năng truyền thông hiệu quả để có thể thăng tiến trong nghề nghiệp. Kỹ năng nói là yếu tố chủ yếu để thăng tiến nghề nghiệp đối với các nhà chuyên môn CNTT.
+
+11.2 Qui trình quản lý truyền thông
+Các quá trình bao gồm:
+- Lập kế hoạch truyền thông: xác định thông tin và nhu cầu giao tiếp của các bên liên quan.
+- Phân phối thông tin: có thể dùng thông tin cần thiết đúng lúc.
+- Báo cáo hiệu suất: thu thập và phổ biến thông tin về hiệu suất.
+- Kết thúc hành chính: tạo, thu thập, và thông tin để hợp thức hóa kết thúc dự án / giai đoạn
+
+11.3 Lập kế hoạch truyền thông
+Mỗi dự án cần có kế hoạch quản lý truyền thông, là tài liệu hướng dẫn truyền thông trong dự án. Phân tích các bên liên quan trong truyền thông dự án cũng hỗ trợ qui trình lập kế hoạch truyền thông.
+Nội dung của kế hoạch quản lý truyền thông:
+- Mô tả việc thu thập các loại thông tin khác nhau.
+- Cấu trúc phân phối mô tả thông tin đến với ai, khi nào và bằng cách nào.
+- Định dạng thông tin để truyền thông.
+- Lịch biểu tạo thông tin.
+- Các phương pháp truy cập để nhận thông tin.
+- Phương pháp cập nhật kế hoạch quản lý truyền thông theo tiến độ của dự án.
+- Phân tích truyền thông với các bên liên quan.
+
+11.4 Phân phối thông tin
+- Cung cấp thông tin cho đúng người vào đúng thời điểm và đúng định dạng cũng quan trọng như tạo thông tin.
+- Các yếu tố quan trọng cần xét:
+- Dùng công nghệ để cải tiến phân bố thông tin.
+- Các phương pháp hình thức và không hình thức để phân bố thông tin.
+
+11.5 Báo cáo hiệu suất
+Báo cáo hiệu suất giúp các bên tham gia biết thông tin về sử dụng tài nguyên để đạt các mục tiêu của dự án
+- Báo cáo tình trạng mô tả dự án đang ở giai đoạn nào.
+- Báo cáo tiến độ mô tả nhóm dự án đã đạt những gì trong một khoảng thời gian.
+- Dự báo dự án tiên đoán trạng thái tương lai của dự án dựa trên thông tin quá khứ và xu hướng phát triển.
+- Các buổi họp đánh giá tình trạng thường có báo cáo hiệu suất.
+
+11.6 Kết thúc hành chính
+Dự án đòi hỏi phải có giai đoạn kết thúc. Kết thúc hành chính (Administrative closure) tạo ra:
+- Tài liệu lưu trữ về dự án.
+- Chấp nhận chính thức.
+- Các bài học rút ra.
+
+11.7 Cải tiến Truyền thông
+- Quản lý xung đột hiệu quả.
+Giải quyết vấn đề: trực tiếp đối mặt với xung đột. Xung đột có thể là điều tốt. Xung đột thường dẫn đến những kết quả quan trọng, như ý tưởng mới, những giải pháp tốt hơn, và động cơ làm việc kiên trì và hợp tác hơn. Suy nghĩ theo nhóm có thể phát triển nếu không có xung đột về quan điểm. Xung đột liên quan đến công việc thường cải tiến hiệu suất làm việc của nhóm, nhưng xung đột về tình cảm thường làm giảm hiệu suất làm việc. Sau đây là một số phương thức giải quyết xung đột:
+- Thỏa hiệp: dùng tiếp cận cho và nhận.
+- Làm trơn (Smoothing): nhấn mạnh những điểm đồng tình và bỏ qua những khác biệt.
+- Áp đặt (Forcing): dùng tiếp cận thắng-thua.
+- Rút lui: rút lui do không đồng tình.
+- Phát triển kỹ năng truyền thông tốt hơn.
+- Họp hiệu quả hơn.
+Xác định có nên tránh được buổi họp nào không. Xác định mục đích và kết quả đạt được của buổi họp. Xác định những người tham gia cuộc họp. Cung cấp chương trình họp cho người tham gia trước buổi họp, chuẩn bị tài liệu và các hỗ trợ trực quan, tiến hành cuộc họp một cách chuyên nghiệp.
+- Dùng email hiệu quả. Bảo đảm email là phương tiện truyền thông chung của dự án, e-mail đến đúng người, chủ đề trong email phải phù hợp, giới hạn số lượng và kích thước các tập tin đính kèm, xóa các email không cần thiết. Trả lời nhanh các email khi có thể.
+- Dùng các mẫu trong truyền thông dự án.
+
+11.8 Phát triển hạ tầng truyền thông
+Hạ tầng truyền thông là tập các công cụ, kỹ thuật, và các nguyên lý cung cấp nền tảng để truyền đạt thông tin hiệu quả:
+- Các công cụ gồm e-mail, phần mềm quản lý dự án, phần mềm làm việc theo nhóm, máy fax, điện thoại, hệ hội nghị từ xa (teleconferencing), hệ quản lý tài liệu, và các phần mềm soạn thảo văn bản.
+- Các kỹ thuật gồm hướng dẫn và các mẫu báo cáo, các quy định và thủ tục hội họp, qui trình ra quyết định, các tiếp cận giải quyết vấn đề, giải quyết xung đột và kỹ thuật đàm phán.
+
+* Câu hỏi củng cố:
+1. Các thành phần chính của kế hoạch giao tiếp trong dự án.
+2. Ưu điểm và nhược điểm của các phương pháp phân bố thông tin về dự án.
+3. Trình bày một vài cách tạo và phân bố thông tin về hiệu suất vận hành dự án.
+4. Phần mềm có thể hỗ trợ giao tiếp như thế nào?

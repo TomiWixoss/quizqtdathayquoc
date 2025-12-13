@@ -58,6 +58,7 @@ function GachaDetailPage() {
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [rewardsClaimed, setRewardsClaimed] = useState(false);
   const [showExchangeModal, setShowExchangeModal] = useState(false);
+  const [skipPullLoading, setSkipPullLoading] = useState(false);
 
   const collectionId = id ? parseInt(id) : 0;
 
@@ -710,9 +711,11 @@ function GachaDetailPage() {
         onClose={() => {
           setShowPullModal(false);
           setPullResults([]);
+          setSkipPullLoading(false);
         }}
         results={pullResults}
         isLoading={isPulling}
+        skipLoading={skipPullLoading}
       />
 
       {/* Reward Claim Modal */}
@@ -792,7 +795,24 @@ function GachaDetailPage() {
         }
         inventory={inventory}
         userId={user?.oderId || ""}
-        onExchangeSuccess={loadInventory}
+        onExchangeSuccess={(card) => {
+          // Show the exchanged card in pull modal (skip loading)
+          setPullResults([
+            {
+              cardImg: card.card_img,
+              cardScarcity: card.card_scarcity,
+              isNew: true,
+              shardsGained: 0,
+              videoList: card.video_list,
+              width: card.width,
+              height: card.height,
+            },
+          ]);
+          setSkipPullLoading(true);
+          setShowPullModal(true);
+          // Reload inventory
+          loadInventory();
+        }}
       />
     </Page>
   );

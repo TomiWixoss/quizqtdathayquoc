@@ -13,6 +13,7 @@ interface GachaPullModalProps {
   onClose: () => void;
   results: GachaPullResult[];
   isLoading: boolean;
+  skipLoading?: boolean; // Skip loading animation (for exchange)
 }
 
 // Get highest scarcity in results
@@ -56,6 +57,7 @@ export function GachaPullModal({
   onClose,
   results,
   isLoading,
+  skipLoading = false,
 }: GachaPullModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAll, setShowAll] = useState(false);
@@ -74,6 +76,13 @@ export function GachaPullModal({
       setMinLoadingDone(false);
       setCanSkipLoading(false);
       setLoadingStarted(true);
+      setShowAll(false);
+      setCurrentIndex(0);
+      setVideoErrors({});
+    }
+    // Skip loading for exchange - go directly to reveal
+    if (isOpen && skipLoading && results.length > 0 && !isLoading) {
+      setRevealPhase("reveal");
       setShowAll(false);
       setCurrentIndex(0);
       setVideoErrors({});

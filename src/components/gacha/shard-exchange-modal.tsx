@@ -16,7 +16,7 @@ interface ShardExchangeModalProps {
   urCards: GachaCard[];
   inventory: GachaInventory | null;
   userId: string;
-  onExchangeSuccess: () => void;
+  onExchangeSuccess: (card: GachaCard) => void;
 }
 
 export function ShardExchangeModal({
@@ -53,9 +53,10 @@ export function ShardExchangeModal({
     );
 
     if (result.success) {
-      onExchangeSuccess();
+      const exchangedCard = selectedCard;
       setSelectedCard(null);
       onClose();
+      onExchangeSuccess(exchangedCard);
     } else {
       alert(result.error || "Có lỗi xảy ra!");
     }

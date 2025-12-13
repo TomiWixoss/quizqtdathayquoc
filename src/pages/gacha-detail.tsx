@@ -30,6 +30,7 @@ import {
   claimAllRewards,
 } from "@/services/gacha-pull-service";
 import { GachaPullModal } from "@/components/gacha/gacha-pull-modal";
+import { ShardExchangeModal } from "@/components/gacha/shard-exchange-modal";
 import { useUserStore } from "@/stores/user-store";
 import {
   GACHA_CONFIG,
@@ -56,6 +57,7 @@ function GachaDetailPage() {
   const [showPullModal, setShowPullModal] = useState(false);
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [rewardsClaimed, setRewardsClaimed] = useState(false);
+  const [showExchangeModal, setShowExchangeModal] = useState(false);
 
   const collectionId = id ? parseInt(id) : 0;
 
@@ -304,6 +306,119 @@ function GachaDetailPage() {
             />
           </div>
         </div>
+
+        {/* Rates & Pity Info */}
+        <div className="card-3d p-3 mb-4">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-medium">Tỷ lệ rơi</span>
+            {inventory && (
+              <div className="flex items-center gap-1 text-xs">
+                <span className="text-[var(--muted-foreground)]">
+                  Bảo hiểm:
+                </span>
+                <span className="font-bold text-[var(--duo-yellow)]">
+                  {inventory.pityCounters[collectionId] || 0}/
+                  {GACHA_CONFIG.PITY_UR}
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="grid grid-cols-4 gap-2 text-center text-xs">
+            <div className="p-2 rounded-lg bg-[var(--secondary)]">
+              <Star
+                className="w-4 h-4 mx-auto mb-1"
+                style={{ color: getScarcityColor(40) }}
+                fill={getScarcityColor(40)}
+              />
+              <div
+                className="font-bold"
+                style={{ color: getScarcityColor(40) }}
+              >
+                UR
+              </div>
+              <div className="text-[var(--muted-foreground)]">
+                {GACHA_CONFIG.RATES[40]}%
+              </div>
+            </div>
+            <div className="p-2 rounded-lg bg-[var(--secondary)]">
+              <Star
+                className="w-4 h-4 mx-auto mb-1"
+                style={{ color: getScarcityColor(30) }}
+                fill={getScarcityColor(30)}
+              />
+              <div
+                className="font-bold"
+                style={{ color: getScarcityColor(30) }}
+              >
+                SR
+              </div>
+              <div className="text-[var(--muted-foreground)]">
+                {GACHA_CONFIG.RATES[30]}%
+              </div>
+            </div>
+            <div className="p-2 rounded-lg bg-[var(--secondary)]">
+              <Star
+                className="w-4 h-4 mx-auto mb-1"
+                style={{ color: getScarcityColor(20) }}
+                fill={getScarcityColor(20)}
+              />
+              <div
+                className="font-bold"
+                style={{ color: getScarcityColor(20) }}
+              >
+                R
+              </div>
+              <div className="text-[var(--muted-foreground)]">
+                {GACHA_CONFIG.RATES[20]}%
+              </div>
+            </div>
+            <div className="p-2 rounded-lg bg-[var(--secondary)]">
+              <Star
+                className="w-4 h-4 mx-auto mb-1"
+                style={{ color: getScarcityColor(10) }}
+                fill={getScarcityColor(10)}
+              />
+              <div
+                className="font-bold"
+                style={{ color: getScarcityColor(10) }}
+              >
+                N
+              </div>
+              <div className="text-[var(--muted-foreground)]">
+                {GACHA_CONFIG.RATES[10]}%
+              </div>
+            </div>
+          </div>
+          <p className="text-[10px] text-[var(--muted-foreground)] mt-2 text-center">
+            Đảm bảo UR sau {GACHA_CONFIG.PITY_UR} lần quay không trúng
+          </p>
+        </div>
+
+        {/* Shards & Exchange */}
+        {inventory && (
+          <div className="card-3d p-3 mb-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <img
+                  src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
+                  className="w-6 h-6"
+                />
+                <div>
+                  <div className="font-bold">{inventory.shards} mảnh</div>
+                  <div className="text-[10px] text-[var(--muted-foreground)]">
+                    Đổi {GACHA_CONFIG.UR_EXCHANGE_COST} mảnh = 1 thẻ UR
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowExchangeModal(true)}
+                className="btn-3d btn-3d-purple px-3 py-2 text-sm"
+              >
+                Đổi thẻ
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Lottery Tabs */}
         {lotteries.length > 1 && (
@@ -666,6 +781,19 @@ function GachaDetailPage() {
           </div>
         </div>
       )}
+
+      {/* Shard Exchange Modal */}
+      <ShardExchangeModal
+        isOpen={showExchangeModal}
+        onClose={() => setShowExchangeModal(false)}
+        collectionId={collectionId}
+        urCards={
+          currentLottery?.item_list?.filter((c) => c.card_scarcity === 40) || []
+        }
+        inventory={inventory}
+        userId={user?.oderId || ""}
+        onExchangeSuccess={loadInventory}
+      />
     </Page>
   );
 }

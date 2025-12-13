@@ -48,12 +48,12 @@ export const GACHA_CONFIG = {
   PULLS_SINGLE: 1,
   PULLS_MULTI: 10,
   PITY_UR: 90, // Đảm bảo UR sau 90 lần
-  // Shards khi trùng theo scarcity
+  // Shards khi trùng theo scarcity (rarity cao = nhiều mảnh hơn)
   DUPLICATE_SHARDS: {
-    40: 50, // UR
-    30: 20, // SR
+    40: 100, // UR - hiếm nhất, nhiều mảnh nhất
+    30: 30, // SR
     20: 10, // R
-    10: 5, // N
+    10: 3, // N - phổ biến nhất, ít mảnh
   } as Record<number, number>,
   // Tỷ lệ rơi (%)
   RATES: {
@@ -62,4 +62,6 @@ export const GACHA_CONFIG = {
     20: 30, // R 30%
     10: 60, // N 60%
   } as Record<number, number>,
+  // Giá đổi thẻ UR bằng mảnh
+  UR_EXCHANGE_COST: 150,
 };

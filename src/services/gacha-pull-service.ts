@@ -295,3 +295,41 @@ export function hasClaimedRewards(
 ): boolean {
   return inventory.rewards.some((r) => r.collectionId === collectionId);
 }
+
+// Exchange shards for UR card
+export async function exchangeShardsForCard(
+  userId: string,
+  collectionId: number,
+  cardImg: string
+): Promise<{ success: boolean; error?: string; newShards?: number }> {
+  try {
+    const inventory = await getUserGachaInventory(userId);
+    const cost = GACHA_CONFIG.UR_EXCHANGE_COST;
+
+    // Check if already owned
+    if (inventory.cards[collectionId]?.[cardImg]) {
+      return { success: false, error: "Bạn đã sở hữu thẻ này!" };
+    }
+
+    // Check shards
+    if (inventory.shards < cost) {
+      return { success: false, error: `Không đủ mảnh! Cần ${cost} mảnh.` };
+    }
+
+    // Deduct shards and add card
+    inventory.shards -= cost;
+    if (!inventory.cards[collectionId]) {
+      inventory.cards[collectionId] = {};
+    }
+    inventory.cards[collectionId][cardImg] = 1;
+
+    // Save to Firebase
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, { gachaInventory: inventory });
+
+    return { success: true, newShards: inventory.shards };
+  } catch (error) {
+    console.error("Error exchanging shards:", error);
+    return { success: false, error: "Có lỗi xảy ra!" };
+  }
+}

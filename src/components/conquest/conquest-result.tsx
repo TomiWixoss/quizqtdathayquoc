@@ -11,6 +11,7 @@ import { UserRank, getRankImage } from "@/services/ai-quiz-service";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
 import { RewardModal, RewardItem } from "@/components/ui/reward-modal";
+import { useUserStore } from "@/stores/user-store";
 
 interface Props {
   result: {
@@ -27,6 +28,7 @@ interface Props {
 export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [rewardItems, setRewardItems] = useState<RewardItem[]>([]);
+  const { addGems } = useUserStore();
 
   const accuracy =
     result.correct + result.wrong > 0
@@ -34,43 +36,60 @@ export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
       : 0;
 
   useEffect(() => {
-    // Tính gems earned từ pointsGained (x10)
-    const gemsEarned = Math.max(0, Math.floor(result.pointsGained));
-    const xpEarned = result.correct * 10;
+    const giveRewards = async () => {
+      // Tạo danh sách phần thưởng
+      const rewards: RewardItem[] = [];
 
-    // Tạo danh sách phần thưởng
-    const rewards: RewardItem[] = [];
+      // Thưởng cơ bản: 10 gems mỗi câu đúng
+      const baseGems = result.correct * 10;
+      let bonusAmount = 0;
+      let bonusLabel = "";
 
-    if (gemsEarned > 0) {
-      rewards.push({ type: "gems", amount: gemsEarned });
-    }
+      // Bonus theo accuracy
+      if (accuracy >= 90 && result.correct >= 3) {
+        bonusAmount = 50;
+        bonusLabel = "Bonus chinh chiến!";
+      } else if (accuracy >= 70 && result.correct >= 3) {
+        bonusAmount = 30;
+        bonusLabel = "Chiến đấu tốt!";
+      }
 
-    if (xpEarned > 0) {
-      rewards.push({ type: "xp", amount: xpEarned });
-    }
+      const totalGems = baseGems + bonusAmount;
 
-    // Bonus cho accuracy cao (x10)
-    if (accuracy >= 90 && result.correct >= 3) {
-      rewards.push({ type: "gems", amount: 50, label: "Bonus chính xác!" });
-    } else if (accuracy >= 70 && result.correct >= 3) {
-      rewards.push({ type: "gems", amount: 30, label: "Bonus tốt!" });
-    }
+      // Thực sự cộng gems vào tài khoản
+      if (totalGems > 0) {
+        await addGems(totalGems);
+        rewards.push({
+          type: "gems",
+          amount: totalGems,
+          label: bonusLabel || `${result.correct} câu đúng`,
+        });
+      }
 
-    // Hiện modal nếu có phần thưởng
-    if (rewards.length > 0) {
-      setRewardItems(rewards);
-      setShowRewardModal(true);
-    }
+      // XP earned
+      const xpEarned = result.correct * 10;
+      if (xpEarned > 0) {
+        rewards.push({ type: "xp", amount: xpEarned });
+      }
 
-    if (accuracy >= 70) {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ["#58cc02", "#89e219", "#ffc800", "#ce82ff"],
-      });
-    }
-  }, [accuracy, result.pointsGained, result.correct]);
+      // Hiện modal nếu có phần thưởng
+      if (rewards.length > 0) {
+        setRewardItems(rewards);
+        setShowRewardModal(true);
+      }
+
+      if (accuracy >= 70) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ["#58cc02", "#89e219", "#ffc800", "#ce82ff"],
+        });
+      }
+    };
+
+    giveRewards();
+  }, [accuracy, result.correct, addGems]);
 
   const isWin = result.pointsGained > 0;
 

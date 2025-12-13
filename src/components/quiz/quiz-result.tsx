@@ -130,7 +130,6 @@ export function QuizResult() {
 
       // Tính thưởng theo chế độ
       const rewards: RewardItem[] = [];
-      let gemsToAdd = 0;
 
       // Hệ số nhân theo chế độ
       const modeMultiplier =
@@ -140,30 +139,39 @@ export function QuizResult() {
           ? 2 // Chạy đua x2
           : 1; // Bình thường
 
+      // Thưởng cơ bản: 10 gems mỗi câu đúng
+      const baseGems = correctCount * 10 * modeMultiplier;
+      let bonusAmount = 0;
+      let bonusLabel = "";
+
+      // Bonus theo tỷ lệ đúng
       if (isPerfect) {
         await addPerfectLesson();
-        gemsToAdd = 100 * modeMultiplier;
-        setBonusGems(gemsToAdd);
+        bonusAmount = 50 * modeMultiplier;
+        bonusLabel =
+          quizMode === "survival"
+            ? "Hardcore Perfect!"
+            : quizMode === "timeattack"
+            ? "Speed Perfect!"
+            : "Hoàn hảo!";
+      } else if (percentage >= 80) {
+        bonusAmount = 30 * modeMultiplier;
+        bonusLabel = "Xuất sắc!";
+      } else if (percentage >= 50) {
+        bonusAmount = 10 * modeMultiplier;
+        bonusLabel = "Tốt lắm!";
+      }
+
+      const totalGems = baseGems + bonusAmount;
+
+      if (totalGems > 0) {
+        await addGems(totalGems);
+        setBonusGems(totalGems);
         rewards.push({
           type: "gems",
-          amount: gemsToAdd,
-          label:
-            quizMode === "survival"
-              ? "Hardcore Perfect!"
-              : quizMode === "timeattack"
-              ? "Speed Perfect!"
-              : "Hoàn hảo!",
+          amount: totalGems,
+          label: bonusLabel || `${correctCount} câu đúng`,
         });
-      } else if (percentage >= 80) {
-        gemsToAdd = 50 * modeMultiplier;
-        await addGems(gemsToAdd);
-        setBonusGems(gemsToAdd);
-        rewards.push({ type: "gems", amount: gemsToAdd, label: "Xuất sắc!" });
-      } else if (percentage >= 50) {
-        gemsToAdd = 20 * modeMultiplier;
-        await addGems(gemsToAdd);
-        setBonusGems(gemsToAdd);
-        rewards.push({ type: "gems", amount: gemsToAdd, label: "Tốt lắm!" });
       }
 
       // Thêm XP vào rewards

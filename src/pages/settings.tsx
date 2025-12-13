@@ -125,6 +125,13 @@ function SettingsPage() {
   // Helper để kiểm tra điều kiện thành tựu
   const getCurrentValue = (type: string) => {
     if (!user) return 0;
+    const gachaStats = user.gachaInventory?.gachaStats;
+    const totalCards =
+      (gachaStats?.totalURCards ?? 0) +
+      (gachaStats?.totalSRCards ?? 0) +
+      (gachaStats?.totalRCards ?? 0) +
+      (gachaStats?.totalNCards ?? 0);
+
     switch (type) {
       case "streak":
         return user.streak;
@@ -142,6 +149,17 @@ function SettingsPage() {
         return user.conquestStats?.bestWinStreak ?? 0;
       case "rank_points":
         return user.conquestStats?.rankPoints ?? 0;
+      // Gacha achievements
+      case "gacha_pulls":
+        return user.gachaInventory?.totalPulls ?? 0;
+      case "gacha_ur":
+        return gachaStats?.totalURCards ?? 0;
+      case "gacha_sr":
+        return gachaStats?.totalSRCards ?? 0;
+      case "gacha_total_cards":
+        return totalCards;
+      case "gacha_collections":
+        return gachaStats?.completedCollections ?? 0;
       default:
         return 0;
     }

@@ -1,0 +1,92 @@
+Chương 8. QUẢN LÝ CHI PHÍ
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được tầm quan trọng của việc quản lý chi phí dự án
+2. Hiểu được một số khái niệm và thuật ngữ về quản lý chi phí.
+3. Hiểu được các qui trình quản lý chi phí
+4. Mô tả cách dùng phần mềm trong quản lý chi phí dự án
+
+8.1. Khái niệm quản lý chi phí dự án.
+Chi phí là tài nguyên được hy sinh hay tính trước để đạt được một mục tiêu rõ ràng hay để trao đổi cái gì đó. Chi phí thường được đo bằng đơn vị tiền tệ.
+Quản lý chi phí dự án bao gồm những quy trình yêu cầu đảm bảo cho dự án được hoàn tất trong sự cho phép của ngân sách.
+
+8.2 Qui trình quản lý chi phí dự án.
+Quản lý chi phí dự án gồm những qui trình bảo đảm cho dự án được hoàn tất trong sự cho phép của ngân sách. Những qui trình này gồm:
+• Lập kế hoạch cho nguồn tài nguyên: xác định nguồn tài nguyên cần thiết và số lượng để thực hiện dự án.
+• Ước lượng chi phí: ước tính chi phí về các nguồn tài nguyên để hoàn tất một dự án.
+• Dự tóan chi phí: phân bổ toàn bộ chi phí ước tính vào từng hạng mục công việc để thiết lập một đường mức (Base line) cho việc đo lường việc thực hiện.
+• Kiểm soát – Điều chỉnh chi phí: điều chỉnh thay đổi chi phí dự án.
+
+8.3 Lập kế hoạch ngân sách (Chi phí).
+• Lập kế hoạch cho ngân sách phụ thuộc vào bản chất của dự án và tổ chức. Khi thực hiện lập kế hoạch cho ngân sách cần cân nhắc một số vấn đề sau:
+- Các khó khăn nào sẽ gặp khi thực hiện các công việc cụ thể trong dự án?
+- Có phạm vi nhất định nào ảnh hưởng đến nguồn tài nguyên?
+- Tổ chức đã thực hiện những công việc nào tương tự như dự án?
+- Tổ chức đó có đủ người, trang thiết bị và vật tư để thực hiện dự án?
+
+8.4 Ước lượng chi phí
+• Đầu ra quan trọng của quản lý chi phí dự án là ước tính chi phí. Có nhiều loại ước tính chi phí và những công cụ cùng với kỹ thuật giúp tạo ra chúng. Điều quan trọng là chúng ta phát triển một kế hoạch quản lý chi phí trong đó mô tả sự dao động chi phí sẽ được quản lý trong dự án ra sao
+• Các lọai ước tính chi phí:
+
+| Loại Ước tính | Khi nào làm? | Tại sao làm? | Độ chính xác |
+| :--- | :--- | :--- | :--- |
+| Độ lớn thô (ROM) | Rất sớm trong chu trình 3- 5 năm trước | Cho biết chi phí thô để quyết định lựa chọn | -25%, +75% |
+| Ngân sách | sớm 1-2 năm xong | Đưa $ vào các Kế hoạch Ngân sách | - 10%, +25% |
+| Xác Định | Muộn hơn trong dự án < 1 năm xong | Cung cấp chi tiết để mua, ước lượng chi phí thật sự. | -5%, +10% |
+
+Các phương pháp ước tính chi phí:
+o Tương tự hay Trên - xuống (top-down): sử dụng chi phí thực tế trước đó, các dự án tương tự làm nền tảng cơ bản để làm ước tính mới
+o Dưới lên (Bottom-up): ước tính riêng từng nhóm làm việc và tính toán con số tổng cộng.
+o Mô hình điểm chức năng.
+o Dùng thông số: sử dụng các đặc điểm riêng biệt trong dự án áp dụng phương thức toán học để ước tính chi phí. Mô hình COCOMO (Constructive Cost Model) là mô hình thông dụng.
+
+8.5 Dự tóan chi phí.
+8.5.1. Kiểm sóat - Điều chỉnh chi phí.
+Kiểm sóat - Điều chỉnh phí bao gồm :
+• Giám sát hoạt động chi phí.
+• Bảo đảm rằng chỉ có sự thay đổi hợp lý đều được ghi nhận trong đường mức (Base line).
+• Thông báo những thay đổi đến những người có thẩm quyền.
+EMV (Earned value management): là một công cụ quan trọng hỗ trợ kiểm tra chi phí.
+• EVM là một kỹ thuật đo lường sự thực hiện dự án thông qua tích hợp các dữ liệu về phạm vi, thời gian, và chi phí;
+• Đưa ra mốc chi phí (Cost Base line) (dự tính ban đầu cộng với sự thay đổi cho phép), người QL cần phải xác định cách tốt nhất mà dự án đạt được mục tiêu.
+• Cần phải có thông tin định kỳ để sử dụng EVM.
+
+8.5.2 Thuật ngữ trong EMV
+• Giá trị trù tính (PV=Planned Value), còn gọi là ngân sách chi phí công việc đã lên lịch (BCWS=Bugedted Cost of Work Scheduled), cũng là ngân sách dự trù cho tổng cho tổng chi phí sẽ chi tiêu cho một công việc trong suốt một giai đoạn định trước.
+• Chi phí thực sự (AC=Actual Cost), còn gọi là chi phí thực sự của công việc được thực hiện (ACWP= Actual Cost of Work Performed), là tổng cộng các chi phí trực tiếp hay gián tiếp trong việc hoàn tất công việc trong một giai đoạn định trước.
+• Giá trị thu được (EV= Earned Value), còn gọi là chi phí ngân sách cho việc tiến hành công việc (BCWP= Budgeted Cost of Work ), là dự trù giá trị của công việc thật sự hoàn thành
+
+8.5.3 Các công thức tính trong EMV
+
+| Khái niệm | Công thức |
+| :--- | :--- |
+| Giá trị thu được (EV) | EV=PV * (%Thời gian hoàn thành) |
+| Chi phí phát sinh (CV= Cost Variance) | CV = EV - AC |
+| Biến động Lịch (SV= Schedule Variance) | SV = EV – PV |
+| Chỉ số thực hiện chi phí (CPI=Cost Performance Index) | CPI = EV/AC |
+| Chỉ số thực hiện lịch (SPI=Schedele performance index) | SPI = EV/PV |
+| Ước tính tại thời điểm hoàn tất (EAC=Estimate at completion) | EAC = BAC/CPI |
+| Ước tính thời gian hoàn tất (Estimate time to complete) | Ước tính thời gian ban đầu/SPI |
+
+Nhận xét:
+- CV cho biết sự sai biệt giữa chi phí thật sự và giá trị thu được.
+- SV cho biết sự sai biệt giữa hòan thành theo lịch và giá trị thu được.
+- CPI là tỷ số giữa giá trị thu được và chi phí thật sự. Nếu bằng 1 thì phù hợp, <1 vượt ngân sách.
+- SPI là tỷ số thực hiện theo lịch. Nếu bằng >1 thì hòan thành trước lịch và <1 ngược lại.
+
+Ví dụ:
+
+| Hoạt động | Tuần 1. |
+| :--- | :--- |
+| Giá trị thu được (EV) | 7 500 |
+| Giá trị trù tính (PV) | 10 000 |
+| Chi phí thật sự (AC) | 15 000 |
+| Chi phí phát sinh (CV= Cost Variance) | CV = EV - AC = -7 500 |
+| Biến động Lịch (SV= Schedule Variance) | SV = EV – PV = - 2 500 |
+| Chỉ số thực hiện chi phí CPI | CPI = EV/AC *100%= 50% |
+| Chỉ số thực hiện lịch SPI | SPI = EV/PV*100% = 75% |
+
+*Câu hỏi (bài tập) củng cố:
+1. Các khái niệm cơ bản trong quản trị chi phí, như lợi nhuận, chi phí chu trình sống, chi phí và lợi ích hữu hình và vô hình, chi phí trực tiếp và gián tiếp…
+2. Giải thích những điều xảy ra trong quá trình dự thảo ngân sách?
+3. Mô tả các loại phần mềm hỗ trợ quản trị chi phí dự án?

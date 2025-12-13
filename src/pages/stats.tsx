@@ -664,12 +664,9 @@ function StatsPage() {
                 </div>
                 <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
                   <img
-                    src="/AppAssets/Shard.png"
+                    src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
                     alt="shard"
                     className="w-6 h-6 mx-auto mb-1"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
                   />
                   <p className="text-xl font-bold text-[var(--duo-blue)]">
                     {user?.gachaInventory?.shards ?? 0}

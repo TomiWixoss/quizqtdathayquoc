@@ -1,0 +1,123 @@
+Chương 12. QUẢN LÝ RỦI RO CỦA DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được tầm quan trọng của việc quản lý rủi ro dự án.
+2. Biết được cách dự đoán các rủi ro có thể xảy ra.
+3. Biết cách lập danh sách rủi ro, đưa ra cách khắc phục.
+
+12.1 Quản lý rủi ro
+Quản lý rủi ro. Quản lý rủi ro bao gồm bốn bước:
+Bước 1: Dự đoán rủi ro
+Bước 2: Khử bỏ rủi ro ở một nơi có thể
+Bước 3: Giảm bớt tác động của rủi ro
+Bước 4: Vẫn trong kiểm soát khi có điều trục trặc
+
+12.2 Dự đoán rủi ro (bước 1)
+Công việc đầu tiên và quan trọng nhất trong quản lý rủi ro là nhận biết điều gì có thể dẫn đến sai sót. Phương pháp tốt nhất để xác định các khoản mục có thể rủi ro là nhìn vào lịch sử và rút ra một danh sách những gì có thể đưa tới sai sót. Nếu chúng ta không ghi chép lịch sử để xem lại thì cần hiểu rõ khi nào chúng ta đang trong tình huống rủi ro.
+
+Một số tình huống có thể xảy ra rủi ro trong dự án:
+
+Các tình huống rủi ro chung
+- Nhân viên kỹ thuật không thích hợp. Thiếu huấn luyện và kinh nghiệm về phần cứng, hệ điều hành, phần mềm hay lĩnh vực ứng dụng. Thiếu kinh nghiệm trong công việc nhóm gây ra vấn đề về trao đổi. Những yêu cầu của khách hàng về an toàn, pháp lý, quy tắc thanh toán...
+- Môi trường làm việc không sát hợp. Môi trường lập trình cần yên tĩnh và không bị quấy rối. Cần đặc biệt lưu ý nếu việc lập trình phải thực hiện tại cơ quan khách. Nói chung cần có máy tính đủ mạnh, trình biên dịch thích hợp và phần mềm phát triển tốt.
+- Tài nguyên do bên thứ ba cung cấp. Nếu có việc gì đó do một bên cung cấp mà chúng ta không kiểm soát được họ, thì chúng ta đang ở cạnh một rủi ro. Chúng ta cố gắng thu được quyền kiểm soát đối với các bên đó.
+- Rút ngắn dự án. chúng ta có thể làm cho dự án được hoàn thành sớm hơn hoặc nếu chúng ta có nhiều người, mọi người đều làm thêm giờ và có máy tính lớn. Nhưng chi phí đó cũng phải lên gấp đôi!
+- Nguồn vốn từ ngân sách. Nếu khách hàng sử dụng ngân quỹ theo từng quý thì chúng ta đứng trước khả năng thiếu kinh phí, nếu chúng ta ước lượng cho mỗi quý không sát hợp.
+
+Tình huống rủi ro tài chính
+Việc quản lý dự án kiểu phân bố không có hiệu quả. Tốt nhất là mọi thành viên của nhóm dự án, cũng như khách hàng đều trong cùng miền địa lý, nếu không sẽ rất tốn kém cho chi phí đi lại.
+Quản lý quá sốt sắng có thể lại "không quản lý kỹ" được dự án. Hãy giữ các tài liệu ở mức tối thiểu. Mọi người có thể nghĩ cách tốt hơn để báo cáo lại hoạt động của mình. Hãy xác định một tập nhỏ các tài liệu chuẩn rồi dùng chúng. Giữ các cuộc họp ở mức tối thiểu. Chúng ta hãy dùng điện thoại và bản ghi nhớ để liên lạc mọi lúc có thể. Đừng làm ảnh hưởng tới các nhân viên.
+Rủi ro còn xảy ra khi cả người dùng không thể và không có quyền trả lời các câu hỏi nhanh chóng.
+
+Tình huống rủi ro kỹ thuật
+- Giải pháp sai. Chọn ngôn ngữ lập trình, phần cứng không phù hợp. Cần phải đảm bảo máy tính phát triển và máy tính vận hành tương thích nhau và đều có sẵn khi cần đến, cả phần cứng lẫn phần mềm đều được sản xuất bảo đảm. Phải đặc biệt cẩn thận trong môi trường có nhiều nhà cung cấp.
+- Yêu cầu/đặc tả không tốt. Nếu có điều gì còn chưa rõ hay mơ hồ, hay nếu người dùng không thể trao cho chúng ta các yêu cầu chắc chắn thì những thay đổi nhất định sẽ xuất hiện trong hoặc sau khi phát triển. Thay đổi có thể rất tốn kém cho việc thực hiện và chúng ta không thể được thanh toán để làm việc đó. Cần phải làm việc phân tích dự án kỹ trong trường hợp này.
+- Không hiểu biết về người dùng. Chúng ta phải biết cách thức, quy trình mà người dùng đang làm.
+- Độ đúng sai mất mát dữ liệu Phải xác định ra các thủ tục sao lưu, ghi lại các giao dịch hay sao chép các tệp cần phải được thiết kế cho hệ thống.
+
+Thách đố rủi ro. Hãy tự hỏi chúng ta các câu hỏi về rủi ro sau trả lời có hay thậm chí có phần nào đó, cho bất kỳ câu hỏi nào thì tức nhận rủi ro. Danh sách được chia thành 3 phần: rủi ro thấp, rủi ro trung bình, rủi ro cao.
+
+Rủi ro thấp
+Lĩnh vực: Kích cỡ nhóm
+Câu hỏi: Nhóm dự án có từ 3 đến 5 người? (chú ý điều này kéo theo rằng nhóm một hay hai người không rủi ro!)
+
+Lĩnh vực: Phần mềm/ phần cứng
+Câu hỏi: Chúng ta có đang dùng một ngôn ngữ không thích ứng với ứng dụng không?
+
+Lĩnh vực: Người sử dụng
+Câu hỏi: Liệu người sử dụng có là người biết máy vi tính không? (Điều đó sẽ làm tốn thời gian huấn luyện, rồi khi họ biết hơn thì họ sẽ đòi có sự thay đổi)
+
+Lĩnh vực: Huấn luyện
+Câu hỏi: Chúng ta có thật sự cần huấn luyện về phận cứng máy khách, phần mềm hệ thống, ngôn ngữ không?
+
+Lĩnh vực: Thành viên nhóm
+Câu hỏi: Chúng ta có làm việc được với nhau không? (Sức khoẻ, hiệu năng, vấn đề cá nhân)
+
+Rủi ro vừa
+Lĩnh vực: Kích cỡ nhóm
+Câu hỏi: Nhóm dự án có trên 5 người
+
+Lĩnh vực: Phần mềm/ phần cứng
+Câu hỏi: Liệu có yêu cầu nào về thời gian đáp ứng/ hiệu xuất hay tính sẵn có là quá đáng không? Liệu ta có đưa vào một phần cứng quá yếu không? Liệu có dính dáng gì đến hợp ngữ/ ngôn ngữ macro không (Macro khó học, khó gỡ lỗi và cũng khó tìm được người lập trình). Ta có phải sửa đổi hệ điều hành không? Có liên quan tới mạng hay không? Có sản phẩm phần cứng hay phần mềm mới nào không?
+
+Lĩnh vực: Người sử dụng
+Câu hỏi: Có vấn đề khó khăn trong trao đổi với người dùng không? (Người dùng bất hợp tác hay ở xa)
+
+Lĩnh vực: Thành viên nhóm
+Câu hỏi: Liệu có ai trong nhóm mà người dùng không có quyền tác động tới không?
+
+Rủi ro cao
+Lĩnh vực: Phân mềm/phần cứng
+Câu hỏi: Trong môi trường nhiều nhà cung cấp, liệu có nhà cung cấp nào đưa ra các sản phẩm không phù hợp không? Chúng ta có đang dùng phần cứng, phần mềm các phương pháp thiết kế hay lập trình chưa từng được sửa trước hay không?
+
+Lĩnh vực: Thành viên nhóm
+Câu hỏi: Chúng ta có làm việc được với nhau không? Liệu có vấn đề cá nhân nào không? (Sức khoẻ, hiệu năng, vấn đề cá nhân)
+
+Lĩnh vực: Các bên thứ ba
+Câu hỏi: Liệu có tài năng nào phụ thuộc vào các bên ngoài sự kiểm soát của chúng ta không?
+
+Lĩnh vực: Hạn chót
+Câu hỏi: Liệu dự án có phải rút ngắn không? Có được công bố không?
+
+Lĩnh vực: Yêu cầu
+Câu hỏi: Tài liệu yêu cầu có chắc có không, hay một trong chúng ta (người dùng, nhóm dự án ) không hiểu nó?
+
+Chúng ta có thể dự tính các rủi ro bằng cách tạo ra các danh sách như trên để nhắc nhở mình về những rủi ro có thể có. Chúng ta hãy dùng lịch sử các dự án trong công ty chúng ta để tạo ra các danh sách riêng của mình. Hãy nhớ danh sách rủi ro là “động” phải thay đổi chúng khi môi trường thay đổi.
+
+12.3 Khử bỏ rủi ro ở mọi nơi có thể (bước 2)
+Tại điểm này một ý tưởng tốt là lập mức ưu tiên cho các khoản mục rủi ro. Chúng ta hãy lập một bảng như bên dưới:
+
+Bảng rủi ro
+Khoản mục rủi ro | Xác suất (1-10) | Tác động (1-10) | Ưu tiên (XxT)
+--- | --- | --- | ---
+Người sử dụng không trao đổi – Yêu cầu sẽ trượt | 8 | 8 | 64
+Trưởng nhóm lập trình nghỉ phép/việc lập trình trượt | 2 | 8 | 16
+
+Chúng ta hãy đưa vào trong bảng từng khoản mục trong bản câu hỏi rủi ro mà chúng ta đã trả lời có hay thậm chí có thể. Hãy dịch các khoản mục rủi ro này thành ảnh hưởng thực tế lên dự án, thường là tăng chi phí hay thời hạn. Chúng ta hãy quyết định về xác suất của việc xuất hiện khoản mục này và gán cho nó một số từ 1 tới 10, 10 là xác suất cao nhất. Rồi quyết định về tác động lên dự án. Hãy gán cho Tác động một số trong khoản từ 1 tới 10, 1 là khoản mục có thể xoay sở được, 10 là khoản mục sẽ làm dừng dự án. Các khoản mục tác động cao là các khoản mục rủi ro Vừa hay Cao trong phần câu hỏi rủi ro, cũng như các khoản mục nằm trên đường găng. Hãy nhận Xác suất với Tác động cho từng khoản mục để thu được ưu tiên.
+
+Bảng rủi ro trên sẽ cho chúng ta một thứ tự, theo đó giải quyết khử bỏ các rủi ro. Hiển nhiên, số ưu tiên càng cao trong Bảng rủi ro thì khoản mục đó càng phải chú ý. Trong thực tế cần giải quyết cho các khoản mục theo thứ tự giảm dần của số ưu tiên.
+
+Đối với mỗi khoản mục rủi ro, đầu tiên hãy thử loại bỏ nguyên nhân rủi ro. Hãy xem xét đến quyền kiểm soát, thay đổi nhân viên, tìm phần cứng/ phần mềm tốt hơn, đào tạo chính chúng ta và người dùng. Mọi khoản mục đều đòi hỏi phải có một giải pháp.
+
+12.4 Giảm bớt tác động của rủi ro bằng lập kế hoạch (bước 3)
+Với những khoản mục chúng ta không thể khử bỏ được rủi ro, thì hãy xác định kế hoạch đối phó với điều bất ngờ. Với mọi khoản mục rủi ro có liên quan đến tài nguyên, chúng ta hãy thử sử dụng tài nguyên dự phòng.
+Nếu có xác suất cao về một khoản mục rủi ro có thể xuất hiện, thì chúng ta phải điều chỉnh của giá tương ứng.
+
+Bảng tóm tắt kế hoạch cho điều bất ngờ:
+Khoản mục rủi ro | Hành động | Ai | Chi phí (%)
+--- | --- | --- | ---
+Có trao đổi với người dùng | Họp theo tuần; Làm bản mẫu | Trưởng QLDA; Phó QLDA | 5000$; 25000 $,3th
+Người lập trình nghỉ phép | Người dự phòng | Tập sự | 20.000$
+
+Đặt kế hoạch cho điều bất ngờ vào cột hành động của bảng bất ngờ. Trong cột Ai đặt tên của người sẽ chịu trách nhiệm thực hiện kế hoạch cho điều bất ngờ. Với những khoản mục của chúng ta cần có cảnh báo sớm, hãy đặt vào cột Ai tên của cá nhân chịu trách nhiệm việc này và báo cho toàn nhóm khi sự việc xảy ra. Trong cột chi phí, đặt chi phí tăng lên hoặc thời gian mà khoản mục rủi ro gây ra.
+
+12.5 Kiểm soát khi có điều trục trặc (bước 4)
+Cuối cùng, mặc cho tất cả mọi nỗ lực của chúng ta, vài điều nào đó vẫn cứ trục trặc. Hãy tính đến việc mọi thứ có thể trục trặc hãy cố gắng giữ quyền kiểm soát nhiều nhất có thể được. Hãy làm hết sức mình, công bố việc trượt dự án nếu cần, và báo cáo cho mọi người biết nguyên nhân vấn đề, đặc biệt nếu họ ở bên ngoài quyền hạn pháp lý của chúng ta.
+
+* Câu hỏi củng cố:
+1. Khi đề cập đến kế hoạch quản lý rủi ro cần phải xét đến các yếu tố nào?
+2. Các nguồn rủi ro phổ biến trong các dự án CNTT.
+3. Tìm hiểu sự khác biệt giữa kỹ thuật “brainstorm” và Delphi trong việc xác định các rủi ro. Ưu điểm và nhược điểm của mỗi kỹ thuật.
+4. Trình bày cách sử dụng cây quyết định (decision tree) và phương pháp Monte Carlo đối với các rủi ro định lượng. Cho ví dụ về cách sử dụng mỗi kỹ thuật cho dự án CNTT.
+5. Liệt kê các công cụ và kỹ thuật theo dõi và kiểm soát rủi ro.
+6. Cách sử dụng Microsoft Project và Excel để hỗ trợ quản lý rủi ro dự án.

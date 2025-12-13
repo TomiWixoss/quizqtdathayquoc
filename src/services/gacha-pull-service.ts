@@ -142,15 +142,18 @@ export async function pullGacha(
     if (!inventory.cards[collectionId]) {
       inventory.cards[collectionId] = {};
     }
-    if (!inventory.pityCounters[collectionId]) {
-      inventory.pityCounters[collectionId] = 0;
+
+    // Sử dụng global pity counter (key = 0) thay vì riêng từng collection
+    const GLOBAL_PITY_KEY = 0;
+    if (inventory.pityCounters[GLOBAL_PITY_KEY] === undefined) {
+      inventory.pityCounters[GLOBAL_PITY_KEY] = 0;
     }
 
     // Thực hiện quay
     for (let i = 0; i < pullCount; i++) {
       const { card, resetPity } = rollCard(
         lottery.item_list,
-        inventory.pityCounters[collectionId]
+        inventory.pityCounters[GLOBAL_PITY_KEY] // Dùng global pity
       );
 
       // Check xem đã có card này chưa
@@ -185,11 +188,11 @@ export async function pullGacha(
         totalShardsGained += shardsGained;
       }
 
-      // Update pity
+      // Update global pity (đồng bộ cho tất cả gói)
       if (resetPity) {
-        inventory.pityCounters[collectionId] = 0;
+        inventory.pityCounters[GLOBAL_PITY_KEY] = 0;
       } else {
-        inventory.pityCounters[collectionId]++;
+        inventory.pityCounters[GLOBAL_PITY_KEY]++;
       }
 
       results.push({

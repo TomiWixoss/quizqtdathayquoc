@@ -29,6 +29,7 @@ import {
 import { db } from "@/lib/firebase";
 import confetti from "canvas-confetti";
 import { RewardModal } from "@/components/ui/reward-modal";
+import { getFullImage } from "@/services/gacha-service";
 
 function SettingsPage() {
   const navigate = useNavigate();
@@ -453,7 +454,7 @@ function SettingsPage() {
                 {/* Frame layer - lớn hơn avatar */}
                 {user.equippedFrame && (
                   <img
-                    src={user.equippedFrame}
+                    src={getFullImage(user.equippedFrame, 100)}
                     alt="Frame"
                     className="absolute inset-0 w-20 h-20 object-contain z-10 pointer-events-none"
                     referrerPolicy="no-referrer"
@@ -463,7 +464,11 @@ function SettingsPage() {
                 <div className="w-14 h-14 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl overflow-hidden">
                   {user.equippedAvatar || user.avatar ? (
                     <img
-                      src={user.equippedAvatar || user.avatar}
+                      src={
+                        user.equippedAvatar
+                          ? getFullImage(user.equippedAvatar, 100)
+                          : user.avatar
+                      }
                       alt=""
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -477,7 +482,7 @@ function SettingsPage() {
               {user.equippedBadge && (
                 <div className="w-12 h-12 shrink-0">
                   <img
-                    src={user.equippedBadge}
+                    src={getFullImage(user.equippedBadge, 80)}
                     alt="Badge"
                     className="w-full h-full object-contain"
                     referrerPolicy="no-referrer"

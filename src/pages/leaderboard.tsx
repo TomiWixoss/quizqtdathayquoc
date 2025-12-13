@@ -5,6 +5,7 @@ import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useUserStore } from "@/stores/user-store";
 import { getRankImage, getRankFromPoints } from "@/services/ai-quiz-service";
+import { getFullImage } from "@/services/gacha-service";
 import type { UserStats } from "@/types/quiz";
 
 type TabType = "conquest" | "score" | "urCards";
@@ -154,7 +155,7 @@ function LeaderboardPage() {
             {/* Frame layer - lớn hơn avatar */}
             {leader.equippedFrame && (
               <img
-                src={leader.equippedFrame}
+                src={getFullImage(leader.equippedFrame, 80)}
                 alt="Frame"
                 className="absolute inset-0 w-14 h-14 object-contain z-10 pointer-events-none"
                 referrerPolicy="no-referrer"
@@ -164,7 +165,11 @@ function LeaderboardPage() {
             <div className="w-10 h-10 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-sm overflow-hidden">
               {leader.equippedAvatar || leader.avatar ? (
                 <img
-                  src={leader.equippedAvatar || leader.avatar}
+                  src={
+                    leader.equippedAvatar
+                      ? getFullImage(leader.equippedAvatar, 80)
+                      : leader.avatar
+                  }
                   alt=""
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -179,7 +184,7 @@ function LeaderboardPage() {
           {leader.equippedBadge && (
             <div className="w-8 h-8 shrink-0">
               <img
-                src={leader.equippedBadge}
+                src={getFullImage(leader.equippedBadge, 60)}
                 alt="Badge"
                 className="w-full h-full object-contain"
                 referrerPolicy="no-referrer"

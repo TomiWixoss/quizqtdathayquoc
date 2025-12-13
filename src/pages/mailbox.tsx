@@ -1,5 +1,5 @@
 import { Page, useNavigate } from "zmp-ui";
-import { ArrowLeft, Mail, CheckCircle, Inbox } from "lucide-react";
+import { ArrowLeft, Mail, CheckCircle, Inbox, Trash2 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -17,7 +17,7 @@ interface MailItem {
 
 function MailboxPage() {
   const navigate = useNavigate();
-  const { user, addGems, claimMail } = useUserStore();
+  const { user, addGems, claimMail, deleteMail } = useUserStore();
   const [mails, setMails] = useState<MailItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showRewardModal, setShowRewardModal] = useState(false);
@@ -60,7 +60,13 @@ function MailboxPage() {
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
-        setMails(mailList);
+
+        // Filter out deleted mails
+        const currentDeletedMails = user.deletedMails || [];
+        const filteredMails = mailList.filter(
+          (mail) => !currentDeletedMails.includes(mail.id)
+        );
+        setMails(filteredMails);
       } catch (error) {
         console.error("Error loading mails:", error);
       } finally {
@@ -88,6 +94,15 @@ function MailboxPage() {
       origin: { y: 0.6 },
       colors: ["#58cc02", "#ffc800", "#1cb0f6"],
     });
+  };
+
+  const handleDeleteMail = async (mail: MailItem) => {
+    // Chỉ cho phép xóa thư đã nhận quà
+    if (!claimedMails.includes(mail.id)) return;
+
+    await deleteMail(mail.id);
+    // Cập nhật UI ngay lập tức
+    setMails((prev) => prev.filter((m) => m.id !== mail.id));
   };
 
   const unclaimedCount = mails.filter(
@@ -191,7 +206,15 @@ function MailboxPage() {
                       </div>
                     </div>
                     {claimed ? (
-                      <CheckCircle className="w-6 h-6 text-[var(--duo-green)] shrink-0" />
+                      <div className="flex items-center gap-2 shrink-0">
+                        <CheckCircle className="w-5 h-5 text-[var(--duo-green)]" />
+                        <button
+                          onClick={() => handleDeleteMail(mail)}
+                          className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center hover:bg-red-500/20 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4 text-red-500" />
+                        </button>
+                      </div>
                     ) : (
                       <button
                         onClick={() => handleClaimReward(mail)}

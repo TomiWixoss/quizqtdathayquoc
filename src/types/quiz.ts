@@ -57,6 +57,7 @@ export interface UserStats {
   // Claimed rewards tracking
   claimedAchievementRewards?: string[];
   claimedMails?: string[];
+  deletedMails?: string[];
   usedRedeemCodes?: string[];
 
   // Unlimited hearts

@@ -51,6 +51,7 @@ interface UserState {
   // Claimed rewards methods
   claimAchievementReward: (achievementId: string) => Promise<void>;
   claimMail: (mailId: string) => Promise<void>;
+  deleteMail: (mailId: string) => Promise<void>;
   useRedeemCode: (codeId: string) => Promise<void>;
 
   // Unlimited hearts
@@ -883,6 +884,24 @@ export const useUserStore = create<UserState>((set, get) => ({
     } catch (error) {
       console.error("Error claiming mail:", error);
       set({ user: { ...user, claimedMails: newClaimed } });
+    }
+  },
+
+  deleteMail: async (mailId) => {
+    const { user } = get();
+    if (!user) return;
+
+    const currentDeleted = user.deletedMails || [];
+    if (currentDeleted.includes(mailId)) return;
+
+    const newDeleted = [...currentDeleted, mailId];
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { deletedMails: newDeleted });
+      set({ user: { ...user, deletedMails: newDeleted } });
+    } catch (error) {
+      console.error("Error deleting mail:", error);
+      set({ user: { ...user, deletedMails: newDeleted } });
     }
   },
 

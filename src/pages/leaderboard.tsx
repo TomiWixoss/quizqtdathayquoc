@@ -1,12 +1,25 @@
 import { Page } from "zmp-ui";
 import { useNavigate } from "react-router-dom";
-import { Trophy, Crown, Medal, Swords, Sparkles } from "lucide-react";
+import {
+  Trophy,
+  Crown,
+  Medal,
+  Swords,
+  Sparkles,
+  Info,
+  Gift,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useUserStore } from "@/stores/user-store";
 import { getRankImage, getRankFromPoints } from "@/services/ai-quiz-service";
 import { getFullImage } from "@/services/gacha-service";
+import {
+  LEADERBOARD_REWARDS,
+  checkAndSendLeaderboardRewards,
+} from "@/services/leaderboard-reward-service";
+import { CustomModal } from "@/components/ui/custom-modal";
 import type { UserStats } from "@/types/quiz";
 
 type TabType = "conquest" | "score" | "urCards";
@@ -17,6 +30,14 @@ function LeaderboardPage() {
   const [activeTab, setActiveTab] = useState<TabType>("conquest");
   const [leaders, setLeaders] = useState<UserStats[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showRewardInfo, setShowRewardInfo] = useState(false);
+
+  // Kiểm tra và gửi thưởng BXH khi vào trang
+  useEffect(() => {
+    if (user?.oderId) {
+      checkAndSendLeaderboardRewards(user.oderId).catch(console.error);
+    }
+  }, [user?.oderId]);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -236,19 +257,128 @@ function LeaderboardPage() {
 
   return (
     <Page className="bg-background min-h-screen">
+      {/* Reward Info Modal */}
+      <CustomModal
+        isOpen={showRewardInfo}
+        onClose={() => setShowRewardInfo(false)}
+      >
+        <div className="text-center">
+          {/* Icon */}
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[var(--duo-yellow)] to-[var(--duo-orange)] flex items-center justify-center">
+            <Gift className="w-8 h-8 text-white" />
+          </div>
+
+          <h2 className="text-xl font-bold text-[var(--duo-orange)] mb-2">
+            Phần thưởng BXH
+          </h2>
+
+          {/* Info box */}
+          <div className="bg-[var(--secondary)] rounded-xl p-3 mb-4 text-left">
+            <p className="text-sm text-[var(--muted-foreground)]">
+              Phần thưởng được gửi vào{" "}
+              <span className="text-[var(--duo-orange)] font-bold">
+                Hòm thư
+              </span>{" "}
+              mỗi ngày dựa trên thứ hạng của bạn.
+            </p>
+          </div>
+
+          {/* Rewards list */}
+          <div className="space-y-4 max-h-[40vh] overflow-y-auto text-left">
+            {Object.entries(LEADERBOARD_REWARDS).map(([key, category]) => (
+              <div key={key} className="space-y-2">
+                <h3 className="font-bold text-foreground flex items-center gap-2 text-sm">
+                  {key === "conquest" && (
+                    <Swords className="w-4 h-4 text-[var(--duo-purple)]" />
+                  )}
+                  {key === "score" && (
+                    <Trophy className="w-4 h-4 text-[var(--duo-yellow)]" />
+                  )}
+                  {key === "urCards" && (
+                    <Sparkles className="w-4 h-4 text-[var(--duo-orange)]" />
+                  )}
+                  {category.name}
+                </h3>
+                <div className="space-y-1">
+                  {category.rewards.map((reward, idx) => {
+                    const getRankIcon = () => {
+                      if (reward.icon === "crown")
+                        return (
+                          <Crown className="w-4 h-4 text-[var(--duo-yellow)]" />
+                        );
+                      if (reward.icon === "medal")
+                        return <Medal className="w-4 h-4 text-gray-400" />;
+                      if (reward.icon === "trophy")
+                        return <Trophy className="w-4 h-4 text-amber-600" />;
+                      return (
+                        <Sparkles className="w-4 h-4 text-[var(--duo-blue)]" />
+                      );
+                    };
+                    return (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between bg-[var(--secondary)] rounded-xl px-3 py-2"
+                      >
+                        <div className="flex items-center gap-2">
+                          {getRankIcon()}
+                          <span className="text-sm text-foreground">
+                            {typeof reward.rank === "number"
+                              ? `Top ${reward.rank}`
+                              : `Top ${reward.rank[0]}-${reward.rank[1]}`}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <img
+                            src="/AppAssets/BlueDiamond.png"
+                            alt="gem"
+                            className="w-5 h-5"
+                          />
+                          <span className="font-bold text-[var(--duo-blue)]">
+                            +{reward.gems}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Button */}
+          <button
+            onClick={() => setShowRewardInfo(false)}
+            className="btn-3d btn-3d-orange w-full py-3 mt-4"
+          >
+            Đã hiểu!
+          </button>
+        </div>
+      </CustomModal>
+
       {/* Header - Fixed */}
       <div
         className={`fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}
       >
-        <div className="flex items-center gap-2">
-          <Trophy className="w-6 h-6 text-white" />
-          <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Trophy className="w-6 h-6 text-white" />
+            <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>
+          </div>
+          <button
+            onClick={() => setShowRewardInfo(true)}
+            className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center"
+          >
+            <Info className="w-5 h-5 text-white" />
+          </button>
         </div>
-        <p className="text-white/80 text-sm mt-1">Top người chơi</p>
+        <p className="text-white/80 text-sm mt-1 flex items-center gap-1">
+          Top người chơi • Nhấn <Info className="w-3 h-3 inline" /> xem phần
+          thưởng
+        </p>
       </div>
 
       {/* Tabs - Fixed below header */}
-      <div className="fixed top-[116px] left-0 right-0 z-40 px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
+      <div className="fixed top-[124px] left-0 right-0 z-40 px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab("conquest")}
@@ -287,7 +417,7 @@ function LeaderboardPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[180px] pb-28">
+      <div className="px-4 pt-[188px] pb-28">
         {loading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[var(--duo-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />

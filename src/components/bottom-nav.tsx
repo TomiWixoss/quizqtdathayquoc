@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "zmp-ui";
 import { Home, Trophy, Sparkles, Calendar, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useConquestStore } from "@/stores/conquest-store";
+import { useTowerStore } from "@/stores/tower-store";
 
 const navItems = [
   { path: "/", icon: Home, label: "Trang chủ" },
@@ -15,12 +16,14 @@ export function BottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isActive: isConquestActive } = useConquestStore();
+  const { activeFloor } = useTowerStore();
 
-  // Hide on quiz pages, during conquest quiz, and gacha detail pages
+  // Hide on quiz pages, during conquest quiz, gacha detail pages, and tower quiz
   if (
     location.pathname === "/quiz" ||
     (location.pathname === "/conquest" && isConquestActive) ||
-    location.pathname.startsWith("/gacha/")
+    location.pathname.startsWith("/gacha/") ||
+    (location.pathname === "/event-tower" && activeFloor)
   )
     return null;
 

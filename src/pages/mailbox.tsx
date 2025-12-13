@@ -29,18 +29,31 @@ function MailboxPage() {
   // Get claimed mails from Firebase user data
   const claimedMails = user?.claimedMails || [];
 
-  // Load mails from Firebase
+  // Load mails from Firebase (global + user-specific)
   useEffect(() => {
     const loadMails = async () => {
+      if (!user) return;
+
       try {
         const mailRef = collection(db, "mails");
+        // Lấy mail global (không có targetUserId) hoặc mail riêng cho user này
         const q = query(mailRef, where("active", "==", true));
         const snapshot = await getDocs(q);
 
-        const mailList: MailItem[] = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as MailItem[];
+        const mailList: MailItem[] = snapshot.docs
+          .map(
+            (doc) =>
+              ({
+                id: doc.id,
+                ...doc.data(),
+              } as MailItem & { targetUserId?: string })
+          )
+          .filter((mail) => {
+            // Lọc: mail global (không có targetUserId) hoặc mail riêng cho user
+            const targetUserId = (mail as { targetUserId?: string })
+              .targetUserId;
+            return !targetUserId || targetUserId === user.oderId;
+          });
 
         // Sort by date
         mailList.sort(
@@ -56,7 +69,7 @@ function MailboxPage() {
     };
 
     loadMails();
-  }, []);
+  }, [user]);
 
   const handleClaimReward = async (mail: MailItem) => {
     if (claimedMails.includes(mail.id)) return;

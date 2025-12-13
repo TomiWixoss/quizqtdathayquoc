@@ -156,20 +156,20 @@ function CardInventoryPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]">
+      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="p-2 rounded-xl bg-white/20"
+            className="btn-back-3d w-10 h-10 flex items-center justify-center"
           >
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
           <div>
-            <h1 className="font-bold text-xl text-white flex items-center gap-2">
-              <Package className="w-6 h-6" />
-              Kho thẻ
-            </h1>
-            <p className="text-white/80 text-sm">
+            <div className="flex items-center gap-2">
+              <Package className="w-6 h-6 text-white" />
+              <h1 className="font-bold text-xl text-white">Kho thẻ</h1>
+            </div>
+            <p className="text-white/80 text-sm mt-1">
               {stats.total} thẻ đã sưu tập
             </p>
           </div>

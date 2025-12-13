@@ -40,13 +40,16 @@ function CustomizePage() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="p-2 rounded-xl bg-white/20 text-white"
+            className="btn-back-3d w-10 h-10 flex items-center justify-center"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-5 h-5 text-white" />
           </button>
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-6 h-6 text-white" />
-            <h1 className="font-bold text-xl text-white">Trang bị</h1>
+          <div>
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-6 h-6 text-white" />
+              <h1 className="font-bold text-xl text-white">Trang bị</h1>
+            </div>
+            <p className="text-white/80 text-sm mt-1">Tùy chỉnh hồ sơ</p>
           </div>
         </div>
       </div>

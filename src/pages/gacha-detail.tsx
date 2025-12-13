@@ -250,29 +250,29 @@ function GachaDetailPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-[var(--border)]">
-        <div className="pt-12 pb-3 px-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => navigate("/gacha")}
-                className="p-2 rounded-xl bg-[var(--secondary)]"
-              >
-                <ArrowLeft className="w-5 h-5 text-foreground" />
-              </button>
-              <h1 className="font-bold text-lg text-foreground">
-                Chi tiết bộ sưu tập
-              </h1>
-            </div>
-            {/* Gems display */}
-            <div className="flex items-center gap-1 px-3 py-1.5 bg-[var(--secondary)] rounded-xl">
-              <img
-                src="/AppAssets/BlueDiamond.png"
-                alt="gem"
-                className="w-4 h-4"
-              />
-              <span className="font-bold text-sm">{user?.gems || 0}</span>
-            </div>
+      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)]">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate("/gacha")}
+              className="btn-back-3d w-10 h-10 flex items-center justify-center"
+            >
+              <ArrowLeft className="w-5 h-5 text-white" />
+            </button>
+            <h1 className="font-bold text-xl text-white">
+              Chi tiết bộ sưu tập
+            </h1>
+          </div>
+          {/* Gems display */}
+          <div className="flex items-center gap-1 px-3 py-1.5 bg-white/20 rounded-xl">
+            <img
+              src="/AppAssets/BlueDiamond.png"
+              alt="gem"
+              className="w-4 h-4"
+            />
+            <span className="font-bold text-sm text-white">
+              {user?.gems || 0}
+            </span>
           </div>
         </div>
       </div>

@@ -244,6 +244,7 @@ function LeaderboardPage() {
           <Trophy className="w-6 h-6 text-white" />
           <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>
         </div>
+        <p className="text-white/80 text-sm mt-1">Top người chơi</p>
       </div>
 
       {/* Tabs - Fixed below header */}
@@ -286,7 +287,7 @@ function LeaderboardPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-40 pb-28">
+      <div className="px-4 pt-44 pb-28">
         {loading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[var(--duo-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />

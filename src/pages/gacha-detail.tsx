@@ -4,15 +4,11 @@ import { useState, useEffect } from "react";
 import {
   ArrowLeft,
   Loader2,
-  Users,
-  ShoppingCart,
-  Calendar,
-  Clock,
   Play,
   Star,
   Gift,
-  ChevronDown,
-  ChevronUp,
+  User,
+  Frame,
 } from "lucide-react";
 import {
   getGachaCollectionDetail,
@@ -22,7 +18,6 @@ import {
   type GachaCard,
   getScarcityName,
   getScarcityColor,
-  formatPrice,
   getHQImage,
 } from "@/services/gacha-service";
 
@@ -35,7 +30,6 @@ function GachaDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedLottery, setSelectedLottery] = useState<number>(0);
-  const [showDescription, setShowDescription] = useState(false);
   const [selectedCard, setSelectedCard] = useState<GachaCard | null>(null);
 
   useEffect(() => {
@@ -48,17 +42,14 @@ function GachaDetailPage() {
     try {
       setLoading(true);
       setError(null);
-
       const [collectionData, lotteriesData] = await Promise.all([
         getGachaCollectionDetail(actId),
         getCollectionLotteries(actId),
       ]);
-
       if (!collectionData) {
         setError("Không tìm thấy bộ sưu tập");
         return;
       }
-
       setCollection(collectionData);
       setLotteries(lotteriesData);
     } catch (err) {
@@ -67,26 +58,6 @@ function GachaDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const formatDate = (timestamp: number) => {
-    if (!timestamp) return "N/A";
-    return new Date(timestamp * 1000).toLocaleDateString("vi-VN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-  };
-
-  const formatNumber = (num: number) => {
-    if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
-    if (num >= 1000) return (num / 1000).toFixed(1) + "K";
-    return num.toString();
-  };
-
-  const isActive = (start: number, end: number) => {
-    const now = Date.now() / 1000;
-    return now >= start && now <= end;
   };
 
   const currentLottery = lotteries[selectedLottery];
@@ -105,11 +76,6 @@ function GachaDetailPage() {
         .map(Number)
         .sort((a, b) => b - a)
     : [];
-
-  // Get UP chủ info
-  const upInfo = collection?.related_user_infos
-    ? Object.values(collection.related_user_infos)[0]
-    : null;
 
   if (loading) {
     return (
@@ -146,20 +112,13 @@ function GachaDetailPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate("/gacha")}
-              className="p-2 rounded-xl bg-[var(--secondary)] hover:bg-[var(--secondary)]/80"
+              className="p-2 rounded-xl bg-[var(--secondary)]"
             >
               <ArrowLeft className="w-5 h-5 text-foreground" />
             </button>
-            <div className="flex-1 min-w-0">
-              <h1 className="font-bold text-lg text-foreground truncate">
-                {collection.act_title || collection.name}
-              </h1>
-              {upInfo && (
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  by {upInfo.nickname}
-                </p>
-              )}
-            </div>
+            <h1 className="font-bold text-lg text-foreground">
+              Chi tiết bộ sưu tập
+            </h1>
           </div>
         </div>
       </div>
@@ -171,222 +130,136 @@ function GachaDetailPage() {
           <div className="aspect-video relative bg-[var(--secondary)]">
             <img
               src={getHQImage(collection.act_square_img, 800)}
-              alt={collection.name}
+              alt="Banner"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
-            {/* Status badge */}
-            {collection.end_time && (
-              <div
-                className={`absolute top-2 right-2 px-2 py-1 rounded-lg text-xs font-bold ${
-                  isActive(collection.startTime, collection.end_time)
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-500 text-white"
+          </div>
+        </div>
+
+        {/* Lottery Tabs */}
+        {lotteries.length > 1 && (
+          <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+            {lotteries.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedLottery(index)}
+                className={`px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap ${
+                  selectedLottery === index
+                    ? "bg-[var(--duo-purple)] text-white"
+                    : "bg-[var(--secondary)] text-foreground"
                 }`}
               >
-                {isActive(collection.startTime, collection.end_time)
-                  ? "Đang diễn ra"
-                  : "Đã kết thúc"}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="card-3d p-3">
-            <div className="flex items-center gap-2 text-[var(--muted-foreground)]">
-              <Calendar className="w-4 h-4" />
-              <span className="text-xs">Bắt đầu</span>
-            </div>
-            <p className="font-bold text-sm mt-1">
-              {formatDate(collection.startTime)}
-            </p>
-          </div>
-          <div className="card-3d p-3">
-            <div className="flex items-center gap-2 text-[var(--muted-foreground)]">
-              <Clock className="w-4 h-4" />
-              <span className="text-xs">Kết thúc</span>
-            </div>
-            <p className="font-bold text-sm mt-1">
-              {formatDate(collection.end_time || 0)}
-            </p>
-          </div>
-          <div className="card-3d p-3">
-            <div className="flex items-center gap-2 text-[var(--muted-foreground)]">
-              <Users className="w-4 h-4" />
-              <span className="text-xs">Đặt trước</span>
-            </div>
-            <p className="font-bold text-sm mt-1">
-              {formatNumber(
-                collection.total_book_cnt || collection.totalPreorderCount
-              )}
-            </p>
-          </div>
-          <div className="card-3d p-3">
-            <div className="flex items-center gap-2 text-[var(--muted-foreground)]">
-              <ShoppingCart className="w-4 h-4" />
-              <span className="text-xs">Đã mua</span>
-            </div>
-            <p className="font-bold text-sm mt-1">
-              {formatNumber(
-                collection.total_buy_cnt || collection.totalPurchaseCount
-              )}
-            </p>
-          </div>
-        </div>
-
-        {/* Description */}
-        {collection.product_introduce && (
-          <div className="card-3d p-4 mb-4">
-            <button
-              onClick={() => setShowDescription(!showDescription)}
-              className="flex items-center justify-between w-full"
-            >
-              <span className="font-bold text-sm">Giới thiệu</span>
-              {showDescription ? (
-                <ChevronUp className="w-4 h-4" />
-              ) : (
-                <ChevronDown className="w-4 h-4" />
-              )}
-            </button>
-            {showDescription && (
-              <p className="text-sm text-[var(--muted-foreground)] mt-3 whitespace-pre-line">
-                {collection.product_introduce}
-              </p>
-            )}
+                Pool {index + 1}
+              </button>
+            ))}
           </div>
         )}
 
-        {/* Lottery Tabs */}
-        {lotteries.length > 0 && (
-          <>
-            {lotteries.length > 1 && (
-              <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-                {lotteries.map((lottery, index) => (
-                  <button
-                    key={lottery.lottery_id}
-                    onClick={() => setSelectedLottery(index)}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all ${
-                      selectedLottery === index
-                        ? "bg-[var(--duo-purple)] text-white"
-                        : "bg-[var(--secondary)] text-foreground"
-                    }`}
-                  >
-                    {lottery.lottery_name}
-                  </button>
-                ))}
-              </div>
-            )}
+        {/* Cards */}
+        {currentLottery && (
+          <div className="card-3d p-4 mb-4">
+            <h3 className="font-bold mb-3">Danh sách thẻ</h3>
 
-            {/* Current Lottery Info */}
-            {currentLottery && (
-              <div className="card-3d p-4 mb-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-bold">{currentLottery.lottery_name}</h3>
-                  <span className="text-[var(--duo-purple)] font-bold">
-                    {formatPrice(currentLottery.price)}/抽
+            {sortedScarcities.map((scarcity) => (
+              <div key={scarcity} className="mb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Star
+                    className="w-4 h-4"
+                    style={{ color: getScarcityColor(scarcity) }}
+                    fill={getScarcityColor(scarcity)}
+                  />
+                  <span
+                    className="font-bold text-sm"
+                    style={{ color: getScarcityColor(scarcity) }}
+                  >
+                    {getScarcityName(scarcity)} (
+                    {groupedCards![scarcity].length})
                   </span>
                 </div>
-
-                {/* Cards by Scarcity */}
-                {sortedScarcities.map((scarcity) => (
-                  <div key={scarcity} className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Star
-                        className="w-4 h-4"
-                        style={{ color: getScarcityColor(scarcity) }}
-                        fill={getScarcityColor(scarcity)}
+                <div className="grid grid-cols-3 gap-2">
+                  {groupedCards![scarcity].map((card, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedCard(card)}
+                      className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[var(--secondary)] border-2 transition-all hover:scale-105"
+                      style={{
+                        borderColor: getScarcityColor(card.card_scarcity),
+                      }}
+                    >
+                      <img
+                        src={getHQImage(card.card_img, 300)}
+                        alt=""
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
                       />
-                      <span
-                        className="font-bold text-sm"
-                        style={{ color: getScarcityColor(scarcity) }}
-                      >
-                        {getScarcityName(scarcity)} (
-                        {groupedCards![scarcity].length})
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2">
-                      {groupedCards![scarcity].map((card, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedCard(card)}
-                          className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[var(--secondary)] border-2 transition-all hover:scale-105"
-                          style={{
-                            borderColor: getScarcityColor(card.card_scarcity),
-                          }}
-                        >
-                          <img
-                            src={getHQImage(card.card_img, 300)}
-                            alt={card.card_name}
-                            className="w-full h-full object-cover"
-                            referrerPolicy="no-referrer"
-                            loading="lazy"
-                          />
-                          {card.video_list?.length > 0 && (
-                            <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50">
-                              <Play
-                                className="w-3 h-3 text-white"
-                                fill="white"
-                              />
-                            </div>
-                          )}
-                          <div className="absolute bottom-0 left-0 right-0 p-1.5 bg-gradient-to-t from-black/80 to-transparent">
-                            <p className="text-[10px] text-white font-medium truncate">
-                              {card.card_name}
-                            </p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-
-                {/* Collect Rewards */}
-                {currentLottery.collect_list?.collect_infos &&
-                  currentLottery.collect_list.collect_infos.length > 0 && (
-                    <div className="mt-4 pt-4 border-t border-[var(--border)]">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Gift className="w-4 h-4 text-[var(--duo-yellow)]" />
-                        <span className="font-bold text-sm">
-                          Phần thưởng sưu tập
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        {currentLottery.collect_list.collect_infos.map(
-                          (reward, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-center gap-3 p-2 rounded-lg bg-[var(--secondary)]"
-                            >
-                              {reward.redeem_item_image && (
-                                <img
-                                  src={getHQImage(
-                                    reward.redeem_item_image,
-                                    100
-                                  )}
-                                  alt={reward.redeem_item_name}
-                                  className="w-10 h-10 rounded-lg object-cover"
-                                  referrerPolicy="no-referrer"
-                                />
-                              )}
-                              <div className="flex-1 min-w-0">
-                                <p className="text-xs font-medium truncate">
-                                  {reward.redeem_item_name}
-                                </p>
-                                <p className="text-[10px] text-[var(--muted-foreground)] line-clamp-2">
-                                  {reward.redeem_text}
-                                </p>
-                              </div>
-                            </div>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  )}
+                      {card.video_list?.length > 0 && (
+                        <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50">
+                          <Play className="w-3 h-3 text-white" fill="white" />
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
               </div>
-            )}
-          </>
+            ))}
+
+            {/* Avatar Frame Rewards */}
+            {(() => {
+              const FRAME_TYPES = [3, 1001];
+              const collectInfos =
+                currentLottery.collect_list?.collect_infos?.filter((r) =>
+                  FRAME_TYPES.includes(r.redeem_item_type || 0)
+                ) || [];
+              const collectChain =
+                currentLottery.collect_list?.collect_chain?.filter((r) =>
+                  FRAME_TYPES.includes(r.redeem_item_type || 0)
+                ) || [];
+              const allRewards = [...collectInfos, ...collectChain];
+
+              if (allRewards.length === 0) return null;
+
+              return (
+                <div className="mt-4 pt-4 border-t border-[var(--border)]">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Gift className="w-4 h-4 text-[var(--duo-yellow)]" />
+                    <span className="font-bold text-sm">Phần thưởng</span>
+                  </div>
+                  <div className="flex gap-3 flex-wrap">
+                    {allRewards.map((reward, idx) => (
+                      <div
+                        key={idx}
+                        className="flex flex-col items-center gap-1"
+                      >
+                        {reward.redeem_item_image && (
+                          <img
+                            src={getHQImage(reward.redeem_item_image, 100)}
+                            alt=""
+                            className="w-12 h-12 rounded-lg object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                        )}
+                        <div className="flex items-center gap-1 text-[10px] text-[var(--muted-foreground)]">
+                          {reward.redeem_item_type === 3 ? (
+                            <>
+                              <Frame className="w-3 h-3" />
+                              <span>Khung</span>
+                            </>
+                          ) : (
+                            <>
+                              <User className="w-3 h-3" />
+                              <span>Avatar</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
         )}
       </div>
 
@@ -397,36 +270,35 @@ function GachaDetailPage() {
           onClick={() => setSelectedCard(null)}
         >
           <div
-            className="bg-background rounded-2xl overflow-hidden max-w-sm w-full max-h-[80vh] overflow-y-auto"
+            className="bg-background rounded-2xl overflow-hidden max-w-sm w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Card Image/Video */}
             <div className="relative aspect-[3/4] bg-[var(--secondary)]">
-              {selectedCard.video_list?.length > 0 ? (
+              {selectedCard.video_list?.length > 1 ? (
                 <video
-                  src={selectedCard.video_list[0]}
                   className="w-full h-full object-cover"
                   autoPlay
                   loop
                   muted
                   playsInline
-                />
+                  preload="metadata"
+                  poster={getHQImage(selectedCard.card_img, 600)}
+                >
+                  <source src={selectedCard.video_list[1]} type="video/mp4" />
+                </video>
               ) : (
                 <img
                   src={getHQImage(selectedCard.card_img, 600)}
-                  alt={selectedCard.card_name}
+                  alt=""
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               )}
             </div>
-
-            {/* Card Info */}
             <div className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-bold text-lg">{selectedCard.card_name}</h3>
+              <div className="flex items-center justify-between mb-3">
                 <span
-                  className="px-2 py-1 rounded-lg text-xs font-bold text-white"
+                  className="px-3 py-1 rounded-lg text-sm font-bold text-white"
                   style={{
                     backgroundColor: getScarcityColor(
                       selectedCard.card_scarcity
@@ -435,14 +307,12 @@ function GachaDetailPage() {
                 >
                   {getScarcityName(selectedCard.card_scarcity)}
                 </span>
+                {selectedCard.video_list?.length > 0 && (
+                  <span className="text-xs text-[var(--muted-foreground)]">
+                    ✨ Thẻ động
+                  </span>
+                )}
               </div>
-
-              {selectedCard.video_list?.length > 0 && (
-                <p className="text-xs text-[var(--muted-foreground)] mb-3">
-                  ✨ Thẻ động (có hiệu ứng video)
-                </p>
-              )}
-
               <button
                 onClick={() => setSelectedCard(null)}
                 className="w-full btn-3d btn-3d-purple py-2"

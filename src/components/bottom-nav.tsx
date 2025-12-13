@@ -16,10 +16,11 @@ export function BottomNav() {
   const navigate = useNavigate();
   const { isActive: isConquestActive } = useConquestStore();
 
-  // Hide on quiz pages and during conquest quiz
+  // Hide on quiz pages, during conquest quiz, and gacha detail pages
   if (
     location.pathname === "/quiz" ||
-    (location.pathname === "/conquest" && isConquestActive)
+    (location.pathname === "/conquest" && isConquestActive) ||
+    location.pathname.startsWith("/gacha/")
   )
     return null;
 

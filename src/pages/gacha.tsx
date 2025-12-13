@@ -50,58 +50,30 @@ function GachaPage() {
   const [activeTab, setActiveTab] = useState<TabType>(initialTab);
   const [currentPage, setCurrentPage] = useState(initialPage);
 
+  const CARD_COUNTS_CACHE_KEY = "gacha_card_counts";
+  const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24h
+
+  // Load cached card counts on mount
+  useEffect(() => {
+    const cachedCounts = localStorage.getItem(CARD_COUNTS_CACHE_KEY);
+    if (cachedCounts) {
+      try {
+        const parsed = JSON.parse(cachedCounts);
+        if (Date.now() - parsed.timestamp < CACHE_DURATION) {
+          setCollectionCardCounts(parsed.data);
+        }
+      } catch {
+        // Invalid cache
+      }
+    }
+  }, []);
+
   const fetchCollections = async () => {
     try {
       setLoading(true);
       setError(null);
-
       const data = await getGachaCollections();
       setCollections(data);
-
-      // Check cache for card counts first
-      const CARD_COUNTS_CACHE_KEY = "gacha_card_counts";
-      const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24h
-
-      let counts: Record<number, number> = {};
-      const cachedCounts = localStorage.getItem(CARD_COUNTS_CACHE_KEY);
-
-      if (cachedCounts) {
-        try {
-          const parsed = JSON.parse(cachedCounts);
-          if (Date.now() - parsed.timestamp < CACHE_DURATION) {
-            counts = parsed.data;
-            setCollectionCardCounts(counts);
-            setLoading(false);
-            return;
-          }
-        } catch {
-          // Invalid cache, continue to fetch
-        }
-      }
-
-      // Fetch card counts for each collection (only if no cache)
-      for (const col of data.slice(0, 20)) {
-        try {
-          const lotteries = await getCollectionLotteries(col.id);
-          counts[col.id] = lotteries.reduce(
-            (sum, l) => sum + (l.item_list?.length || 0),
-            0
-          );
-        } catch {
-          counts[col.id] = 0;
-        }
-      }
-
-      // Save to cache
-      localStorage.setItem(
-        CARD_COUNTS_CACHE_KEY,
-        JSON.stringify({
-          data: counts,
-          timestamp: Date.now(),
-        })
-      );
-
-      setCollectionCardCounts(counts);
     } catch (err) {
       console.error("Fetch error:", err);
       setError("Không thể tải dữ liệu");
@@ -190,6 +162,50 @@ function GachaPage() {
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
+
+  // Lazy load card counts for current page items only
+  useEffect(() => {
+    if (currentItems.length === 0) return;
+
+    const loadCardCounts = async () => {
+      const missingIds = currentItems
+        .filter((item) => collectionCardCounts[item.id] === undefined)
+        .map((item) => item.id);
+
+      if (missingIds.length === 0) return;
+
+      const newCounts = { ...collectionCardCounts };
+
+      // Load in parallel for current page only
+      await Promise.all(
+        missingIds.map(async (id) => {
+          try {
+            const lotteries = await getCollectionLotteries(id);
+            newCounts[id] = lotteries.reduce(
+              (sum, l) => sum + (l.item_list?.length || 0),
+              0
+            );
+          } catch {
+            newCounts[id] = 0;
+          }
+        })
+      );
+
+      setCollectionCardCounts(newCounts);
+
+      // Update cache
+      localStorage.setItem(
+        CARD_COUNTS_CACHE_KEY,
+        JSON.stringify({
+          data: newCounts,
+          timestamp: Date.now(),
+        })
+      );
+    };
+
+    loadCardCounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentItems.map((i) => i.id).join(",")]);
 
   // Toggle bookmark for a collection
   const toggleBookmark = async (collectionId: number, e: React.MouseEvent) => {

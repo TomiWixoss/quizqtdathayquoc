@@ -34,8 +34,8 @@ export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
       : 0;
 
   useEffect(() => {
-    // Tính gems earned từ pointsGained
-    const gemsEarned = Math.max(0, Math.floor(result.pointsGained / 10));
+    // Tính gems earned từ pointsGained (x10)
+    const gemsEarned = Math.max(0, Math.floor(result.pointsGained));
     const xpEarned = result.correct * 10;
 
     // Tạo danh sách phần thưởng
@@ -49,9 +49,11 @@ export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
       rewards.push({ type: "xp", amount: xpEarned });
     }
 
-    // Bonus cho accuracy cao
+    // Bonus cho accuracy cao (x10)
     if (accuracy >= 90 && result.correct >= 3) {
-      rewards.push({ type: "gems", amount: 5, label: "Bonus chính xác!" });
+      rewards.push({ type: "gems", amount: 50, label: "Bonus chính xác!" });
+    } else if (accuracy >= 70 && result.correct >= 3) {
+      rewards.push({ type: "gems", amount: 30, label: "Bonus tốt!" });
     }
 
     // Hiện modal nếu có phần thưởng

@@ -194,7 +194,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       totalCorrect: user.totalCorrect + (correct ? 1 : 0),
       totalWrong: user.totalWrong + (correct ? 0 : 1),
       exp: user.exp + xpGain,
-      gems: user.gems + (correct ? 1 : 0),
+      gems: user.gems + (correct ? 10 : 0),
     };
     const newLevel = Math.floor(updates.exp / 100) + 1;
 
@@ -301,7 +301,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     if (!user) return;
 
     const newPerfect = user.perfectLessons + 1;
-    const bonusGems = 5;
+    const bonusGems = 50;
     try {
       const userRef = doc(db, "users", user.oderId);
       await updateDoc(userRef, {
@@ -386,7 +386,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     }
 
     const longestStreak = Math.max(user.longestStreak, newStreak);
-    const bonusGems = newStreak % 7 === 0 ? 10 : 0; // Bonus every 7 days
+    const bonusGems = newStreak % 7 === 0 ? 100 : 0; // Bonus every 7 days
 
     try {
       const userRef = doc(db, "users", user.oderId);
@@ -652,7 +652,7 @@ export const useUserStore = create<UserState>((set, get) => ({
     const { user, spendGems } = get();
     if (!user) return false;
 
-    const UNLIMITED_HEARTS_COST = 1000;
+    const UNLIMITED_HEARTS_COST = 3000;
     const UNLIMITED_HEARTS_DURATION = 24 * 60 * 60 * 1000; // 1 day (24 hours) in ms
 
     if (user.gems < UNLIMITED_HEARTS_COST) return false;

@@ -132,16 +132,16 @@ export function QuizResult() {
 
       if (isPerfect) {
         await addPerfectLesson();
-        setBonusGems(10);
-        rewards.push({ type: "gems", amount: 10, label: "Hoàn hảo!" });
+        setBonusGems(100);
+        rewards.push({ type: "gems", amount: 100, label: "Hoàn hảo!" });
       } else if (percentage >= 80) {
-        await addGems(5);
-        setBonusGems(5);
-        rewards.push({ type: "gems", amount: 5, label: "Xuất sắc!" });
+        await addGems(50);
+        setBonusGems(50);
+        rewards.push({ type: "gems", amount: 50, label: "Xuất sắc!" });
       } else if (percentage >= 50) {
-        await addGems(2);
-        setBonusGems(2);
-        rewards.push({ type: "gems", amount: 2, label: "Tốt lắm!" });
+        await addGems(20);
+        setBonusGems(20);
+        rewards.push({ type: "gems", amount: 20, label: "Tốt lắm!" });
       }
 
       // Thêm XP vào rewards

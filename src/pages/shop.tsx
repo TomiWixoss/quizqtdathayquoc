@@ -67,11 +67,11 @@ function ShopPage() {
 
   const handleBuyFullHearts = async () => {
     if (!user) return;
-    if (user.gems < 50) {
+    if (user.gems < 500) {
       alert("Không đủ gems!");
       return;
     }
-    const success = await spendGems(50);
+    const success = await spendGems(500);
     if (success) {
       await refillHearts();
       setShowRefillModal(true);
@@ -85,8 +85,8 @@ function ShopPage() {
   };
 
   const handleBuyUnlimitedHearts = async () => {
-    if ((user?.gems ?? 0) < 1000) {
-      alert("Không đủ gems! Cần 1000 gems.");
+    if ((user?.gems ?? 0) < 3000) {
+      alert("Không đủ gems! Cần 3000 gems.");
       return;
     }
     setIsPurchasing(true);
@@ -174,7 +174,7 @@ function ShopPage() {
             {/* Refill all hearts - hide if full hearts or not enough gems */}
             {user &&
               (user.hearts ?? 5) < (user.maxHearts ?? 5) &&
-              (user.gems ?? 0) >= 50 && (
+              (user.gems ?? 0) >= 500 && (
                 <button
                   onClick={handleBuyFullHearts}
                   className="card-3d p-4 text-center"
@@ -193,7 +193,7 @@ function ShopPage() {
                       alt="gem"
                       className="w-4 h-4"
                     />
-                    <span className="font-bold">50</span>
+                    <span className="font-bold">500</span>
                   </div>
                 </button>
               )}
@@ -201,7 +201,7 @@ function ShopPage() {
             {/* Show disabled state when not enough gems */}
             {user &&
               (user.hearts ?? 5) < (user.maxHearts ?? 5) &&
-              (user.gems ?? 0) < 50 && (
+              (user.gems ?? 0) < 500 && (
                 <div className="card-3d p-4 text-center opacity-50">
                   <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-red)]/20 flex items-center justify-center mb-2">
                     <img
@@ -253,9 +253,9 @@ function ShopPage() {
             ) : (
               <button
                 onClick={handleBuyUnlimitedHearts}
-                disabled={isPurchasing || (user?.gems ?? 0) < 1000}
+                disabled={isPurchasing || (user?.gems ?? 0) < 3000}
                 className={`card-3d p-4 text-center ${
-                  (user?.gems ?? 0) < 1000 ? "opacity-50" : ""
+                  (user?.gems ?? 0) < 3000 ? "opacity-50" : ""
                 }`}
               >
                 <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-yellow)]/20 flex items-center justify-center mb-2">
@@ -268,7 +268,7 @@ function ShopPage() {
                     alt="gem"
                     className="w-4 h-4"
                   />
-                  <span className="font-bold">1000</span>
+                  <span className="font-bold">3000</span>
                 </div>
               </button>
             )}

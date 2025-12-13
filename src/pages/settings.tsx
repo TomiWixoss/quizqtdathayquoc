@@ -13,6 +13,7 @@ import {
   Trash2,
   AlertTriangle,
   Sparkles,
+  Package,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
@@ -591,6 +592,25 @@ function SettingsPage() {
               )}
               <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
             </div>
+          </button>
+
+          {/* Card Inventory Link */}
+          <button
+            onClick={() => navigate("/card-inventory")}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-purple)]/20 flex items-center justify-center">
+                <Package className="w-5 h-5 text-[var(--duo-purple)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Kho thẻ</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Xem thẻ đã sưu tập
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
           </button>
 
           {/* Mailbox Link */}

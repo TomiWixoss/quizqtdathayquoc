@@ -1,0 +1,67 @@
+Chương 6. QUẢN LÝ PHẠM VI CỦA DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được tầm quan trọng của quản lý phạm vi.
+2. Hiểu được qui trình quản lý phạm vi.
+3. Mô tả sự hỗ trợ của phần mềm trong quản lý phạm vi dự án.
+
+6.1 Quản lý phạm vi là gì?
+Phạm vi (Scope) là một danh sách tất cả những gì dự án phải làm (và cũng có thể là một danh sách tất cả những điều mà dự án không phải làm). Dự án phải có một phạm vi được viết ra rõ ràng, nếu không dự án sẽ không bao giờ kết thúc.
+- Các Kết quả chuyển giao (Deliverables) là những kết quả của dự án mà sẽ chuyển giao: như là Phần cứng, phần mềm (mua hoặc đặt làm), bảo hành, tài liệu, đào tạo và phương thức chuyển giao.
+- Nhóm dự án và các bên liên quan (Stakeholders) phải cùng hiểu những sản phẩm nào được tạo ra như là kết quả của dự án và chúng được tạo ra như thế nào.
+
+6.2 Các qui trình quản lý phạm vi dự án
+- Khởi động: Bắt đầu một dự án hoặc chuyển tiếp sang giai đoạn tiếp theo.
+Xây dựng kế hoạch chiến lược
+Bước đầu tiên trong khởi động dự án là nhìn vào bức tranh tổng thể hay là kế hoạch chiến lược của công ty. Kế hoạch chiến lược đòi hỏi xác định các mục tiêu nghiệp vụ lâu dài. Các dự án CNTT cần hỗ trợ các mục tiêu chiến lược và tài chính.
++ Xác định các dự án tiềm năng.
++ Sau đó chọn các dự án CNTT và phân bổ tài nguyên.
+Các phương pháp chọn dự án.
+Tập trung vào nhu cầu chung của dự án, phân loại dự án và phân tích tài chính. Dùng WSM (mô hình tính điểm có trọng số) hoặc thực hiện BC (Bảng điểm cân đối)
+
+6.2.1 Tôn chỉ dự án
+
+[Hình ảnh: Tôn chỉ Dự án (Project Charter)]
+
+6.2.2 Lập kế hoạch phạm vi
+Là quá trình xây dựng các tài liệu nhằm cung cấp nền tảng về phạm vi của dự án. Tuyên bố về phạm vi (scope statement) gồm:
+• Kiểm chứng về dự án (project justification)
+• Mô tả ngắn về sản phẩm của dự án
+• Tổng kết về tất cả các sản phẩm trung gian của dự án
+• Tuyên bố về những yếu tố xác định thành công của dự án
+
+[Hình ảnh: PHÁT BIỂU VỀ PHẠM VI - Scope Statement]
+
+6.2.3 Xác định phạm vi
+Sau khi hoàn tất kế hoạch về phạm vi, bước tiếp theo là xác định chi tiết công việc bằng cách chia thành các công việc nhỏ hơn có thể quản lý được.
+- Lập kế hoạch phạm vi: phát triển các tài liệu nhằm cung cấp nền tảng cho các quyết định về dự án trong tương lai.
+Là quá trình xây dựng các tài liệu nhằm cung cấp nền tảng về phạm vi của dự án. Tuyên bố về phạm vi (scope statement) gồm:
++ Kiểm chứng về dự án (project justification)
++ Mô tả ngắn về sản phẩm của dự án.
++ Tổng kết về tất cả các sản phẩm trung gian của dự án.
++ Tuyên bố về những yếu tố xác định thành công của dự án.
+- Xác định phạm vi: chia nhỏ các sản phẩm trung gian của dự án thành các thành phần nhỏ hơn, dễ quản lý hơn.
+Xác định đúng phạm vi: Giúp cải tiến sự chính xác về thời gian, chi phí, và tài nguyên; Xác định nền tảng để đo hiệu suất vận hành và điều khiển dự án; Giúp truyền đạt rõ ràng các trách nhiệm của mỗi công việc.
+Cấu trúc phân rã công việc (WBS).
++ Chia nhỏ công việc theo sơ đồ phân cấp.
+
+[Hình ảnh: WBS cho Dự án]
+
+6.2.4 Các nguyên lý cơ bản tạo WBS
+1. Một đơn vị công việc chỉ xuất hiện một nơi trong WBS.
+2. Nội dung công việc trong một mục WBS bằng tổng các công việc dưới nó.
+3. Một mục WBS là nhiệm vụ của chỉ một người, ngay cả khi có nhiều người thực hiện công việc này
+4. WBS phải nhất quán với cách thực hiện công việc; trước hết nó phải phục vụ nhóm dự án và các mục đích khác nếu thực tế cho phép.
+5. Các thành viên nhóm dự án phải tham gia phát triển WBS để bảo đảm tính nhất quán.
+6. Mỗi mục WBS phải có tài liệu đi kèm để bảo đảm hiểu được chính xác phạm vi công việc.
+7. WBS phải là công cụ linh hoạt để đáp ứng những thay đổi không tránh được, điều khiển nội dung công việc theo đúng tuyên bố về phạm vi.
+- Kiểm tra phạm vi và điều khiển thay đổi phạm vi: hợp thức hóa việc chấp nhận phạm vi của dự án, điều khiển những thay đổi của phạm vi dự án.
+Rất khó tạo được tuyên bố phạm vi tốt và WBS tốt cho một dự án. Kiểm tra phạm vi dự án và giảm thiểu thay đổi phạm vi là điều khó hơn. Nhiều dự án CNTT chịu phải tình trạng “phạm vi phình ra” (scope creep) và kiểm tra phạm vi không tốt.
+
+* Câu hỏi (bài tập) củng cố.
+1. Quản lý phạm vi dự án gồm những gì? Tầm quan trọng của nó đối với các dự án CNTT.
+2. Các phương pháp chọn dự án. Dùng ví dụ để minh họa.
+3. Các thành phần chính của bản tuyên bố phạm vi (scope statement). Tại sao phải có bản tuyên bố phạm vi nếu đã có tuyên bố dự án và WBS.
+4. Trình bày các phương pháp xây dựng WBS, giải thích tại sao công việc này thường rất khó.
+5. Mô tả một dự án bị “vượt phạm vi “ (scope creep). Có thể tránh tình huống này được không?
+6. Tại sao để sử dụng phần mềm quản lý dự án phải có WBS tốt? Giới thiệu các loại phần mềm khác dùng trong quản trị phạm vi dự án.

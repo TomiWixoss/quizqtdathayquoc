@@ -266,20 +266,6 @@ export function GachaPullModal({
               }}
             />
 
-            {/* UR rays effect */}
-            {isUR && (
-              <motion.div
-                initial={{ opacity: 0, rotate: 0 }}
-                animate={{ opacity: [0, 0.5, 0.3], rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[400px] h-[400px]"
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, transparent, #FFD700, transparent, #FFD700, transparent, #FFD700, transparent, #FFD700, transparent)",
-                }}
-              />
-            )}
-
             {/* Card */}
             <div
               className={`relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px] min-h-[300px] bg-black/50 ${

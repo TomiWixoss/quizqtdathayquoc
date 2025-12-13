@@ -329,7 +329,7 @@ function SettingsPage() {
               <button
                 onClick={() => {
                   localStorage.clear();
-                  window.location.reload();
+                  window.location.href = window.location.origin;
                 }}
                 className="flex-1 btn-3d btn-3d-red py-3"
               >

@@ -1,6 +1,7 @@
 import { useUserStore } from "@/stores/user-store";
 import { Infinity } from "lucide-react";
 import { useState, useEffect } from "react";
+import { formatNumber } from "@/lib/utils";
 
 export function HeartsDisplay() {
   const {
@@ -83,7 +84,9 @@ export function GemsDisplay() {
   return (
     <div className="flex items-center gap-1">
       <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
-      <span className="font-bold text-[var(--duo-blue)]">{user.gems}</span>
+      <span className="font-bold text-[var(--duo-blue)]">
+        {formatNumber(user.gems)}
+      </span>
     </div>
   );
 }

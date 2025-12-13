@@ -23,6 +23,7 @@ import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
 import { getRankFromPoints, getRankImage } from "@/services/ai-quiz-service";
 import { useState, useEffect } from "react";
+import { formatNumber } from "@/lib/utils";
 
 type TabType = "overview" | "chapters" | "history" | "gacha";
 
@@ -273,7 +274,7 @@ function StatsPage() {
                   className="w-5 h-5 mx-auto mb-1"
                 />
                 <p className="text-sm font-bold text-foreground">
-                  {user?.gems ?? 0}
+                  {formatNumber(user?.gems ?? 0)}
                 </p>
                 <p className="text-[9px] text-[var(--muted-foreground)]">
                   Gems
@@ -669,7 +670,7 @@ function StatsPage() {
                     className="w-6 h-6 mx-auto mb-1"
                   />
                   <p className="text-xl font-bold text-[var(--duo-blue)]">
-                    {user?.gachaInventory?.shards ?? 0}
+                    {formatNumber(user?.gachaInventory?.shards ?? 0)}
                   </p>
                   <p className="text-[10px] text-[var(--muted-foreground)]">
                     Mảnh ghép

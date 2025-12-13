@@ -2,7 +2,7 @@ import { Gift } from "lucide-react";
 import { CustomModal } from "./custom-modal";
 
 export interface RewardItem {
-  type: "gems" | "xp" | "hearts" | "custom";
+  type: "gems" | "xp" | "exp" | "hearts" | "shard" | "custom";
   amount: number;
   icon?: string; // Custom icon path
   label?: string; // Custom label
@@ -37,9 +37,12 @@ export function RewardModal({
       case "gems":
         return "/AppAssets/BlueDiamond.png";
       case "xp":
+      case "exp":
         return "/AppAssets/Lighting.png";
       case "hearts":
         return "/AppAssets/Heart.png";
+      case "shard":
+        return "/AppAssets/Shard.png";
       default:
         return "/AppAssets/BlueDiamond.png";
     }
@@ -51,9 +54,12 @@ export function RewardModal({
       case "gems":
         return "Gems";
       case "xp":
+      case "exp":
         return "XP";
       case "hearts":
         return "Tim";
+      case "shard":
+        return "Mảnh";
       default:
         return "";
     }

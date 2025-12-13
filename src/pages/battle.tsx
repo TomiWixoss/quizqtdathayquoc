@@ -3,6 +3,7 @@ import { Page } from "zmp-ui";
 import { ArrowLeft, Shuffle, Zap, Clock, Skull } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
+import { formatNumber } from "@/lib/utils";
 
 const gameModes = [
   {
@@ -97,7 +98,9 @@ function BattlePage() {
           </div>
           <div className="flex items-center gap-1.5">
             <img src="/AppAssets/Lighting.png" alt="xp" className="w-5 h-5" />
-            <span className="font-bold text-foreground">{user.exp} XP</span>
+            <span className="font-bold text-foreground">
+              {formatNumber(user.exp)} XP
+            </span>
           </div>
         </div>
       )}

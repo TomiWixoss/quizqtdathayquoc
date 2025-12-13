@@ -13,6 +13,7 @@ import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState } from "react";
 import { NoHeartsModal } from "@/components/ui/custom-modal";
 import { RewardModal } from "@/components/ui/reward-modal";
+import { formatNumber } from "@/lib/utils";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -175,7 +176,7 @@ function HomePage() {
                   className="w-5 h-5"
                 />
                 <span className="font-bold text-sm text-[var(--duo-blue)]">
-                  {user.gems}
+                  {formatNumber(user.gems)}
                 </span>
               </div>
               {/* XP */}
@@ -186,7 +187,7 @@ function HomePage() {
                   className="w-5 h-5"
                 />
                 <span className="font-bold text-sm text-[var(--duo-yellow)]">
-                  {user.exp}
+                  {formatNumber(user.exp)}
                 </span>
               </div>
             </div>

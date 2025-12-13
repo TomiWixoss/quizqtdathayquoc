@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { formatNumber } from "@/lib/utils";
 import {
   getGachaCollectionDetail,
   getCollectionLotteries,
@@ -283,7 +284,7 @@ function GachaDetailPage() {
               className="w-5 h-5"
             />
             <span className="font-bold text-[var(--duo-blue)]">
-              {user?.gems || 0}
+              {formatNumber(user?.gems || 0)}
             </span>
             <span className="text-sm text-[var(--muted-foreground)]">Gems</span>
           </div>
@@ -406,7 +407,9 @@ function GachaDetailPage() {
                   className="w-6 h-6"
                 />
                 <div>
-                  <div className="font-bold">{inventory.shards} mảnh</div>
+                  <div className="font-bold">
+                    {formatNumber(inventory.shards)} mảnh
+                  </div>
                   <div className="text-[10px] text-[var(--muted-foreground)]">
                     Đổi {GACHA_CONFIG.UR_EXCHANGE_COST} mảnh = 1 thẻ UR
                   </div>

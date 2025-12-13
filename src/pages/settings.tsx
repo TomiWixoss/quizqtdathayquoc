@@ -32,6 +32,7 @@ import { db } from "@/lib/firebase";
 import confetti from "canvas-confetti";
 import { RewardModal } from "@/components/ui/reward-modal";
 import { getFullImage } from "@/services/gacha-service";
+import { formatNumber } from "@/lib/utils";
 
 function SettingsPage() {
   const navigate = useNavigate();
@@ -539,7 +540,7 @@ function SettingsPage() {
                   </button>
                 </div>
                 <p className="text-sm text-[var(--muted-foreground)]">
-                  Level {user.level} • {user.exp} XP
+                  Level {user.level} • {formatNumber(user.exp)} XP
                 </p>
               </div>
             </div>

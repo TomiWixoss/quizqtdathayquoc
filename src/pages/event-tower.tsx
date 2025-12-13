@@ -400,7 +400,7 @@ function EventTowerPage() {
         </div>
       </div>
 
-      <div className="px-4 pt-32 pb-28">
+      <div className="px-4 pt-36 pb-28">
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

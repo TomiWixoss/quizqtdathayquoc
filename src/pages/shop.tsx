@@ -4,6 +4,7 @@ import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect } from "react";
 import { RewardModal } from "@/components/ui/reward-modal";
 import confetti from "canvas-confetti";
+import { formatNumber } from "@/lib/utils";
 
 function ShopPage() {
   const navigate = useNavigate();
@@ -204,7 +205,7 @@ function ShopPage() {
                 />
                 <div>
                   <p className="font-bold text-lg text-[var(--duo-blue)]">
-                    {user.gems ?? 0}
+                    {formatNumber(user.gems ?? 0)}
                   </p>
                   <p className="text-xs text-[var(--muted-foreground)]">Gems</p>
                 </div>

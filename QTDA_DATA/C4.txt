@@ -1,0 +1,135 @@
+Chương 4. LẬP LỊCH DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được các khái niệm và công việc để lập lịch cho dự án.
+2. Biết được cách ánh xạ từ kế hoạch vào lịch biểu.
+
+Việc ước lượng được nêu ở phần trên là ước lượng về số người - ngày nỗ lực cần để thực hiện dự án. Điều này còn được gọi là thời gian trực tiếp. Việc lập lịch ánh xạ thời gian trực tiếp vào một lịch biểu thật để cho thời hạn theo lịch, hay thời gian trôi qua.
+
+Chúng ta biết rằng các bước thực tế trong việc lập kế hoạch dự án là:
+Người lập kế hoạch (thường là Trưởng hay phó Ban quản lý dự án) làm chi tiết Cấu trúc phân chia công việc (WBS). Một người hay một nhóm người được giao trách nhiệm thực hiện các hoạt động mức thấp nhất.
+Nhóm có trách nhiệm này ước lượng các hoạt động mức thấp nhất theo số người cần thực hiện hay theo ngày trực tiếp.
+Nhóm có trách nhiệm cũng chỉ ra các hoạt động trước đó cần cho mỗi nhiệm vụ và gợi ý nguồn tài nguyên cần cho nhiệm vụ đó.
+Người lập kế hoạch vẽ ra mạng các hoạt động, thường dưới dạng sơ đồ PERT.
+Trưởng ban quản lý dự án lên lịch các hoạt động
+Phần này mô tả chi tiết các bước 4,5 và 6, mạng và lịch công việc.
+
+4.1 Sơ đồ PERT
+
+PERT, chữ viết tắt cho kỹ thuật đánh giá và xem xét chương trình Program Evaluation and Review Technique, được Hải quân Mĩ phát minh ra năm 1958 khi phát triển tên lửa Polaris – một dự án bao gồm 300.000 hoạt động! Ban đầu PERT chỉ được dùng để mô tả một dãy các hoạt động qua một tập các mũi tên, như trong hình dưới
+
+[Hình ảnh: Hình 4.1 Sơ đồ PERT cho các hoạt động]
+
+Mỗi mũi tên biểu thị cho một hoạt động và được gắn nhãn theo tên hoạt động đó, chẳng hạn A, B, C... Nếu một hoạt động không thể bắt đầu trước khi một hoạt động trước nó được hoàn tất thì đuôi của mũi tên của hoạt động này được đặt vào đầu của hoạt động trước đó. Trong hình trên chẳng hạn E không thể bắt đầu trước khi D hoàn tất, G không thể bắt đầu trước khi cả C và F được hoàn tất. Các điểm đầu và điểm cuối mũi tên đó được gọi là các nút và được đánh số. Sơ đồ trong hình trên dường như có vẻ tầm thường nhưng nó có giá trị để vẽ sơ đồ PERT cho bất kì dự án nào, vì nó buộc chúng ta phải phân tích dãy các hoạt động.
+
+PERT cũng chỉ ra hoạt động nào có tiến hành đồng thời. Một dãy các hoạt động, như A-B-C-G được gọi là một đường dẫn. Nếu có các thời dẫn hay các phần đường dẫn song song như đường B-C và đường D-E-F thì hoạt động B và C có thể được thực hiện đồng thời với các hoạt động D, E và F.
+
+4.2 Đường găng
+
+Có thể đạt tới sự cải tiến khá lớn cho sơ đồ PERT trên bằng cách đặt thời hạn cho mỗi nhiệm vụ trên PERT, như trong/sau. Ta sẽ thấy cách xác định thời hạn khi tài nguyên (con người) được cấp phát cho nhiệm vụ.
+
+Trước hết, cần phải tính đường găng. Đây là đường dài nhất trong mạng được tính bằng cách cộng dồn thời hạn theo đường này. Chẳng hạn, trong hình sau đường đỉnh là 26 ngày (đường găng) còn đường đáy là 25 ngày, vậy nên đường trên là đường găng. Đường kép chỉ ra một đường găng hoàn chỉnh. Việc hiểu biết về đường găng là điều chủ chốt với người quản trị dự án. Nó chỉ ra chiều dài của toàn bộ dự án: 26 ngày trong trường hợp của ta. Nó cũng chỉ ra các hoạt động cần theo dõi. Nếu bất kì hoạt động nào trên đường găng bị trượt đi (kéo dài hơn kế hoạch) thì ngày bàn giao của dự án cũng bị kéo trượt theo.
+
+[Hình ảnh: Hình 4.2 Sơ đồ PERT có gán tài nguyên]
+
+4.3 Thả nổi hay để chùng
+
+Các hoạt động không trên đường găng có thể được thả nổi hay để chùng - tức là một khoảng thời gian mà các hoạt động đó có thể trượt mà vẫn không ảnh hưởng tới đường găng và do đó không ảnh hưởng tới ngày bàn giao. Trong hình trên chẳng hạn, các hoạt động D, E và F có 1 ngày thả nổi. (Tính toán: các hoạt động trên đường găng B và C mất 11 ngày; đồng thời các hoạt động không trên đường găng D, E và F mất 10 ngày tất cả; do đó 11 - 10 = 1 ngày thả nổi). Bất kì hoạt động D, E hay F hay cả ba đều có thể kéo dài thêm một ngày mà không ảnh hưởng tới đường găng.
+
+4.3.1 Đường găng có thể thay đổi
+
+Điều gì xảy ra nếu hoạt động D kéo dài 5 ngày thay vì 3 ngày? Đường găng đã thay đổi cho đường D-E-F. Đó là lý do tại sao người quản lý dự án phải thường xuyên cập nhật mạng theo mọi thay đổi.
+
+4.3.2 Thả nổi tự do và thả nổi toàn bộ
+
+Trong sơ đồ PERT ở dưới đây, phía dưới các hoạt động đường găng Đơn thể Chương trình A và Đơn thể Kiểm thử A do người lập trình 1 thực hiện. Các hoạt động trên đường trung tâm, Đơn thể chương trình B và Đơn thể kiểm thử B do người lập trình 2 thực hiện có 5 ngày thả nổi. Các hoạt động trên đường đáy, Đơn thể chương trình C, Đơn thể kiểm thử C và Tích hợp được người lập trình 3 và người phụ trách dự án thực hiện. Đường đáy có 5 ngày thả nổi tất cả.
+
+Thả nổi toàn bộ là quãng thời gian thả nổi mà một hoạt động có trước khi ảnh hưởng tới đường găng. Thả nổi tự do là khoảng thời gian thả nổi mà một hoạt động có trước khi nó ảnh hưởng tới bất kì hoạt động nào khác (không găng).
+
+[Hình ảnh: Hình 4.3 Thả nổi hay để chùng]
+
+Thả nổi dự án (thả nổi bất kì theo bất kì hoạt động nào) là một công việc của người quản trị dự án, được sử dụng tuỳ theo cân nhắc của người này.
+
+4.4 Cấp phát tài nguyên
+
+Nếu chúng ta đang làm kế hoạch thủ công thì sơ đồ PERT là sơ đồ tốt nhất dùng để cấp phát tài nguyên. Trước hết hãy vẽ PERT bỏ qua mọi nguồn tài nguyên. Sơ đồ cho dự án phần mềm có thể tựa Hình sau.
+
+[Hình ảnh: Hình 4.4 Sơ đồ PERT bỏ qua tài nguyên]
+XĐ - Xác định, PT - Phân tích, TK - Thiết kế, TH&KT - Tích hợp và kiểm thử hệ thống, HL - huấn luyện người dùng, VH - Vận hành, ch/tr - chương trình
+
+Bước tiếp là vẽ lại PERT có tính tới tài nguyên
+
+4.4.1 Cấp phát tài nguyên nhân lực
+
+Mạng trong Hình trên có 10 hoạt động đồng thời tiến hành tại một thời điểm và cùng kết thúc đúng hạn nếu chúng ta có 10 người lập trình. (Hoặc nếu một người lập trình thì phải dành một phần mười thời gian cho từng công việc!) Hiển nhiên có cách tốt hơn để sử dụng người. Việc cấp phát tài nguyên nhân lực mang tính chủ quan và tuỳ thuộc chủ yếu vào người sẵn có, nhưng sau đây là những điều phải xem tới:
+
+- Giao nhiệm vụ cho từng cá nhân có mức độ kỹ năng thích hợp với công việc. Đừng trao cho một chuyên gia một công việc không ý nghĩa gì mấy cũng đừng trao một việc rất phức tạp cho người mới tập sự.
+- Giao nhiệm vụ tương tự cho cùng một người. Điều này sẽ làm giảm thời gian học việc hay nghiên cứu công việc mới.
+- Giao nhiệm vụ chủ chốt cho người chúng ta tin cẩn nhất. Người tin cậy không phải là người có thể thực hiện nhiệm vụ đó trong ba ngày mà đôi khi có thể mất đến năm hay mười ngày; người tin cậy là người quả quyết cần năm ngày thực hiện và đó chính là thời gian cần để thực hiện nhiệm vụ.
+- Giao các nhiệm vụ cần liên lạc lẫn nhau cho cùng một cá nhân để giảm thiểu việc tương tác giữa các thành viên.
+- Người quản lý dự án sẽ cần dành thời gian để giám sát, đặc biệt vào lúc bắt đầu dự án.
+
+Hãy phân mức tài nguyên nhân lực thật chi tiết. Tốt hơn là nên để ba người lập trình bận bịu trong năm tuần hơn là sử dụng năm người trong tuần đầu, không còn ai cả trong tuần tiếp, ba người trong tuần tiếp nữa vẽ lại với tài nguyên nhân lực đã được bố trí. Thời gian trực tiếp cho từng nhiệm vụ sẽ được rút bớt nếu có thêm nguồn nhân lực được sử dụng.
+
+Quyết định bố trí nhân lực được thực hiện dựa trên những điều sau: Lt1 (người lập trình 1) dành 100% thời gian cho dự án, còn Lt2 và Lt3 chỉ làm việc cho dự án trong thời kỳ ngắn. Các Đơn thể A, B và C là khó nhất nhưng tương tự nhau cho nên Phó ban quản lý dự án (PQlda) sẽ giúp Lt2 lập trình trong tất cả các khâu. Với phó ban quản lý dự án nên giám sát trên đường găng sẽ làm giảm sự căng thẳng cho Trưởng ban quản lý dự án. Lt1 là một chuyên gia cao cấp làm việc một mình. Lt3 là người tập sự cho nên được giao nhiệm vụ làm tư liệu. Lưu ý rằng mọi người đều làm việc liên tục trong phần công việc của mình.
+
+4.4.2 Giảm thời hạn nhiệm vụ bằng cách bổ sung nhân lực
+
+Việc thêm người vào một nhóm không nhất thiết làm giảm thời hạn nhiệm vụ. Một quy tắc công nghiệp là "Hãy bổ sung thêm ít nhất 10% số ước lượng thời gian trực tiếp cho từng thành viên bổ sung vào một nhóm chuyên nghiệp". Điều này kéo theo rằng nếu một nhiệm vụ để một người thực hiện mất 10 ngày thì với 2 người sẽ tốn 11 ngày. Thêm 10% cho mỗi người một cách tích luỹ khi có nhiều người.
+
+Thời hạn nhiệm vụ được chuyển từ hai hình trên đã được lấy theo qui tắc trên, cộng với một số đánh giá chuyên môn dựa theo việc phân chia công việc tốt đến đâu, mọi người trao đổi với nhau như thế nào...
+
+4.4.3 Cấp phát tài nguyên "Phi con người"
+
+Tài nguyên phi con người cần cho một dự án phần mềm có thể là phần cứng máy tính, phần mềm, hệ điều hành, thông tin, tài liệu, huấn luyện, bảo hành máy tính, các dịch vụ… Các khoản mục này có thể được liệt kê ra bởi người có trách nhiệm ước lượng. Thông thường chúng ta không bận tâm tới việc đặt các khoản mục này vào PERT nhưng phải đảm bảo chúng được liệt kê ra.
+
+4.5 Ràng buộc bộ ba
+
+Như ta đã trình bày trước đây, “Chúng ta có thể muốn công việc được tốt, rẻ và nhanh: hãy chọn lấy hai điều thôi!” Thêm nhiều tài nguyên nhân lực sẽ rút ngắn thời gian nhưng chi phí lại cao. Chuyển một người tin cậy từ một hoạt động phức tạp nhưng ngắn hạn sang một hoạt động dài hơn có thể làm giảm thời gian tổng thể nhưng lại có thể gây khó khăn cho toàn bộ dự án nếu chất lượng của nhiệm vụ ngắn hạn bị giảm bớt.
+
+Nhiều cách chọn lựa có thể có khi chúng ta phân phối tài nguyên. Bao giờ cũng hãy chọn nhiều cách tiếp cận, nhìn vào hiệu quả sử dụng tài nguyên và chi phí, chiều dài của đường găng và sự đơn giản chung của PERT. Người quản lý dự án phải đánh giá bộ ba ràng buộc này và đi tới sự cân bằng tốt nhất tuỳ theo các ưu tiên áp đặt lên ba ràng buộc đó do người dùng hay quản lý cấp trên ấn định.
+
+Kết luận về việc rút ngắn dự án
+Ta có nhiều giả thiết ở đây: trước hết, các nhiệm vụ này đều có thể rút ngắn được. Việc thêm người hay làm thêm giờ không tăng tốc thêm được bao nhiêu. Thứ hai là các nhiệm vụ này có thể được rút ngắn theo bất kì thứ tự nào. Thứ ba là các nhiệm vụ này có thể được rút ngắn độc lập nhau. Việc rút ngắn một nhiệm vụ có thể ảnh hưởng tới các nhiệm vụ khác…
+
+4.6 Lịch biểu hay sơ đồ Gantt
+
+Sơ đồ Gantt chỉ là một sơ đồ theo thời gian. Nó mang tên người phát minh ra nó, Henry Gantt.
+
+4.6.1 Các bước để vẽ một sơ đồ Gantt là
+
+Bước 1: vẽ các đơn vị thời gian trên đỉnh. Chọn đơn vị thời gian sao cho chúng ta chỉ cần một sơ đồ thôi. Chúng ta sẽ thấy rằng sơ đồ Gantt chính là kinh thành của người quản trị dự án. Tất cả thông tin phụ thuộc lịch đều có thể được đặt vào sơ đồ Gannt, và 99% cuộc đời của người quản trị dự án là tuỳ thuộc vào lịch này.
+
+Bước 2: Đánh dấu tất cả các sự kiện lịch đã biết vào đây. Đó là ngày lễ, nghỉ hè, nghỉ phép, hội họp, huấn luyện, cam kết trước... Mọi sự kiện mà chúng ta phải lên lịch.
+
+Bước 3: Từ sơ đồ PERT, hãy lập lịch cho từng hoạt động. Bắt đầu từ giai đoạn đầu tiên. Xác định, hãy vẽ ra một thanh bằng với chiều dài ngày theo lịch trên PERT. Hãy đánh dấu những người có trách nhiệm và phần trăm thời gian chúng ta dự kiến cho mỗi người một việc trong dự án nếu không là 100%.
+
+Bước 4: Lập lịch cho điều bất ngờ theo từng nhiệm vụ. Với mỗi nhiệm vụ hãy tự hỏi chúng ta, "Liệu có thể có điều gì làm kéo dài thời hạn của nhiệm vụ này không?" Chẳng hạn, "Điều gì có thể làm cho giai đoạn xác định dự án kéo dài hơn sáu ngày theo lịch biểu?" Hãy chú ý rằng nên bổ sung thêm hai ngày bất ngờ cho giai đoạn xác định, có thể bởi vì người sử dụng biết quá ít. Bảng dưới đây liệt kê một số khoản mục rủi ro chung cho các dự án và các nhiệm vụ có thể kéo dài bởi rủi ro đó.
+
+Bước 5: Nhìn lại các bước 3 và 4, lập lịch lại cho tất cả các nhiệm vụ trên PERT, từ trái qua phải và từ trên xuống dưới cho các nhiệm vụ song song. Một nhiệm vụ bắt đầu khi sự bắt ngờ của nhiệm vụ trước nó chấm dứt. Hãy bổ sung thật nhiều sự bất ngờ vào nhiệm vụ riêng cuối cùng, nhiệm vụ Kiểm thử Hệ thống, Xem như một biện pháp an toàn.
+
+Dự án: ABC
+Tác giả: B. quản trị
+Ngày: 5/9/1996
+Công ty: XYZ phần mềm
+Ngày bắt đầu: 2/2/2012
+
+Bước 6: Đánh dấu tất cả các sự kiện quan trọng. Đánh đầu các cột mốc chính được chỉ ra bởi việc hoàn thành các sự kiện và sản phẩm quan trọng. Phải chắc chắn các cột mốc đó khá thường xuyên để cho thời gian giữa mỗi cột mốc là đủ ngắn không gây ra mất kiểm soát. Cứ hai tới ba tháng trong một dự án mười hai tháng thông thường nên có một cột mốc. Điều này kéo theo rằng có thể phải bịa thêm các cột mốc "giả", như cột mốc 3, duyệt giữa kì lập trình trong Hình trên. Hãy đánh dầu các cuộc duyệt xét và họp quan trọng. Những người tham dự vào tất cả các sự kiện này sẽ đánh giá sự tiến triển của dự án. Đánh dấu ngày tháng khi cần có các thiết bị phần cứng. Thời gian để cho nhà sản xuất càng dài thì chúng ta càng có cơ hội nhận được hàng đúng hạn.
+
+4.6.2 Tập trung vào đường găng
+
+Tính đường găng
+Nếu chúng ta đang dùng máy tính để vẽ đường găng thì đường này sẽ được chiếu sáng bằng đồ hoạ hay màu đặc biệt. Nếu chúng ta vẽ thủ công thì cần làm nổi bật đường găng bằng cách dùng các ký tự như ‘=’. Để xác định đường găng, hãy tuân theo điều sau:
+Nếu chúng ta đã vẽ sơ đồ PERT thì hãy tính nó ở đó và làm nổi bật các khoản mục găng tương ứng trên sơ đồ Gantt, Việc tìm đường găng trên sơ đồ Gantt cũng đơn giản. Chúng ta hãy lấy khoản mục cuối cùng (bên phải nhất) rồi làm nổi bật nó - nó bao giờ cũng nằm trên đường găng. (Vận hành trên hình trên) Hãy tìm hoạt động trước nó (Chấp nhận và Huấn luyện) rồi làm nổi bật một hoạt động với ngày chậm nhất (Chấp nhận). Hãy tìm phần tử đứng trước của hoạt động cuối cùng rồi làm tiếp như vậy cho tới khi đạt tới ngày khởi đầu dự án.
+Tất cả những nhiệm vụ găng hay không được làm nổi bật đều có thể thả nổi. Việc thả nổi xuất hiện từ cuối của hoạt động này đến đầu của hoạt động tiếp. Nếu có nhiều việc kế tiếp thì phải đi từ ngày bắt đầu của việc sớm nhất. Việc thả nổi được vẽ bằng đường chấm chấm.
+
+Giảm rủi ro trên các khoản mục đường găng
+Mặc dầu tất cả các nhiệm vụ trên dự án đều cần được để ý nhưng chúng ta trước hết vẫn phải xem xét các khoản mục trên đường găng. Tự hỏi mình, "Nhiệm vụ này cần những gì, khi nào và đâu là ảnh hưởng của nó nếu nó bị muộn hoặc không có sẵn?" Hãy đặt kế hoạch phòng bất ngờ vào đúng chỗ. Đặc biệt hãy chú ý tới các khoản mục do người bên ngoài sự kiểm soát của chúng ta cung cấp. Hãy xem liệu chúng ta có thể có quyền gì đối với những người cung cấp tài nguyên đó. Với nhân viên nội bộ, cách tốt nhất thực thi quyền lực là đưa đầu vào cuộc họp xem xét việc hoàn thành của họ. Với những người hợp đồng bên ngoài hãy cố gắng thương lượng các cột mốc, thảo luận và điều khoản phạt vì bàn giao muộn. Hãy tìm nguồn thứ hai cho khoản mục mà họ cung cấp.
+Các nhiệm vụ càng về sau thì độ rủi ro càng cao. Các nhiệm vụ sớm hơn dùng hết các ngày thả nổi của dự án làm cho các nhiệm vụ sau trở nên căng thẳng. Bao giờ cũng phải thêm độ thả nổi cho các nhiệm vụ cuối. Nhiệm vụ càng ngắn, độ rủi ro càng cao, vì cơ hội cho nhiệm vụ ngắn vượt quá mức ước lượng thì lớn hơn cơ hội cho nhiệm vụ dài hơn. Hãy thêm độ nổi phụ cho những nhiệm vụ rất ngắn, găng.
+
+❖ Câu hỏi (bài tập) củng cố:
+1. Đường găng trong dự án là gì?
+2. Thế nào là thả nổi hay để chùng, thả nổi tự do và thả nổi toàn bộ?
+3. Ràng buộc bộ ba là gì?
+4. Hãy cho biết các bước để vẽ một sơ đồ Gantt
+5. Tại sao Ban quản lý dự án cần tập trung vào đường Gantt?

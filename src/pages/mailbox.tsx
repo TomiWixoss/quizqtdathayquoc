@@ -50,8 +50,16 @@ function MailboxPage() {
           )
           .filter((mail) => {
             // Lọc: mail global (không có targetUserId) hoặc mail riêng cho user
-            const targetUserId = (mail as { targetUserId?: string })
-              .targetUserId;
+            const mailData = mail as { targetUserId?: string; type?: string };
+            const targetUserId = mailData.targetUserId;
+            const mailType = mailData.type;
+
+            // Mail BXH (leaderboard_reward) BẮT BUỘC phải có targetUserId khớp
+            if (mailType === "leaderboard_reward") {
+              return targetUserId === user.oderId;
+            }
+
+            // Mail khác: global (không có targetUserId) hoặc riêng cho user
             return !targetUserId || targetUserId === user.oderId;
           });
 

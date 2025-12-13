@@ -24,15 +24,15 @@ const gameModes = [
   {
     id: "timeattack",
     name: "Chạy Đua",
-    desc: "10 câu - 60 giây",
+    desc: "10 câu trong 60 giây",
     icon: Clock,
     color: "#1cb0f6",
     shadow: "#1899d6",
   },
   {
     id: "survival",
-    name: "Sinh Tồn",
-    desc: "10 câu - 3 sai = Thua",
+    name: "Hardcore",
+    desc: "10 câu - 1 sai = Thua",
     icon: Skull,
     color: "#ff4b4b",
     shadow: "#ea2b2b",
@@ -56,7 +56,7 @@ function BattlePage() {
         startTimeAttack(60);
         break;
       case "survival":
-        startSurvival(3);
+        startSurvival(1);
         break;
     }
     navigate("/quiz");

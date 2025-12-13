@@ -56,6 +56,7 @@ export function QuizResult() {
     resetQuiz,
     selectChapter,
     chapters,
+    quizMode,
   } = useQuizStore();
   const {
     user,
@@ -127,21 +128,42 @@ export function QuizResult() {
         });
       }
 
-      // Perfect lesson bonus
+      // Tính thưởng theo chế độ
       const rewards: RewardItem[] = [];
+      let gemsToAdd = 0;
+
+      // Hệ số nhân theo chế độ
+      const modeMultiplier =
+        quizMode === "survival"
+          ? 3 // Hardcore x3
+          : quizMode === "timeattack"
+          ? 2 // Chạy đua x2
+          : 1; // Bình thường
 
       if (isPerfect) {
         await addPerfectLesson();
-        setBonusGems(100);
-        rewards.push({ type: "gems", amount: 100, label: "Hoàn hảo!" });
+        gemsToAdd = 100 * modeMultiplier;
+        setBonusGems(gemsToAdd);
+        rewards.push({
+          type: "gems",
+          amount: gemsToAdd,
+          label:
+            quizMode === "survival"
+              ? "Hardcore Perfect!"
+              : quizMode === "timeattack"
+              ? "Speed Perfect!"
+              : "Hoàn hảo!",
+        });
       } else if (percentage >= 80) {
-        await addGems(50);
-        setBonusGems(50);
-        rewards.push({ type: "gems", amount: 50, label: "Xuất sắc!" });
+        gemsToAdd = 50 * modeMultiplier;
+        await addGems(gemsToAdd);
+        setBonusGems(gemsToAdd);
+        rewards.push({ type: "gems", amount: gemsToAdd, label: "Xuất sắc!" });
       } else if (percentage >= 50) {
-        await addGems(20);
-        setBonusGems(20);
-        rewards.push({ type: "gems", amount: 20, label: "Tốt lắm!" });
+        gemsToAdd = 20 * modeMultiplier;
+        await addGems(gemsToAdd);
+        setBonusGems(gemsToAdd);
+        rewards.push({ type: "gems", amount: gemsToAdd, label: "Tốt lắm!" });
       }
 
       // Thêm XP vào rewards

@@ -10,6 +10,7 @@ import {
   Frame,
   Sparkles,
 } from "lucide-react";
+import confetti from "canvas-confetti";
 import {
   getGachaCollectionDetail,
   getCollectionLotteries,
@@ -189,6 +190,27 @@ function GachaDetailPage() {
     if (success) {
       setRewardsClaimed(true);
       setShowRewardModal(false);
+      // Fire confetti celebration
+      const duration = 3000;
+      const end = Date.now() + duration;
+      const frame = () => {
+        confetti({
+          particleCount: 7,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ["#FFD700", "#FF6B6B", "#4ECDC4", "#45B7D1", "#DDA0DD"],
+        });
+        confetti({
+          particleCount: 7,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ["#FFD700", "#FF6B6B", "#4ECDC4", "#45B7D1", "#DDA0DD"],
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      };
+      frame();
       // Reload inventory to sync
       await loadInventory();
     }

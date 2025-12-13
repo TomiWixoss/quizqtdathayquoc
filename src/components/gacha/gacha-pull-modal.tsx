@@ -67,7 +67,7 @@ export function GachaPullModal({
   const [minLoadingDone, setMinLoadingDone] = useState(false);
   const [loadingStarted, setLoadingStarted] = useState(false);
 
-  // Reset states when modal opens
+  // Reset states when modal opens with loading
   useEffect(() => {
     if (isOpen && isLoading) {
       setRevealPhase("loading");
@@ -79,6 +79,19 @@ export function GachaPullModal({
       setVideoErrors({});
     }
   }, [isOpen, isLoading]);
+
+  // Reset when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setRevealPhase("loading");
+      setMinLoadingDone(false);
+      setCanSkipLoading(false);
+      setLoadingStarted(false);
+      setShowAll(false);
+      setCurrentIndex(0);
+      setVideoErrors({});
+    }
+  }, [isOpen]);
 
   // Minimum loading time of 2 seconds
   useEffect(() => {
@@ -102,12 +115,11 @@ export function GachaPullModal({
       results.length > 0 &&
       !isLoading &&
       minLoadingDone &&
-      loadingStarted
+      revealPhase === "loading"
     ) {
       setRevealPhase("reveal");
-      setLoadingStarted(false);
     }
-  }, [isOpen, results, isLoading, minLoadingDone, loadingStarted]);
+  }, [isOpen, results, isLoading, minLoadingDone, revealPhase]);
 
   const handleSkipLoading = () => {
     setMinLoadingDone(true);

@@ -319,8 +319,7 @@ function GachaDetailPage() {
                   Bảo hiểm:
                 </span>
                 <span className="font-bold text-[var(--duo-yellow)]">
-                  {inventory.pityCounters[collectionId] || 0}/
-                  {GACHA_CONFIG.PITY_UR}
+                  {inventory.pityCounters[0] || 0}/{GACHA_CONFIG.PITY_UR}
                 </span>
               </div>
             )}
@@ -392,7 +391,8 @@ function GachaDetailPage() {
             </div>
           </div>
           <p className="text-[10px] text-[var(--muted-foreground)] mt-2 text-center">
-            Đảm bảo UR sau {GACHA_CONFIG.PITY_UR} lần quay không trúng
+            Đảm bảo UR sau {GACHA_CONFIG.PITY_UR} lần quay không trúng (tích lũy
+            chung tất cả gói)
           </p>
         </div>
 

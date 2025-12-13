@@ -565,6 +565,32 @@ function SettingsPage() {
 
         {/* Menu List */}
         <div className="space-y-3">
+          {/* Mailbox Link */}
+          <button
+            onClick={() => navigate("/mailbox")}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-orange)]/20 flex items-center justify-center">
+                <Mail className="w-5 h-5 text-[var(--duo-orange)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Hòm thư</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Nhận quà từ hệ thống
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {unreadMail > 0 && (
+                <span className="bg-[var(--duo-red)] text-white text-xs px-2 py-0.5 rounded-full">
+                  {unreadMail}
+                </span>
+              )}
+              <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+            </div>
+          </button>
+
           {/* Quests Link */}
           <button
             onClick={() => navigate("/quests")}
@@ -591,25 +617,6 @@ function SettingsPage() {
             </div>
           </button>
 
-          {/* Stats Link */}
-          <button
-            onClick={() => navigate("/stats")}
-            className="card-3d w-full p-4 flex items-center justify-between"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--duo-blue)]/20 flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-[var(--duo-blue)]" />
-              </div>
-              <div className="text-left">
-                <p className="font-semibold text-foreground">Thống kê</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Phân tích chi tiết
-                </p>
-              </div>
-            </div>
-            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
-          </button>
-
           {/* Achievements Link */}
           <button
             onClick={() => navigate("/achievements")}
@@ -634,6 +641,25 @@ function SettingsPage() {
               )}
               <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
             </div>
+          </button>
+
+          {/* Stats Link */}
+          <button
+            onClick={() => navigate("/stats")}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-blue)]/20 flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-[var(--duo-blue)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Thống kê</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Phân tích chi tiết
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
           </button>
 
           {/* Card Inventory Link */}
@@ -672,32 +698,6 @@ function SettingsPage() {
               </div>
             </div>
             <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
-          </button>
-
-          {/* Mailbox Link */}
-          <button
-            onClick={() => navigate("/mailbox")}
-            className="card-3d w-full p-4 flex items-center justify-between"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--duo-orange)]/20 flex items-center justify-center">
-                <Mail className="w-5 h-5 text-[var(--duo-orange)]" />
-              </div>
-              <div className="text-left">
-                <p className="font-semibold text-foreground">Hòm thư</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Nhận quà từ hệ thống
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {unreadMail > 0 && (
-                <span className="bg-[var(--duo-red)] text-white text-xs px-2 py-0.5 rounded-full">
-                  {unreadMail}
-                </span>
-              )}
-              <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
-            </div>
           </button>
 
           {/* Redeem Code */}

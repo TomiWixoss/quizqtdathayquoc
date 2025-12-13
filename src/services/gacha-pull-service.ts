@@ -33,6 +33,21 @@ export async function getUserGachaInventory(
   }
 }
 
+// Cập nhật inventory của user
+export async function updateGachaInventory(
+  userId: string,
+  inventory: GachaInventory
+): Promise<boolean> {
+  try {
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, { gachaInventory: inventory });
+    return true;
+  } catch (error) {
+    console.error("Error updating gacha inventory:", error);
+    return false;
+  }
+}
+
 // Random card theo tỷ lệ
 function rollCard(
   cards: GachaCard[],

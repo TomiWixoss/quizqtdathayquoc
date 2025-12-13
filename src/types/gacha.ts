@@ -29,6 +29,8 @@ export interface GachaInventory {
   totalPulls: number;
   // Pity counter cho mỗi collection (đảm bảo UR sau X lần)
   pityCounters: Record<number, number>;
+  // Bookmarked collections (đã lưu)
+  bookmarked?: number[];
 }
 
 // Kết quả 1 lần quay

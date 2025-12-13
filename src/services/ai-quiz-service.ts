@@ -1,4 +1,4 @@
-import Cerebras from "@cerebras/cerebras_cloud_sdk";
+import { GoogleGenAI, Type } from "@google/genai";
 import { QTDA_CHAPTERS, type QTDAChapter } from "@/data/qtda-chapters";
 
 // Rank levels với các bậc (tier) - từ thấp đến cao
@@ -146,18 +146,18 @@ ${chapter.content}
 4. Giải thích phải trích dẫn hoặc tham chiếu đến nội dung trong tài liệu`;
 }
 
-// JSON Schema cho Structured Outputs
+// Schema cho Structured Outputs (dùng Type enum của Gemini)
 const questionSchema = {
-  type: "object",
+  type: Type.OBJECT,
   properties: {
     questions: {
-      type: "array",
+      type: Type.ARRAY,
       items: {
-        type: "object",
+        type: Type.OBJECT,
         properties: {
-          id: { type: "string" },
+          id: { type: Type.STRING, description: "ID duy nhất của câu hỏi" },
           type: {
-            type: "string",
+            type: Type.STRING,
             enum: [
               "multiple_choice",
               "true_false",
@@ -167,52 +167,67 @@ const questionSchema = {
               "multi_select",
               "scenario",
             ],
+            description: "Loại câu hỏi",
           },
-          question: { type: "string" },
+          question: { type: Type.STRING, description: "Nội dung câu hỏi" },
           options: {
-            type: "array",
-            items: { type: "string" },
+            type: Type.ARRAY,
+            items: { type: Type.STRING },
+            description:
+              "Các lựa chọn cho câu hỏi multiple_choice, true_false, multi_select, scenario",
           },
           correctAnswer: {
-            anyOf: [
-              { type: "string" },
-              { type: "array", items: { type: "string" } },
-            ],
+            type: Type.STRING,
+            description:
+              "Đáp án đúng (string cho single answer, JSON array string cho multi answer)",
           },
-          explanation: { type: "string" },
+          explanation: { type: Type.STRING, description: "Giải thích đáp án" },
           pairs: {
-            type: "array",
+            type: Type.ARRAY,
             items: {
-              type: "object",
+              type: Type.OBJECT,
               properties: {
-                left: { type: "string" },
-                right: { type: "string" },
+                left: { type: Type.STRING },
+                right: { type: Type.STRING },
               },
               required: ["left", "right"],
-              additionalProperties: false,
             },
+            description: "Các cặp ghép cho câu hỏi matching",
           },
           items: {
-            type: "array",
-            items: { type: "string" },
+            type: Type.ARRAY,
+            items: { type: Type.STRING },
+            description: "Các mục cần sắp xếp cho câu hỏi ordering",
           },
           distractors: {
-            type: "array",
-            items: { type: "string" },
+            type: Type.ARRAY,
+            items: { type: Type.STRING },
             description: "3 từ gây nhiễu cho câu hỏi fill_blank",
           },
           scenario: {
-            type: "string",
+            type: Type.STRING,
             description: "Mô tả tình huống thực tế cho câu hỏi scenario",
           },
         },
         required: ["id", "type", "question", "correctAnswer", "explanation"],
-        additionalProperties: false,
+        propertyOrdering: [
+          "id",
+          "type",
+          "question",
+          "options",
+          "correctAnswer",
+          "explanation",
+          "pairs",
+          "items",
+          "distractors",
+          "scenario",
+        ],
       },
+      description: "Danh sách câu hỏi",
     },
   },
   required: ["questions"],
-  additionalProperties: false,
+  propertyOrdering: ["questions"],
 };
 
 // Hàm lấy rank từ điểm
@@ -377,23 +392,22 @@ QUY TẮC:
 - scenario: scenario là mô tả tình huống thực tế (2-3 câu), question là câu hỏi về tình huống đó, 4 options, correctAnswer là 1 đáp án`;
 }
 
-// Cerebras API keys (hỗ trợ nhiều key, phân cách bằng dấu phẩy)
-const cerebrasApiKeys = (
-  import.meta.env.VITE_CEREBRAS_API_KEYS ||
-  import.meta.env.VITE_CEREBRAS_API_KEY ||
-  ""
-)
-  .split(",")
-  .map((k: string) => k.trim())
-  .filter((k: string) => k.length > 0);
+// Gemini API keys (đọc từ VITE_GEMINI_API_KEY_1, VITE_GEMINI_API_KEY_2, ...)
+function getGeminiApiKeys(): string[] {
+  const keys: string[] = [];
+  for (let i = 1; i <= 30; i++) {
+    const key = import.meta.env[`VITE_GEMINI_API_KEY_${i}`];
+    if (key && key.trim()) {
+      keys.push(key.trim());
+    }
+  }
+  return keys;
+}
+
+const geminiApiKeys = getGeminiApiKeys();
 
 // Index của key đang dùng
-let currentCerebrasKeyIndex = 0;
-
-// Tạo Cerebras client với key cụ thể
-function createCerebrasClient(apiKey: string): Cerebras {
-  return new Cerebras({ apiKey });
-}
+let currentGeminiKeyIndex = 0;
 
 // Kiểm tra lỗi có phải rate limit không
 function isRateLimitError(error: unknown): boolean {
@@ -401,6 +415,8 @@ function isRateLimitError(error: unknown): boolean {
     return (
       error.message.includes("429") ||
       error.message.includes("rate limit") ||
+      error.message.includes("RESOURCE_EXHAUSTED") ||
+      error.message.includes("quota") ||
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (error as any).status === 429
     );
@@ -408,55 +424,48 @@ function isRateLimitError(error: unknown): boolean {
   return false;
 }
 
-// Gọi Cerebras API với key rotation
-async function callCerebras(
+// Gọi Gemini API với key rotation
+async function callGemini(
   systemPrompt: string,
   userPrompt: string
 ): Promise<AIQuestion[]> {
-  const totalKeys = cerebrasApiKeys.length;
+  const totalKeys = geminiApiKeys.length;
   let triedKeys = 0;
 
   while (triedKeys < totalKeys) {
-    const apiKey = cerebrasApiKeys[currentCerebrasKeyIndex];
-    const client = createCerebrasClient(apiKey);
+    const apiKey = geminiApiKeys[currentGeminiKeyIndex];
+    const client = new GoogleGenAI({ apiKey });
 
     console.log(
-      `🔑 Using Cerebras key ${currentCerebrasKeyIndex + 1}/${totalKeys}`
+      `🔑 Using Gemini key ${currentGeminiKeyIndex + 1}/${totalKeys}`
     );
 
     try {
-      const response = await client.chat.completions.create({
-        model: "gpt-oss-120b",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        max_completion_tokens: 65536,
-        temperature: 0.9,
-        top_p: 0.95,
-        reasoning_effort: "high",
-        response_format: {
-          type: "json_schema",
-          json_schema: {
-            name: "quiz_questions",
-            strict: true,
-            schema: questionSchema,
+      const response = await client.models.generateContent({
+        model: "models/gemini-flash-latest",
+        contents: userPrompt,
+        config: {
+          systemInstruction: systemPrompt,
+          temperature: 0.9,
+          thinkingConfig: {
+            thinkingBudget: 24576,
           },
+          responseMimeType: "application/json",
+          responseSchema: questionSchema,
         },
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const content = (response as any).choices?.[0]?.message?.content || "";
+      const content = response.text || "";
       const parsed = JSON.parse(content);
       return parsed.questions || [];
     } catch (error) {
       if (isRateLimitError(error)) {
         console.warn(
-          `⚠️ Cerebras key ${
-            currentCerebrasKeyIndex + 1
+          `⚠️ Gemini key ${
+            currentGeminiKeyIndex + 1
           } rate limited, trying next key...`
         );
-        currentCerebrasKeyIndex = (currentCerebrasKeyIndex + 1) % totalKeys;
+        currentGeminiKeyIndex = (currentGeminiKeyIndex + 1) % totalKeys;
         triedKeys++;
       } else {
         throw error;
@@ -465,7 +474,7 @@ async function callCerebras(
   }
 
   // Tất cả keys đều bị rate limit
-  throw new Error("ALL_CEREBRAS_KEYS_RATE_LIMITED");
+  throw new Error("ALL_GEMINI_KEYS_RATE_LIMITED");
 }
 
 // Tạo câu hỏi từ AI với Structured Outputs
@@ -487,17 +496,17 @@ export async function generateAIQuestions(
   const userPrompt = buildQuestionPrompt(rank, questionCount, selectedChapter);
 
   try {
-    // Thử gọi Cerebras với key rotation
-    return await callCerebras(systemPrompt, userPrompt);
+    // Thử gọi Gemini với key rotation
+    return await callGemini(systemPrompt, userPrompt);
   } catch (error) {
-    // Nếu tất cả Cerebras keys đều bị rate limit, dùng fallback questions
+    // Nếu tất cả Gemini keys đều bị rate limit, dùng fallback questions
     const allKeysRateLimited =
       error instanceof Error &&
-      error.message === "ALL_CEREBRAS_KEYS_RATE_LIMITED";
+      error.message === "ALL_GEMINI_KEYS_RATE_LIMITED";
 
     if (allKeysRateLimited) {
       console.warn(
-        "⚠️ All Cerebras keys rate limited, using fallback questions..."
+        "⚠️ All Gemini keys rate limited, using fallback questions..."
       );
       return getFallbackQuestions(questionCount);
     }

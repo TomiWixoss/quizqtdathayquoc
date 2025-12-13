@@ -378,45 +378,100 @@ QUY TẮC:
 - scenario: scenario là mô tả tình huống thực tế (2-3 câu), question là câu hỏi về tình huống đó, 4 options, correctAnswer là 1 đáp án`;
 }
 
-// Cerebras client
-const cerebrasClient = new Cerebras({
-  apiKey: import.meta.env.VITE_CEREBRAS_API_KEY || "",
-});
+// Cerebras API keys (hỗ trợ nhiều key, phân cách bằng dấu phẩy)
+const cerebrasApiKeys = (
+  import.meta.env.VITE_CEREBRAS_API_KEYS ||
+  import.meta.env.VITE_CEREBRAS_API_KEY ||
+  ""
+)
+  .split(",")
+  .map((k: string) => k.trim())
+  .filter((k: string) => k.length > 0);
 
-// OpenRouter client (fallback khi Cerebras bị rate limit)
+// Index của key đang dùng
+let currentCerebrasKeyIndex = 0;
+
+// Tạo Cerebras client với key cụ thể
+function createCerebrasClient(apiKey: string): Cerebras {
+  return new Cerebras({ apiKey });
+}
+
+// OpenRouter client (fallback khi tất cả Cerebras keys bị rate limit)
 const openRouterClient = new OpenRouter({
   apiKey: import.meta.env.VITE_OPENROUTER_API_KEY || "",
 });
 
-// Gọi Cerebras API
+// Kiểm tra lỗi có phải rate limit không
+function isRateLimitError(error: unknown): boolean {
+  if (error instanceof Error) {
+    return (
+      error.message.includes("429") ||
+      error.message.includes("rate limit") ||
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (error as any).status === 429
+    );
+  }
+  return false;
+}
+
+// Gọi Cerebras API với key rotation
 async function callCerebras(
   systemPrompt: string,
   userPrompt: string
 ): Promise<AIQuestion[]> {
-  const response = await cerebrasClient.chat.completions.create({
-    model: "gpt-oss-120b",
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: userPrompt },
-    ],
-    max_completion_tokens: 65536,
-    temperature: 0.9,
-    top_p: 0.95,
-    reasoning_effort: "high",
-    response_format: {
-      type: "json_schema",
-      json_schema: {
-        name: "quiz_questions",
-        strict: true,
-        schema: questionSchema,
-      },
-    },
-  });
+  const totalKeys = cerebrasApiKeys.length;
+  let triedKeys = 0;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const content = (response as any).choices?.[0]?.message?.content || "";
-  const parsed = JSON.parse(content);
-  return parsed.questions || [];
+  while (triedKeys < totalKeys) {
+    const apiKey = cerebrasApiKeys[currentCerebrasKeyIndex];
+    const client = createCerebrasClient(apiKey);
+
+    console.log(
+      `🔑 Using Cerebras key ${currentCerebrasKeyIndex + 1}/${totalKeys}`
+    );
+
+    try {
+      const response = await client.chat.completions.create({
+        model: "gpt-oss-120b",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+        max_completion_tokens: 65536,
+        temperature: 0.9,
+        top_p: 0.95,
+        reasoning_effort: "high",
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "quiz_questions",
+            strict: true,
+            schema: questionSchema,
+          },
+        },
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const content = (response as any).choices?.[0]?.message?.content || "";
+      const parsed = JSON.parse(content);
+      return parsed.questions || [];
+    } catch (error) {
+      if (isRateLimitError(error)) {
+        console.warn(
+          `⚠️ Cerebras key ${
+            currentCerebrasKeyIndex + 1
+          } rate limited, trying next key...`
+        );
+        currentCerebrasKeyIndex = (currentCerebrasKeyIndex + 1) % totalKeys;
+        triedKeys++;
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  // Tất cả keys đều bị rate limit
+  throw new Error("ALL_CEREBRAS_KEYS_RATE_LIMITED");
 }
 
 // Gọi OpenRouter API (fallback)
@@ -473,20 +528,17 @@ export async function generateAIQuestions(
   const userPrompt = buildQuestionPrompt(rank, questionCount, selectedChapter);
 
   try {
-    // Thử gọi Cerebras trước
+    // Thử gọi Cerebras với key rotation
     return await callCerebras(systemPrompt, userPrompt);
   } catch (error) {
-    // Kiểm tra nếu là rate limit (429) thì fallback sang OpenRouter
-    const isRateLimit =
+    // Nếu tất cả Cerebras keys đều bị rate limit, fallback sang OpenRouter
+    const allKeysRateLimited =
       error instanceof Error &&
-      (error.message.includes("429") ||
-        error.message.includes("rate limit") ||
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (error as any).status === 429);
+      error.message === "ALL_CEREBRAS_KEYS_RATE_LIMITED";
 
-    if (isRateLimit) {
+    if (allKeysRateLimited || isRateLimitError(error)) {
       console.warn(
-        "⚠️ Cerebras rate limited (429), falling back to OpenRouter..."
+        "⚠️ All Cerebras keys rate limited, falling back to OpenRouter..."
       );
       try {
         return await callOpenRouter(systemPrompt, userPrompt);

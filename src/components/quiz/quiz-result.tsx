@@ -30,6 +30,7 @@ import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState } from "react";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
 import confetti from "canvas-confetti";
+import { RewardModal, RewardItem } from "@/components/ui/reward-modal";
 
 const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Target,
@@ -80,6 +81,8 @@ export function QuizResult() {
   const [bonusGems, setBonusGems] = useState(0);
   const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
   const [showAchievement, setShowAchievement] = useState(false);
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [rewardItems, setRewardItems] = useState<RewardItem[]>([]);
 
   const totalQuestions = currentQuestions.length;
   const percentage =
@@ -134,12 +137,31 @@ export function QuizResult() {
       }
 
       // Perfect lesson bonus
+      const rewards: RewardItem[] = [];
+
       if (isPerfect) {
         await addPerfectLesson();
         setBonusGems(10);
+        rewards.push({ type: "gems", amount: 10, label: "Hoàn hảo!" });
       } else if (percentage >= 80) {
         await addGems(5);
         setBonusGems(5);
+        rewards.push({ type: "gems", amount: 5, label: "Xuất sắc!" });
+      } else if (percentage >= 50) {
+        await addGems(2);
+        setBonusGems(2);
+        rewards.push({ type: "gems", amount: 2, label: "Tốt lắm!" });
+      }
+
+      // Thêm XP vào rewards
+      if (score > 0) {
+        rewards.push({ type: "xp", amount: score });
+      }
+
+      // Hiện modal quà nếu có phần thưởng
+      if (rewards.length > 0) {
+        setRewardItems(rewards);
+        setShowRewardModal(true);
       }
 
       // Check achievements
@@ -204,6 +226,23 @@ export function QuizResult() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[65vh] px-4">
+      {/* Reward Modal */}
+      <RewardModal
+        isOpen={showRewardModal}
+        onClose={() => setShowRewardModal(false)}
+        title={
+          isPerfect
+            ? "Hoàn hảo! 🎉"
+            : percentage >= 80
+            ? "Xuất sắc!"
+            : "Hoàn thành!"
+        }
+        subtitle={currentChapter ? `Chương ${currentChapter}` : "Luyện tập"}
+        rewards={rewardItems}
+        gradientFrom={isPerfect ? "var(--duo-yellow)" : "var(--duo-green)"}
+        gradientTo={isPerfect ? "var(--duo-orange)" : "var(--duo-blue)"}
+      />
+
       {/* Achievement Popup */}
       {showAchievement && newAchievements.length > 0 && (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">

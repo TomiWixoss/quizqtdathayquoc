@@ -234,13 +234,18 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
 
           // Update user document with conquest stats
           // NOTE: totalScore là điểm từ luyện tập, KHÔNG ghi đè bằng rankPoints
+          // Tính gems: base từ pointsGained + bonus nếu accuracy >= 90%
+          let gemsEarned = Math.max(0, Math.floor(pointsGained / 10));
+          if (accuracy >= 90 && correctCount >= 3) {
+            gemsEarned += 5; // Bonus cho accuracy cao
+          }
+
           await updateDoc(userRef, {
             conquestStats: newConquestStats,
             totalCorrect: (userData.totalCorrect || 0) + correctCount,
             totalWrong: (userData.totalWrong || 0) + wrongCount,
             exp: (userData.exp || 0) + correctCount * 10,
-            gems:
-              (userData.gems || 0) + Math.max(0, Math.floor(pointsGained / 10)),
+            gems: (userData.gems || 0) + gemsEarned,
           });
 
           // Save conquest session history

@@ -9,7 +9,8 @@ import {
 } from "lucide-react";
 import { UserRank, getRankImage } from "@/services/ai-quiz-service";
 import confetti from "canvas-confetti";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { RewardModal, RewardItem } from "@/components/ui/reward-modal";
 
 interface Props {
   result: {
@@ -24,12 +25,41 @@ interface Props {
 }
 
 export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [rewardItems, setRewardItems] = useState<RewardItem[]>([]);
+
   const accuracy =
     result.correct + result.wrong > 0
       ? Math.round((result.correct / (result.correct + result.wrong)) * 100)
       : 0;
 
   useEffect(() => {
+    // Tính gems earned từ pointsGained
+    const gemsEarned = Math.max(0, Math.floor(result.pointsGained / 10));
+    const xpEarned = result.correct * 10;
+
+    // Tạo danh sách phần thưởng
+    const rewards: RewardItem[] = [];
+
+    if (gemsEarned > 0) {
+      rewards.push({ type: "gems", amount: gemsEarned });
+    }
+
+    if (xpEarned > 0) {
+      rewards.push({ type: "xp", amount: xpEarned });
+    }
+
+    // Bonus cho accuracy cao
+    if (accuracy >= 90 && result.correct >= 3) {
+      rewards.push({ type: "gems", amount: 5, label: "Bonus chính xác!" });
+    }
+
+    // Hiện modal nếu có phần thưởng
+    if (rewards.length > 0) {
+      setRewardItems(rewards);
+      setShowRewardModal(true);
+    }
+
     if (accuracy >= 70) {
       confetti({
         particleCount: 100,
@@ -38,10 +68,25 @@ export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
         colors: ["#58cc02", "#89e219", "#ffc800", "#ce82ff"],
       });
     }
-  }, [accuracy]);
+  }, [accuracy, result.pointsGained, result.correct]);
+
+  const isWin = result.pointsGained > 0;
 
   return (
     <Page className="bg-background min-h-screen">
+      {/* Reward Modal */}
+      <RewardModal
+        isOpen={showRewardModal}
+        onClose={() => setShowRewardModal(false)}
+        title={isWin ? "Chiến thắng! 🏆" : "Hoàn thành!"}
+        subtitle={`${result.pointsGained >= 0 ? "+" : ""}${
+          result.pointsGained
+        } RP`}
+        rewards={rewardItems}
+        gradientFrom={isWin ? "var(--duo-purple)" : "var(--duo-blue)"}
+        gradientTo={isWin ? "#ec4899" : "var(--duo-purple)"}
+      />
+
       <div className="pt-16 px-4 pb-28">
         {/* Header */}
         <div className="text-center mb-6">

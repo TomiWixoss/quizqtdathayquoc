@@ -1,0 +1,53 @@
+Chương 7. QUẢN LÝ THỜI GIAN CỦA DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được tầm quan trọng của việc quản lý thời gian dự án.
+2. Hiểu được các qui trình quản lý thời gian.
+3. Hiểu được các phương pháp dùng để quản lý thời gian: CPM (Critical Path Method), PERT (Program Evaluation and Review Technique).
+4. Mô tả cách dùng phần mềm trong quản lý thời gian dự án.
+
+7.1 Tầm quan trọng của việc quản lý thời gian
+Kết thúc dự án đúng hạn là một trong những thách thức lớn nhất.
+Thời gian quá hạn trung bình là 222% (theo báo cáo của CHAOS năm 1995; được cải tiến lên 163% vào năm 2001).
+Thời gian có độ linh hoạt bé nhất; nó trôi qua bất kể điều gì xảy ra.
+Các vấn đề lịch biểu là lý do chính dẫn đến xung đột trong dự án, đặc biệt là trong nửa sau của dự án.
+
+7.2 Các Qui trình quản lý thời gian dự án
+Quản lý thời gian dự án gồm những qui trình bảo đảm hoàn tất dự án đúng hạn. Những qui trình này gồm:
+- Xác định các hoạt động
+- Sắp thứ tự các hoạt động
+- Ước lượng thời gian cho mỗi hoạt động
+- Phát triển lịch biểu
+- Điều khiển lịch biểu
+
+7.3 Xác định các hoạt động.
+Lịch biểu dự án bắt nguồn từ tài liệu khởi động dự án
+- Bản tuyên bố dự án có chứa ngày bắt đầu và kết thúc, cùng với thông tin về ngân sách.
+- Tuyên bố phạm vi và WBS giúp xác định cần phải làm những gì.
+- Xác định hoạt động đòi hỏi phát triển WBS chi tiết hơn cùng với những lời giải thích để hiểu được tất cả những việc cần làm, nhằm có được các ước lượng phù hợp với thực tế
+
+7.4 Sắp thứ tự các hoạt động.
+- Xem xét các hoạt động và xác định quan hệ phụ thuộc
++ Phụ thuộc bắt buộc: cố hữu do bản chất công việc.
++ Phụ thuộc xác định bởi nhóm dự án.
++ Phụ thuộc liên quan giữa các hoạt động bên trong dự án và bên ngoài dự án.
+Dùng Phương pháp CPM (Critical Path Method) để xác định các quan hệ phụ thuộc.
+
+7.5 Ước lượng thời gian cho mỗi hoạt động.
+Ước lượng thời gian cho mỗi hoạt động, tùy theo hướng tiếp cận sẽ có các ước lượng khác nhau.
++ CPM: thời gian mỗi công việc là thời gian xác định, cho phép thực hiện được công việc đó.
++ PERT: tính thời gian mong muốn (kỳ vọng) của thời gian thuận lợi (lạc quan), thời gian không thuận lợi (bi quan) và thời gian trung bình thực hiện được công việc đó.
++ Lập Bảng phân tích CPM (PERT) và xác định đường tới hạn (biểu diễn bằng sơ đồ GANTT) và xác định thời gian hoàn thành cả dự án.
+
+7.6 Điều khiển lịch biểu.
+- Kiểm tra lịch biểu so với thực tế
+- Sử dụng kế hoạch phòng hờ bất trắc
+- Không lập kế hoạch cho mọi người làm việc 100% khả năng vào mọi thời điểm.
+- Tổ chức các buổi họp tiến độ với các bên liên quan, và thật rõ ràng, trung thật khi bàn về các vấn đề liên quan đến lịch biểu.
+
+* Câu hỏi (bài tập) củng cố:
+1. Giải thích tại sao lịch biểu (schedule) thường gây nhiều xung đột (conflict) trong các dự án.
+2. Tại sao việc xác định các hoạt động là bước đầu tiên trong quản lý thời gian dự án?
+3. Tại sao phải xác định tuần tự các công việc trong dự án?
+4. Giải thích sự khác biệt giữa ước lượng thời gian cho công việc và ước lượng nỗ lực để thực hiện công việc.
+5. Giải thích các khái niệm biểu đồ Gantt.

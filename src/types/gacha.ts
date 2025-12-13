@@ -17,6 +17,21 @@ export interface OwnedReward {
   collectionId: number;
 }
 
+// Thống kê gacha đầy đủ
+export interface GachaStats {
+  // Số thẻ theo độ hiếm (unique)
+  totalNCards: number; // Scarcity 10
+  totalRCards: number; // Scarcity 20
+  totalSRCards: number; // Scarcity 30
+  totalURCards: number; // Scarcity 40
+  // Rewards
+  totalAvatars: number;
+  totalFrames: number;
+  totalBadges: number;
+  // Collections
+  completedCollections: number; // Số gói đã hoàn thành (sưu tập đủ)
+}
+
 // Gacha inventory trong user
 export interface GachaInventory {
   // Cards theo collection: { [collectionId]: { [cardImg]: count } }
@@ -31,8 +46,8 @@ export interface GachaInventory {
   pityCounters: Record<number, number>;
   // Bookmarked collections (đã lưu)
   bookmarked?: number[];
-  // Tổng số thẻ UR đã sở hữu (unique)
-  totalURCards?: number;
+  // Thống kê gacha đầy đủ
+  gachaStats?: GachaStats;
 }
 
 // Kết quả 1 lần quay

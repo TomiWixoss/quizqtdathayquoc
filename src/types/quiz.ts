@@ -75,7 +75,16 @@ export interface UserStats {
     shards: number;
     totalPulls: number;
     pityCounters: Record<number, number>;
-    totalURCards?: number;
+    gachaStats?: {
+      totalNCards: number;
+      totalRCards: number;
+      totalSRCards: number;
+      totalURCards: number;
+      totalAvatars: number;
+      totalFrames: number;
+      totalBadges: number;
+      completedCollections: number;
+    };
   };
 }
 

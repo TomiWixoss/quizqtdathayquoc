@@ -107,7 +107,16 @@ const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
     shards: 0,
     totalPulls: 0,
     pityCounters: {},
-    totalURCards: 0,
+    gachaStats: {
+      totalNCards: 0,
+      totalRCards: 0,
+      totalSRCards: 0,
+      totalURCards: 0,
+      totalAvatars: 0,
+      totalFrames: 0,
+      totalBadges: 0,
+      completedCollections: 0,
+    },
   },
 };
 

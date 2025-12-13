@@ -7,13 +7,24 @@ import {
   GACHA_CONFIG,
 } from "@/types/gacha";
 
+const DEFAULT_GACHA_STATS = {
+  totalNCards: 0,
+  totalRCards: 0,
+  totalSRCards: 0,
+  totalURCards: 0,
+  totalAvatars: 0,
+  totalFrames: 0,
+  totalBadges: 0,
+  completedCollections: 0,
+};
+
 const DEFAULT_INVENTORY: GachaInventory = {
   cards: {},
   rewards: [],
   shards: 0,
   totalPulls: 0,
   pityCounters: {},
-  totalURCards: 0,
+  gachaStats: DEFAULT_GACHA_STATS,
 };
 
 // Lấy inventory của user
@@ -149,9 +160,22 @@ export async function pullGacha(
       if (isNew) {
         // Card mới
         inventory.cards[collectionId][cardKey] = 1;
-        // Nếu là UR mới, tăng counter
-        if (card.card_scarcity === 40) {
-          inventory.totalURCards = (inventory.totalURCards || 0) + 1;
+        // Cập nhật thống kê theo độ hiếm
+        if (!inventory.gachaStats)
+          inventory.gachaStats = { ...DEFAULT_GACHA_STATS };
+        switch (card.card_scarcity) {
+          case 10:
+            inventory.gachaStats.totalNCards++;
+            break;
+          case 20:
+            inventory.gachaStats.totalRCards++;
+            break;
+          case 30:
+            inventory.gachaStats.totalSRCards++;
+            break;
+          case 40:
+            inventory.gachaStats.totalURCards++;
+            break;
         }
       } else {
         // Card trùng - đổi thành shards
@@ -257,6 +281,21 @@ export async function claimReward(
       collectionId,
     });
 
+    // Cập nhật thống kê rewards
+    if (!inventory.gachaStats)
+      inventory.gachaStats = { ...DEFAULT_GACHA_STATS };
+    switch (rewardType) {
+      case "avatar":
+        inventory.gachaStats.totalAvatars++;
+        break;
+      case "frame":
+        inventory.gachaStats.totalFrames++;
+        break;
+      case "badge":
+        inventory.gachaStats.totalBadges++;
+        break;
+    }
+
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, { gachaInventory: inventory });
     return true;
@@ -274,6 +313,8 @@ export async function claimAllRewards(
 ): Promise<boolean> {
   try {
     const inventory = await getUserGachaInventory(userId);
+    if (!inventory.gachaStats)
+      inventory.gachaStats = { ...DEFAULT_GACHA_STATS };
 
     for (const reward of rewards) {
       // Check xem đã claim chưa
@@ -297,6 +338,19 @@ export async function claimAllRewards(
         obtainedAt: new Date().toISOString(),
         collectionId,
       });
+
+      // Cập nhật thống kê rewards
+      switch (rewardType) {
+        case "avatar":
+          inventory.gachaStats.totalAvatars++;
+          break;
+        case "frame":
+          inventory.gachaStats.totalFrames++;
+          break;
+        case "badge":
+          inventory.gachaStats.totalBadges++;
+          break;
+      }
     }
 
     const userRef = doc(db, "users", userId);
@@ -343,7 +397,9 @@ export async function exchangeShardsForCard(
     }
     inventory.cards[collectionId][cardImg] = 1;
     // Exchange luôn là UR, tăng counter
-    inventory.totalURCards = (inventory.totalURCards || 0) + 1;
+    if (!inventory.gachaStats)
+      inventory.gachaStats = { ...DEFAULT_GACHA_STATS };
+    inventory.gachaStats.totalURCards++;
 
     // Save to Firebase
     const userRef = doc(db, "users", userId);
@@ -353,5 +409,31 @@ export async function exchangeShardsForCard(
   } catch (error) {
     console.error("Error exchanging shards:", error);
     return { success: false, error: "Có lỗi xảy ra!" };
+  }
+}
+
+// Mark collection as completed (khi sưu tập đủ thẻ)
+export async function markCollectionComplete(
+  userId: string,
+  collectionId: number
+): Promise<boolean> {
+  try {
+    const inventory = await getUserGachaInventory(userId);
+    if (!inventory.gachaStats)
+      inventory.gachaStats = { ...DEFAULT_GACHA_STATS };
+
+    // Check xem đã mark chưa (dùng bookmarked để track completed collections)
+    const completedList = inventory.bookmarked || [];
+    if (completedList.includes(collectionId)) return false;
+
+    inventory.bookmarked = [...completedList, collectionId];
+    inventory.gachaStats.completedCollections++;
+
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, { gachaInventory: inventory });
+    return true;
+  } catch (error) {
+    console.error("Error marking collection complete:", error);
+    return false;
   }
 }

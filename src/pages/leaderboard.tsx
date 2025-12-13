@@ -23,7 +23,7 @@ function LeaderboardPage() {
         if (activeTab === "conquest") {
           orderField = "conquestStats.rankPoints";
         } else if (activeTab === "urCards") {
-          orderField = "gachaInventory.totalURCards";
+          orderField = "gachaInventory.gachaStats.totalURCards";
         }
 
         const q = query(
@@ -76,7 +76,7 @@ function LeaderboardPage() {
         case "score":
           return leader.totalScore ?? 0;
         case "urCards":
-          return leader.gachaInventory?.totalURCards ?? 0;
+          return leader.gachaInventory?.gachaStats?.totalURCards ?? 0;
       }
     };
 

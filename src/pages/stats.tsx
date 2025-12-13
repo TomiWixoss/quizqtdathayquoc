@@ -13,13 +13,18 @@ import {
   Star,
   ArrowLeft,
   Swords,
+  Sparkles,
+  User,
+  Frame,
+  Award,
+  Package,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
 import { getRankFromPoints, getRankImage } from "@/services/ai-quiz-service";
 import { useState, useEffect } from "react";
 
-type TabType = "overview" | "chapters" | "history";
+type TabType = "overview" | "chapters" | "history" | "gacha";
 
 function StatsPage() {
   const navigate = useNavigate();
@@ -116,6 +121,7 @@ function StatsPage() {
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
             { id: "chapters", label: "Chương", icon: BookOpen },
             { id: "history", label: "Lịch sử", icon: Calendar },
+            { id: "gacha", label: "Gacha", icon: Sparkles },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -633,6 +639,241 @@ function StatsPage() {
                   );
                 })}
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Gacha Tab */}
+        {activeTab === "gacha" && (
+          <div className="space-y-4">
+            {/* Tổng quan Gacha */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[var(--duo-yellow)]" />
+                Tổng quan Gacha
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <Package className="w-6 h-6 text-[var(--duo-purple)] mx-auto mb-1" />
+                  <p className="text-xl font-bold text-foreground">
+                    {user?.gachaInventory?.totalPulls ?? 0}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Tổng lần quay
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <img
+                    src="/AppAssets/Shard.png"
+                    alt="shard"
+                    className="w-6 h-6 mx-auto mb-1"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                  <p className="text-xl font-bold text-[var(--duo-blue)]">
+                    {user?.gachaInventory?.shards ?? 0}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Mảnh ghép
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Thẻ theo độ hiếm */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Star className="w-5 h-5 text-[var(--duo-orange)]" />
+                Thẻ theo độ hiếm
+              </h3>
+              <div className="grid grid-cols-4 gap-2">
+                <div className="bg-gradient-to-b from-[#FFD700]/20 to-[#FFD700]/5 rounded-xl p-3 text-center border border-[#FFD700]/30">
+                  <p className="text-xs font-bold text-[#FFD700] mb-1">UR</p>
+                  <p className="text-xl font-bold text-foreground">
+                    {user?.gachaInventory?.gachaStats?.totalURCards ?? 0}
+                  </p>
+                </div>
+                <div className="bg-gradient-to-b from-[#9B59B6]/20 to-[#9B59B6]/5 rounded-xl p-3 text-center border border-[#9B59B6]/30">
+                  <p className="text-xs font-bold text-[#9B59B6] mb-1">SR</p>
+                  <p className="text-xl font-bold text-foreground">
+                    {user?.gachaInventory?.gachaStats?.totalSRCards ?? 0}
+                  </p>
+                </div>
+                <div className="bg-gradient-to-b from-[#3498DB]/20 to-[#3498DB]/5 rounded-xl p-3 text-center border border-[#3498DB]/30">
+                  <p className="text-xs font-bold text-[#3498DB] mb-1">R</p>
+                  <p className="text-xl font-bold text-foreground">
+                    {user?.gachaInventory?.gachaStats?.totalRCards ?? 0}
+                  </p>
+                </div>
+                <div className="bg-gradient-to-b from-[#95A5A6]/20 to-[#95A5A6]/5 rounded-xl p-3 text-center border border-[#95A5A6]/30">
+                  <p className="text-xs font-bold text-[#95A5A6] mb-1">N</p>
+                  <p className="text-xl font-bold text-foreground">
+                    {user?.gachaInventory?.gachaStats?.totalNCards ?? 0}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3 pt-3 border-t border-[var(--border)]">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-[var(--muted-foreground)]">
+                    Tổng thẻ unique
+                  </span>
+                  <span className="font-bold text-foreground">
+                    {(user?.gachaInventory?.gachaStats?.totalURCards ?? 0) +
+                      (user?.gachaInventory?.gachaStats?.totalSRCards ?? 0) +
+                      (user?.gachaInventory?.gachaStats?.totalRCards ?? 0) +
+                      (user?.gachaInventory?.gachaStats?.totalNCards ?? 0)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Rewards */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Award className="w-5 h-5 text-[var(--duo-green)]" />
+                Phần thưởng sưu tập
+              </h3>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <User className="w-6 h-6 text-[var(--duo-blue)] mx-auto mb-1" />
+                  <p className="text-lg font-bold text-foreground">
+                    {user?.gachaInventory?.gachaStats?.totalAvatars ?? 0}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Avatar
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <Frame className="w-6 h-6 text-[var(--duo-purple)] mx-auto mb-1" />
+                  <p className="text-lg font-bold text-foreground">
+                    {user?.gachaInventory?.gachaStats?.totalFrames ?? 0}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Khung
+                  </p>
+                </div>
+                <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
+                  <Award className="w-6 h-6 text-[var(--duo-yellow)] mx-auto mb-1" />
+                  <p className="text-lg font-bold text-foreground">
+                    {user?.gachaInventory?.gachaStats?.totalBadges ?? 0}
+                  </p>
+                  <p className="text-[10px] text-[var(--muted-foreground)]">
+                    Huy hiệu
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Collections */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Package className="w-5 h-5 text-[var(--duo-purple)]" />
+                Bộ sưu tập
+              </h3>
+              <div className="flex items-center gap-4">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[var(--duo-purple)] to-[var(--duo-blue)] flex items-center justify-center">
+                  <span className="text-3xl font-bold text-white">
+                    {user?.gachaInventory?.gachaStats?.completedCollections ??
+                      0}
+                  </span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-lg font-bold text-foreground">
+                    Gói hoàn thành
+                  </p>
+                  <p className="text-sm text-[var(--muted-foreground)]">
+                    Số bộ sưu tập đã thu thập đủ thẻ
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="text-xs text-[var(--muted-foreground)]">
+                      Đang tham gia:
+                    </span>
+                    <span className="font-bold text-[var(--duo-green)]">
+                      {Object.keys(user?.gachaInventory?.cards ?? {}).length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tỷ lệ may mắn */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Target className="w-5 h-5 text-[var(--duo-red)]" />
+                Tỷ lệ may mắn
+              </h3>
+              {(user?.gachaInventory?.totalPulls ?? 0) > 0 ? (
+                <div className="space-y-2">
+                  {[
+                    {
+                      label: "UR",
+                      count:
+                        user?.gachaInventory?.gachaStats?.totalURCards ?? 0,
+                      color: "#FFD700",
+                      rate: 3,
+                    },
+                    {
+                      label: "SR",
+                      count:
+                        user?.gachaInventory?.gachaStats?.totalSRCards ?? 0,
+                      color: "#9B59B6",
+                      rate: 18,
+                    },
+                    {
+                      label: "R",
+                      count: user?.gachaInventory?.gachaStats?.totalRCards ?? 0,
+                      color: "#3498DB",
+                      rate: 39,
+                    },
+                    {
+                      label: "N",
+                      count: user?.gachaInventory?.gachaStats?.totalNCards ?? 0,
+                      color: "#95A5A6",
+                      rate: 40,
+                    },
+                  ].map((item) => {
+                    const totalCards =
+                      (user?.gachaInventory?.gachaStats?.totalURCards ?? 0) +
+                      (user?.gachaInventory?.gachaStats?.totalSRCards ?? 0) +
+                      (user?.gachaInventory?.gachaStats?.totalRCards ?? 0) +
+                      (user?.gachaInventory?.gachaStats?.totalNCards ?? 0);
+                    const actualRate =
+                      totalCards > 0
+                        ? ((item.count / totalCards) * 100).toFixed(1)
+                        : "0";
+                    return (
+                      <div key={item.label} className="flex items-center gap-2">
+                        <span
+                          className="text-xs font-bold w-6"
+                          style={{ color: item.color }}
+                        >
+                          {item.label}
+                        </span>
+                        <div className="flex-1 h-2 bg-[var(--secondary)] rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full"
+                            style={{
+                              width: `${Math.min(
+                                (item.count / Math.max(totalCards, 1)) * 100,
+                                100
+                              )}%`,
+                              background: item.color,
+                            }}
+                          />
+                        </div>
+                        <span className="text-xs text-[var(--muted-foreground)] w-16 text-right">
+                          {actualRate}% ({item.rate}%)
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-center text-[var(--muted-foreground)] py-4">
+                  Chưa có dữ liệu quay gacha
+                </p>
+              )}
             </div>
           </div>
         )}

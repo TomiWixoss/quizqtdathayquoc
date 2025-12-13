@@ -151,18 +151,18 @@ function LeaderboardPage() {
           </div>
 
           {/* Avatar with frame */}
-          <div className="relative w-14 h-14 flex items-center justify-center shrink-0">
+          <div className="relative w-[60px] h-[60px] flex items-center justify-center shrink-0">
             {/* Frame layer - lớn hơn avatar */}
             {leader.equippedFrame && (
               <img
                 src={getFullImage(leader.equippedFrame, 80)}
                 alt="Frame"
-                className="absolute inset-0 w-14 h-14 object-contain z-10 pointer-events-none"
+                className="absolute inset-0 w-[60px] h-[60px] object-contain z-10 pointer-events-none"
                 referrerPolicy="no-referrer"
               />
             )}
             {/* Avatar - nhỏ hơn frame */}
-            <div className="w-10 h-10 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-sm overflow-hidden">
+            <div className="w-8 h-8 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xs overflow-hidden">
               {leader.equippedAvatar || leader.avatar ? (
                 <img
                   src={

@@ -59,16 +59,16 @@ function CustomizePage() {
           </p>
           <div className="flex items-center gap-4">
             {/* Avatar + Frame */}
-            <div className="relative w-24 h-24 flex items-center justify-center">
+            <div className="relative w-28 h-28 flex items-center justify-center">
               {displayFrame && (
                 <img
                   src={getFullImage(displayFrame, 200)}
                   alt="Frame"
-                  className="absolute inset-0 w-24 h-24 object-contain z-10 pointer-events-none"
+                  className="absolute inset-0 w-28 h-28 object-contain z-10 pointer-events-none"
                   referrerPolicy="no-referrer"
                 />
               )}
-              <div className="w-16 h-16 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl overflow-hidden border-3 border-[var(--border)]">
+              <div className="w-14 h-14 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl overflow-hidden border-2 border-[var(--border)]">
                 {displayAvatar ? (
                   <img
                     src={

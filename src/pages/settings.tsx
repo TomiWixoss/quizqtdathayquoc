@@ -450,18 +450,18 @@ function SettingsPage() {
           <div className="card-3d p-4 mb-6">
             <div className="flex items-center gap-3 mb-3">
               {/* Avatar with frame */}
-              <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
+              <div className="relative w-[88px] h-[88px] flex items-center justify-center shrink-0">
                 {/* Frame layer - lớn hơn avatar */}
                 {user.equippedFrame && (
                   <img
-                    src={getFullImage(user.equippedFrame, 100)}
+                    src={getFullImage(user.equippedFrame, 120)}
                     alt="Frame"
-                    className="absolute inset-0 w-20 h-20 object-contain z-10 pointer-events-none"
+                    className="absolute inset-0 w-[88px] h-[88px] object-contain z-10 pointer-events-none"
                     referrerPolicy="no-referrer"
                   />
                 )}
                 {/* Avatar - nhỏ hơn frame */}
-                <div className="w-14 h-14 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl overflow-hidden">
+                <div className="w-12 h-12 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-lg overflow-hidden">
                   {user.equippedAvatar || user.avatar ? (
                     <img
                       src={

@@ -1,0 +1,669 @@
+Chương 14. MICROSOFT PROJECT
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có thể:
+1. Biết cách xác định các quy trình lập dự án
+2. Áp dụng Microsoft Project để tạo dự án, tổ chức các công việc, quản lý thời gian, quản lý tài nguyên, chi phí của dự án
+3. Xác định được quy trình theo dõi và quản lý dự án
+4. Theo dõi chi phí hiện tại và khả năng tài chính
+5. Xem và in báo biểu
+
+Phần mềm hỗ trợ cho việc quản ý dự án có nhiều, từ đơn giản như bảng tính, soạn thảo văn bản.. đến các phần mềm đặc trưng hỗ trợ cho từng công việc liên qua đến quản lý dự án như lập lịch, theo dõi, lưu trữ thông tin… Trong phần này chỉ tập trung giới thiệu các chức năng chính của MicroSoft Project- một trong những công cụ phần mềm có thể hỗ trợ cho chúng ta trong việc phân chia các công việc, lập lịch, theo dõi tiến độ, điều phối nhân lực..
+
+14.1 Khái niệm chung và các yêu cầu của Microsoft Project
+
+Microsoft Project là một chương trình chuyên dùng để quản lý các dự án, là chương trình có những công cụ mạnh và thuận tiện. Microsoft Project có thể làm việc với nhiều chế độ, nhiều công cụ, chức năng để thực hiện các thao tác tạo lập và hiệu chỉnh trên dự án đồng thời tiết kiệm thời gian và tiền bạc.
+
+Mục đích của Microsoft Project 2003 gồm:
+- Tổ chức lập kế hoạch và quản lý dự án.
+- Lên lịch công tác.
+- Chỉ định các tài nguyên và chi phí cho các công việc trong dự án.
+- Điều chỉnh kế hoạch để thích ứng với các điều kiện ràng buộc.
+- Chuẩn bị các báo biểu cần thiết cho dự án.
+- Dự trù các tác động đến tiến độ của dự án khi xảy ra những thay đổi có ảnh hưởng lớn đến dự án.
+- Xem xét lại dự án để đối phó với các tình huống ngẫu nhiên.
+- Đánh giá tài chính chung của dự án.
+- In ấn các báo biểu phục vụ dự án.
+- Làm việc và quản lý theo nhóm.
+- Rút kinh nghiệm trong khi thực hiện dự án.
+
+14.2 Cơ sở dữ liệu của Microsoft Project 2003
+
+Là một nhà quản lý dự án, sẽ có rất nhiều công việc để làm. Vậy thì Microsoft Project có thể giúp gì cho công việc này? Trước hết, nó lưu trữ thông tin chi tiết về dự án trong cơ sở dữ liệu và sử dụng các thông tin này để tính toán, theo dõi tiến trình, chi phí của dự án và các thành phần khác đồng thời tạo ra một kế hoạch cho dự án. Càng nhiều thông tin về dự án cung cấp, dự án càng được thực hiện chính xác bấy nhiêu.
+
+Giống như một bảng tính, Microsoft Project thể hiện kết quả ngay sau các tính toán.
+
+Tuy nhiên kế hoạch của dự án sẽ không được lập cho đến khi hoàn thành các thông tin quan trọng của các công việc.
+
+Microsoft Project lưu giữ thông tin nhập vào và thông tin nó tính toán trong các trường như tên công việc hay khoảng thời gian thực hiện. Trong Microsoft Project, mỗi trường được thể hiện trên một cột.
+
+14.3 Xem xét dữ liệu cần thiết
+
+Người sử dụng (NSD) có thể xem xét thời gian kết thúc của các công việc trong hôm nay, ngày mai NSD lại muốn xem xét chi phí công việc. Cơ sở dữ liệu dự án chứa đựng rất nhiều thông tin nhưng tại một thời điểm NSD có thể chỉ cần một phần thông tin. Để làm được điều đó Microsoft Project cung cấp một số dạng thể hiện sau:
+- Các khung nhìn: Thể hiện một tập con của các thông tin đã được định dạng. Ví dụ sơ đồ Gantt thể hiện thông tin về các công việc.
+- Các bảng: Gồm các thông tin được định nghĩa ngay ban đầu.
+- Các thông tin chọn lọc: cho phép chọn lọc các thông tin về công việc hay tài nguyên.
+
+14.4 Hệ thống lịch làm việc của Microsoft Project
+
+Cách thức Microsoft Project sử dụng hệ thống thời gian bắt đầu và kết thúc các công việc như thế nào? Điều này được tính toán theo các nhân tố như mức độ độc lập của công việc, các ràng buộc liên quan, các khoảng thời gian đứt đoạn cũng như các ngày nghỉ, ngày lễ.
+
+Một số từ khoá trong Microsoft Project 2003
+- Task: Công việc, nhiệm vụ
+- Duration: Thời gian thực hiện công việc
+- Start: Ngày bắt đầu
+- Finish: Ngày kết thúc
+- Predecessors: Công việc làm trước
+- Successors: Công việc kế tiếp
+- Task list: Danh sách các công việc
+- Resource: Tài nguyên/nhân lực, máy móc thực hiện các công việc của dự án
+- Work: Số giờ công được gán để thực hiện công việc
+- Unit: Khả năng lao động của tài nguyên
+- Milestone: Loại công việc đặc biệt (điểm mốc) có Duration=0, dùng để kết thúc các giai đoạn trong dự án
+- Recurring Task: Công việc định kỳ, lặp đi lặp lại nhiều lần theo chu kỳ trong thời gian thực hiện dự án. Ví dụ các buổi họp giao ban đầu tuần
+- Shedule: Lịch trình của dự án
+- Baseline: Theo kế hoạch
+- Summary Task (Công việc tóm lược): Công việc mà chức năng duy nhất của nó là chứa đựng và tóm lược thời khoảng, công việc và chi phí của các công việc khác.
+
+14.5 Tạo một dự án
+
+Thời gian NSD xác đinh được rõ mục đích của dự án và vạch ra được các giai đoạn chính của dự án cũng chính là lúc NSD cần tạo ra một kế hoạch cho dự án.
+
+Trước hết, nhập và tổ chức các công việc và khoảng thời gian để thực hiện chúng. Sau đó khởi tạo nhân lực, thiết bị, nguyên vật liệu và chi phí cho các công việc. Với những thông tin này, Microsoft Project sẽ tạo ra một kế hoạch làm việc, chỉ cần kiểm tra lại kế hoạch và điều chỉnh khi cần thiết. Phần này sẽ hướng dẫn tạo lập kế hoạch dự án.
+
+Phần này sẽ bao gồm các giai đoạn sau:
+Giai đoạn 1: Thiết lập một dự án mới.
+Giai đoạn 2: Cách thức nhập và tổ chức các công việc.
+Giai đoạn 3: Thời gian bắt đầu và thời gian kết thúc công việc.
+Giai đoạn 4: Khởi tạo tài nguyên, nhân lực cho công việc.
+Giai đoạn 5: Xem xét hệ thống công việc
+Giai đoạn 6: Xem và in báo cáo
+
+14.5.1 Giai đoạn 1 - Thiết lập một dự án mới
+
+Bước đầu tiên để tạo kế hoạch làm việc là tạo ra một file dữ liệu mới, thiết lập thời gian bắt đầu, thời gian kết thúc và nhập các thông tin chung về dự án. Sau khi nghiên cứu xong giai đoạn này, NSD sẽ có một file dữ liệu Microsoft Project chứa đựng tên dự án, ngày dự kiến bắt đầu, ngày dự kiến kết thúc, kế hoạch dự án cũng như các thông tin khác về dự án.
+
+Giai đoạn này gồm có 3 điểm chính sau:
+- Tạo mới một dự án
+- Nhập các thông tin quan trọng về dự án
+- Thiết lập hệ thống thời gian trong dự án
+
+1. Tạo mới 1 dự án
+
+Khi bắt đầu với 1 dự án mới với Microsoft Project, chỉ có thể nhập thời gian bắt đầu hay thời gian kết thúc của dự án. Microsoft cũng khuyên rằng chúng ta chỉ nhập thời gian bắt đầu của dự án và để tự chương trình tính thời điểm kết thúc sau khi đã nhập các thông tin về thời gian của từng công việc.
+
+B1 Kých nút New trên thanh công cụ hay trong menu File, chọn New.
+B2 Trong hộp thoại Project Information, nhập thời gian bắt đầu hay kết thúc tại mục Start date hay Finish date cho dự án, và sau đó kých nút OK.
+
+[Hình ảnh: Hộp thoại Project Information]
+
+B3 Kých nút Save hay trong menu File, chọn mục Save để lưu giữ thông tin dự án.
+B4 Trong mục File name, nhập tên dự án, và sau đó nhấn nút Save.
+
+[Hình ảnh: Hộp thoại Save As]
+
+Chú ý Có thể thay đổi thông tin về dự án bất cứ thời điểm nào bằng cách chọn mục Project Information trên menu Project
+
+[Hình ảnh: Menu Project Information]
+
+2. Nhập các thông tin quan trọng cho dự án
+
+Mỗi một dự án đều có một số thành phần đặc trưng như các công việc có liên quan, một số vướng mắc sẽ gặp phải khi thực hiện, người thực hiện chúng và mục đích của dự án. Để có thể nhớ và theo dõi được các thông tin này khi cần thiết hãy thực hiện theo các bước sau:
+
+B1 Trên menu File, kých Properties, và sau đó kých tab Summary.
+
+[Hình ảnh: Menu File Properties]
+
+B2 Trong Tab Summary, nhập những thông tin liên quan đến dự án, như người lập và quản lý file dự án, mục đích của dự án, hay bất cứ điều gì có thể gây khó khăn trong quá trình thực hiện dự án.
+
+[Hình ảnh: Hộp thoại Properties]
+
+B3 Kých nút OK.
+
+3. Thiết lập hệ thống lịch làm việc cho dự án
+
+Có thể thay đổi thời gian làm việc của dự án để phản ánh số ngày cũng như số giờ làm việc của mỗi người trong dự án. Microsoft Project thiết lập mặc định thời gian làm việc cho dự án từ thứ 2 đến thứ 6, bắt đầu từ 8 giờ sáng đến 5 giờ chiều.
+
+Có thể xác định thời gian nghỉ như cuối tuần và các buổi tối cũng như ngày lễ hay thời gian đi nghỉ.
+
+B1 Trên menu View, kých Gantt Chart.
+
+[Hình ảnh: Menu View Gantt Chart]
+
+B2 Trên menu Tools, kých Change Working Time.
+
+[Hình ảnh: Menu Tools Change Working Time]
+
+B3 Trên hộp thoại Chage Working Time, chọn lịch làm việc.
+
+[Hình ảnh: Hộp thoại Change Working Time]
+
+Để thay đổi thời gian làm việc của một ngày trong tuần trong toàn bộ dự án, chọn ngày cần thay đổi, sau đó chọn lựa chọn Default Working Time và chỉnh lại thời gian làm việc của ngày đó. Ví dụ muốn ngày thứ 6 hàng tuần đều kết thúc vào 4 giờ chẳng hạn.
+
+Để thay đổi thời gian làm việc của một số ngày, ví dụ như từ thứ 3 đến thứ 6 đều làm việc lúc 9 giờ, chỉ cần kých chuột vào ngày thứ 3, sau đó giữ phím Shift và kých chuột đến thứ 6. Công việc tiếp theo là thay đổi thời gian làm việc của những ngày này.
+
+B4 Kých Nonworking time đối với những ngày nghỉ, hay Nondefault working time để thay đổi thời gian làm việc của một ngày nào đó.
+B5 Kých OK.
+
+14.5.2 Giai đoạn 2 - Cách thức nhập và tổ chức các công việc
+
+Đầu tiên hãy liệt kê các bước để hoàn thành dự án, bắt đầu với từng khối công việc và chia nhỏ những khối công việc thành những khối nhỏ hơn. Cứ như vậy cho tới khi nó được chia thành những công việc nhỏ có thể phân giao cụ thể được. Cuối cùng nhập các khoảng thời gian thiết lập cho từng công việc.
+
+Sau khi hoàn thành giai đoạn này, sẽ có một tập hợp các công việc được tổ chức một cách hệ thống và thông tin chi tiết về những công việc này.
+
+Giai đoạn này có 5 điểm chính sau:
+- Nhập công việc và thời gian thực hiện.
+- Tạo những mốc đánh dấu.
+- Tạo những công việc định kỳ.
+- Phân cấp công việc.
+- Hiệu chỉnh hệ thống công việc.
+
+1. Nhập các công việc và thời gian thực hiện
+
+Một dự án là một chuỗi những công việc có liên quan tới nhau. Một công việc sẽ chiếm giữ một khoảng thời gian và chúng sẽ được theo dõi tiến trình thực hiện. Một công việc có thể được thực hiện trong một ngày hay nhiều tuần.
+
+Hãy nhập các công việc theo thứ tự mà chúng xảy ra, sau đó ước tính số thời gian để thực hiện công việc đó.
+
+Chú ý: Không nên nhập ngày bắt đầu và kết thúc trong các trường Start và Finish đối với mỗi công việc. Microsoft Project tính toán thời gian bắt đầu và kết thúc dựa trên mối quan hệ giữa các công việc, dựa trên các thông tin nhập vào. Phần này sẽ được nói rõ trong giai đoạn sau:
+
+B1 Trên menu View, kých Gantt Chart.
+
+[Hình ảnh: Menu Gantt Chart]
+
+B2 Trong cột Task Name, đánh tên công việc, và sau đó nhấn phím TAB.
+
+[Hình ảnh: Nhập tên công việc trên bảng]
+
+Microsoft Project tự động nhập thời gian ước tính cho công việc là một ngày cùng với dấu “?”
+
+B3 Trong cột Duration, nhập thời gian thực hiện công việc theo tháng, tuần, ngày, giờ hay phút. Có thể sử dụng các dấu tắt sau:
+tháng = mo
+tuần = w
+ngày = d
+giờ = h
+phút = m
+
+Chú ý: Để chỉ ra đây là thời gian ước tính, đánh thêm dấu hỏi sau khoảng thời gian thực hiện.
+
+B4 Nhấn phím ENTER.
+
+Chú ý: Có thể thêm một chú thích cho mỗi công việc. Trong cột Task Name, chọn tên công việc cần thêm chú thích, sau đó kých nút Task Notes. Nhập thông tin chú thích trong hộp thoại Notes, sau đó kých nút OK.
+
+2. Tạo mốc dự án (milstones)
+
+Tạo mốc dự án là một việc rất có ý nghĩa trong kế hoạch thực hiện dự án, ví dụ như việc hoàn thành một pha chính của dự án, báo cáo thành quả hoặc một sự kiện đánh dấu kết thúc 1 công việc. Khi nhập khoảng thời gian cho 1 công việc là 0 ngày Microsoft Project thể hiện 1 biểu tượng mốc dự án trên biểu đồ Gantt tại thời gian bắt đầu công việc.
+
+B1 Trong cột Duration của công việc cần tạo mốc nhập 0.
+B2 Nhấn phím ENTER.
+
+Chú ý: Để hiển thị tất cả các điểm mốc trong khung nhìn, chọn kiểu hiển thị trong danh sách là Milestones. Để hiển thị lại toàn bộ các công việc trong dự án, chọn All task trong danh sách kiểu hiển thị.
+
+[Hình ảnh: Danh sách các công việc và điểm mốc trên màn hình]
+
+3. Tạo các công việc định kỳ
+
+Công việc định kỳ là những công việc thường xuyên lặp đi lặp lại, ví dụ như 1 buổi họp giao ban thứ hai hàng tuần. Công việc định kỳ có thể xảy ra hàng ngày, hàng tuần, hàng tháng hay hàng năm. Có thể xác định khoảng thời gian thực hiện đối với mỗi lần công việc xuất hiện hay thời gian nào nó sẽ xảy ra.
+
+B1 Trong cột Task Name, chọn nơi muốn công việc định kỳ xảy ra
+B2 Trong menu Insert, chọn Recurring Task.
+
+[Hình ảnh: Menu Insert Recurring Task]
+
+B3 Trong hộp thoại Recurring Task Information, đánh tên công việc
+
+[Hình ảnh: Hộp thoại Recurring Task Information]
+
+B4 Trong phần Duration, nhập thời gian thực hiện công việc mỗi khi công việc xảy ra.
+B5 Dưới Recurrence pattern, kých Daily, Weekly, Monthly, hay Yearly để chọn kiểu xuất hiện của công việc theo hàng ngày, hàng tuần, hàng tháng hay hàng năm.
+B6 Phía bên phải Daily, Weekly, Monthly, hay Yearly, xác định tần xuất công việc xảy ra. Ví dụ nếu như một công việc định kỳ xuất hiện vào thứ hai hàng tuần.
+B7 Dưới Range of recurrence, nhập ngày bắt đầu và sau đó chọn ngày kết thúc sau một số lần xảy ra (mục End After) hay công việc sẽ được kết thúc vào thời gian nào (End By).
+• Nếu chọn End after, chọn số lần công việc xảy ra.
+• Nếu chọn End by, nhập ngày muốn công việc này kết thúc.
+B8 Nhấp OK để đồng ý.
+
+Chú ý: Để xem tất cả các phần của công việc định kỳ, kých vào dấu + gần công việc đinh kỳ.
+
+4. Phân cấp các công việc
+
+Việc phân cấp giúp tổ chức các công việc thành những khối dễ dàng quản lý, các công việc được tạo thành một hệ thống phân cấp, công việc này có thể là cấp con của công việc khác nhưng cũng có thể là cấp cha của một số công việc. Thời gian bắt đầu và kết thúc một công việc cha được tính theo thời gian bắt đầu sớm nhất và thời gian kết thúc muộn nhất của các công việc con của nó.
+
+Để tổ chức theo chế độ phân cấp, sử dụng các nút sau:
+[Hình ảnh: Nút mũi tên phải] Cấp thấp hơn
+[Hình ảnh: Nút mũi tên trái] Cấp cao hơn
+[Hình ảnh: Nút dấu cộng] Hiển thị các công việc con
+[Hình ảnh: Nút dấu trừ] Không hiển thị các công việc con
+[Hình ảnh: Nút Show All] Hiển thị tất cả các công việc con
+
+B1 Trên menu View, chọn sơ đồ Gantt.
+B2 Chọn công việc mà NSD muốn nó trở thành công việc con của công việc phía trên nó.
+B3 Kých nút [Hình ảnh: Nút Indent]. Công việc này sẽ trở thành công việc con.
+
+Chú ý: Có thể chuyển đổi cấp của công việc bằng cách đặt chuột vào phần đầu tên công việc muốn chuyển, khi con trỏ chuyển sang hình mũi tên hai chiều có thể kéo ra ngoài hay vào trong tuỳ theo cấp của công việc.
+
+5. Hiệu chỉnh danh sách các công việc
+
+Ngay khi tạo danh sách công việc, có thể chia những công việc lớn thành nhiều công việc con và sắp xếp lại. NSD có thể muốn sao chép, xoá hay di chuyển các công việc trong dự án.
+
+B1 Trong cột ID, chọn công việc muốn sao chép, xoá hay di chuyển
+• Để chọn một hàng, kých vào số ID.
+• Để chọn một số công việc liền kề nhau, đặt chuột vào công việc đầu, giữ phím Shift và sau đó kéo chuột đến công việc cuối.
+• Để chọn những công việc không liền kề nhau, đặt chuột vào một công việc nào đó, sau đó giữ phím Ctrl và kých chuột vào các công việc cần thay đổi.
+
+B2 Sao chép, di chuyển, hay xoá công việc.
+• Để sao chép công việc, kých nút Copy trên thanh công cụ hoặc có thể vào menu Edit, chọn Copy Cell.
+
+[Hình ảnh: Menu Edit Copy Cell]
+
+Để di chuyển công việc, kých nút Cut trên thanh công cụ hoặc có thể vào menu Edit, chọn Cut Cell.
+
+[Hình ảnh: Menu Edit Cut Cell]
+
+• Để xoá công việc, trong menu Edit, chọn Delete.
+
+[Hình ảnh: Menu Edit Delete Task]
+
+B3 Để di chuyển những công việc đã lựa chọn, chọn nơi muốn di chuyển tới.
+B4 Kých nút Paste. Trên thanh công cụ hay trong menu Edit, chọn Paste.
+
+[Hình ảnh: Menu Edit Paste]
+
+Chú ý: Để thêm mới một công việc vào giữa những công việc đã tồn tại, kých vào một số ID nào đó và nhấn phím INSERT. Cột ID của các công việc phía sau sẽ tự động cập nhập lại sau khi thêm mới một công việc.
+
+14.5.3 Giai đoạn 3 - Thời gian bắt đầu và thời gian kết thúc công việc
+
+Ngay sau khi tạo và phân cấp danh sách các công việc là thời điểm xác định mối quan hệ giữa các công việc và thời gian thực hiện chúng. Các mối liên hệ giữa các công việc được thể hiện bằng các đường kết nối. Microsoft Project tự động quyết định thời điểm bắt đầu và thời điểm kết thúc cho mỗi công việc nếu chúng có liên quan tới công việc khác. Đối với những công việc thực hiện một cách độc lập, phải tự xác định thời điểm bắt đầu và kết thúc công việc đó.
+
+Một đặc điểm thuận lợi của những công việc có liên kết với công việc khác là bất cứ khi thời gian thực hiện 1 công việc thay đổi, thời gian thực hiện của các công việc có liên quan cũng thay đổi theo. Có thể thay đổi hệ thống kế hoạch các công việc bằng cách sử dụng các ràng buộc, các công việc gối lên nhau hay các công việc bị ngắt quãng.
+
+Giai đoạn này gồm 5 điểm chính sau:
+- Thiết lập mối quan hệ giữa các công việc.
+- Các công việc gối chồng lên nhau và các công việc ngắt quãng.
+- Thời gian bắt đầu và kết thúc của một công việc.
+- Xác định hạn cuối cùng cho 1 công việc.
+- Chia một công việc thành nhiều phần.
+
+1. Thiết lập mối quan hệ giữa các công việc
+
+Để thiết lập mối quan hệ giữa các công việc, chúng ta sử dụng các đường kết nối. Trước hết, chọn những công việc có liên quan, kết nối chúng và sau đó có thể thay đổi kiểu kết nối. Công việc có ngày bắt đầu và kết thúc phụ thuộc vào công việc khác gọi là công việc kế tiếp. Công việc mà công việc kế tiếp phụ thuộc vào gọi là công việc làm trước. Ví dụ sau sẽ chỉ rõ cho thấy mối quan hệ giữa các công việc, nếu thiết lập mối quan hệ giữa 2 công việc là treo đồng hồ và sơn tường thì công việc sơn tường sẽ là công việc làm trước, công việc treo đồng hồ sẽ là công việc kế tiếp.
+
+Sau khi các công việc được thiết lập mối quan hệ, việc thay đổi thời gian bắt đầu cũng như kết thúc của các công việc làm trước sẽ ảnh hưởng đến thời gian thực hiện của các công việc kế tiếp. Microsoft Project mặc định để quan hệ kết thúc- bắt đầu (Finish- to- Start) khi tạo các liên kết giữa các công việc. Trong nhiều trường hợp, mối quan hệ giữa các công việc không phải như vậy, có thể thay đổi kiểu liên kết này theo các dạng sau để phù hợp với mô hình dự án: bắt đầu - bắt đầu (Start- to- Start), kết thúc- kết thúc (Finish- to-Finish), bắt đầu - kết thúc (Start- to Finish)
+
+B1 Trên menu View, chọn sơ đồ Gantt.
+B2 Trong cột Task Name, chọn hai hay nhiều công việc muốn liên kết với nhau.
+Để liên kết các công việc liên tiếp nhau, giữ phím Shift, và sau đó kých chuột vào công việc đầu tiên và công việc cuối.
+Để liên kết các công việc cách xa nhau, giữ phím CTRL,và sau đó chọn những công việc muốn liên kết với nhau theo thứ tự công việc nào chọn trước sẽ là công việc làm trước, công việc nào chọn sau sẽ là công việc kế tiếp.
+
+B3 Kých nút Link Tasks.
+B4 Để thay đổi kiểu liên kết, kých đúp vào đường liê kết giữa 2 công việc đang muốn thay đổi.
+
+[Hình ảnh: Minh họa click đúp vào đường liên kết]
+
+Một hộp thoại Task Dependency xuất hiện
+
+[Hình ảnh: Hộp thoại Task Dependency]
+
+B5 Trong hộp liệt kê Type, chọn kiểu liên kết, sau đó kých OK.
+
+Chú ý: Để huỷ bỏ liên kết giữa các công việc, chọn các công việc muốn huỷ trong cột Task Name, và kých nút Unlink Tasks. Các công việc này sẽ được sắp xếp lại dựa trên những liên kết và các ràng buộc còn tồn tại .
+
+2. Các công việc gối chồng lên nhau
+
+Sau khi các công việc đã được liên kết với nhau, có thể gối chồng hay thêm một khoảng trễ thời gian giữa 2 công việc. Trong Microsoft Project, có thể nhập khoảng thời gian gối chồng hay thời gian ngắt quãng đối với các công việc có liên kết.
+
+B1 Trong cột Task Name, chọn công việc muốn thêm thời gian gối chồng hay thời gian trễ (đây là những công việc kế tiếp), và sau đó kých nút Task Information. Có thể thực hiện thao tác trên bằng cách chọn công việc và trong menu Project, chọn mục Task Information.
+
+[Hình ảnh: Menu Project Task Information]
+
+B2 Hộp thoại Task Information hiện lên, Kých Tab Predecessors.
+
+[Hình ảnh: Hộp thoại Task Information - Tab Predecessors]
+
+B3 Trong cột Lag, nhập thời gian gối chồng hay thời gian trễ.
+• Nhập thời gian gối chồng theo số âm (ví dụ, –2d cho 2 ngày gối chồng)
+• Nhập thời gian trễ theo số dương.
+B4 Kých nút OK.
+
+Chú ý: Để nhanh chóng đưa thời gian xếp chồng hay thời gian trễ cho một công việc kế tiếp, kých đúp vào đường kết nối giữa công việc đó và công việc làm trước Gantt Chart, và sau đó nhập thời gian gối chồng hay thời gian trễ trong hộp thoại Task Dependency.
+
+3. Thiết lập thời gian bắt đầu và thời gian kết thúc của công việc
+
+Có thể lập kế hoạch thực hiện các công việc hiệu quả bằng cách nhập khoảng thời gian, tạo các liên kết giữa các công việc và sau đó để Microsoft Project tính toán thời gian bắt đầu và kết thúc cho các công việc có liên quan. Tuy nhiên phải xác định thời gian bắt đầu và thời gian kết thúc cho một số công việc.
+
+Những ràng buộc về thời gian bắt đầu hay kết thúc đối với một công việc được gọi là những ràng buộc cứng. Do Microsoft Project tính toán hệ thống kế hoạch dựa cả trên những ràng buộc này do đó chỉ sử dụng khi công việc bị ràng buộc về thời gian bắt đầu hay kết thúc.
+
+B1 Trong cột Task Name, chọn công việc muốn xác định thời điểm bắt đầu và kết thúc, sau đó kých Task Information.
+B2 Chọn Tab Advanced.
+B3 Trong hộp thoại Task Information, mục Constraint type, chọn kiểu ràng buộc.
+
+[Hình ảnh: Hộp thoại Task Information - Tab Advanced]
+
+B4 Chọn ngày trong Constraint date, và kých OK.
+
+Chú ý: Sau đây là bảng liệt kê các kiểu ràng buộc:
+
+* Kiểu ràng buộc | * Ý nghĩa
+--- | ---
+As soon as possible | Công việc không bị ràng buộc
+As Late as possible | Công việc này phải bị trì hoạn càng lâu càng tốt
+Finish No Earlier than | Công việc phải kết thúc sau ngày tháng chỉ định.
+Finish No Later than | Công việc phải kết thúc vào ngày hoặc sớm hơn ngày tháng chỉ định.
+Must Finish On | Công việc phải kết thúc chính xác vào ngày tháng đã định.
+Must Start On | Công việc phải bắt đầu vào ngày tháng đã định
+Start No Earlier than | Công việc bắt đầu vào ngày tháng hoặc muộn hơn ngày tháng chỉ định.
+Start No Later than | Công việc phải bắt đầu trước ngày tháng chỉ định.
+
+4. Xác định hạn cuối cho 1 công việc
+
+Khi thiết lập một hạn cuối cho 1 công việc, Microssoft Project sẽ thể hiện một dấu hiệu thông báo nếu công việc trong kế hoạch là kết thúc sau thời hạn cuối.
+
+[Hình ảnh: Minh họa cảnh báo hạn chót trên biểu đồ Gantt]
+
+Việc thiết lập một hạn định cho 1 công việc không ảnh hưởng nhiều đến kế hoạch công việc. Đó là cách Microsoft Project thông báo cho biết rằng công việc đó sẽ kết thúc mà vượt quá thời gian hạn định để có thể điều chỉnh kế hoạch hợp lý hơn.
+
+B1 Trên menu View, chọn khung nhìn Gantt.
+B2 Trong cột Task Name, chọn công việc muốn thiết lập hạn định thời gian.
+B3 Chọn nút Task Information và sau đó chọn Tab Advanced.
+B4 Trong phần Deadline, chọn ngày hạn định và kých OK.
+
+5. Chia một công việc thành những phần nhỏ
+
+Có thể chia nhỏ một công việc nếu thời gian cho công việc bị ngắt quãng. Điều này rất có ích, ví dụ sẽ có thời gian tạm thời dừng công việc đang làm để chuyển sang một công việc khác. Có thể chia một công việc thành nhiều phần nếu cần thiết.
+
+Cũng phải chú ý thêm rằng việc chia nhỏ 1 công việc thành nhiều phần không giống như những công việc định kỳ đã được biết trong những bài trước.
+
+B1 Trên menu View, chọn khung nhìn Gantt.
+B2 Kých nút Split Task hay trong menu Edit chọn mục Split Task.
+
+[Hình ảnh: Menu Edit Split Task]
+
+B3 Trên thanh ngang biểu diễn công việc, kých vào ngày muốn chia công việc, sau đó kéo phần còn lại tới ngày muốn công việc lại bắt đầu tiếp tục.
+
+Chú ý Có thể ghép lại các phần bằng cách kéo các phần công việc chạm vào nhau.
+
+14.5.4 Giai đoạn 4 - Khởi tạo tài nguyên, nhân lực cho công việc
+
+Khởi tạo tài nguyên cho các công việc trong dự án để:
+- Theo dõi mức độ sử dụng tài nguyên trong dự án
+- Theo dõi được chi phí cho tài nguyên.
+
+Giai đoạn này bao gồm các điểm chính sau:
+- Tạo danh sách các tài nguyên.
+- Thay đổi thời gian làm việc cho nhân viên hay máy móc.
+- Khởi tạo các tài nguyên cho công việc.
+- Sửa đổi khoảng thời gian thực hiện công việc.
+- Kiểm tra hiệu chỉnh việc khởi tạo tài nguyên.
+
+1. Tạo danh sách tài nguyên
+
+Có thể sử dụng khung nhìn Resource Sheet trong Microsoft Project để tạo một danh sách các tài nguyên sử dụng trong dự án như nhân công, thiết bị, nguyên vật liệu. Các tài nguyên bao gồm tài nguyên công việc và tài nguyên vật liệu.
+
+B1 Trên menu View, chọn khung nhìn Resource Sheet.
+
+[Hình ảnh: Menu View Resource Sheet]
+
+B2 Trên menu View, chỉ tới Table, và sau đó kých Entry.
+
+[Hình ảnh: Menu View Table Entry]
+
+B3 Trong cột Resource Name, đánh tên tài nguyên.
+
+[Hình ảnh: Bảng danh sách tài nguyên Resource Sheet]
+
+B4 Để chỉ định nhóm tài nguyên, trong cột Group, đánh tên nhóm.
+B5 Trong cột Type, xác định kiểu tài nguyên
+B6 Với mối một kiểu tài nguyên công việc (người và máy móc, thiết bị), nhập đơn vị tại cột Max. Với kiểu tài nguyên này đơn vị sử dụng được tính theo tỷ lệ phần trăm của giá trị max. Ví dụ, nhập 100% có nghĩa là thời gian sử dụng toàn bộ thời gian làm việc đối với mỗi tài nguyên nào đó.
+
+Chú ý:
+• Nhóm tài nguyên được dùng để sắp xếp, lọc hay nhóm các công việc, ví dụ như có thể xem danh sách các cán bộ của một nhóm chuyên đề nào đó.
+• Không thể khởi tạo nhóm tài nguyên cho 1 công việc nào đó
+
+2. Thay đổi thời gian làm việc cho nhân viên
+
+Có thể định nghĩa thời gian làm việc cho một nhân viên nào đó để thích ứng với dự án. Lấy một ví dụ rất đơn giản như sau, một nhân viên A có thời gian nghỉ tại tháng 6 nhưng nhân viên B lại là tháng 7 vì vậy cần phải có những thời gian biểu khác nhau đối với từng nhân viên.
+
+B1 Trên menu View, chọn Resource Sheet, và sau đó chọn tài nguyên muốn thay đổi thời gian làm việc.
+B2 Trong menu Project, chọn Resource Information, và chọn tab Working Time.
+
+[Hình ảnh: Menu Project Resource Information]
+
+[Hình ảnh: Hộp thoại Resource Information - Tab General]
+
+B3 Trong Tab Resource Information, tại hệ thống lịch làm việc, chọn ngày muốn thay đổi.
+
+[Hình ảnh: Hộp thoại Resource Information - Tab Working Time]
+
+B4 Chọn kiểu Use default, Nonworking time, hay Nondefault.
+Khi chọn Use default, thời gian làm việc của ngày chọn sẽ lấy theo thời gian mặc định của hệ thống Microsoft Project.
+B5 Nếu chọn Nondefault tại bước 4, nhập thời gian bắt đầu vào mục From và thời gian kết thúc vào mục To.
+B6 Chọn OK.
+
+Chú ý: Nếu 1 nhóm tài nguyên có cùng thời gian làm việc và nghỉ giống nhau, có thể tạo một lịch làm việc mới cho chúng. Trên menu Tools, chọn Change Working Time. Kých New và nhập tên cho hệ thống lịch làm việc mới.
+
+3. Khởi tạo các tài nguyên cho công việc
+
+Có thể khởi tạo bất cứ một tài nguyên nào cho bất kỳ công việc nào, có thể khởi tạo nhiều hơn 1 tài nguyên cho một công việc và xác định tài nguyên đó được sử dụng toàn thời gian hay bán thời gian. Nếu số khởi tạo thời gian sử dụng tài nguyên vượt quá thời gian cho phép (đã được thiết lập trong hệ thống lịch sử dụng tài nguyên), Microsoft Project thể hiện mức độ sử dụng quá tải tài nguyên đó bằng màu đỏ trong khung nhìn Resouce View.
+
+B1 Trong menu View, chọn Gantt Chart.
+B2 Trong cột Task Name, chọn công việc muốn khởi tạo tài nguyên, và sau đó kých Assign Resources hay trong menu Tools, mục Resources, chọn Assign Resources.
+
+[Hình ảnh: Menu Tools Assign Resources]
+
+B3 Trong cột Name, chọn tài nguyên muốn khởi tạo cho công việc.
+B4 Nếu chỉ sử dụng tài nguyên bán thời gian, nhập số phần trăm sử dụng
+• Để khởi tạo một số tài nguyên, giữ phím CTRL và sau đó kých vào tên của các tài nguyên.
+B5 Kých Assign.
+B6 Kých Close.
+
+Chú ý: Có thể thay thế tài nguyên này bằng tài nguyên khác. Chọn công việc có nguồn tài nguyên muốn thay thế. Trong hộp thoại Assign Resources, chọn tên tài nguyên và kých Replace.
+
+4. Sửa đổi khoảng thời gian thực hiện công việc
+
+Khi khởi tạo nhiều tài nguyên cho một công việc, Microsoft Project tự động giảm khoảng thời gian thực hiện công việc. Ví dụ một công việc do 1 nhân viên thực hiện trong một ngày thì sẽ chỉ mất nửa ngày để thực hiện nếu hai nhân viên cùng thực hiện. Nếu muốn giữ khoảng thời gian thực hiện cho công việc đó là như cũ trong khi vẫn có thêm tài nguyên sử dụng cho công việc đó, thực hiện như sau.
+
+B1 Trên menu View, kých khung nhìn Gantt.
+
+[Hình ảnh: Menu View Gantt Chart]
+
+B2 Trong cột Task Name, chọn tên công việc.
+B3 Kých nút Task Information trên thanh công cụ hay trong menu Project chọn mục Task Information. Và sau đó chuyển sang Tab Advanced.
+
+[Hình ảnh: Menu Project Task Information]
+
+B4 Trong hộp thoại Task Information xoá bỏ dấu kiểm trong mục Effort driven, và sau đó kých OK.
+
+[Hình ảnh: Hộp thoại Task Information - Tab Advanced]
+
+Bây giờ khi khởi tạo thêm tài nguyên cho công việc, khoảng thời gian thực hiện sẽ không thay đổi.
+
+Chú ý: Có thể làm cho tất cả các công việc mới sẽ tạo ra khi thêm tài nguyên thì thời gian thực hiện sẽ không giảm bằng cách trong menu Tools, chọn mục Options, kých tab Schedule và sau đó bỏ dấu kiểm tại mục New tasks are effort driven.
+
+[Hình ảnh: Hộp thoại Options - Tab Schedule]
+
+5. Kiểm tra hiệu chỉnh việc khởi tạo tài nguyên
+
+Khung nhìn Resource Usage thể hiện tất cả các tài nguyên sử dụng trong dự án. Với khung nhìn này, có thể thấy rằng nguồn tài nguyên được sử dụng như thế nào, những nguồn tài nguyên nào có thể sử dụng được tiếp, nguồn tài nguyên nào đang bị quá tải.
+
+B1 Trong menu View, chọn Resource Usage.
+
+[Hình ảnh: Menu View Resource Usage]
+
+Để có nhiều thông tin hơn về việc sử dụng tài nguyên, trong menu View, mục Table, kých vào bảng muốn hiển thị trong khung nhìn Resource Usage.
+
+[Hình ảnh: Menu View Table]
+
+B2 Trong cột Resource Name, xem lại các công việc sử dụng nguồn tài nguyên này.
+B3 Để chuyển đổi nguồn tài nguyên cho một công việc, chọn hàng chứa công việc đó và sau đó kéo lên phần tài nguyên cần chuyển đổi.
+
+Chú ý:
+• Việc thêm các bảng thông tin hiển thị trên không làm thay đổi thông tin về dữ liệu mà chỉ là thay đổi cách thể hiện.
+• Nếu một tài nguyên màu đỏ và đậm, tài nguyên đó đang bị sử dụng quá tải.
+
+14.5.5 Giai đoạn 5 - Xem xét hệ thống công việc
+
+Sau khi nhập hết những thông tin về dự án, hãy xem xét lại xem chúng có phù hợp với dự tính hay không. Nếu không hãy kiểm tra lại quá trình thực hiện các công việc. Giai đoạn này bao gồm các điểm chính sau:
+- Xem xét toàn bộ dự án
+- Kiểm tra ngày bắt đầu và kết thúc của dự án
+- Chuyển đổi giữa các khung nhìn
+- Xem xét các cột khác nhau trong một khung nhìn
+- Thể hiện thông tin có chọn lọc
+- Sắp xếp thông tin trong một khung nhìn
+- Nhóm thông tin trong một khung nhìn
+
+1. Xem xét toàn bộ dự án
+
+Có thể quan sát thời gian bắt đầu, kết thúc dự án và thời gian những pha chính xảy ra trên khung nhìn Gantt.
+
+B1 Trên menu View, chọn Gantt Chart.
+B2 On the View menu, click Zoom, click Entire project, and then click OK.
+
+[Hình ảnh: Hộp thoại Zoom]
+
+2. Kiểm tra ngày bắt đầu và kết thúc của dự án
+
+Có thể xem lại thông tin về ngày kết thúc dự án xem có đúng mong đợi hay không.
+
+Trong menu Project, chọn Project Information và kých Statistics, ngày bắt đầu và kết thúc dự án sẽ được hiển thị.
+
+3. Chuyển đổi giữa các khung nhìn
+
+Có thể thấy được dự án qua các khung nhìn khác nhau như: Calendar, Network Diagram, Task Usage, Resource Usage, Resource Graph...
+
+Trên menu View, chọn khung nhìn muốn quan sát.
+Nếu khung nhìn muốn quan sát hiện thời không có trong menu View, kých vào mục More Views để có nhiều lựa chọn. Chọn 1 kiểu khung nhìn trong bảng liệt kê Views, sau đó chọn Apply.
+
+Chú ý: Thay đổi khung nhìn không làm ảnh hưởng đến dữ liệu thông tin dự án, nó chỉ thay đổi cách nhìn về dự án.
+
+Dưới đây là 8 khung nhìn thông dụng nhất:
+
+Tên khung nhìn | Nội dung
+--- | ---
+Calendar | Lịch hàng tháng chỉ ra các công việc và khă năng hoàn thành nó.
+Gantt Chart | Diễn tả các công việc và các thông tin có liên quan, một biểu đồ (biểu đồ ngang) thể hiện các công việc và thời gian hoàn thành chúng.
+Network Diagram | Thể hiện dưới dạng lưới các công tác (sơ đồ mạng) và sự phụ thuộc giữa chúng. Dùng khung nhìn này để có một cái nhìn bao quát về các công việc.
+Task Usage | Thể hiện danh sách các công việc đã được gán tài nguyên. Dùng khung nhìn này để thấy nguồn tài nguyên nào đã được gán cho một công việc cụ thể
+Tracking Gantt | Thể hiện danh sách của công việc và thông tin có liên quan. Dùng khung nhìn này để theo dõi tiến trình của dự án.
+Resource Graph | Thể hiện biểu đồ phân phối tài nguyên. Dùng khung nhìn này để thể hiện thông tin về một tài nguyên dưới các tiêu chí khác nhau.
+Resource Sheet | Danh sách tài nguyên và thông tin liên quan. Dùng khung nhìn này để nhập và hiệu chỉnh các thông tin về tài nguyên.
+Resource Usage | Thể hiện danh sách gán tài nguyên cho công việc được nhóm dưới mỗi nguồn tài nguyên. Dùng khung nhìn này để thể hiện chi phí hoặc phân phối giờ công ngoài giờ.
+More View | Cho phép lựa chọn các khung nhìn khác của chương trình.
+
+4. Xem xét các cột khác nhau trong một khung nhìn
+
+Trong khi lập và theo dõi dự án, rất hữu ích nếu chúng ta có thể xem xét thêm nhiều tổ hợp các thông tin trong một khung nhìn. Microsoft Project cung cấp một tập hợp các tổ hợp thông tin đối với mỗi khung nhìn:
+
+B1 Trong menu View, chọn khung nhìn muốn quan sát.
+B2 Trên menu View, mục Table, chọn bảng muốn xuất hiện trong khung nhìn.
+
+Để thêm những bảng không nằm trong mục Table, chọn More Tables, chọn bảng muốn thêm, và sau đó chọn Apply.
+
+5. Thể hiện thông tin có chọn lọc
+
+Đôi khi, chỉ cần theo dõi chỉ một số công việc xác định nào đó, Microsoft Project cho phép lọc thông tin trong toàn dự án để có được những thông tin cần thiết.
+
+B1 Trên menu Project, mục Filtered for, sau đó chọn kiểu lọc.
+Để nhập kiểu lọc hiện thời không nằm trong mục Filtered for, chọn mục More Filters.
+B2 Chọn Apply để xác định kiểu lọc.
+B3 Để thể hiện tất cả các công việc trở lại, trên menu Project và sau đó chọn All Tasks hay All Resources.
+
+Chú ý: Không thể lọc các công việc trong khung nhìn Resource hay lọc các tài nguyên trong khung nhìn Task.
+
+6. Sắp xếp thông tin trong một khung nhìn
+
+Có thể sắp xếp các công việc hay tài nguyên theo một điều kiện nào đó như tên công việc, ngày kết thúc, tên tài nguyên. Việc sắp xếp sẽ là rất hữu ích khi muốn theo dõi các công việc theo thứ tự. Ví dụ có thể xem xét công việc nào nên bắt đầu hay kết thúc sớm hơn.
+
+Việc sắp xếp vẫn được duy trì khi chuyển đổi giữa các khung nhìn cũng như đóng hay lưu dự án.
+
+B1 Trên menu View, chọn Gantt Chart.
+B2 Trên menu Project, mục Sort, và chọn kiểu sắp xếp theo ý muốn.
+
+[Hình ảnh: Menu Project Sort]
+
+B3 Để tiện lợi trong quá trình sắp xếp, Microsoft Project cung cấp một chức năng tuỳ biến khi sắp xếp. Trong menu Project, mục Sort, và chọn Sort by.
+B4 Trong hộp thoại Sort by, chọn những cột muốn sắp xếp, và chọn Ascending hay Descending để xác định kiểu sắp xếp là tăng dần hay giảm dần.
+
+[Hình ảnh: Hộp thoại Sort]
+
+7. Nhóm thông tin trong một khung nhìn
+
+Trong một số khung nhìn, có thể nhóm các công việc hay tài nguyên theo một điều kiện nào đó. Ví dụ, có thể xem xét tất cả những công việc có cùng một khoảng thời gian thực hiện.
+
+B1 Để nhóm thông tin về công việc, trên menu View, chọn mục More Views, và sau đó chọn Task Sheet.
+Để nhóm thông tin về tài nguyên, trên menu View, chọn Resource Sheet.
+B2 Trong menu Project, mục Group by, và chọn nhóm.
+Để chọn một nhóm không nằm trong mục Group by, kých More Groups.
+
+[Hình ảnh: Menu Project Group by]
+
+B3 Để trở lại trạng thái ban đầu, trên menu Project, mục Group by và chọn No Group.
+
+14.5.6 Giai đoạn 6- Xem và in báo cáo
+
+Việc in ấn các báo cáo có thể theo các dạng sau:
+- Các báo cáo chuẩn của Microsoft Project 2003.
+- Tiến độ chung của dự án.
+- Báo cáo lịch trình các công việc.
+- Báo cáo về việc sử dụng tài nguyên và các công việc.
+- Báo cáo về lịch làm việc theo tuần, quý, tháng.
+- Các báo cáo chuẩn của Microsoft Project
+- Thiết lập cấu hình trang in.
+- In các biểu đồ của dự án.
+
+1. Các báo biểu chuẩn của Microsoft Project
+
+Trong menu View chọn mục Reports
+
+[Hình ảnh: Menu View Reports]
+
+Hộp thoại Reports hiện lên:
+
+[Hình ảnh: Hộp thoại Reports]
+
+Ý nghĩa của các bảng lựa chọn:
+
+Mục | Ý nghĩa
+--- | ---
+Overview | Các biểu tổng quan về dự án
+Current Activities | Báo cáo về các công việc
+Cost | Các báo biểu về tài chính của dự án
+Assignment | Báo biểu về phân bổ tài nguyên
+Workload | Báo biểu về việc thực hiện công việc và sử dụng tài nguyên
+Custom | Báo biểu được thiết lập bởi người sử dụng
+
+2. In các biểu đồ của dự án
+
+Biểu đồ tiến độ của dự án thường được in dưới 2 dạng chính:
+- Biểu đồ Gantt
+- Sơ đồ mạng Network Diagram
+
+Trong menu File chọn Print Preview
+
+[Hình ảnh: Menu File Print Preview]
+
+Khung nhìn Print Preview hiển thị:
+
+[Hình ảnh: Màn hình Print Preview]
+
+3. Thiết lập cấu hình trang In
+
+Trong menu File, chọn Page Setup
+
+[Hình ảnh: Menu File Page Setup]
+
+Hộp thoại Page Setup xuất hiện
+
+[Hình ảnh: Hộp thoại Page Setup]
+
+Trong hộp thoại Page Setup này cho phép thiết lập các tham số
+Page: Đặt cách nhìn khổ giấy cho trang in.
+Margins: Căn lề trang in.
+Header: Các tiêu đề bên trên trang in của dự án.
+Footer: Các tiêu đề bên dưới trang in của dự án.
+Legend: Các hình minh họa cho trang in.
+View: Thiết lập các cấu hình cho trang in.
+
+❖ Câu hỏi (bài tập) củng cố:
+1. Anh, chị hãy chọn 1 dự án, sau đó viết:
+- Đề cương cho dự án
+- Tài liệu nghiên cứu khả thi
+- Lập kế hoạch cho dự án
+- Ước lượng
+2. Dùng Microsoft Project để lập lịch cho dự án

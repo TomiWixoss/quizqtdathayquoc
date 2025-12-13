@@ -231,10 +231,14 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   updateStats: async (correct, _chapter, score) => {
-    const { user, checkAchievements } = get();
+    const { user, checkAchievements, getXPMultiplier } = get();
     if (!user) return;
 
-    const xpGain = correct ? 10 : 2;
+    // Áp dụng XP Boost multiplier
+    const multiplier = getXPMultiplier();
+    const baseXP = correct ? 10 : 2;
+    const xpGain = baseXP * multiplier;
+
     const updates = {
       totalScore: user.totalScore + score,
       totalCorrect: user.totalCorrect + (correct ? 1 : 0),

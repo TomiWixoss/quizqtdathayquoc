@@ -241,11 +241,16 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
             gemsEarned += 5; // Bonus cho accuracy cao
           }
 
+          // Áp dụng XP Boost multiplier
+          const userStore = useUserStore.getState();
+          const xpMultiplier = userStore.getXPMultiplier();
+          const xpGained = correctCount * 10 * xpMultiplier;
+
           await updateDoc(userRef, {
             conquestStats: newConquestStats,
             totalCorrect: (userData.totalCorrect || 0) + correctCount,
             totalWrong: (userData.totalWrong || 0) + wrongCount,
-            exp: (userData.exp || 0) + correctCount * 10,
+            exp: (userData.exp || 0) + xpGained,
             gems: (userData.gems || 0) + gemsEarned,
           });
 
@@ -268,7 +273,6 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
           await addDoc(collection(db, "conquestSessions"), sessionData);
 
           // Update quest progress
-          const userStore = useUserStore.getState();
           await userStore.incrementDailyConquests();
           if (isWin) {
             await userStore.incrementWeeklyConquestWins();

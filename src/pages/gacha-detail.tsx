@@ -192,7 +192,6 @@ function GachaDetailPage() {
     const success = await claimAllRewards(user.oderId, collectionId, rewards);
     if (success) {
       setRewardsClaimed(true);
-      setShowRewardModal(false);
       // Fire confetti celebration
       const duration = 3000;
       const end = Date.now() + duration;
@@ -214,6 +213,8 @@ function GachaDetailPage() {
         if (Date.now() < end) requestAnimationFrame(frame);
       };
       frame();
+      // Show modal to view rewards
+      setShowRewardModal(true);
       // Reload inventory to sync
       await loadInventory();
     }
@@ -575,7 +576,7 @@ function GachaDetailPage() {
         {isCollectionComplete ? (
           // Show claim rewards button when collection complete
           <button
-            onClick={() => !rewardsClaimed && setShowRewardModal(true)}
+            onClick={() => !rewardsClaimed && handleClaimRewards()}
             disabled={rewardsClaimed}
             className={`w-full btn-3d py-3 ${
               rewardsClaimed ? "btn-3d-gray opacity-60" : "btn-3d-yellow"
@@ -772,13 +773,10 @@ function GachaDetailPage() {
                 })}
               </div>
               <button
-                onClick={handleClaimRewards}
-                className="w-full btn-3d btn-3d-yellow py-3"
+                onClick={() => setShowRewardModal(false)}
+                className="w-full btn-3d btn-3d-purple py-3"
               >
-                <div className="flex items-center justify-center gap-2">
-                  <Sparkles className="w-5 h-5" />
-                  <span>Nhận tất cả</span>
-                </div>
+                Đóng
               </button>
             </div>
           </div>

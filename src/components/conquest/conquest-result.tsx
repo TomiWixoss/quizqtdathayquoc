@@ -78,7 +78,7 @@ export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
       <RewardModal
         isOpen={showRewardModal}
         onClose={() => setShowRewardModal(false)}
-        title={isWin ? "Chiến thắng! 🏆" : "Hoàn thành!"}
+        title={isWin ? "Chiến thắng!" : "Hoàn thành!"}
         subtitle={`${result.pointsGained >= 0 ? "+" : ""}${
           result.pointsGained
         } RP`}

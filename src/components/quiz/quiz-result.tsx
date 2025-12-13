@@ -232,7 +232,7 @@ export function QuizResult() {
         onClose={() => setShowRewardModal(false)}
         title={
           isPerfect
-            ? "Hoàn hảo! 🎉"
+            ? "Hoàn hảo!"
             : percentage >= 80
             ? "Xuất sắc!"
             : "Hoàn thành!"

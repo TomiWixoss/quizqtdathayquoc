@@ -1,5 +1,4 @@
 import Cerebras from "@cerebras/cerebras_cloud_sdk";
-import { OpenRouter } from "@openrouter/sdk";
 import { QTDA_CHAPTERS, type QTDAChapter } from "@/data/qtda-chapters";
 
 // Rank levels với các bậc (tier) - từ thấp đến cao
@@ -396,11 +395,6 @@ function createCerebrasClient(apiKey: string): Cerebras {
   return new Cerebras({ apiKey });
 }
 
-// OpenRouter client (fallback khi tất cả Cerebras keys bị rate limit)
-const openRouterClient = new OpenRouter({
-  apiKey: import.meta.env.VITE_OPENROUTER_API_KEY || "",
-});
-
 // Kiểm tra lỗi có phải rate limit không
 function isRateLimitError(error: unknown): boolean {
   if (error instanceof Error) {
@@ -474,44 +468,9 @@ async function callCerebras(
   throw new Error("ALL_CEREBRAS_KEYS_RATE_LIMITED");
 }
 
-// Gọi OpenRouter API (fallback)
-async function callOpenRouter(
-  systemPrompt: string,
-  userPrompt: string
-): Promise<AIQuestion[]> {
-  console.log(
-    "🔄 Switching to OpenRouter (nex-agi/deepseek-v3.1-nex-n1:free)..."
-  );
-
-  const response = await openRouterClient.chat.send({
-    model: "nex-agi/deepseek-v3.1-nex-n1:free",
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: userPrompt },
-    ],
-    maxTokens: 65536,
-    temperature: 0.9,
-    topP: 0.95,
-    responseFormat: {
-      type: "json_schema",
-      jsonSchema: {
-        name: "quiz_questions",
-        strict: true,
-        schema: questionSchema,
-      },
-    },
-    stream: false,
-  });
-
-  const rawContent = response.choices?.[0]?.message?.content;
-  const content = typeof rawContent === "string" ? rawContent : "";
-  const parsed = JSON.parse(content);
-  return parsed.questions || [];
-}
-
 // Tạo câu hỏi từ AI với Structured Outputs
 // Random chọn 1 chương và gửi nội dung chương đó cho AI tạo câu hỏi
-// Fallback sang OpenRouter khi Cerebras bị rate limit (429)
+// Xoay vòng key khi bị rate limit (429)
 export async function generateAIQuestions(
   rank: UserRank,
   questionCount: number = 5
@@ -531,21 +490,16 @@ export async function generateAIQuestions(
     // Thử gọi Cerebras với key rotation
     return await callCerebras(systemPrompt, userPrompt);
   } catch (error) {
-    // Nếu tất cả Cerebras keys đều bị rate limit, fallback sang OpenRouter
+    // Nếu tất cả Cerebras keys đều bị rate limit, dùng fallback questions
     const allKeysRateLimited =
       error instanceof Error &&
       error.message === "ALL_CEREBRAS_KEYS_RATE_LIMITED";
 
-    if (allKeysRateLimited || isRateLimitError(error)) {
+    if (allKeysRateLimited) {
       console.warn(
-        "⚠️ All Cerebras keys rate limited, falling back to OpenRouter..."
+        "⚠️ All Cerebras keys rate limited, using fallback questions..."
       );
-      try {
-        return await callOpenRouter(systemPrompt, userPrompt);
-      } catch (openRouterError) {
-        console.error("Error with OpenRouter fallback:", openRouterError);
-        return getFallbackQuestions(questionCount);
-      }
+      return getFallbackQuestions(questionCount);
     }
 
     console.error("Error generating AI questions:", error);

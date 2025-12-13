@@ -177,7 +177,7 @@ function CardInventoryPage() {
       </div>
 
       {/* Tabs */}
-      <div className="fixed top-[108px] left-0 right-0 z-40 bg-[var(--card)] border-b border-[var(--border)]">
+      <div className="fixed top-[116px] left-0 right-0 z-40 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-2 px-4 py-2 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setActiveTab("all")}
@@ -253,7 +253,7 @@ function CardInventoryPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[172px] pb-24">
+      <div className="px-4 pt-[180px] pb-24">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader2 className="w-10 h-10 text-[var(--duo-purple)] animate-spin" />

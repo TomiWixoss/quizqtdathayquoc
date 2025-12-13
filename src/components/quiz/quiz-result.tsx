@@ -18,13 +18,8 @@ import {
   Coins,
   Swords,
   Shield,
-  Gamepad2,
-  Brain,
-  Dices,
-  Grid2X2,
 } from "lucide-react";
 
-// Keep Lucide icons for ICON_MAP (achievements use them)
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState } from "react";
@@ -48,10 +43,6 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Swords,
   Shield,
   Award,
-  Gamepad2,
-  Brain,
-  Dices,
-  Grid2X2,
 };
 
 export function QuizResult() {

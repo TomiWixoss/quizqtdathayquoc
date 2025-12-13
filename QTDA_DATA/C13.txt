@@ -1,0 +1,84 @@
+Chương 13. QUẢN LÝ TÍCH HỢP DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có thể:
+1. Mô tả khung làm việc của quản lý sự tích hợp dự án trong mối quan hệ với các lãnh vực kiến thức và chu trình sống của dự án.
+2. Mô tả việc phát triển kế hoạch dự án, gồm nội dung kế hoạch dự án, dùng các hướng dẫn và các tài liệu mẫu để phát triển kế hoạch, và phân tích stakeholder để quản lý các mối quan hệ.
+3. Giải thích việc thực thi dự án, quan hệ của nó với hoạt động lập kế hoạch, các yếu tố dẫn đến thành công, các công cụ và kỹ thuật hỗ trợ thực thi dự án.
+
+13.1 Tầm quan trọng của quản lý tích hợp
+Quản lý rủi ro dự án là một nghệ thuật và những nhận biết khoa học, là nhiệm vụ, và sự đối phó với rủi ro thông qua hoạt động của một dự án và những mục tiêu đòi hỏi quan trong nhất của dự án.
+Quản lý rủi ro thường không được chú ý trong các dự án, nhưng nó lại giúp cải thiện được sự thành công của dự án trong việc giúp chọn lựa những dự án tốt, xác định phạm vi dự án, và phát triển những ước tính có tính thực tế.
+Chìa khóa thành công: Quản lý tích hợp tốt.
+- Người quản lý dự án phải điều phối tất cả các lĩnh vực kiến thức trong suốt chu trình sống của dự án.
+- Nhiều người quản lý dự án mới gặp khó khăn khi nhìn vào bức tranh tổng thể và muốn tập trung vào quá nhiều chi tiết.
+- Quản lý tích hợp dự án không giống như tích hợp phần mềm.
+
+13.2 Qui trình quản lý tích hợp
+Những tiến trình chính bao gồm:
+- Phát triển kế hoạch dự án: lấy kết quả của các qui trình lập kế hoạch khác và đưa vào thành một tài liệu nhất quán và kết dính – kế hoạch dự án.
+- Thực thi kế hoạch dự án: thực hiện kế hoạch dự án
+- Điều khiển thay đổi tích hợp: điều phối những thay đổi trong toàn bộ dự án.
+
+13.2.1 Phát triển kế hoạch dự án
+- Kế hoạch dự án là tài liệu dùng để điều phối tất cả các tài liệu về hoạt động của dự án. Mục đích chính là hướng dẫn thực thi dự án. Kế hoạch dự án giúp người QLDA lãnh đạo nhóm dự án và đánh giá tình trạng dự án. Cần phải đo việc thực hiện dự án so với kế hoạch
+Các thuộc tính của kế hoạch dự án.
+- Kế hoạch dự án mang tính duy nhất
+- Kế hoạch phải động (dynamic)
+- Kế hoạch phải linh hoạt (flexible)
+- Kế hoạch phải được cập nhật khi có thay đổi
+- Kế hoạch phải đóng vai trò là tài liệu hướng dẫn thực thi dự án
+Các thành phần phổ biến của kế hoạch dự án
+- Tổng quan về dự án
+- Mô tả về cách tổ chức dự án
+- Các qui trình quản lý và kỹ thuật dùng trong dự án
+- Thông tin về các việc phải làm, lịch biểu, và ngân sách
+Phân tích các bên tham gia
+Phân tích các bên tham gia cung cấp thông tin quan trọng (thường nhạy cảm) về các các bên tham gia như:
+Tên tuổi các công ty của các bên tham gia
+- Vai trò của họ trong dự án
+- Các số liệu thực về các bên tham gia
+- Mức ảnh hưởng và quan tâm đến dự án
+- Đề xuất cho quản lý các mối quan hệ
+
+13.2.2. Thực thi kế hoạch dự án
+Thực thi kế hoạch dự án đòi hỏi quản lý và thực hiện các công việc mô tả trong kế hoạch dự án. Hầu hết thời gian và tiền bạc được dùng trong quá trình thực thi dự án. Lĩnh vực ứng dụng của dự án tác động đến việc thực thi dự án vì sản phẩm của dự án được tạo ra trong quá trình này.
+Các kỹ năng quan trọng để thực thi kế hoạch dự án:
+- Các kỹ năng quản lý tổng quát như kỹ năng lãnh đạo, giao tiếp, và chính trị
+- Kỹ năng về sản phẩm và kiến thức.
+Các công cụ và kỹ thuật thực thi dự án:
+- Hệ giao việc (Work Authorization System): một phương pháp bảo đảm con người đủ điều kiện làm việc đúng lúc và đúng trình tự.
+- Họp đánh giá tình trạng (Status Review Meetings): các buổi họp thường kỳ để trao đổi thông tin về dự án.
+- Phần mềm quản lý dự án (Project Management Software): phần mềm đặc biệt hỗ trợ quản lý các dự án.
+
+13.2.3 Điều khiển thay đổi tích hợp
+Điều khiển thay đổi tích hợp gồm nhận diện, đánh giá, và quản lý những thay đổi trong suốt chu trình sống của dự án. Ba mục tiêu của điều khiển thay đổi:
+- Tác động đến các yếu tố tạo ra sự thay đổi để bảo đảm có lợi.
+- Xác định những thay đổi đã xảy ra.
+- Quản lý những thay đổi thực tế khi xảy ra.
+Điều khiển thay đổi đối với các dự án CNTT
+- Cách nhìn trước đây: Nhóm dự án cần nỗ lực làm đúng theo kế hoạch, đúng thời hạn và trong phạm vi ngân sách.
+- Vấn đề: các bên tham gia hiếm khi đồng ý ngay từ đầu về phạm vi của dự án, cho rằng thời gian và chi phí dự án là không chính xác.
+- Cách nhìn hiện đại: Quản lý dự án là một quá trình giao tiếp và thỏa thuận liên tục.
+- Giải pháp: Thay đổi thường có lợi, và nhóm dự án cần lập kế hoạch cho điều này.
+Hệ điều khiển thay đổi
+- Một qui trình mang tính hình thức mô tả các tài liệu dự án có thể được thay đổi khi nào và như thế nào.
+- Mô tả ai được phép thay đổi và thay đổi như thế nào?
+- Thường gồm bảng điều khiển thay đổi (CCB), quản trị cấu hình, và một qui trình truyền đạt sự thay đổi.
+- Ban điều khiển thay đổi (CCB=Change Controlling Board)
+- Một nhóm người chịu trách nhiệm về phê duyệt hoặc từ chối thay đổi của dự án.
+- CCB cung cấp những hướng dẫn để chuẩn bị yêu cầu thay đổi, đánh giá yêu cầu thay đổi, và quản lý việc thực hiện những thay đổi được duyệt.
+- Gồm các bên tham gia của toàn công ty.
+Thay đổi đúng lúc
+- Một số CCB chỉ thỉnh thoảng mới gặp nhau, vì thế những thay đổi có thể xảy ra quá lâu.
+- Một số công ty có chính sách cho những thay đổi nhạy cảm về thời gian – “chính sách 48-giờ” cho phép các thành viên nhóm dự án quyết định, sau đó họ có 48 giờ để chờ phê duyệt của lãnh đạo cấp cao – Đưa những thay đổi xuống mức thấp nhất có thể được, nhưng phải thông báo cho mọi người.
+Quản trị cấu hình
+- Bảo đảm sản phẩm và mô tả về sản phẩm là đúng và đầy đủ.
+- Tập trung vào quản lý công nghệ bằng cách xác định và điều khiển các đặc trưng chức năng và vật lý của sản phẩm.
+- Các chuyên gia quản trị cấu hình xác định và viết tài liệu về các yêu cầu cấu hình, điều khiển thay đổi, lưu và báo cáo những thay đổi, kiểm tra sản phẩm xem có phù hợp với yêu cầu hay không.
+
+* Câu hỏi củng cố:
+1. Giới thiệu khái niệm quản trị tích hợp dùng từ ngữ riêng của bạn. Quản trị tích hợp có quan hệ với chu trình sống dự án, và các lãnh vực quản trị khác như thế nào?
+2. Các thành phần quan trọng của một kế hoạch tốt.
+3. Các yếu tố quan trọng để thực thi dự án thành công. Trình bày một ví dụ về dự án được thực thi thành công, một ví dụ về dự án thất bại. Xác định những khác biệt giữa hai dự án này.
+4. Tầm quan trọng của qui trình điều khiển thay đổi tích hợp (integrated change control process) đối với các dự án CNTT.
+5. Trình bày ứng dụng của các công cụ phần mềm sau đây trong quản trị tích hợp dự án: phần mềm soạn thảo văn bản (ví dụ Winword), phần mềm trình bày (ví dụ Power Point), bảng tính (ví dụ Excel), CSDL (ví dụ Access), email, Web và phần mềm quản trị dự án.

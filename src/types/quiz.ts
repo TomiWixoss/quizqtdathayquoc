@@ -62,6 +62,13 @@ export interface UserStats {
   // Unlimited hearts
   unlimitedHeartsUntil?: string;
 
+  // XP Boost
+  xpBoostUntil?: string;
+  xpBoostMultiplier?: number; // 2x default
+
+  // Streak Freeze
+  streakFreezes?: number; // Số lượng streak freeze đang có
+
   // Gacha inventory
   gachaInventory?: {
     cards: Record<number, Record<string, number>>;

@@ -1,5 +1,5 @@
 import { Page } from "zmp-ui";
-import { Gift, Clock, Sparkles } from "lucide-react";
+import { Gift, Clock, Sparkles, Zap, Snowflake } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect } from "react";
 import { RewardModal } from "@/components/ui/reward-modal";
@@ -13,21 +13,34 @@ function ShopPage() {
     buyUnlimitedHearts,
     hasUnlimitedHearts,
     getUnlimitedHeartsTimeLeft,
+    buyXPBoost,
+    hasXPBoost,
+    getXPBoostTimeLeft,
+    buyStreakFreeze,
+    getStreakFreezeCount,
   } = useUserStore();
   const [nextHeartTime, setNextHeartTime] = useState<string | null>(null);
   const [unlimitedTimeLeft, setUnlimitedTimeLeft] = useState<string | null>(
     null
   );
+  const [xpBoostTimeLeft, setXpBoostTimeLeft] = useState<string | null>(null);
   const [isPurchasing, setIsPurchasing] = useState(false);
   const [showUnlimitedModal, setShowUnlimitedModal] = useState(false);
   const [showRefillModal, setShowRefillModal] = useState(false);
+  const [showXPBoostModal, setShowXPBoostModal] = useState(false);
+  const [showStreakFreezeModal, setShowStreakFreezeModal] = useState(false);
+  const [purchasedXPHours, setPurchasedXPHours] = useState(0);
 
-  // Realtime timer for next heart and unlimited hearts
+  // Realtime timer for next heart, unlimited hearts, and XP boost
   useEffect(() => {
     const updateTimer = () => {
       // Update unlimited hearts timer
       const timeLeft = getUnlimitedHeartsTimeLeft();
       setUnlimitedTimeLeft(timeLeft);
+
+      // Update XP boost timer
+      const xpTimeLeft = getXPBoostTimeLeft();
+      setXpBoostTimeLeft(xpTimeLeft);
 
       if (!user?.lastHeartRefill) {
         setNextHeartTime(null);
@@ -61,6 +74,7 @@ function ShopPage() {
     user?.hearts,
     user?.maxHearts,
     getUnlimitedHeartsTimeLeft,
+    getXPBoostTimeLeft,
   ]);
 
   const handleBuyFullHearts = async () => {
@@ -97,6 +111,55 @@ function ShopPage() {
         spread: 70,
         origin: { y: 0.6 },
         colors: ["#ffc800", "#ff9600", "#ce82ff"],
+      });
+    } else {
+      alert("Có lỗi xảy ra!");
+    }
+  };
+
+  const handleBuyXPBoost = async (hours: number) => {
+    const prices: Record<number, number> = { 1: 500, 3: 1200, 8: 2500 };
+    const cost = prices[hours];
+    if ((user?.gems ?? 0) < cost) {
+      alert(`Không đủ gems! Cần ${cost} gems.`);
+      return;
+    }
+    setIsPurchasing(true);
+    const success = await buyXPBoost(hours);
+    setIsPurchasing(false);
+    if (success) {
+      setPurchasedXPHours(hours);
+      setShowXPBoostModal(true);
+      confetti({
+        particleCount: 80,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ["#58cc02", "#89e219", "#ffc800"],
+      });
+    } else {
+      alert("Có lỗi xảy ra!");
+    }
+  };
+
+  const handleBuyStreakFreeze = async () => {
+    if ((user?.gems ?? 0) < 1000) {
+      alert("Không đủ gems! Cần 1000 gems.");
+      return;
+    }
+    if (getStreakFreezeCount() >= 5) {
+      alert("Bạn đã có tối đa 5 Streak Freeze!");
+      return;
+    }
+    setIsPurchasing(true);
+    const success = await buyStreakFreeze();
+    setIsPurchasing(false);
+    if (success) {
+      setShowStreakFreezeModal(true);
+      confetti({
+        particleCount: 60,
+        spread: 50,
+        origin: { y: 0.6 },
+        colors: ["#1cb0f6", "#84d8ff", "#ffffff"],
       });
     } else {
       alert("Có lỗi xảy ra!");
@@ -272,6 +335,153 @@ function ShopPage() {
             )}
           </div>
         </div>
+
+        {/* XP Boost Section */}
+        <div>
+          <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
+            <Zap className="w-4 h-4 text-[var(--duo-green)]" />
+            XP Boost (x2)
+          </h2>
+
+          {/* Active XP Boost indicator */}
+          {hasXPBoost() && (
+            <div className="card-3d p-3 mb-3 flex items-center justify-between border-2 border-[var(--duo-green)]">
+              <div className="flex items-center gap-2">
+                <Zap className="w-5 h-5 text-[var(--duo-green)] animate-pulse" />
+                <span className="text-sm font-bold text-[var(--duo-green)]">
+                  XP x2 đang hoạt động!
+                </span>
+              </div>
+              <span className="font-bold text-[var(--duo-green)]">
+                {xpBoostTimeLeft}
+              </span>
+            </div>
+          )}
+
+          <div className="grid grid-cols-3 gap-3">
+            {/* 1 hour XP Boost */}
+            <button
+              onClick={() => handleBuyXPBoost(1)}
+              disabled={isPurchasing || (user?.gems ?? 0) < 500}
+              className={`card-3d p-3 text-center ${
+                (user?.gems ?? 0) < 500 ? "opacity-50" : ""
+              }`}
+            >
+              <div className="w-10 h-10 mx-auto rounded-xl bg-[var(--duo-green)]/20 flex items-center justify-center mb-2">
+                <Zap className="w-5 h-5 text-[var(--duo-green)]" />
+              </div>
+              <p className="font-bold text-foreground text-sm mb-1">1 giờ</p>
+              <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-3 h-3"
+                />
+                <span className="font-bold text-xs">500</span>
+              </div>
+            </button>
+
+            {/* 3 hours XP Boost */}
+            <button
+              onClick={() => handleBuyXPBoost(3)}
+              disabled={isPurchasing || (user?.gems ?? 0) < 1200}
+              className={`card-3d p-3 text-center ${
+                (user?.gems ?? 0) < 1200 ? "opacity-50" : ""
+              }`}
+            >
+              <div className="w-10 h-10 mx-auto rounded-xl bg-[var(--duo-green)]/20 flex items-center justify-center mb-2">
+                <Zap className="w-5 h-5 text-[var(--duo-green)]" />
+              </div>
+              <p className="font-bold text-foreground text-sm mb-1">3 giờ</p>
+              <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-3 h-3"
+                />
+                <span className="font-bold text-xs">1200</span>
+              </div>
+            </button>
+
+            {/* 8 hours XP Boost */}
+            <button
+              onClick={() => handleBuyXPBoost(8)}
+              disabled={isPurchasing || (user?.gems ?? 0) < 2500}
+              className={`card-3d p-3 text-center ${
+                (user?.gems ?? 0) < 2500 ? "opacity-50" : ""
+              }`}
+            >
+              <div className="w-10 h-10 mx-auto rounded-xl bg-[var(--duo-green)]/20 flex items-center justify-center mb-2 relative">
+                <Zap className="w-5 h-5 text-[var(--duo-green)]" />
+                <span className="absolute -top-1 -right-1 bg-[var(--duo-orange)] text-white text-[8px] px-1 rounded-full font-bold">
+                  HOT
+                </span>
+              </div>
+              <p className="font-bold text-foreground text-sm mb-1">8 giờ</p>
+              <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-3 h-3"
+                />
+                <span className="font-bold text-xs">2500</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Streak Freeze Section */}
+        <div>
+          <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">
+            <Snowflake className="w-4 h-4 text-[var(--duo-blue)]" />
+            Streak Freeze
+          </h2>
+
+          <div className="grid grid-cols-2 gap-3">
+            {/* Current Streak Freeze count */}
+            <div className="card-3d p-4 text-center">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-blue)]/20 flex items-center justify-center mb-2">
+                <Snowflake className="w-6 h-6 text-[var(--duo-blue)]" />
+              </div>
+              <p className="font-bold text-foreground mb-1">Đang có</p>
+              <p className="text-lg font-bold text-[var(--duo-blue)]">
+                {getStreakFreezeCount()}/5
+              </p>
+            </div>
+
+            {/* Buy Streak Freeze */}
+            <button
+              onClick={handleBuyStreakFreeze}
+              disabled={
+                isPurchasing ||
+                (user?.gems ?? 0) < 1000 ||
+                getStreakFreezeCount() >= 5
+              }
+              className={`card-3d p-4 text-center ${
+                (user?.gems ?? 0) < 1000 || getStreakFreezeCount() >= 5
+                  ? "opacity-50"
+                  : ""
+              }`}
+            >
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-[var(--duo-blue)]/20 flex items-center justify-center mb-2">
+                <Snowflake className="w-6 h-6 text-[var(--duo-blue)]" />
+              </div>
+              <p className="font-bold text-foreground mb-1">Mua thêm</p>
+              <div className="flex items-center justify-center gap-1 text-[var(--duo-blue)]">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-4 h-4"
+                />
+                <span className="font-bold">1000</span>
+              </div>
+            </button>
+          </div>
+
+          <p className="text-xs text-[var(--muted-foreground)] mt-2 text-center">
+            Streak Freeze tự động bảo vệ streak khi bạn quên học 1 ngày
+          </p>
+        </div>
       </div>
 
       {/* Reward Modal for Unlimited Hearts */}
@@ -309,6 +519,44 @@ function ShopPage() {
         buttonText="Tiếp tục học!"
         gradientFrom="var(--duo-red)"
         gradientTo="var(--duo-pink)"
+      />
+
+      {/* Reward Modal for XP Boost */}
+      <RewardModal
+        isOpen={showXPBoostModal}
+        onClose={() => setShowXPBoostModal(false)}
+        title="XP Boost đã kích hoạt!"
+        subtitle={`Nhận x2 XP trong ${purchasedXPHours} giờ tới`}
+        rewards={[
+          {
+            type: "custom",
+            amount: 2,
+            icon: "/AppAssets/BlueDiamond.png",
+            label: `x XP trong ${purchasedXPHours}h`,
+          },
+        ]}
+        buttonText="Học ngay!"
+        gradientFrom="var(--duo-green)"
+        gradientTo="#89e219"
+      />
+
+      {/* Reward Modal for Streak Freeze */}
+      <RewardModal
+        isOpen={showStreakFreezeModal}
+        onClose={() => setShowStreakFreezeModal(false)}
+        title="Mua Streak Freeze thành công!"
+        subtitle="Streak của bạn sẽ được bảo vệ khi quên học"
+        rewards={[
+          {
+            type: "custom",
+            amount: getStreakFreezeCount(),
+            icon: "/AppAssets/BlueDiamond.png",
+            label: "Streak Freeze",
+          },
+        ]}
+        buttonText="Tuyệt vời!"
+        gradientFrom="var(--duo-blue)"
+        gradientTo="#84d8ff"
       />
     </Page>
   );

@@ -55,6 +55,17 @@ interface UserState {
   equipAvatar: (avatarUrl: string | null) => Promise<void>;
   equipFrame: (frameUrl: string | null) => Promise<void>;
   equipBadge: (badgeUrl: string | null) => Promise<void>;
+
+  // XP Boost
+  buyXPBoost: (hours: number) => Promise<boolean>;
+  hasXPBoost: () => boolean;
+  getXPBoostTimeLeft: () => string | null;
+  getXPMultiplier: () => number;
+
+  // Streak Freeze
+  buyStreakFreeze: () => Promise<boolean>;
+  useStreakFreeze: () => Promise<boolean>;
+  getStreakFreezeCount: () => number;
 }
 
 const getWeekStart = () => {
@@ -404,7 +415,7 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   updateStreak: async () => {
-    const { user, checkAchievements } = get();
+    const { user, checkAchievements, useStreakFreeze } = get();
     if (!user) return;
 
     const today = new Date().toDateString();
@@ -412,11 +423,21 @@ export const useUserStore = create<UserState>((set, get) => ({
       ? new Date(user.lastPlayDate).toDateString()
       : "";
     const yesterday = new Date(Date.now() - 86400000).toDateString();
+    const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toDateString();
 
     let newStreak = user.streak;
+    let usedFreeze = false;
+
     if (lastPlay === yesterday) {
+      // Chơi liên tục - tăng streak
       newStreak += 1;
+    } else if (lastPlay === twoDaysAgo && (user.streakFreezes || 0) > 0) {
+      // Bỏ lỡ 1 ngày nhưng có streak freeze - giữ streak và dùng freeze
+      await useStreakFreeze();
+      usedFreeze = true;
+      newStreak += 1; // Vẫn tăng streak vì hôm nay chơi
     } else if (lastPlay !== today) {
+      // Bỏ lỡ quá lâu hoặc không có freeze - reset streak
       newStreak = 1;
     }
 
@@ -433,14 +454,19 @@ export const useUserStore = create<UserState>((set, get) => ({
       });
       set({
         user: {
-          ...user,
+          ...get().user!,
           streak: newStreak,
           lastPlayDate: today,
           longestStreak,
-          gems: user.gems + bonusGems,
+          gems: get().user!.gems + bonusGems,
         },
       });
       await checkAchievements();
+
+      // Log nếu đã dùng streak freeze
+      if (usedFreeze) {
+        console.log("Streak Freeze đã được sử dụng tự động!");
+      }
     } catch (error) {
       set({
         user: {
@@ -834,5 +860,123 @@ export const useUserStore = create<UserState>((set, get) => ({
       console.error("Error equipping badge:", error);
       set({ user: { ...user, equippedBadge: badgeUrl || undefined } });
     }
+  },
+
+  // XP Boost methods
+  buyXPBoost: async (hours: number) => {
+    const { user, spendGems } = get();
+    if (!user) return false;
+
+    // Giá theo giờ: 1h = 500, 3h = 1200, 8h = 2500
+    const prices: Record<number, number> = {
+      1: 500,
+      3: 1200,
+      8: 2500,
+    };
+    const cost = prices[hours];
+    if (!cost || user.gems < cost) return false;
+
+    const success = await spendGems(cost);
+    if (!success) return false;
+
+    // Nếu đang có boost, cộng thêm thời gian
+    const currentUntil = user.xpBoostUntil
+      ? new Date(user.xpBoostUntil).getTime()
+      : Date.now();
+    const baseTime = currentUntil > Date.now() ? currentUntil : Date.now();
+    const xpBoostUntil = new Date(
+      baseTime + hours * 60 * 60 * 1000
+    ).toISOString();
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { xpBoostUntil, xpBoostMultiplier: 2 });
+      set({
+        user: { ...get().user!, xpBoostUntil, xpBoostMultiplier: 2 },
+      });
+      return true;
+    } catch (error) {
+      console.error("Error buying XP boost:", error);
+      return false;
+    }
+  },
+
+  hasXPBoost: () => {
+    const { user } = get();
+    if (!user?.xpBoostUntil) return false;
+    return Date.now() < new Date(user.xpBoostUntil).getTime();
+  },
+
+  getXPBoostTimeLeft: () => {
+    const { user } = get();
+    if (!user?.xpBoostUntil) return null;
+
+    const until = new Date(user.xpBoostUntil).getTime();
+    const remaining = until - Date.now();
+
+    if (remaining <= 0) return null;
+
+    const hours = Math.floor(remaining / (60 * 60 * 1000));
+    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / 60000);
+    return `${hours}h ${minutes}m`;
+  },
+
+  getXPMultiplier: () => {
+    const { hasXPBoost, user } = get();
+    if (!hasXPBoost()) return 1;
+    return user?.xpBoostMultiplier || 2;
+  },
+
+  // Streak Freeze methods
+  buyStreakFreeze: async () => {
+    const { user, spendGems } = get();
+    if (!user) return false;
+
+    const STREAK_FREEZE_COST = 1000;
+    const MAX_STREAK_FREEZES = 5;
+
+    const currentFreezes = user.streakFreezes || 0;
+    if (currentFreezes >= MAX_STREAK_FREEZES) return false;
+    if (user.gems < STREAK_FREEZE_COST) return false;
+
+    const success = await spendGems(STREAK_FREEZE_COST);
+    if (!success) return false;
+
+    const newFreezes = currentFreezes + 1;
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { streakFreezes: newFreezes });
+      set({ user: { ...get().user!, streakFreezes: newFreezes } });
+      return true;
+    } catch (error) {
+      console.error("Error buying streak freeze:", error);
+      return false;
+    }
+  },
+
+  useStreakFreeze: async () => {
+    const { user } = get();
+    if (!user) return false;
+
+    const currentFreezes = user.streakFreezes || 0;
+    if (currentFreezes <= 0) return false;
+
+    const newFreezes = currentFreezes - 1;
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { streakFreezes: newFreezes });
+      set({ user: { ...user, streakFreezes: newFreezes } });
+      return true;
+    } catch (error) {
+      console.error("Error using streak freeze:", error);
+      return false;
+    }
+  },
+
+  getStreakFreezeCount: () => {
+    const { user } = get();
+    return user?.streakFreezes || 0;
   },
 }));

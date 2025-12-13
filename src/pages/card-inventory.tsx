@@ -35,7 +35,7 @@ const ITEMS_PER_PAGE = 12;
 
 function CardInventoryPage() {
   const navigate = useNavigate();
-  const { user } = useUserStore();
+  const { user, incrementDailyCardViewed } = useUserStore();
   const [loading, setLoading] = useState(true);
   const [allOwnedCards, setAllOwnedCards] = useState<OwnedCardInfo[]>([]);
   const [activeTab, setActiveTab] = useState<TabType>("all");
@@ -286,7 +286,10 @@ function CardInventoryPage() {
                 return (
                   <button
                     key={`${item.collectionId}-${item.card.card_img}-${idx}`}
-                    onClick={() => setSelectedCard(item)}
+                    onClick={() => {
+                      setSelectedCard(item);
+                      incrementDailyCardViewed();
+                    }}
                     className="relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all hover:scale-105 active:scale-95"
                     style={{
                       borderColor: getScarcityColor(item.card.card_scarcity),

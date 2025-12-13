@@ -118,6 +118,15 @@ export interface QuestProgress {
   // Gacha quests
   dailyGachaPulls: number;
   weeklyGachaPulls: number;
+  // Tower quests
+  dailyTowerFloors: number;
+  weeklyTowerFloors: number;
+  // Customize quests
+  dailyAvatarChanged: number;
+  dailyFrameChanged: number;
+  dailyBadgeChanged: number;
+  dailyCardViewed: number;
+  weeklyCardViewed: number;
 }
 
 // Conquest/Chinh Chiến Types
@@ -179,7 +188,9 @@ export interface Achievement {
     | "Shield"
     | "Award"
     | "Package"
-    | "Image";
+    | "Image"
+    | "Building"
+    | "Brain";
   requirement: number;
   type:
     | "streak"
@@ -195,7 +206,10 @@ export interface Achievement {
     | "gacha_ur"
     | "gacha_sr"
     | "gacha_collections"
-    | "gacha_total_cards";
+    | "gacha_total_cards"
+    | "tower_floor"
+    | "tower_complete"
+    | "quizzes";
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
@@ -546,5 +560,79 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: "Trophy",
     requirement: 5,
     type: "gacha_collections",
+  },
+  // Tower achievements - Tháp Luyện Ngục
+  {
+    id: "tower_floor_10",
+    name: "Người leo tháp",
+    description: "Đạt tầng 10 trong Tháp Luyện Ngục",
+    icon: "Building",
+    requirement: 10,
+    type: "tower_floor",
+  },
+  {
+    id: "tower_floor_50",
+    name: "Chinh phục tháp",
+    description: "Đạt tầng 50 trong Tháp Luyện Ngục",
+    icon: "Building",
+    requirement: 50,
+    type: "tower_floor",
+  },
+  {
+    id: "tower_floor_100",
+    name: "Bá chủ tháp",
+    description: "Đạt tầng 100 trong Tháp Luyện Ngục",
+    icon: "Building",
+    requirement: 100,
+    type: "tower_floor",
+  },
+  {
+    id: "tower_floor_200",
+    name: "Huyền thoại tháp",
+    description: "Đạt tầng 200 trong Tháp Luyện Ngục",
+    icon: "Crown",
+    requirement: 200,
+    type: "tower_floor",
+  },
+  {
+    id: "tower_complete",
+    name: "Đỉnh cao tháp ngục",
+    description: "Hoàn thành toàn bộ Tháp Luyện Ngục",
+    icon: "Trophy",
+    requirement: 1,
+    type: "tower_complete",
+  },
+  // Quiz/Practice mode achievements - Chế độ luyện tập
+  {
+    id: "quizzes_10",
+    name: "Chăm chỉ",
+    description: "Hoàn thành 10 bài luyện tập",
+    icon: "Brain",
+    requirement: 10,
+    type: "quizzes",
+  },
+  {
+    id: "quizzes_50",
+    name: "Siêng năng",
+    description: "Hoàn thành 50 bài luyện tập",
+    icon: "Brain",
+    requirement: 50,
+    type: "quizzes",
+  },
+  {
+    id: "quizzes_100",
+    name: "Cần cù",
+    description: "Hoàn thành 100 bài luyện tập",
+    icon: "Brain",
+    requirement: 100,
+    type: "quizzes",
+  },
+  {
+    id: "quizzes_500",
+    name: "Học giả",
+    description: "Hoàn thành 500 bài luyện tập",
+    icon: "GraduationCap",
+    requirement: 500,
+    type: "quizzes",
   },
 ];

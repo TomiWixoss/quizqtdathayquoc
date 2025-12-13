@@ -41,6 +41,13 @@ interface UserState {
   incrementWeeklyConquestWins: () => Promise<void>;
   // Gacha quest methods
   incrementDailyGachaPulls: (count?: number) => Promise<void>;
+  // Tower quest methods
+  incrementDailyTowerFloors: () => Promise<void>;
+  // Customize quest methods
+  incrementDailyAvatarChanged: () => Promise<void>;
+  incrementDailyFrameChanged: () => Promise<void>;
+  incrementDailyBadgeChanged: () => Promise<void>;
+  incrementDailyCardViewed: () => Promise<void>;
   // Claimed rewards methods
   claimAchievementReward: (achievementId: string) => Promise<void>;
   claimMail: (mailId: string) => Promise<void>;
@@ -121,6 +128,15 @@ const DEFAULT_QUEST_PROGRESS: QuestProgress = {
   // Gacha quests
   dailyGachaPulls: 0,
   weeklyGachaPulls: 0,
+  // Tower quests
+  dailyTowerFloors: 0,
+  weeklyTowerFloors: 0,
+  // Customize quests
+  dailyAvatarChanged: 0,
+  dailyFrameChanged: 0,
+  dailyBadgeChanged: 0,
+  dailyCardViewed: 0,
+  weeklyCardViewed: 0,
 };
 
 const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
@@ -602,6 +618,15 @@ export const useUserStore = create<UserState>((set, get) => ({
           earned =
             (gachaStats?.completedCollections ?? 0) >= achievement.requirement;
           break;
+        // Quiz/Practice achievements
+        case "quizzes":
+          earned = (user.totalQuizzes ?? 0) >= achievement.requirement;
+          break;
+        // Tower achievements are checked in achievements page (local storage)
+        case "tower_floor":
+        case "tower_complete":
+          // Skip - these are checked in achievements page
+          break;
       }
 
       if (earned) {
@@ -759,6 +784,60 @@ export const useUserStore = create<UserState>((set, get) => ({
     await updateQuestProgress({
       dailyGachaPulls: (currentProgress.dailyGachaPulls || 0) + count,
       weeklyGachaPulls: (currentProgress.weeklyGachaPulls || 0) + count,
+    });
+  },
+
+  // Tower quest methods
+  incrementDailyTowerFloors: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyTowerFloors: (currentProgress.dailyTowerFloors || 0) + 1,
+      weeklyTowerFloors: (currentProgress.weeklyTowerFloors || 0) + 1,
+    });
+  },
+
+  // Customize quest methods
+  incrementDailyAvatarChanged: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyAvatarChanged: (currentProgress.dailyAvatarChanged || 0) + 1,
+    });
+  },
+
+  incrementDailyFrameChanged: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyFrameChanged: (currentProgress.dailyFrameChanged || 0) + 1,
+    });
+  },
+
+  incrementDailyBadgeChanged: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyBadgeChanged: (currentProgress.dailyBadgeChanged || 0) + 1,
+    });
+  },
+
+  incrementDailyCardViewed: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyCardViewed: (currentProgress.dailyCardViewed || 0) + 1,
+      weeklyCardViewed: (currentProgress.weeklyCardViewed || 0) + 1,
     });
   },
 

@@ -13,6 +13,9 @@ import {
   Swords,
   Sparkles,
   Award,
+  Building,
+  User,
+  Image,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState } from "react";
@@ -81,6 +84,36 @@ const DAILY_QUESTS: Quest[] = [
     reward: 15,
     getValue: (user) => user?.questProgress?.dailyGachaPulls ?? 0,
   },
+  {
+    id: "daily_tower_3",
+    name: "Leo tháp",
+    description: "Vượt qua 3 tầng tháp luyện ngục",
+    icon: Building,
+    type: "daily",
+    requirement: 3,
+    reward: 20,
+    getValue: (user) => user?.questProgress?.dailyTowerFloors ?? 0,
+  },
+  {
+    id: "daily_avatar_1",
+    name: "Đổi avatar",
+    description: "Thay đổi avatar 1 lần",
+    icon: User,
+    type: "daily",
+    requirement: 1,
+    reward: 10,
+    getValue: (user) => user?.questProgress?.dailyAvatarChanged ?? 0,
+  },
+  {
+    id: "daily_card_view_3",
+    name: "Xem thẻ",
+    description: "Xem chi tiết 3 thẻ bất kỳ",
+    icon: Image,
+    type: "daily",
+    requirement: 3,
+    reward: 10,
+    getValue: (user) => user?.questProgress?.dailyCardViewed ?? 0,
+  },
 ];
 
 const WEEKLY_QUESTS: Quest[] = [
@@ -143,6 +176,26 @@ const WEEKLY_QUESTS: Quest[] = [
     requirement: 10,
     reward: 100,
     getValue: (user) => user?.questProgress?.weeklyGachaPulls ?? 0,
+  },
+  {
+    id: "weekly_tower_20",
+    name: "Chinh phục tháp",
+    description: "Vượt qua 20 tầng tháp trong tuần",
+    icon: Building,
+    type: "weekly",
+    requirement: 20,
+    reward: 80,
+    getValue: (user) => user?.questProgress?.weeklyTowerFloors ?? 0,
+  },
+  {
+    id: "weekly_card_view_15",
+    name: "Khám phá thẻ",
+    description: "Xem chi tiết 15 thẻ trong tuần",
+    icon: Image,
+    type: "weekly",
+    requirement: 15,
+    reward: 50,
+    getValue: (user) => user?.questProgress?.weeklyCardViewed ?? 0,
   },
 ];
 

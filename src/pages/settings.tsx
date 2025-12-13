@@ -164,6 +164,13 @@ function SettingsPage() {
         return totalCards;
       case "gacha_collections":
         return gachaStats?.completedCollections ?? 0;
+      // Quiz/Practice achievements
+      case "quizzes":
+        return user.totalQuizzes ?? 0;
+      // Tower achievements - return 0 here, checked in achievements page
+      case "tower_floor":
+      case "tower_complete":
+        return 0;
       default:
         return 0;
     }

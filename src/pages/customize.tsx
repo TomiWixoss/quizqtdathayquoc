@@ -9,7 +9,15 @@ type TabType = "avatar" | "frame" | "badge";
 
 function CustomizePage() {
   const navigate = useNavigate();
-  const { user, equipAvatar, equipFrame, equipBadge } = useUserStore();
+  const {
+    user,
+    equipAvatar,
+    equipFrame,
+    equipBadge,
+    incrementDailyAvatarChanged,
+    incrementDailyFrameChanged,
+    incrementDailyBadgeChanged,
+  } = useUserStore();
   const [activeTab, setActiveTab] = useState<TabType>("avatar");
 
   // Get owned items from gacha rewards
@@ -32,6 +40,22 @@ function CustomizePage() {
   const displayAvatar = user?.equippedAvatar || user?.avatar;
   const displayFrame = user?.equippedFrame;
   const displayBadge = user?.equippedBadge;
+
+  // Handlers with quest tracking
+  const handleEquipAvatar = async (avatarUrl: string | null) => {
+    await equipAvatar(avatarUrl);
+    await incrementDailyAvatarChanged();
+  };
+
+  const handleEquipFrame = async (frameUrl: string | null) => {
+    await equipFrame(frameUrl);
+    await incrementDailyFrameChanged();
+  };
+
+  const handleEquipBadge = async (badgeUrl: string | null) => {
+    await equipBadge(badgeUrl);
+    await incrementDailyBadgeChanged();
+  };
 
   return (
     <Page className="bg-background min-h-screen">
@@ -152,7 +176,7 @@ function CustomizePage() {
           <div className="grid grid-cols-4 gap-3">
             {/* Default avatar option */}
             <button
-              onClick={() => equipAvatar(null)}
+              onClick={() => handleEquipAvatar(null)}
               className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all ${
                 !user?.equippedAvatar
                   ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
@@ -182,7 +206,7 @@ function CustomizePage() {
               return (
                 <button
                   key={index}
-                  onClick={() => equipAvatar(avatar.image)}
+                  onClick={() => handleEquipAvatar(avatar.image)}
                   className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all ${
                     isEquipped
                       ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
@@ -218,7 +242,7 @@ function CustomizePage() {
           <div className="grid grid-cols-4 gap-3">
             {/* No frame option */}
             <button
-              onClick={() => equipFrame(null)}
+              onClick={() => handleEquipFrame(null)}
               className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] flex items-center justify-center ${
                 !user?.equippedFrame
                   ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
@@ -238,7 +262,7 @@ function CustomizePage() {
               return (
                 <button
                   key={index}
-                  onClick={() => equipFrame(frame.image)}
+                  onClick={() => handleEquipFrame(frame.image)}
                   className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] ${
                     isEquipped
                       ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
@@ -274,7 +298,7 @@ function CustomizePage() {
           <div className="grid grid-cols-4 gap-3">
             {/* No badge option */}
             <button
-              onClick={() => equipBadge(null)}
+              onClick={() => handleEquipBadge(null)}
               className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] flex items-center justify-center ${
                 !user?.equippedBadge
                   ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
@@ -294,7 +318,7 @@ function CustomizePage() {
               return (
                 <button
                   key={index}
-                  onClick={() => equipBadge(badge.image)}
+                  onClick={() => handleEquipBadge(badge.image)}
                   className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] ${
                     isEquipped
                       ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"

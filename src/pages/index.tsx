@@ -195,7 +195,7 @@ function HomePage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-36 pb-28">
+      <div className="px-4 pt-40 pb-28">
         {/* Daily Goal */}
         {user && (
           <div className="card-3d p-3 mb-4">

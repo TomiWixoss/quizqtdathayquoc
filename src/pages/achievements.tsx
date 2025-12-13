@@ -21,10 +21,13 @@ import {
   Shield,
   Package,
   Image,
+  Building,
+  Brain,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
+import { useTowerStore } from "@/stores/tower-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { RewardModal } from "@/components/ui/reward-modal";
 
@@ -46,6 +49,8 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Award,
   Package,
   Image,
+  Building,
+  Brain,
 };
 
 // Reward gems for each achievement
@@ -93,16 +98,33 @@ const ACHIEVEMENT_REWARDS: Record<string, number> = {
   gacha_collection_1: 100,
   gacha_collection_3: 250,
   gacha_collection_5: 500,
+  // Tower achievements
+  tower_floor_10: 30,
+  tower_floor_50: 100,
+  tower_floor_100: 250,
+  tower_floor_200: 500,
+  tower_complete: 1000,
+  // Quiz/Practice achievements
+  quizzes_10: 20,
+  quizzes_50: 60,
+  quizzes_100: 150,
+  quizzes_500: 400,
 };
 
 function AchievementsPage() {
   const navigate = useNavigate();
   const { user, addGems, claimAchievementReward } = useUserStore();
+  const { highestFloor, totalFloors, initTower } = useTowerStore();
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [currentReward, setCurrentReward] = useState<{
     achievement: Achievement;
     gems: number;
   } | null>(null);
+
+  // Initialize tower store to get highestFloor
+  useEffect(() => {
+    initTower();
+  }, []);
 
   // Get claimed rewards from Firebase user data
   const claimedRewards = user?.claimedAchievementRewards || [];
@@ -150,6 +172,14 @@ function AchievementsPage() {
         return totalCards;
       case "gacha_collections":
         return gachaStats?.completedCollections ?? 0;
+      // Tower achievements
+      case "tower_floor":
+        return highestFloor;
+      case "tower_complete":
+        return highestFloor >= totalFloors && totalFloors > 0 ? 1 : 0;
+      // Quiz/Practice achievements
+      case "quizzes":
+        return user.totalQuizzes ?? 0;
       default:
         return 0;
     }

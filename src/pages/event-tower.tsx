@@ -43,7 +43,7 @@ function EventTowerPage() {
     resetTower,
   } = towerState;
 
-  const { addGems } = useUserStore();
+  const { addGems, incrementDailyTowerFloors } = useUserStore();
   const [showRewardModal, setShowRewardModal] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
   const [claimedReward, setClaimedReward] = useState(0);
@@ -96,6 +96,11 @@ function EventTowerPage() {
       const claimed = claimReward(activeFloor!);
       if (claimed > 0) {
         await addGems(claimed);
+      }
+
+      // Track tower floor for quest (only for new floors)
+      if (!alreadyClaimed) {
+        await incrementDailyTowerFloors();
       }
 
       // Only show reward modal if this is a new floor (not already claimed)

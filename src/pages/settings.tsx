@@ -354,13 +354,13 @@ function SettingsPage() {
         </div>
       )}
 
-      {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <h1 className="font-bold text-xl text-foreground">Tôi</h1>
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-32">
+      <div className="px-4 pt-28 pb-32">
         {/* User Info */}
         {user && (
           <div className="card-3d p-4 mb-6">

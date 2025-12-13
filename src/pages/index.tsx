@@ -80,8 +80,8 @@ function HomePage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="pt-16 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-[var(--duo-green)] flex items-center justify-center">
@@ -172,10 +172,7 @@ function HomePage() {
       </div>
 
       {/* Content */}
-      <div
-        className="px-4 py-4 pb-28 overflow-y-auto"
-        style={{ height: "calc(100vh - 150px)" }}
-      >
+      <div className="px-4 pt-36 pb-28">
         {/* Daily Goal */}
         {user && (
           <div className="card-3d p-3 mb-4">

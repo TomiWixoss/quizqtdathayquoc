@@ -88,8 +88,8 @@ function StatsPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-blue)] to-[var(--duo-purple)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-blue)] to-[var(--duo-purple)]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/settings")}
@@ -109,8 +109,8 @@ function StatsPage() {
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
+      {/* Tabs - Fixed */}
+      <div className="fixed top-[108px] left-0 right-0 z-40 px-4 py-2 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {[
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
@@ -134,7 +134,7 @@ function StatsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-28">
+      <div className="px-4 pt-44 pb-28">
         {/* Overview Tab */}
         {activeTab === "overview" && (
           <div className="space-y-4">

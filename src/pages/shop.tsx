@@ -1,13 +1,11 @@
 import { Page } from "zmp-ui";
 import { Gift, Clock, Sparkles } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
-import { useNavigate } from "zmp-ui";
 import { useState, useEffect } from "react";
 import { RewardModal } from "@/components/ui/reward-modal";
 import confetti from "canvas-confetti";
 
 function ShopPage() {
-  const navigate = useNavigate();
   const {
     user,
     spendGems,
@@ -107,8 +105,8 @@ function ShopPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
         <div className="flex items-center gap-2">
           <Gift className="w-6 h-6 text-white" />
           <h1 className="font-bold text-xl text-white">Cửa hàng</h1>
@@ -149,7 +147,7 @@ function ShopPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-28 space-y-4">
+      <div className="px-4 pt-36 pb-28 space-y-4">
         {/* Hearts Section */}
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">

@@ -170,8 +170,8 @@ function AchievementsPage() {
         gradientTo="var(--duo-orange)"
       />
 
-      {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
         <div className="flex items-center gap-3 mb-2">
           <button
             onClick={() => navigate("/settings")}
@@ -199,7 +199,7 @@ function AchievementsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-28 space-y-3">
+      <div className="px-4 pt-36 pb-28 space-y-3">
         {ACHIEVEMENTS.map((achievement) => {
           const earned = isEarned(achievement);
           const claimed = claimedRewards.includes(achievement.id);

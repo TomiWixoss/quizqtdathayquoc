@@ -96,8 +96,8 @@ function MailboxPage() {
         gradientTo="var(--duo-yellow)"
       />
 
-      {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-orange)] to-[var(--duo-yellow)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-orange)] to-[var(--duo-yellow)]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/settings")}
@@ -117,7 +117,7 @@ function MailboxPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-28">
+      <div className="px-4 pt-30 pb-28">
         {loading ? (
           <div className="text-center py-10">
             <p className="text-[var(--muted-foreground)]">Đang tải...</p>

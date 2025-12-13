@@ -107,7 +107,11 @@ function LeaderboardPage() {
         case "gems":
           return (
             <div className="flex items-center gap-1 text-[var(--duo-blue)]">
-              <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-5 h-5" />
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-5 h-5"
+              />
               <span className="font-bold text-lg">{value}</span>
             </div>
           );
@@ -172,7 +176,11 @@ function LeaderboardPage() {
             </p>
             <div className="flex items-center gap-3 text-xs">
               <span className="flex items-center gap-1 text-[var(--duo-orange)]">
-                <img src="/AppAssets/Fire.png" alt="streak" className="w-4 h-4" />
+                <img
+                  src="/AppAssets/Fire.png"
+                  alt="streak"
+                  className="w-4 h-4"
+                />
                 {leader.streak ?? 0}
               </span>
               <span className="text-[var(--muted-foreground)]">
@@ -195,16 +203,18 @@ function LeaderboardPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className={`pt-16 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}>
+      {/* Header - Fixed */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}
+      >
         <div className="flex items-center gap-2">
           <Trophy className="w-6 h-6 text-white" />
           <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
+      {/* Tabs - Fixed below header */}
+      <div className="fixed top-[88px] left-0 right-0 z-40 px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab("conquest")}
@@ -243,7 +253,7 @@ function LeaderboardPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-28">
+      <div className="px-4 pt-40 pb-28">
         {loading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[var(--duo-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />

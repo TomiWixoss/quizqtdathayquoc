@@ -160,8 +160,8 @@ function QuestsPage() {
         gradientTo="var(--duo-blue)"
       />
 
-      {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-blue)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-blue)]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/settings")}
@@ -189,7 +189,7 @@ function QuestsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-28 space-y-5">
+      <div className="px-4 pt-32 pb-28 space-y-5">
         {/* Daily Quests */}
         <div>
           <div className="flex items-center gap-2 mb-3">

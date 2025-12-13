@@ -3,6 +3,8 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Loader2,
   Users,
   ShoppingCart,
@@ -85,8 +87,8 @@ function GachaPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)]">
+      {/* Header - Fixed */}
+      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]">
         <div className="flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-white" />
           <h1 className="font-bold text-xl text-white">Gacha</h1>
@@ -95,7 +97,7 @@ function GachaPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 py-4 pb-28">
+      <div className="px-4 pt-32 pb-28">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader2 className="w-10 h-10 text-[var(--duo-purple)] animate-spin" />
@@ -150,59 +152,79 @@ function GachaPage() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-6">
-                <button
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="p-2 rounded-xl bg-[var(--secondary)] disabled:opacity-40"
-                >
-                  <ChevronLeft className="w-5 h-5 text-foreground" />
-                </button>
+              <div className="space-y-3 mt-6">
+                {/* Navigation buttons */}
+                <div className="flex items-center justify-center gap-1.5">
+                  {/* First page */}
+                  <button
+                    onClick={() => setCurrentPage(1)}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-xl bg-[var(--secondary)] disabled:opacity-40"
+                  >
+                    <ChevronsLeft className="w-4 h-4 text-foreground" />
+                  </button>
 
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                    let pageNum: number;
-                    if (totalPages <= 5) {
-                      pageNum = i + 1;
-                    } else if (currentPage <= 3) {
-                      pageNum = i + 1;
-                    } else if (currentPage >= totalPages - 2) {
-                      pageNum = totalPages - 4 + i;
-                    } else {
-                      pageNum = currentPage - 2 + i;
+                  {/* Previous */}
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-xl bg-[var(--secondary)] disabled:opacity-40"
+                  >
+                    <ChevronLeft className="w-4 h-4 text-foreground" />
+                  </button>
+
+                  {/* Page indicator */}
+                  <div className="px-3 py-2 rounded-xl bg-[var(--duo-purple)] text-white font-bold text-sm min-w-[80px] text-center">
+                    {currentPage} / {totalPages}
+                  </div>
+
+                  {/* Next */}
+                  <button
+                    onClick={() =>
+                      setCurrentPage((p) => Math.min(totalPages, p + 1))
                     }
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        className={`w-9 h-9 rounded-xl font-bold text-sm ${
-                          currentPage === pageNum
-                            ? "bg-[var(--duo-purple)] text-white"
-                            : "bg-[var(--secondary)] text-foreground"
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    );
-                  })}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-xl bg-[var(--secondary)] disabled:opacity-40"
+                  >
+                    <ChevronRight className="w-4 h-4 text-foreground" />
+                  </button>
+
+                  {/* Last page */}
+                  <button
+                    onClick={() => setCurrentPage(totalPages)}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-xl bg-[var(--secondary)] disabled:opacity-40"
+                  >
+                    <ChevronsRight className="w-4 h-4 text-foreground" />
+                  </button>
                 </div>
 
-                <button
-                  onClick={() =>
-                    setCurrentPage((p) => Math.min(totalPages, p + 1))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="p-2 rounded-xl bg-[var(--secondary)] disabled:opacity-40"
-                >
-                  <ChevronRight className="w-5 h-5 text-foreground" />
-                </button>
+                {/* Quick jump */}
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-xs text-[var(--muted-foreground)]">
+                    Đi tới:
+                  </span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={totalPages}
+                    value={currentPage}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      if (val >= 1 && val <= totalPages) {
+                        setCurrentPage(val);
+                      }
+                    }}
+                    className="w-16 px-2 py-1.5 rounded-lg bg-[var(--secondary)] text-foreground text-center text-sm font-bold"
+                  />
+                </div>
+
+                {/* Info */}
+                <p className="text-center text-xs text-[var(--muted-foreground)]">
+                  {collections.length} bộ sưu tập
+                </p>
               </div>
             )}
-
-            {/* Info */}
-            <p className="text-center text-xs text-[var(--muted-foreground)] mt-4">
-              {collections.length} bộ sưu tập • Trang {currentPage}/{totalPages}
-            </p>
           </>
         )}
       </div>

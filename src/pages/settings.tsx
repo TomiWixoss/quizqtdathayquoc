@@ -10,6 +10,8 @@ import {
   Gift,
   Pencil,
   Target,
+  Trash2,
+  AlertTriangle,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
@@ -44,6 +46,7 @@ function SettingsPage() {
   const [nameStatus, setNameStatus] = useState<"idle" | "success" | "error">(
     "idle"
   );
+  const [showCacheModal, setShowCacheModal] = useState(false);
 
   const claimedRewards = user?.claimedAchievementRewards ?? [];
 
@@ -295,6 +298,42 @@ function SettingsPage() {
                 className="flex-1 btn-3d btn-3d-blue py-3 disabled:opacity-50"
               >
                 Lưu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Clear Cache Modal */}
+      {showCacheModal && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+          <div className="bg-[var(--card)] rounded-3xl p-6 max-w-sm w-full">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--duo-red)]/20 flex items-center justify-center">
+              <AlertTriangle className="w-8 h-8 text-[var(--duo-red)]" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground text-center mb-2">
+              Xóa cache?
+            </h2>
+            <p className="text-sm text-[var(--muted-foreground)] text-center mb-4">
+              Dữ liệu tạm sẽ bị xóa và trang sẽ được tải lại. Dữ liệu tài khoản
+              vẫn được giữ nguyên.
+            </p>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowCacheModal(false)}
+                className="flex-1 py-3 rounded-xl bg-[var(--secondary)] text-foreground font-bold"
+              >
+                Hủy
+              </button>
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
+                className="flex-1 btn-3d btn-3d-red py-3"
+              >
+                Xóa
               </button>
             </div>
           </div>
@@ -556,6 +595,25 @@ function SettingsPage() {
                 }}
               />
             </div>
+          </button>
+
+          {/* Clear Cache */}
+          <button
+            onClick={() => setShowCacheModal(true)}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--duo-red)]/20 flex items-center justify-center">
+                <Trash2 className="w-5 h-5 text-[var(--duo-red)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Xóa cache</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Xóa dữ liệu tạm & reload
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
           </button>
 
           {/* App Info */}

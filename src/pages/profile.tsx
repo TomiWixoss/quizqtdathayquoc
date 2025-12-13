@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import {
   ArrowLeft,
   Loader2,
-  Trophy,
-  Flame,
   Swords,
   Sparkles,
   Package,
@@ -330,7 +328,11 @@ function ProfilePage() {
             </div>
             <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1 mb-1">
-                <Flame className="w-10 h-10 text-[var(--duo-orange)]" />
+                <img
+                  src="/AppAssets/Fire.png"
+                  alt="streak"
+                  className="w-10 h-10"
+                />
               </div>
               <p className="font-bold text-sm">{profile.streak ?? 0}</p>
               <p className="text-[10px] text-[var(--muted-foreground)]">
@@ -339,7 +341,11 @@ function ProfilePage() {
             </div>
             <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1 mb-1">
-                <Trophy className="w-10 h-10 text-[var(--duo-yellow)]" />
+                <img
+                  src="/AppAssets/Lighting.png"
+                  alt="xp"
+                  className="w-10 h-10"
+                />
               </div>
               <p className="font-bold text-sm">{profile.exp ?? 0}</p>
               <p className="text-[10px] text-[var(--muted-foreground)]">XP</p>

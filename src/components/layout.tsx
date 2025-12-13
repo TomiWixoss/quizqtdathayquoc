@@ -19,6 +19,7 @@ import SettingsPage from "../pages/settings";
 import StatsPage from "../pages/stats";
 import MailboxPage from "../pages/mailbox";
 import ShopPage from "../pages/shop";
+import EventsPage from "../pages/events";
 import GachaPage from "../pages/gacha";
 import GachaDetailPage from "../pages/gacha-detail";
 import CustomizePage from "../pages/customize";
@@ -145,6 +146,7 @@ const Layout = () => {
             <Route path="/stats" element={<StatsPage />} />
             <Route path="/mailbox" element={<MailboxPage />} />
             <Route path="/shop" element={<ShopPage />} />
+            <Route path="/events" element={<EventsPage />} />
             <Route path="/gacha" element={<GachaPage />} />
             <Route path="/gacha/:id" element={<GachaDetailPage />} />
             <Route path="/customize" element={<CustomizePage />} />

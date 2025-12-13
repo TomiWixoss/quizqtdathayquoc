@@ -623,6 +623,25 @@ function SettingsPage() {
             <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
           </button>
 
+          {/* Shop Link */}
+          <button
+            onClick={() => navigate("/shop")}
+            className="card-3d w-full p-4 flex items-center justify-between"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--duo-purple)]/20 to-[var(--duo-blue)]/20 flex items-center justify-center">
+                <Gift className="w-5 h-5 text-[var(--duo-purple)]" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-foreground">Cửa hàng</p>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Mua tim, XP boost, streak freeze
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)]" />
+          </button>
+
           {/* Mailbox Link */}
           <button
             onClick={() => navigate("/mailbox")}

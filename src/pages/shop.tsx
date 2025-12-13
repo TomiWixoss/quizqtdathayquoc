@@ -1,11 +1,12 @@
-import { Page } from "zmp-ui";
-import { Gift, Clock, Sparkles, Zap, Snowflake } from "lucide-react";
+import { Page, useNavigate } from "zmp-ui";
+import { Gift, Clock, Sparkles, Zap, Snowflake, ArrowLeft } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect } from "react";
 import { RewardModal } from "@/components/ui/reward-modal";
 import confetti from "canvas-confetti";
 
 function ShopPage() {
+  const navigate = useNavigate();
   const {
     user,
     spendGems,
@@ -170,9 +171,22 @@ function ShopPage() {
     <Page className="bg-background min-h-screen">
       {/* Header - Fixed */}
       <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
-        <div className="flex items-center gap-2">
-          <Gift className="w-6 h-6 text-white" />
-          <h1 className="font-bold text-xl text-white">Cửa hàng</h1>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate("/settings")}
+            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </button>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <Gift className="w-6 h-6 text-white" />
+              <h1 className="font-bold text-xl text-white">Cửa hàng</h1>
+            </div>
+            <p className="text-white/80 text-sm mt-1">
+              Mua vật phẩm hỗ trợ học tập
+            </p>
+          </div>
         </div>
         {user && (
           <div className="flex items-center gap-4 mt-3">
@@ -210,7 +224,7 @@ function ShopPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-36 pb-28 space-y-4">
+      <div className="px-4 pt-42 pb-28 space-y-4">
         {/* Hearts Section */}
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">

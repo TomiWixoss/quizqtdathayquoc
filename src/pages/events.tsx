@@ -87,7 +87,7 @@ function EventsPage() {
               <button
                 key={event.id}
                 onClick={() => navigate(event.route)}
-                className="w-full card-3d p-4 flex items-center gap-4 active:scale-[0.98] transition-transform"
+                className="w-full card-3d p-4 flex items-center gap-4"
               >
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center"

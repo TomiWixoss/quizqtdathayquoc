@@ -26,12 +26,14 @@ export function GachaPullModal({
   const [revealPhase, setRevealPhase] = useState<"loading" | "reveal" | "done">(
     "loading"
   );
+  const [videoErrors, setVideoErrors] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     if (isOpen && results.length > 0 && !isLoading) {
       setRevealPhase("reveal");
       setCurrentIndex(0);
       setShowAll(false);
+      setVideoErrors({});
     } else if (isLoading) {
       setRevealPhase("loading");
     }
@@ -64,20 +66,22 @@ export function GachaPullModal({
         className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-12 right-4 p-2 rounded-full bg-white/10 z-10"
-        >
-          <X className="w-6 h-6 text-white" />
-        </button>
+        {/* Close button - hide when showing results (has its own close button) */}
+        {!showAll && (
+          <button
+            onClick={onClose}
+            className="absolute top-12 right-4 p-2 rounded-full bg-white/10 z-10"
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
+        )}
 
         {/* Loading Animation */}
         {revealPhase === "loading" && (
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="flex flex-col items-center"
+            className="absolute inset-0 flex flex-col items-center justify-center"
           >
             <motion.div
               animate={{ rotate: 360 }}
@@ -112,7 +116,7 @@ export function GachaPullModal({
 
             {/* Card */}
             <div
-              className="relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px]"
+              className="relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px] min-h-[300px] bg-black/50"
               style={{
                 borderColor: getScarcityColor(currentResult.cardScarcity),
                 aspectRatio:
@@ -121,7 +125,9 @@ export function GachaPullModal({
                     : 2 / 3,
               }}
             >
-              {currentResult.videoList && currentResult.videoList.length > 1 ? (
+              {currentResult.videoList &&
+              currentResult.videoList.length > 1 &&
+              !videoErrors[currentIndex] ? (
                 <video
                   className="w-full h-full object-contain"
                   autoPlay
@@ -129,6 +135,12 @@ export function GachaPullModal({
                   muted
                   playsInline
                   src={currentResult.videoList[1]}
+                  onError={() =>
+                    setVideoErrors((prev) => ({
+                      ...prev,
+                      [currentIndex]: true,
+                    }))
+                  }
                 />
               ) : (
                 <img
@@ -136,6 +148,14 @@ export function GachaPullModal({
                   alt=""
                   className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
+                  crossOrigin="anonymous"
+                  onError={(e) => {
+                    // Fallback: try without webp transform
+                    const target = e.target as HTMLImageElement;
+                    if (target.src.includes("@")) {
+                      target.src = currentResult.cardImg;
+                    }
+                  }}
                 />
               )}
 
@@ -216,53 +236,69 @@ export function GachaPullModal({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full max-h-[80vh] overflow-y-auto px-4 py-8"
+            className="w-full h-full flex flex-col"
           >
-            <h2 className="text-white text-xl font-bold text-center mb-4 flex items-center justify-center gap-2">
+            {/* Header - fixed */}
+            <h2 className="text-white text-xl font-bold text-center py-4 flex items-center justify-center gap-2 flex-shrink-0">
               <Sparkles className="w-6 h-6 text-[var(--duo-yellow)]" />
               Kết quả ({results.length} thẻ)
             </h2>
 
-            <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
-              {results.map((result, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: idx * 0.05 }}
-                  className="relative aspect-[2/3] rounded-xl overflow-hidden border-2"
-                  style={{ borderColor: getScarcityColor(result.cardScarcity) }}
-                >
-                  <img
-                    src={getFullImage(result.cardImg, 200)}
-                    alt=""
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                  {result.isNew && (
-                    <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-[var(--duo-green)] text-white text-[10px] font-bold rounded">
-                      MỚI
-                    </div>
-                  )}
-                  {result.shardsGained > 0 && (
-                    <div className="absolute top-1 right-1 px-1.5 py-0.5 bg-purple-500 text-white text-[10px] font-bold rounded flex items-center gap-0.5">
-                      <img
-                        src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
-                        className="w-3 h-3"
-                      />
-                      +{result.shardsGained}
-                    </div>
-                  )}
-                </motion.div>
-              ))}
+            {/* Scrollable cards area */}
+            <div className="flex-1 overflow-y-auto px-4 pb-4">
+              <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+                {results.map((result, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="relative aspect-[2/3] rounded-xl overflow-hidden border-2"
+                    style={{
+                      borderColor: getScarcityColor(result.cardScarcity),
+                    }}
+                  >
+                    <img
+                      src={getFullImage(result.cardImg, 200)}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                      crossOrigin="anonymous"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        if (target.src.includes("@")) {
+                          target.src = result.cardImg;
+                        }
+                      }}
+                    />
+                    {result.isNew && (
+                      <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-[var(--duo-green)] text-white text-[10px] font-bold rounded">
+                        MỚI
+                      </div>
+                    )}
+                    {result.shardsGained > 0 && (
+                      <div className="absolute top-1 right-1 px-1.5 py-0.5 bg-purple-500 text-white text-[10px] font-bold rounded flex items-center gap-0.5">
+                        <img
+                          src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
+                          className="w-3 h-3"
+                        />
+                        +{result.shardsGained}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="mt-6 w-full max-w-md mx-auto block btn-3d btn-3d-purple py-3"
-            >
-              Đóng
-            </button>
+            {/* Fixed button at bottom */}
+            <div className="flex-shrink-0 p-4 bg-black/50">
+              <button
+                onClick={onClose}
+                className="w-full max-w-md mx-auto block btn-3d btn-3d-purple py-3"
+              >
+                Đóng
+              </button>
+            </div>
           </motion.div>
         )}
       </motion.div>

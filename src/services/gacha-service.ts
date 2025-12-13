@@ -177,17 +177,94 @@ export function getFullImage(url: string, width = 600): string {
   return url;
 }
 
+// ============ CACHE CONFIG ============
+const CACHE_KEYS = {
+  COLLECTIONS: "gacha_collections",
+  COLLECTION_DETAIL: "gacha_detail_",
+  LOTTERIES: "gacha_lotteries_",
+};
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+interface CacheItem<T> {
+  data: T;
+  timestamp: number;
+}
+
+function getCache<T>(key: string): T | null {
+  try {
+    const cached = localStorage.getItem(key);
+    if (!cached) return null;
+    const item: CacheItem<T> = JSON.parse(cached);
+    if (Date.now() - item.timestamp > CACHE_DURATION) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return item.data;
+  } catch {
+    return null;
+  }
+}
+
+function setCache<T>(key: string, data: T): void {
+  try {
+    const item: CacheItem<T> = { data, timestamp: Date.now() };
+    localStorage.setItem(key, JSON.stringify(item));
+  } catch (e) {
+    console.warn("Cache write failed:", e);
+  }
+}
+
+// ============ IMAGE PRELOAD ============
+const preloadedImages = new Set<string>();
+
+export function preloadImages(urls: string[]): void {
+  urls.forEach((url) => {
+    if (!url || preloadedImages.has(url)) return;
+    const img = new Image();
+    img.referrerPolicy = "no-referrer";
+    img.crossOrigin = "anonymous";
+    img.src = url;
+    preloadedImages.add(url);
+  });
+}
+
+export function preloadLotteryImages(lottery: GachaLottery): void {
+  if (!lottery?.item_list) return;
+  const urls = lottery.item_list.map((card) =>
+    getFullImage(card.card_img, 400)
+  );
+  preloadImages(urls);
+}
+
 // ============ FIRESTORE FUNCTIONS ============
+
+export function preloadCollectionImages(collections: GachaCollection[]): void {
+  const urls = collections.map((c) => getFullImage(c.act_square_img, 400));
+  preloadImages(urls);
+}
 
 export async function getGachaCollections(
   maxItems?: number
 ): Promise<GachaCollection[]> {
+  // Check cache first
+  const cacheKey = CACHE_KEYS.COLLECTIONS + (maxItems || "all");
+  const cached = getCache<GachaCollection[]>(cacheKey);
+  if (cached) {
+    // Preload collection images from cache
+    preloadCollectionImages(cached);
+    return cached;
+  }
+
   try {
     const collectionRef = collection(db, "gachaCollections");
     let q = query(collectionRef, orderBy("startTime", "desc"));
     if (maxItems) q = query(q, limit(maxItems));
     const snapshot = await getDocs(q);
-    return snapshot.docs.map((doc) => doc.data() as GachaCollection);
+    const data = snapshot.docs.map((d) => d.data() as GachaCollection);
+    setCache(cacheKey, data);
+    // Preload collection images
+    preloadCollectionImages(data);
+    return data;
   } catch (error) {
     console.error("Error fetching gacha collections:", error);
     throw error;
@@ -197,11 +274,18 @@ export async function getGachaCollections(
 export async function getGachaCollectionDetail(
   actId: number
 ): Promise<GachaCollection | null> {
+  // Check cache first
+  const cacheKey = CACHE_KEYS.COLLECTION_DETAIL + actId;
+  const cached = getCache<GachaCollection>(cacheKey);
+  if (cached) return cached;
+
   try {
     const docRef = doc(db, "gachaCollections", actId.toString());
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      return docSnap.data() as GachaCollection;
+      const data = docSnap.data() as GachaCollection;
+      setCache(cacheKey, data);
+      return data;
     }
     return null;
   } catch (error) {
@@ -213,6 +297,15 @@ export async function getGachaCollectionDetail(
 export async function getCollectionLotteries(
   actId: number
 ): Promise<GachaLottery[]> {
+  // Check cache first
+  const cacheKey = CACHE_KEYS.LOTTERIES + actId;
+  const cached = getCache<GachaLottery[]>(cacheKey);
+  if (cached) {
+    // Preload images from cache
+    cached.forEach(preloadLotteryImages);
+    return cached;
+  }
+
   try {
     const lotteriesRef = collection(
       db,
@@ -221,7 +314,11 @@ export async function getCollectionLotteries(
       "lotteries"
     );
     const snapshot = await getDocs(lotteriesRef);
-    return snapshot.docs.map((doc) => doc.data() as GachaLottery);
+    const data = snapshot.docs.map((d) => d.data() as GachaLottery);
+    setCache(cacheKey, data);
+    // Preload images
+    data.forEach(preloadLotteryImages);
+    return data;
   } catch (error) {
     console.error("Error fetching lotteries:", error);
     throw error;
@@ -263,4 +360,16 @@ export async function getGachaMetadata(): Promise<GachaMetadata | null> {
     console.error("Error fetching gacha metadata:", error);
     return null;
   }
+}
+
+// Clear cache (for admin/debug)
+export function clearGachaCache(): void {
+  Object.values(CACHE_KEYS).forEach((prefix) => {
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const key = localStorage.key(i);
+      if (key?.startsWith(prefix)) {
+        localStorage.removeItem(key);
+      }
+    }
+  });
 }

@@ -61,6 +61,21 @@ export interface UserStats {
 
   // Unlimited hearts
   unlimitedHeartsUntil?: string;
+
+  // Gacha inventory
+  gachaInventory?: {
+    cards: Record<number, Record<string, number>>;
+    rewards: Array<{
+      type: "avatar" | "frame" | "badge";
+      image: string;
+      name: string;
+      obtainedAt: string;
+      collectionId: number;
+    }>;
+    shards: number;
+    totalPulls: number;
+    pityCounters: Record<number, number>;
+  };
 }
 
 // Quest Progress Types

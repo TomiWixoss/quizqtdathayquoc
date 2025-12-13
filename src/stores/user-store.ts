@@ -100,6 +100,14 @@ const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
   claimedAchievementRewards: [],
   claimedMails: [],
   usedRedeemCodes: [],
+  // Gacha inventory
+  gachaInventory: {
+    cards: {},
+    rewards: [],
+    shards: 0,
+    totalPulls: 0,
+    pityCounters: {},
+  },
 };
 
 export const useUserStore = create<UserState>((set, get) => ({

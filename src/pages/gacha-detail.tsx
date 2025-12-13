@@ -21,10 +21,23 @@ import {
   getHQImage,
   getFullImage,
 } from "@/services/gacha-service";
+import {
+  pullGacha,
+  getUserGachaInventory,
+  hasCard,
+} from "@/services/gacha-pull-service";
+import { GachaPullModal } from "@/components/gacha/gacha-pull-modal";
+import { useUserStore } from "@/stores/user-store";
+import {
+  GACHA_CONFIG,
+  type GachaInventory,
+  type GachaPullResult,
+} from "@/types/gacha";
 
 function GachaDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { user } = useUserStore();
 
   const [collection, setCollection] = useState<GachaCollection | null>(null);
   const [lotteries, setLotteries] = useState<GachaLottery[]>([]);
@@ -33,11 +46,31 @@ function GachaDetailPage() {
   const [selectedLottery, setSelectedLottery] = useState<number>(0);
   const [selectedCard, setSelectedCard] = useState<GachaCard | null>(null);
 
+  // Gacha states
+  const [inventory, setInventory] = useState<GachaInventory | null>(null);
+  const [isPulling, setIsPulling] = useState(false);
+  const [pullResults, setPullResults] = useState<GachaPullResult[]>([]);
+  const [showPullModal, setShowPullModal] = useState(false);
+
+  const collectionId = id ? parseInt(id) : 0;
+
   useEffect(() => {
     if (id) {
       fetchData(parseInt(id));
     }
   }, [id]);
+
+  useEffect(() => {
+    if (user?.oderId) {
+      loadInventory();
+    }
+  }, [user?.oderId]);
+
+  const loadInventory = async () => {
+    if (!user?.oderId) return;
+    const inv = await getUserGachaInventory(user.oderId);
+    setInventory(inv);
+  };
 
   const fetchData = async (actId: number) => {
     try {
@@ -61,6 +94,43 @@ function GachaDetailPage() {
     }
   };
 
+  const handlePull = async (count: 1 | 10) => {
+    if (!user || !currentLottery) return;
+
+    const cost = GACHA_CONFIG.COST_PER_PULL * count;
+    if (user.gems < cost) {
+      alert("Không đủ Gems!");
+      return;
+    }
+
+    setIsPulling(true);
+    setShowPullModal(true);
+    setPullResults([]);
+
+    const result = await pullGacha(
+      user.oderId,
+      collectionId,
+      currentLottery,
+      count,
+      user.gems
+    );
+
+    if (result.success) {
+      setPullResults(result.results);
+      // Reload inventory
+      await loadInventory();
+      // Update user gems in store
+      useUserStore.setState((state) => ({
+        user: state.user ? { ...state.user, gems: result.newGems } : null,
+      }));
+    } else {
+      alert(result.error || "Có lỗi xảy ra!");
+      setShowPullModal(false);
+    }
+
+    setIsPulling(false);
+  };
+
   const currentLottery = lotteries[selectedLottery];
 
   // Group cards by scarcity
@@ -77,6 +147,12 @@ function GachaDetailPage() {
         .map(Number)
         .sort((a, b) => b - a)
     : [];
+
+  // Count owned cards
+  const ownedCount = inventory?.cards[collectionId]
+    ? Object.keys(inventory.cards[collectionId]).length
+    : 0;
+  const totalCards = currentLottery?.item_list?.length || 0;
 
   if (loading) {
     return (
@@ -110,22 +186,33 @@ function GachaDetailPage() {
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-[var(--border)]">
         <div className="pt-12 pb-3 px-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigate("/gacha")}
-              className="p-2 rounded-xl bg-[var(--secondary)]"
-            >
-              <ArrowLeft className="w-5 h-5 text-foreground" />
-            </button>
-            <h1 className="font-bold text-lg text-foreground">
-              Chi tiết bộ sưu tập
-            </h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate("/gacha")}
+                className="p-2 rounded-xl bg-[var(--secondary)]"
+              >
+                <ArrowLeft className="w-5 h-5 text-foreground" />
+              </button>
+              <h1 className="font-bold text-lg text-foreground">
+                Chi tiết bộ sưu tập
+              </h1>
+            </div>
+            {/* Gems display */}
+            <div className="flex items-center gap-1 px-3 py-1.5 bg-[var(--secondary)] rounded-xl">
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-4 h-4"
+              />
+              <span className="font-bold text-sm">{user?.gems || 0}</span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="pt-28 pb-6 px-4">
+      <div className="pt-28 pb-32 px-4">
         {/* Banner Image */}
         <div className="card-3d overflow-hidden mb-4">
           <img
@@ -134,6 +221,26 @@ function GachaDetailPage() {
             className="w-full h-auto"
             referrerPolicy="no-referrer"
           />
+        </div>
+
+        {/* Progress */}
+        <div className="card-3d p-3 mb-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium">Tiến độ sưu tập</span>
+            <span className="text-sm font-bold text-[var(--duo-purple)]">
+              {ownedCount}/{totalCards}
+            </span>
+          </div>
+          <div className="h-2 bg-[var(--secondary)] rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] transition-all"
+              style={{
+                width: `${
+                  totalCards > 0 ? (ownedCount / totalCards) * 100 : 0
+                }%`,
+              }}
+            />
+          </div>
         </div>
 
         {/* Lottery Tabs */}
@@ -180,13 +287,23 @@ function GachaDetailPage() {
                   {groupedCards![scarcity].map((card, idx) => {
                     const hasVideo =
                       card.video_list && card.video_list.length > 1;
+                    const owned = inventory
+                      ? hasCard(inventory, collectionId, card.card_img)
+                      : false;
                     return (
                       <button
                         key={idx}
-                        onClick={() => setSelectedCard(card)}
-                        className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[var(--secondary)] border-2 transition-all hover:scale-105"
+                        onClick={() => owned && setSelectedCard(card)}
+                        disabled={!owned}
+                        className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${
+                          owned
+                            ? "bg-[var(--secondary)] hover:scale-105"
+                            : "bg-black/30 brightness-50 cursor-not-allowed"
+                        }`}
                         style={{
-                          borderColor: getScarcityColor(card.card_scarcity),
+                          borderColor: owned
+                            ? getScarcityColor(card.card_scarcity)
+                            : "var(--border)",
                         }}
                       >
                         <img
@@ -210,12 +327,6 @@ function GachaDetailPage() {
 
             {/* Rewards Section */}
             {(() => {
-              // Type mapping:
-              // 1001 = Huy hiệu (Badge/Medal)
-              // 1000 = Avatar background
-              // 3 = Khung avatar (Frame)
-              // 2 = Sticker
-              // 5 = Theme
               const REWARD_TYPES = [3, 1001, 1000];
               const collectInfos =
                 currentLottery.collect_list?.collect_infos?.filter((r) =>
@@ -279,6 +390,52 @@ function GachaDetailPage() {
             })()}
           </div>
         )}
+      </div>
+
+      {/* Fixed Pull Buttons */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-[var(--border)]">
+        <div className="flex gap-3">
+          <button
+            onClick={() => handlePull(1)}
+            disabled={
+              isPulling || !user || user.gems < GACHA_CONFIG.COST_PER_PULL
+            }
+            className="flex-1 btn-3d btn-3d-purple py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Sparkles className="w-5 h-5" />
+              <span>Quay x1</span>
+            </div>
+            <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-3 h-3"
+              />
+              <span>{GACHA_CONFIG.COST_PER_PULL}</span>
+            </div>
+          </button>
+          <button
+            onClick={() => handlePull(10)}
+            disabled={
+              isPulling || !user || user.gems < GACHA_CONFIG.COST_PER_PULL * 10
+            }
+            className="flex-1 btn-3d btn-3d-yellow py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Sparkles className="w-5 h-5" />
+              <span>Quay x10</span>
+            </div>
+            <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
+              <img
+                src="/AppAssets/BlueDiamond.png"
+                alt="gem"
+                className="w-3 h-3"
+              />
+              <span>{GACHA_CONFIG.COST_PER_PULL * 10}</span>
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Card Detail Modal */}
@@ -348,6 +505,17 @@ function GachaDetailPage() {
           </div>
         </div>
       )}
+
+      {/* Gacha Pull Modal */}
+      <GachaPullModal
+        isOpen={showPullModal}
+        onClose={() => {
+          setShowPullModal(false);
+          setPullResults([]);
+        }}
+        results={pullResults}
+        isLoading={isPulling}
+      />
     </Page>
   );
 }

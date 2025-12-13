@@ -11,11 +11,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getGachaCollections,
-  getHQImage,
+  getFullImage,
   type GachaCollection,
 } from "@/services/gacha-service";
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 6;
 
 function GachaPage() {
   const navigate = useNavigate();
@@ -79,18 +79,18 @@ function GachaPage() {
           </div>
         ) : (
           <>
-            {/* Grid - Only images */}
-            <div className="grid grid-cols-3 gap-2">
+            {/* Grid - Vertical card style */}
+            <div className="grid grid-cols-2 gap-3">
               {currentItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => navigate(`/gacha/${item.id}`)}
-                  className="aspect-square rounded-xl overflow-hidden bg-[var(--secondary)] transition-transform hover:scale-105 active:scale-95"
+                  className="rounded-xl overflow-hidden bg-[var(--secondary)] transition-transform hover:scale-105 active:scale-95 shadow-lg"
                 >
                   <img
-                    src={getHQImage(item.act_square_img, 300)}
+                    src={getFullImage(item.act_square_img, 400)}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto"
                     referrerPolicy="no-referrer"
                     loading="lazy"
                   />

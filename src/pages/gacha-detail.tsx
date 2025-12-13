@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import {
   ArrowLeft,
   Loader2,
-  Play,
   Star,
   Gift,
   User,
@@ -20,6 +19,7 @@ import {
   getScarcityName,
   getScarcityColor,
   getHQImage,
+  getFullImage,
 } from "@/services/gacha-service";
 
 function GachaDetailPage() {
@@ -128,14 +128,12 @@ function GachaDetailPage() {
       <div className="pt-28 pb-6 px-4">
         {/* Banner Image */}
         <div className="card-3d overflow-hidden mb-4">
-          <div className="aspect-video relative bg-[var(--secondary)]">
-            <img
-              src={getHQImage(collection.act_square_img, 800)}
-              alt="Banner"
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-          </div>
+          <img
+            src={getFullImage(collection.act_square_img, 800)}
+            alt="Banner"
+            className="w-full h-auto"
+            referrerPolicy="no-referrer"
+          />
         </div>
 
         {/* Lottery Tabs */}
@@ -179,47 +177,70 @@ function GachaDetailPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  {groupedCards![scarcity].map((card, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedCard(card)}
-                      className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[var(--secondary)] border-2 transition-all hover:scale-105"
-                      style={{
-                        borderColor: getScarcityColor(card.card_scarcity),
-                      }}
-                    >
-                      <img
-                        src={getHQImage(card.card_img, 300)}
-                        alt=""
-                        className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
-                        loading="lazy"
-                      />
-                      {card.video_list?.length > 0 && (
-                        <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50">
-                          <Play className="w-3 h-3 text-white" fill="white" />
-                        </div>
-                      )}
-                    </button>
-                  ))}
+                  {groupedCards![scarcity].map((card, idx) => {
+                    const hasVideo =
+                      card.video_list && card.video_list.length > 1;
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => setSelectedCard(card)}
+                        className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[var(--secondary)] border-2 transition-all hover:scale-105"
+                        style={{
+                          borderColor: getScarcityColor(card.card_scarcity),
+                        }}
+                      >
+                        <img
+                          src={getHQImage(card.card_img, 300)}
+                          alt=""
+                          className="w-full h-full object-cover object-top"
+                          referrerPolicy="no-referrer"
+                          loading="lazy"
+                        />
+                        {hasVideo && (
+                          <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50">
+                            <Sparkles className="w-3 h-3 text-white" />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             ))}
 
-            {/* Avatar Frame Rewards */}
+            {/* Rewards Section */}
             {(() => {
-              const FRAME_TYPES = [3, 1001];
+              // Type mapping:
+              // 1001 = Huy hiệu (Badge/Medal)
+              // 1000 = Avatar background
+              // 3 = Khung avatar (Frame)
+              // 2 = Sticker
+              // 5 = Theme
+              const REWARD_TYPES = [3, 1001, 1000];
               const collectInfos =
                 currentLottery.collect_list?.collect_infos?.filter((r) =>
-                  FRAME_TYPES.includes(r.redeem_item_type || 0)
+                  REWARD_TYPES.includes(r.redeem_item_type || 0)
                 ) || [];
               const collectChain =
                 currentLottery.collect_list?.collect_chain?.filter((r) =>
-                  FRAME_TYPES.includes(r.redeem_item_type || 0)
+                  REWARD_TYPES.includes(r.redeem_item_type || 0)
                 ) || [];
               const allRewards = [...collectInfos, ...collectChain];
 
               if (allRewards.length === 0) return null;
+
+              const getRewardLabel = (type: number) => {
+                switch (type) {
+                  case 3:
+                    return { icon: Frame, label: "Khung" };
+                  case 1001:
+                    return { icon: Sparkles, label: "Huy hiệu" };
+                  case 1000:
+                    return { icon: User, label: "Avatar" };
+                  default:
+                    return { icon: Gift, label: "Thưởng" };
+                }
+              };
 
               return (
                 <div className="mt-4 pt-4 border-t border-[var(--border)]">
@@ -228,34 +249,30 @@ function GachaDetailPage() {
                     <span className="font-bold text-sm">Phần thưởng</span>
                   </div>
                   <div className="flex gap-3 flex-wrap">
-                    {allRewards.map((reward, idx) => (
-                      <div
-                        key={idx}
-                        className="flex flex-col items-center gap-1"
-                      >
-                        {reward.redeem_item_image && (
-                          <img
-                            src={getHQImage(reward.redeem_item_image, 100)}
-                            alt=""
-                            className="w-12 h-12 rounded-lg object-cover"
-                            referrerPolicy="no-referrer"
-                          />
-                        )}
-                        <div className="flex items-center gap-1 text-[10px] text-[var(--muted-foreground)]">
-                          {reward.redeem_item_type === 3 ? (
-                            <>
-                              <Frame className="w-3 h-3" />
-                              <span>Khung</span>
-                            </>
-                          ) : (
-                            <>
-                              <User className="w-3 h-3" />
-                              <span>Avatar</span>
-                            </>
+                    {allRewards.map((reward, idx) => {
+                      const { icon: Icon, label } = getRewardLabel(
+                        reward.redeem_item_type || 0
+                      );
+                      return (
+                        <div
+                          key={idx}
+                          className="flex flex-col items-center gap-1"
+                        >
+                          {reward.redeem_item_image && (
+                            <img
+                              src={getHQImage(reward.redeem_item_image, 100)}
+                              alt=""
+                              className="w-12 h-12 rounded-lg object-cover"
+                              referrerPolicy="no-referrer"
+                            />
                           )}
+                          <div className="flex items-center gap-1 text-[10px] text-[var(--muted-foreground)]">
+                            <Icon className="w-3 h-3" />
+                            <span>{label}</span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -271,27 +288,33 @@ function GachaDetailPage() {
           onClick={() => setSelectedCard(null)}
         >
           <div
-            className="bg-background rounded-2xl overflow-hidden max-w-sm w-full"
+            className="bg-background rounded-2xl overflow-hidden max-w-sm w-full max-h-[85vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-[3/4] bg-[var(--secondary)]">
-              {selectedCard.video_list?.length > 1 ? (
+            <div
+              className="relative flex-1 min-h-0"
+              style={{
+                aspectRatio:
+                  selectedCard.width > 0 && selectedCard.height > 0
+                    ? selectedCard.width / selectedCard.height
+                    : 2 / 3,
+              }}
+            >
+              {selectedCard.video_list && selectedCard.video_list.length > 1 ? (
                 <video
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   autoPlay
                   loop
                   muted
                   playsInline
-                  preload="metadata"
-                  poster={getHQImage(selectedCard.card_img, 600)}
-                >
-                  <source src={selectedCard.video_list[1]} type="video/mp4" />
-                </video>
+                  poster={getFullImage(selectedCard.card_img, 600)}
+                  src={selectedCard.video_list[1]}
+                />
               ) : (
                 <img
-                  src={getHQImage(selectedCard.card_img, 600)}
+                  src={getFullImage(selectedCard.card_img, 600)}
                   alt=""
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
                 />
               )}

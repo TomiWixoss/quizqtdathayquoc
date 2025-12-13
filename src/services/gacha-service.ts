@@ -159,10 +159,20 @@ export function formatPrice(price: number): string {
   return `¥${(price / 100).toFixed(2)}`;
 }
 
+// Thumbnail - crop vuông cho grid
 export function getHQImage(url: string, size = 400): string {
   if (!url) return "";
   if (url.includes("hdslb.com")) {
     return `${url}@${size}w_${size}h_1c.webp`;
+  }
+  return url;
+}
+
+// Full image - giữ tỷ lệ gốc cho modal
+export function getFullImage(url: string, width = 600): string {
+  if (!url) return "";
+  if (url.includes("hdslb.com")) {
+    return `${url}@${width}w.webp`;
   }
   return url;
 }

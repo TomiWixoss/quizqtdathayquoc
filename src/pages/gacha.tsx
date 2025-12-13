@@ -184,33 +184,9 @@ function GachaPage() {
       <div
         className={`fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-6 h-6 text-white" />
-            <h1 className="font-bold text-xl text-white">Gacha</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 px-2 py-1 bg-white/20 rounded-lg">
-              <img
-                src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
-                className="w-4 h-4"
-                alt="Shards"
-              />
-              <span className="text-white text-sm font-bold">
-                {inventory?.shards || 0}
-              </span>
-            </div>
-            <div className="flex items-center gap-1 px-2 py-1 bg-white/20 rounded-lg">
-              <img
-                src="/AppAssets/BlueDiamond.png"
-                alt="gem"
-                className="w-4 h-4"
-              />
-              <span className="text-white text-sm font-bold">
-                {user?.gems || 0}
-              </span>
-            </div>
-          </div>
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-6 h-6 text-white" />
+          <h1 className="font-bold text-xl text-white">Gacha</h1>
         </div>
         <p className="text-white/80 text-sm mt-1">Bộ sưu tập thẻ số</p>
       </div>

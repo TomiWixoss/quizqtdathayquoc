@@ -251,29 +251,14 @@ function GachaDetailPage() {
     <Page className="bg-background min-h-screen">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)]">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigate("/gacha")}
-              className="btn-back-3d w-10 h-10 flex items-center justify-center"
-            >
-              <ArrowLeft className="w-5 h-5 text-white" />
-            </button>
-            <h1 className="font-bold text-xl text-white">
-              Chi tiết bộ sưu tập
-            </h1>
-          </div>
-          {/* Gems display */}
-          <div className="flex items-center gap-1 px-3 py-1.5 bg-white/20 rounded-xl">
-            <img
-              src="/AppAssets/BlueDiamond.png"
-              alt="gem"
-              className="w-4 h-4"
-            />
-            <span className="font-bold text-sm text-white">
-              {user?.gems || 0}
-            </span>
-          </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigate("/gacha")}
+            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </button>
+          <h1 className="font-bold text-xl text-white">Chi tiết bộ sưu tập</h1>
         </div>
       </div>
 
@@ -287,6 +272,21 @@ function GachaDetailPage() {
             className="w-full h-auto"
             referrerPolicy="no-referrer"
           />
+        </div>
+
+        {/* Currency Display */}
+        <div className="card-3d p-3 mb-4">
+          <div className="flex items-center justify-center gap-2">
+            <img
+              src="/AppAssets/BlueDiamond.png"
+              alt="gem"
+              className="w-5 h-5"
+            />
+            <span className="font-bold text-[var(--duo-blue)]">
+              {user?.gems || 0}
+            </span>
+            <span className="text-sm text-[var(--muted-foreground)]">Gems</span>
+          </div>
         </div>
 
         {/* Progress */}

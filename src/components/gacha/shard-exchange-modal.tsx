@@ -74,20 +74,10 @@ export function ShardExchangeModal({
       >
         {/* Header */}
         <div className="p-4 border-b border-[var(--border)] flex items-center justify-between">
-          <div>
-            <h2 className="font-bold text-lg flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[var(--duo-yellow)]" />
-              Đổi mảnh lấy thẻ UR
-            </h2>
-            <div className="flex items-center gap-1 mt-1 text-sm">
-              <img
-                src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
-                className="w-4 h-4"
-              />
-              <span className="font-bold">{currentShards}</span>
-              <span className="text-[var(--muted-foreground)]">mảnh</span>
-            </div>
-          </div>
+          <h2 className="font-bold text-lg flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-[var(--duo-yellow)]" />
+            Đổi mảnh lấy thẻ UR
+          </h2>
           <button
             onClick={onClose}
             className="p-2 rounded-xl bg-[var(--secondary)]"

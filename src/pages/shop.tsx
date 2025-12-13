@@ -188,43 +188,63 @@ function ShopPage() {
             </p>
           </div>
         </div>
-        {user && (
-          <div className="flex items-center gap-4 mt-3">
-            <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
-              <img
-                src="/AppAssets/BlueDiamond.png"
-                alt="gem"
-                className="w-4 h-4"
-              />
-              <span className="font-bold text-white">{user.gems ?? 0}</span>
-            </div>
-            {hasUnlimitedHearts() ? (
-              <div className="flex items-center gap-1 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-3 py-1.5 rounded-full">
-                <img
-                  src="/AppAssets/Heart.png"
-                  alt="heart"
-                  className="w-4 h-4"
-                />
-                <span className="font-bold text-white">∞</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1 bg-white/20 px-3 py-1.5 rounded-full">
-                <img
-                  src="/AppAssets/Heart.png"
-                  alt="heart"
-                  className="w-4 h-4"
-                />
-                <span className="font-bold text-white">
-                  {user.hearts ?? 5}/{user.maxHearts ?? 5}
-                </span>
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-42 pb-28 space-y-4">
+      <div className="px-4 pt-32 pb-28 space-y-4">
+        {/* Currency Display */}
+        {user && (
+          <div className="card-3d p-4">
+            <div className="flex items-center justify-around">
+              <div className="flex items-center gap-2">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-6 h-6"
+                />
+                <div>
+                  <p className="font-bold text-lg text-[var(--duo-blue)]">
+                    {user.gems ?? 0}
+                  </p>
+                  <p className="text-xs text-[var(--muted-foreground)]">Gems</p>
+                </div>
+              </div>
+              <div className="w-px h-10 bg-[var(--border)]" />
+              {hasUnlimitedHearts() ? (
+                <div className="flex items-center gap-2">
+                  <img
+                    src="/AppAssets/Heart.png"
+                    alt="heart"
+                    className="w-6 h-6"
+                  />
+                  <div>
+                    <p className="font-bold text-lg text-[var(--duo-red)]">∞</p>
+                    <p className="text-xs text-[var(--muted-foreground)]">
+                      Tim vô hạn
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <img
+                    src="/AppAssets/Heart.png"
+                    alt="heart"
+                    className="w-6 h-6"
+                  />
+                  <div>
+                    <p className="font-bold text-lg text-[var(--duo-red)]">
+                      {user.hearts ?? 5}/{user.maxHearts ?? 5}
+                    </p>
+                    <p className="text-xs text-[var(--muted-foreground)]">
+                      Tim
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Hearts Section */}
         <div>
           <h2 className="font-bold text-sm text-[var(--muted-foreground)] mb-3 flex items-center gap-2">

@@ -172,8 +172,8 @@ export function ShardExchangeModal({
                     onClick={() => setSelectedCard(isSelected ? null : card)}
                     className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all shadow-md hover:shadow-lg ${
                       isSelected
-                        ? "ring-2 ring-[var(--duo-yellow)] scale-105 shadow-[var(--duo-yellow)]/30"
-                        : "hover:scale-105"
+                        ? "ring-2 ring-[var(--duo-yellow)] shadow-[var(--duo-yellow)]/30"
+                        : ""
                     }`}
                     style={{
                       borderColor: getScarcityColor(card.card_scarcity),

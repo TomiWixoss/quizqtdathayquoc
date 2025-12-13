@@ -215,10 +215,24 @@ export async function pullGacha(
       gachaInventory: inventory,
     });
 
-    // Update quest progress
+    // Update user store để sync state
+    const userStore = useUserStore.getState();
+    const currentUser = userStore.user;
+    if (currentUser) {
+      useUserStore.setState({
+        user: {
+          ...currentUser,
+          gems: newGems,
+          gachaInventory: inventory,
+        },
+      });
+    }
+
+    // Update quest progress và check achievements
     try {
-      const userStore = useUserStore.getState();
       await userStore.incrementDailyGachaPulls(pullCount);
+      // Check gacha achievements
+      await userStore.checkAchievements();
     } catch (e) {
       console.warn("Failed to update gacha quest progress:", e);
     }
@@ -307,6 +321,15 @@ export async function claimReward(
 
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, { gachaInventory: inventory });
+
+    // Sync user store
+    const currentUser = useUserStore.getState().user;
+    if (currentUser) {
+      useUserStore.setState({
+        user: { ...currentUser, gachaInventory: inventory },
+      });
+    }
+
     return true;
   } catch (error) {
     console.error("Error claiming reward:", error);
@@ -364,6 +387,15 @@ export async function claimAllRewards(
 
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, { gachaInventory: inventory });
+
+    // Sync user store
+    const currentUser = useUserStore.getState().user;
+    if (currentUser) {
+      useUserStore.setState({
+        user: { ...currentUser, gachaInventory: inventory },
+      });
+    }
+
     return true;
   } catch (error) {
     console.error("Error claiming all rewards:", error);
@@ -414,6 +446,14 @@ export async function exchangeShardsForCard(
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, { gachaInventory: inventory });
 
+    // Sync user store
+    const currentUser = useUserStore.getState().user;
+    if (currentUser) {
+      useUserStore.setState({
+        user: { ...currentUser, gachaInventory: inventory },
+      });
+    }
+
     return { success: true, newShards: inventory.shards };
   } catch (error) {
     console.error("Error exchanging shards:", error);
@@ -440,6 +480,15 @@ export async function markCollectionComplete(
 
     const userRef = doc(db, "users", userId);
     await updateDoc(userRef, { gachaInventory: inventory });
+
+    // Sync user store
+    const currentUser = useUserStore.getState().user;
+    if (currentUser) {
+      useUserStore.setState({
+        user: { ...currentUser, gachaInventory: inventory },
+      });
+    }
+
     return true;
   } catch (error) {
     console.error("Error marking collection complete:", error);

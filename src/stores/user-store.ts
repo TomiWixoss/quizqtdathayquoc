@@ -419,7 +419,7 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   updateStreak: async () => {
-    const { user, checkAchievements, useStreakFreeze } = get();
+    const { user, checkAchievements } = get();
     if (!user) return;
 
     const today = new Date().toDateString();
@@ -427,23 +427,41 @@ export const useUserStore = create<UserState>((set, get) => ({
       ? new Date(user.lastPlayDate).toDateString()
       : "";
     const yesterday = new Date(Date.now() - 86400000).toDateString();
-    const twoDaysAgo = new Date(Date.now() - 2 * 86400000).toDateString();
+
+    // Tính số ngày bỏ lỡ
+    const lastPlayTime = user.lastPlayDate
+      ? new Date(user.lastPlayDate).getTime()
+      : 0;
+    const todayTime = new Date(today).getTime();
+    const daysMissed = lastPlayTime
+      ? Math.floor((todayTime - lastPlayTime) / 86400000) - 1
+      : 0;
 
     let newStreak = user.streak;
-    let usedFreeze = false;
+    let freezesUsed = 0;
+    const availableFreezes = user.streakFreezes || 0;
 
-    if (lastPlay === yesterday) {
+    if (lastPlay === today) {
+      // Đã chơi hôm nay rồi - không làm gì
+      return;
+    } else if (lastPlay === yesterday) {
       // Chơi liên tục - tăng streak
       newStreak += 1;
-    } else if (lastPlay === twoDaysAgo && (user.streakFreezes || 0) > 0) {
-      // Bỏ lỡ 1 ngày nhưng có streak freeze - giữ streak và dùng freeze
-      await useStreakFreeze();
-      usedFreeze = true;
+    } else if (daysMissed > 0 && availableFreezes >= daysMissed) {
+      // Bỏ lỡ nhiều ngày nhưng có đủ streak freeze
+      freezesUsed = daysMissed;
       newStreak += 1; // Vẫn tăng streak vì hôm nay chơi
+    } else if (daysMissed > 0 && availableFreezes > 0) {
+      // Bỏ lỡ nhiều ngày nhưng không đủ freeze - dùng hết freeze nhưng vẫn mất streak
+      freezesUsed = availableFreezes;
+      newStreak = 1;
     } else if (lastPlay !== today) {
-      // Bỏ lỡ quá lâu hoặc không có freeze - reset streak
+      // Bỏ lỡ và không có freeze - reset streak
       newStreak = 1;
     }
+
+    // Trừ streak freeze đã dùng
+    const newFreezeCount = availableFreezes - freezesUsed;
 
     const longestStreak = Math.max(user.longestStreak, newStreak);
     const bonusGems = newStreak % 7 === 0 ? 100 : 0; // Bonus every 7 days
@@ -455,6 +473,9 @@ export const useUserStore = create<UserState>((set, get) => ({
         lastPlayDate: today,
         longestStreak,
         gems: user.gems + bonusGems,
+        streakFreezes: newFreezeCount,
+        // Lưu thông tin freeze đã dùng để hiển thị thông báo
+        lastStreakFreezeUsed: freezesUsed > 0 ? freezesUsed : null,
       });
       set({
         user: {
@@ -463,13 +484,15 @@ export const useUserStore = create<UserState>((set, get) => ({
           lastPlayDate: today,
           longestStreak,
           gems: get().user!.gems + bonusGems,
+          streakFreezes: newFreezeCount,
+          lastStreakFreezeUsed: freezesUsed > 0 ? freezesUsed : undefined,
         },
       });
       await checkAchievements();
 
       // Log nếu đã dùng streak freeze
-      if (usedFreeze) {
-        console.log("Streak Freeze đã được sử dụng tự động!");
+      if (freezesUsed > 0) {
+        console.log(`Đã sử dụng ${freezesUsed} Streak Freeze tự động!`);
       }
     } catch (error) {
       set({
@@ -478,6 +501,7 @@ export const useUserStore = create<UserState>((set, get) => ({
           streak: newStreak,
           lastPlayDate: today,
           longestStreak,
+          streakFreezes: newFreezeCount,
         },
       });
     }

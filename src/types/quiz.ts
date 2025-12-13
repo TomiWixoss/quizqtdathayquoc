@@ -68,6 +68,7 @@ export interface UserStats {
 
   // Streak Freeze
   streakFreezes?: number; // Số lượng streak freeze đang có
+  lastStreakFreezeUsed?: number; // Số freeze đã dùng lần cuối (để hiển thị thông báo)
 
   // Gacha inventory
   gachaInventory?: {

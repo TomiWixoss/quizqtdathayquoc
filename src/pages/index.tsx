@@ -12,6 +12,7 @@ import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState } from "react";
 import { NoHeartsModal } from "@/components/ui/custom-modal";
+import { RewardModal } from "@/components/ui/reward-modal";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -20,11 +21,33 @@ function HomePage() {
     useUserStore();
   const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
   const [pendingChapterId, setPendingChapterId] = useState<number | null>(null);
+  const [showStreakFreezeModal, setShowStreakFreezeModal] = useState(false);
+  const [freezesUsedCount, setFreezesUsedCount] = useState(0);
 
   useEffect(() => {
     loadQuiz();
     initUser();
   }, []);
+
+  // Kiểm tra và hiển thị thông báo streak freeze đã dùng
+  useEffect(() => {
+    if (user?.lastStreakFreezeUsed && user.lastStreakFreezeUsed > 0) {
+      setFreezesUsedCount(user.lastStreakFreezeUsed);
+      setShowStreakFreezeModal(true);
+      // Clear thông báo sau khi hiển thị
+      const clearFreezeNotification = async () => {
+        const { doc, updateDoc } = await import("firebase/firestore");
+        const { db } = await import("@/lib/firebase");
+        try {
+          const userRef = doc(db, "users", user.oderId);
+          await updateDoc(userRef, { lastStreakFreezeUsed: null });
+        } catch (e) {
+          console.error("Error clearing freeze notification:", e);
+        }
+      };
+      clearFreezeNotification();
+    }
+  }, [user?.lastStreakFreezeUsed]);
 
   const handleChapter = (id: number) => {
     // Bỏ qua kiểm tra tim nếu có unlimited hearts
@@ -322,6 +345,25 @@ function HomePage() {
         onGoToShop={handleGoToShop}
         userGems={user?.gems ?? 0}
         heartCost={500}
+      />
+
+      {/* Streak Freeze Used Modal */}
+      <RewardModal
+        isOpen={showStreakFreezeModal}
+        onClose={() => setShowStreakFreezeModal(false)}
+        title="Streak đã được bảo vệ! ❄️"
+        subtitle={`Đã sử dụng ${freezesUsedCount} Streak Freeze để giữ streak của bạn`}
+        rewards={[
+          {
+            type: "custom",
+            amount: user?.streak || 0,
+            icon: "/AppAssets/Fire.png",
+            label: "ngày streak được giữ",
+          },
+        ]}
+        buttonText="Tuyệt vời!"
+        gradientFrom="var(--duo-blue)"
+        gradientTo="#84d8ff"
       />
     </Page>
   );

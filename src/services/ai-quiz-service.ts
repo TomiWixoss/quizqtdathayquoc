@@ -126,24 +126,21 @@ export interface AIQuizSession {
   wrongCount: number;
 }
 
-// Hàm random chọn chương từ QTDA_CHAPTERS
-function getRandomChapters(count: number): QTDAChapter[] {
-  const shuffled = [...QTDA_CHAPTERS].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, Math.min(count, QTDA_CHAPTERS.length));
+// Hàm random chọn 1 chương từ QTDA_CHAPTERS
+function getRandomChapter(): QTDAChapter {
+  const randomIndex = Math.floor(Math.random() * QTDA_CHAPTERS.length);
+  return QTDA_CHAPTERS[randomIndex];
 }
 
-// Tạo system prompt từ nội dung các chương được chọn
-function buildSystemPrompt(chapters: QTDAChapter[]): string {
-  const chaptersContent = chapters
-    .map((ch) => `=== ${ch.name} ===\n${ch.content}`)
-    .join("\n\n");
-
+// Tạo system prompt từ nội dung 1 chương được chọn
+function buildSystemPrompt(chapter: QTDAChapter): string {
   return `Bạn là AI chuyên gia về Quản Trị Dự Án CNTT. Dưới đây là nội dung kiến thức bạn cần dựa vào để tạo câu hỏi:
 
-${chaptersContent}
+=== ${chapter.name} ===
+${chapter.content}
 
 ⚠️ QUY TẮC QUAN TRỌNG:
-1. CHỈ tạo câu hỏi dựa trên nội dung kiến thức được cung cấp ở trên
+1. CHỈ tạo câu hỏi dựa trên nội dung kiến thức của chương này
 2. KHÔNG tạo câu hỏi về nội dung không có trong tài liệu
 3. Đảm bảo đáp án đúng phải chính xác theo nội dung tài liệu
 4. Giải thích phải trích dẫn hoặc tham chiếu đến nội dung trong tài liệu`;
@@ -275,11 +272,11 @@ export function getRankImage(rank: UserRank): string {
   return `/Rank/${rankInfo.folder}/rank-${rank.rankId}-${imageNumber}_NoOL_large.png`;
 }
 
-// Tạo prompt dựa trên rank, tier và các chương được chọn
+// Tạo prompt dựa trên rank, tier và chương được chọn
 function buildQuestionPrompt(
   rank: UserRank,
   questionCount: number,
-  selectedChapters: QTDAChapter[]
+  selectedChapter: QTDAChapter
 ): string {
   const difficulty =
     RANK_LEVELS.find((r) => r.id === rank.rankId)?.difficulty || 1;
@@ -289,49 +286,53 @@ function buildQuestionPrompt(
   let questionTypes = "";
   let creativity = "";
 
-  if (totalDifficulty <= 2) {
-    difficultyDesc = "CỰC KỲ DỄ - Câu hỏi cơ bản, trực tiếp từ tài liệu";
+  // Điều chỉnh độ khó: nâng cao ngưỡng cho các loại câu hỏi khó
+  // Tất cả đều BÁM SÁT tài liệu, chỉ khác ở cách hỏi và độ phức tạp
+  if (totalDifficulty <= 3) {
+    // Gỗ, Đá (tier thấp)
+    difficultyDesc = "DỄ - Câu hỏi trực tiếp từ tài liệu, dễ nhận biết đáp án";
     questionTypes = "multiple_choice, true_false";
-    creativity = "Giữ nguyên câu hỏi như trong tài liệu";
-  } else if (totalDifficulty <= 4) {
-    difficultyDesc = "DỄ - Câu hỏi đơn giản, có thể thay đổi từ ngữ nhẹ";
+    creativity =
+      "Hỏi trực tiếp định nghĩa, khái niệm cơ bản. Đáp án sai rõ ràng khác biệt với đáp án đúng.";
+  } else if (totalDifficulty <= 5) {
+    // Đá (tier cao), Đồng
+    difficultyDesc =
+      "TRUNG BÌNH DỄ - Câu hỏi bám sát tài liệu, cần nhớ chi tiết";
     questionTypes = "multiple_choice, true_false, fill_blank";
-    creativity = "Có thể đổi từ đồng nghĩa, giữ ý chính";
-  } else if (totalDifficulty <= 6) {
-    difficultyDesc = "TRUNG BÌNH - Câu hỏi có độ phức tạp vừa phải";
-    questionTypes = "multiple_choice, fill_blank, matching";
-    creativity = "Có thể diễn đạt lại câu hỏi theo cách khác, thêm ngữ cảnh";
-  } else if (totalDifficulty <= 8) {
-    difficultyDesc = "KHÓ - Câu hỏi đòi hỏi hiểu sâu kiến thức";
+    creativity =
+      "Hỏi về chi tiết trong tài liệu, các đáp án sai có thể gần giống đáp án đúng.";
+  } else if (totalDifficulty <= 7) {
+    // Bạc, Vàng (tier thấp)
+    difficultyDesc = "TRUNG BÌNH - Câu hỏi cần hiểu nội dung, không chỉ nhớ";
+    questionTypes = "multiple_choice, true_false, fill_blank, matching";
+    creativity =
+      "Diễn đạt lại câu hỏi theo cách khác, hỏi về mối quan hệ giữa các khái niệm trong tài liệu.";
+  } else if (totalDifficulty <= 9) {
+    // Vàng (tier cao), Bạch Kim
+    difficultyDesc = "KHÓ - Câu hỏi đòi hỏi hiểu sâu và liên kết kiến thức";
     questionTypes =
       "multiple_choice, fill_blank, matching, ordering, multi_select";
     creativity =
-      "Tạo câu hỏi suy luận, kết hợp nhiều khái niệm, tình huống thực tế";
-  } else if (totalDifficulty <= 10) {
-    difficultyDesc =
-      "RẤT KHÓ - Câu hỏi nâng cao, cần nắm vững toàn bộ lý thuyết";
+      "Hỏi về quy trình, thứ tự các bước, kết hợp nhiều khái niệm trong cùng chương. Đáp án sai rất gần với đáp án đúng.";
+  } else if (totalDifficulty <= 11) {
+    // Thạch Anh, Hắc Ngọc
+    difficultyDesc = "RẤT KHÓ - Câu hỏi phân tích, vận dụng kiến thức";
     questionTypes =
       "multiple_choice, fill_blank, matching, ordering, multi_select, scenario";
     creativity =
-      "Tạo câu hỏi hoàn toàn mới dựa trên kiến thức, tình huống phức tạp";
+      "Đặt câu hỏi trong tình huống cụ thể, yêu cầu phân tích và áp dụng kiến thức từ tài liệu. Các đáp án đều có vẻ hợp lý.";
   } else {
     // Rank Master (Huyền Thoại) - Độ khó cao nhất
-    difficultyDesc =
-      "HUYỀN THOẠI - Bậc thầy, cần hiểu sâu và vận dụng linh hoạt";
+    difficultyDesc = "HUYỀN THOẠI - Câu hỏi tổng hợp, phân tích chuyên sâu";
     questionTypes =
       "multiple_choice, fill_blank, matching, ordering, multi_select, scenario";
     creativity =
-      "Tạo câu hỏi theo lối hoàn toàn khác, kết hợp đa chương, phân tích case study phức tạp, tình huống thực tế đa chiều";
+      "Tạo tình huống phức tạp đòi hỏi hiểu sâu toàn bộ nội dung chương. Các đáp án đều rất gần đúng, chỉ khác ở chi tiết nhỏ.";
   }
 
   // Tạo seed ngẫu nhiên để AI tạo câu hỏi khác nhau mỗi lần
   const randomSeed = Math.floor(Math.random() * 1000000);
   const timestamp = Date.now();
-
-  // Danh sách tên các chương được chọn
-  const chapterNames = selectedChapters
-    .map((ch, i) => `${i + 1}. ${ch.name}`)
-    .join("\n");
 
   return `Bạn là AI tạo câu hỏi trắc nghiệm về Quản Trị Dự Án CNTT.
 
@@ -344,16 +345,26 @@ RANK HIỆN TẠI: ${rank.rankName} (Độ khó: ${totalDifficulty.toFixed(1)}/1
 MỨC ĐỘ: ${difficultyDesc}
 SÁNG TẠO: ${creativity}
 
-📚 TẠO CÂU HỎI TỪ CÁC CHƯƠNG SAU (nội dung đã được cung cấp trong system prompt):
-${chapterNames}
+📚 TẠO CÂU HỎI TỪ CHƯƠNG: ${selectedChapter.name}
+(Nội dung chương đã được cung cấp trong system prompt)
 
-Tạo ${questionCount} câu hỏi với các loại: ${questionTypes}
+Tạo ${questionCount} câu hỏi với các loại CÓ THỂ DÙNG: ${questionTypes}
 
 ⚠️ YÊU CẦU QUAN TRỌNG:
-- CHỈ tạo câu hỏi dựa trên nội dung các chương đã cung cấp trong system prompt
+- BÁM SÁT NỘI DUNG TÀI LIỆU: Tất cả câu hỏi và đáp án PHẢI dựa trên nội dung chương đã cung cấp
+- KHÔNG bịa thông tin không có trong tài liệu
 - PHẢI tạo câu hỏi KHÁC NHAU mỗi lần gọi, KHÔNG lặp lại câu hỏi cũ
-- Có thể BIẾN ĐỔI cách diễn đạt, thay đổi thứ tự đáp án
 - Mỗi câu hỏi phải có ID duy nhất (dùng format: q_${randomSeed}_1, q_${randomSeed}_2, ...)
+
+🎯 VỀ ĐỘ KHÓ:
+- Độ khó KHÔNG phải là hỏi ngoài tài liệu, mà là CÁCH HỎI phức tạp hơn
+- Rank thấp: Hỏi trực tiếp, đáp án sai dễ loại
+- Rank cao: Hỏi gián tiếp, đáp án sai rất gần đúng, cần hiểu sâu mới phân biệt được
+
+🎯 VỀ LOẠI CÂU HỎI:
+- TỰ DO chọn loại câu hỏi phù hợp với nội dung, KHÔNG cần theo thứ tự
+- Có thể tạo nhiều câu cùng loại, hoặc đa dạng các loại - tùy nội dung phù hợp
+- Ưu tiên loại câu hỏi PHÙ HỢP với kiến thức trong chương
 
 QUY TẮC:
 - NGÔN NGỮ: Chỉ dùng tiếng Việt cho tất cả nội dung
@@ -372,29 +383,25 @@ const client = new Cerebras({
 });
 
 // Tạo câu hỏi từ AI với Structured Outputs
-// Random chọn chương và gửi nội dung chương đó cho AI tạo câu hỏi
+// Random chọn 1 chương và gửi nội dung chương đó cho AI tạo câu hỏi
 export async function generateAIQuestions(
   rank: UserRank,
   questionCount: number = 5
 ): Promise<AIQuestion[]> {
   try {
-    // Random chọn 2-3 chương để tạo câu hỏi đa dạng
-    const chapterCount = Math.min(3, Math.max(2, Math.ceil(questionCount / 2)));
-    const selectedChapters = getRandomChapters(chapterCount);
+    // Random chọn 1 chương
+    const selectedChapter = getRandomChapter();
 
-    console.log(
-      "📚 Các chương được chọn:",
-      selectedChapters.map((ch) => ch.shortName)
-    );
+    console.log("📚 Chương được chọn:", selectedChapter.shortName);
 
-    // Tạo system prompt từ nội dung các chương được chọn
-    const systemPrompt = buildSystemPrompt(selectedChapters);
+    // Tạo system prompt từ nội dung chương được chọn
+    const systemPrompt = buildSystemPrompt(selectedChapter);
 
     // Tạo user prompt với thông tin rank và yêu cầu
     const userPrompt = buildQuestionPrompt(
       rank,
       questionCount,
-      selectedChapters
+      selectedChapter
     );
 
     // Sử dụng model gpt-oss-120b với Structured Outputs

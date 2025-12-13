@@ -22,6 +22,7 @@ import ShopPage from "../pages/shop";
 import EventsPage from "../pages/events";
 import EventLogin7DaysPage from "../pages/event-login-7days";
 import EventLevelRewardsPage from "../pages/event-level-rewards";
+import EventTowerPage from "../pages/event-tower";
 import GachaPage from "../pages/gacha";
 import GachaDetailPage from "../pages/gacha-detail";
 import CustomizePage from "../pages/customize";
@@ -157,6 +158,7 @@ const Layout = () => {
               path="/event-level-rewards"
               element={<EventLevelRewardsPage />}
             />
+            <Route path="/event-tower" element={<EventTowerPage />} />
             <Route path="/gacha" element={<GachaPage />} />
             <Route path="/gacha/:id" element={<GachaDetailPage />} />
             <Route path="/customize" element={<CustomizePage />} />

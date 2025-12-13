@@ -7,6 +7,7 @@ import {
   ChevronRight,
   CalendarCheck,
   Trophy,
+  Flame,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 
@@ -31,6 +32,16 @@ const EVENTS = [
     bgColor: "var(--duo-purple)",
     route: "/event-level-rewards",
     badge: "Vĩnh viễn",
+  },
+  {
+    id: "tower",
+    title: "Tháp Luyện Ngục",
+    description: "Leo tháp, sai 1 câu là rơi xuống đáy!",
+    icon: Flame,
+    color: "#8B5CF6",
+    bgColor: "#8B5CF6",
+    route: "/event-tower",
+    badge: "Thử thách",
   },
 ];
 

@@ -531,7 +531,7 @@ function ShopPage() {
           {
             type: "custom",
             amount: 2,
-            icon: "/AppAssets/BlueDiamond.png",
+            icon: "/AppAssets/Lighting.png",
             label: `x XP trong ${purchasedXPHours}h`,
           },
         ]}
@@ -550,7 +550,7 @@ function ShopPage() {
           {
             type: "custom",
             amount: getStreakFreezeCount(),
-            icon: "/AppAssets/BlueDiamond.png",
+            icon: "/AppAssets/Fire.png",
             label: "Streak Freeze",
           },
         ]}

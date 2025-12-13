@@ -38,7 +38,7 @@ function HomePage() {
   };
 
   const handleBuyHearts = async () => {
-    const success = await spendGems(50);
+    const success = await spendGems(500);
     if (success) {
       await refillHearts();
       setShowNoHeartsModal(false);
@@ -324,7 +324,7 @@ function HomePage() {
         onBuyHearts={handleBuyHearts}
         onGoToShop={handleGoToShop}
         userGems={user?.gems ?? 0}
-        heartCost={50}
+        heartCost={500}
       />
     </Page>
   );

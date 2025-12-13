@@ -1,5 +1,5 @@
 import Cerebras from "@cerebras/cerebras_cloud_sdk";
-import { QTDA_CONTENT } from "@/data/qtda-content";
+import { QTDA_CHAPTERS, type QTDAChapter } from "@/data/qtda-chapters";
 
 // Rank levels với các bậc (tier) - từ thấp đến cao
 export const RANK_LEVELS = [
@@ -126,8 +126,28 @@ export interface AIQuizSession {
   wrongCount: number;
 }
 
-// System prompt - Nội dung được import từ file riêng
-const QTDA_SYSTEM_PROMPT = QTDA_CONTENT;
+// Hàm random chọn chương từ QTDA_CHAPTERS
+function getRandomChapters(count: number): QTDAChapter[] {
+  const shuffled = [...QTDA_CHAPTERS].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(count, QTDA_CHAPTERS.length));
+}
+
+// Tạo system prompt từ nội dung các chương được chọn
+function buildSystemPrompt(chapters: QTDAChapter[]): string {
+  const chaptersContent = chapters
+    .map((ch) => `=== ${ch.name} ===\n${ch.content}`)
+    .join("\n\n");
+
+  return `Bạn là AI chuyên gia về Quản Trị Dự Án CNTT. Dưới đây là nội dung kiến thức bạn cần dựa vào để tạo câu hỏi:
+
+${chaptersContent}
+
+⚠️ QUY TẮC QUAN TRỌNG:
+1. CHỈ tạo câu hỏi dựa trên nội dung kiến thức được cung cấp ở trên
+2. KHÔNG tạo câu hỏi về nội dung không có trong tài liệu
+3. Đảm bảo đáp án đúng phải chính xác theo nội dung tài liệu
+4. Giải thích phải trích dẫn hoặc tham chiếu đến nội dung trong tài liệu`;
+}
 
 // JSON Schema cho Structured Outputs
 const questionSchema = {
@@ -255,25 +275,12 @@ export function getRankImage(rank: UserRank): string {
   return `/Rank/${rankInfo.folder}/rank-${rank.rankId}-${imageNumber}_NoOL_large.png`;
 }
 
-// Danh sách đầy đủ 13 chương để random
-const CHAPTERS = [
-  "Chương 1: Tổng quan dự án",
-  "Chương 2: Giao tiếp và truyền thông",
-  "Chương 3: Ước lượng dự án",
-  "Chương 4: Lập lịch dự án",
-  "Chương 5: Kiểm soát và giám sát",
-  "Chương 6: Quản lý phạm vi",
-  "Chương 7: Quản lý thời gian",
-  "Chương 8: Quản lý chi phí",
-  "Chương 9: Quản lý chất lượng",
-  "Chương 10: Quản lý nhân lực",
-  "Chương 11: Truyền thông và giao tiếp",
-  "Chương 12: Quản lý rủi ro",
-  "Chương 13: Quản lý tích hợp",
-];
-
-// Tạo prompt dựa trên rank và tier
-function buildQuestionPrompt(rank: UserRank, questionCount: number): string {
+// Tạo prompt dựa trên rank, tier và các chương được chọn
+function buildQuestionPrompt(
+  rank: UserRank,
+  questionCount: number,
+  selectedChapters: QTDAChapter[]
+): string {
   const difficulty =
     RANK_LEVELS.find((r) => r.id === rank.rankId)?.difficulty || 1;
   const totalDifficulty = difficulty + (8 - rank.tier) * 0.5;
@@ -317,16 +324,14 @@ function buildQuestionPrompt(rank: UserRank, questionCount: number): string {
       "Tạo câu hỏi theo lối hoàn toàn khác, kết hợp đa chương, phân tích case study phức tạp, tình huống thực tế đa chiều";
   }
 
-  // Random chọn các chương để tạo câu hỏi đa dạng
-  const shuffledChapters = [...CHAPTERS].sort(() => Math.random() - 0.5);
-  const selectedChapters = shuffledChapters.slice(
-    0,
-    Math.min(questionCount, CHAPTERS.length)
-  );
-
   // Tạo seed ngẫu nhiên để AI tạo câu hỏi khác nhau mỗi lần
   const randomSeed = Math.floor(Math.random() * 1000000);
   const timestamp = Date.now();
+
+  // Danh sách tên các chương được chọn
+  const chapterNames = selectedChapters
+    .map((ch, i) => `${i + 1}. ${ch.name}`)
+    .join("\n");
 
   return `Bạn là AI tạo câu hỏi trắc nghiệm về Quản Trị Dự Án CNTT.
 
@@ -339,14 +344,14 @@ RANK HIỆN TẠI: ${rank.rankName} (Độ khó: ${totalDifficulty.toFixed(1)}/1
 MỨC ĐỘ: ${difficultyDesc}
 SÁNG TẠO: ${creativity}
 
-📚 CHỌN CÂU HỎI TỪ CÁC CHƯƠNG SAU (mỗi chương ít nhất 1 câu nếu có thể):
-${selectedChapters.map((ch, i) => `${i + 1}. ${ch}`).join("\n")}
+📚 TẠO CÂU HỎI TỪ CÁC CHƯƠNG SAU (nội dung đã được cung cấp trong system prompt):
+${chapterNames}
 
 Tạo ${questionCount} câu hỏi với các loại: ${questionTypes}
 
 ⚠️ YÊU CẦU QUAN TRỌNG:
+- CHỈ tạo câu hỏi dựa trên nội dung các chương đã cung cấp trong system prompt
 - PHẢI tạo câu hỏi KHÁC NHAU mỗi lần gọi, KHÔNG lặp lại câu hỏi cũ
-- Chọn NGẪU NHIÊN các câu hỏi từ tài liệu, ưu tiên các chương được chỉ định
 - Có thể BIẾN ĐỔI cách diễn đạt, thay đổi thứ tự đáp án
 - Mỗi câu hỏi phải có ID duy nhất (dùng format: q_${randomSeed}_1, q_${randomSeed}_2, ...)
 
@@ -367,20 +372,38 @@ const client = new Cerebras({
 });
 
 // Tạo câu hỏi từ AI với Structured Outputs
+// Random chọn chương và gửi nội dung chương đó cho AI tạo câu hỏi
 export async function generateAIQuestions(
   rank: UserRank,
   questionCount: number = 5
 ): Promise<AIQuestion[]> {
   try {
-    const prompt = buildQuestionPrompt(rank, questionCount);
+    // Random chọn 2-3 chương để tạo câu hỏi đa dạng
+    const chapterCount = Math.min(3, Math.max(2, Math.ceil(questionCount / 2)));
+    const selectedChapters = getRandomChapters(chapterCount);
+
+    console.log(
+      "📚 Các chương được chọn:",
+      selectedChapters.map((ch) => ch.shortName)
+    );
+
+    // Tạo system prompt từ nội dung các chương được chọn
+    const systemPrompt = buildSystemPrompt(selectedChapters);
+
+    // Tạo user prompt với thông tin rank và yêu cầu
+    const userPrompt = buildQuestionPrompt(
+      rank,
+      questionCount,
+      selectedChapters
+    );
 
     // Sử dụng model gpt-oss-120b với Structured Outputs
     // Temperature cao hơn (0.9) để tạo câu hỏi đa dạng hơn mỗi lần gọi
     const response = await client.chat.completions.create({
       model: "gpt-oss-120b",
       messages: [
-        { role: "system", content: QTDA_SYSTEM_PROMPT },
-        { role: "user", content: prompt },
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
       ],
       max_completion_tokens: 65536,
       temperature: 0.9,

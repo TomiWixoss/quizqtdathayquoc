@@ -116,7 +116,7 @@ export function QuizCard() {
 
   const handleBuyHearts = async () => {
     if (!user) return;
-    const success = await spendGems(50);
+    const success = await spendGems(500);
     if (success) {
       await refillHearts();
       setShowNoHeartsModal(false);
@@ -344,7 +344,7 @@ export function QuizCard() {
         onBuyHearts={handleBuyHearts}
         onGoToShop={handleGoToShop}
         userGems={user?.gems ?? 0}
-        heartCost={50}
+        heartCost={500}
       />
     </div>
   );

@@ -30,8 +30,8 @@ export function HeartsDisplay() {
   if (!user) return null;
 
   const handleRefill = async () => {
-    if (user.hearts < user.maxHearts && user.gems >= 50) {
-      const success = await spendGems(50);
+    if (user.hearts < user.maxHearts && user.gems >= 500) {
+      const success = await spendGems(500);
       if (success) {
         await refillHearts();
       }
@@ -69,7 +69,7 @@ export function HeartsDisplay() {
           className="ml-2 flex items-center gap-1 text-xs bg-[var(--duo-blue)] text-white px-2 py-1 rounded-full"
         >
           <img src="/AppAssets/BlueDiamond.png" alt="gem" className="w-3 h-3" />
-          50
+          500
         </button>
       )}
     </div>

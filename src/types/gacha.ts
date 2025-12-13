@@ -31,6 +31,8 @@ export interface GachaInventory {
   pityCounters: Record<number, number>;
   // Bookmarked collections (đã lưu)
   bookmarked?: number[];
+  // Tổng số thẻ UR đã sở hữu (unique)
+  totalURCards?: number;
 }
 
 // Kết quả 1 lần quay

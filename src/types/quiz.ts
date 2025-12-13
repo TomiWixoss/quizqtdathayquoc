@@ -75,6 +75,7 @@ export interface UserStats {
     shards: number;
     totalPulls: number;
     pityCounters: Record<number, number>;
+    totalURCards?: number;
   };
 }
 

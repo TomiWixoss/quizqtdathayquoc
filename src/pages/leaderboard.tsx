@@ -1,5 +1,5 @@
 import { Page } from "zmp-ui";
-import { Trophy, Crown, Medal, Swords, Gem } from "lucide-react";
+import { Trophy, Crown, Medal, Swords, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -7,7 +7,7 @@ import { useUserStore } from "@/stores/user-store";
 import { getRankImage, getRankFromPoints } from "@/services/ai-quiz-service";
 import type { UserStats } from "@/types/quiz";
 
-type TabType = "conquest" | "score" | "gems";
+type TabType = "conquest" | "score" | "urCards";
 
 function LeaderboardPage() {
   const { user } = useUserStore();
@@ -22,8 +22,8 @@ function LeaderboardPage() {
         let orderField = "totalScore";
         if (activeTab === "conquest") {
           orderField = "conquestStats.rankPoints";
-        } else if (activeTab === "gems") {
-          orderField = "gems";
+        } else if (activeTab === "urCards") {
+          orderField = "gachaInventory.totalURCards";
         }
 
         const q = query(
@@ -57,8 +57,8 @@ function LeaderboardPage() {
         return "from-[var(--duo-purple)] to-[var(--duo-blue)]";
       case "score":
         return "from-[var(--duo-yellow)] to-[var(--duo-orange)]";
-      case "gems":
-        return "from-[var(--duo-blue)] to-[var(--duo-green)]";
+      case "urCards":
+        return "from-[var(--duo-orange)] to-[var(--duo-yellow)]";
     }
   };
 
@@ -75,8 +75,8 @@ function LeaderboardPage() {
           return leader.conquestStats?.rankPoints ?? 0;
         case "score":
           return leader.totalScore ?? 0;
-        case "gems":
-          return leader.gems ?? 0;
+        case "urCards":
+          return leader.gachaInventory?.totalURCards ?? 0;
       }
     };
 
@@ -104,14 +104,10 @@ function LeaderboardPage() {
               <span className="font-bold text-lg">{value}</span>
             </div>
           );
-        case "gems":
+        case "urCards":
           return (
-            <div className="flex items-center gap-1 text-[var(--duo-blue)]">
-              <img
-                src="/AppAssets/BlueDiamond.png"
-                alt="gem"
-                className="w-5 h-5"
-              />
+            <div className="flex items-center gap-1 text-[var(--duo-orange)]">
+              <Sparkles className="w-5 h-5" />
               <span className="font-bold text-lg">{value}</span>
             </div>
           );
@@ -127,8 +123,8 @@ function LeaderboardPage() {
           return userRank.rankName;
         case "score":
           return "Điểm";
-        case "gems":
-          return "Gems";
+        case "urCards":
+          return "Thẻ UR";
       }
     };
 
@@ -239,15 +235,15 @@ function LeaderboardPage() {
             Điểm Tổng
           </button>
           <button
-            onClick={() => setActiveTab("gems")}
+            onClick={() => setActiveTab("urCards")}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-semibold transition-all ${
-              activeTab === "gems"
-                ? "bg-[var(--duo-blue)] text-white"
+              activeTab === "urCards"
+                ? "bg-[var(--duo-orange)] text-white"
                 : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
             }`}
           >
-            <Gem className="w-4 h-4" />
-            Độ Giàu
+            <Sparkles className="w-4 h-4" />
+            Thẻ UR
           </button>
         </div>
       </div>

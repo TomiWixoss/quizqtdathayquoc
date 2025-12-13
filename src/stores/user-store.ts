@@ -107,6 +107,7 @@ const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
     shards: 0,
     totalPulls: 0,
     pityCounters: {},
+    totalURCards: 0,
   },
 };
 

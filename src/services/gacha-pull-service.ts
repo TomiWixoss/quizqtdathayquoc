@@ -13,6 +13,7 @@ const DEFAULT_INVENTORY: GachaInventory = {
   shards: 0,
   totalPulls: 0,
   pityCounters: {},
+  totalURCards: 0,
 };
 
 // Lấy inventory của user
@@ -148,6 +149,10 @@ export async function pullGacha(
       if (isNew) {
         // Card mới
         inventory.cards[collectionId][cardKey] = 1;
+        // Nếu là UR mới, tăng counter
+        if (card.card_scarcity === 40) {
+          inventory.totalURCards = (inventory.totalURCards || 0) + 1;
+        }
       } else {
         // Card trùng - đổi thành shards
         inventory.cards[collectionId][cardKey]++;
@@ -337,6 +342,8 @@ export async function exchangeShardsForCard(
       inventory.cards[collectionId] = {};
     }
     inventory.cards[collectionId][cardImg] = 1;
+    // Exchange luôn là UR, tăng counter
+    inventory.totalURCards = (inventory.totalURCards || 0) + 1;
 
     // Save to Firebase
     const userRef = doc(db, "users", userId);

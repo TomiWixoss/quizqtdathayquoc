@@ -50,6 +50,10 @@ interface UserState {
   buyUnlimitedHearts: () => Promise<boolean>;
   hasUnlimitedHearts: () => boolean;
   getUnlimitedHeartsTimeLeft: () => string | null;
+
+  // Cosmetics
+  equipAvatar: (avatarUrl: string | null) => Promise<void>;
+  equipFrame: (frameUrl: string | null) => Promise<void>;
 }
 
 const getWeekStart = () => {
@@ -786,5 +790,34 @@ export const useUserStore = create<UserState>((set, get) => ({
     const hours = Math.floor(remaining / (60 * 60 * 1000));
     const minutes = Math.floor((remaining % (60 * 60 * 1000)) / 60000);
     return `${hours}h ${minutes}m`;
+  },
+
+  // Cosmetics methods
+  equipAvatar: async (avatarUrl: string | null) => {
+    const { user } = get();
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { equippedAvatar: avatarUrl || null });
+      set({ user: { ...user, equippedAvatar: avatarUrl || undefined } });
+    } catch (error) {
+      console.error("Error equipping avatar:", error);
+      set({ user: { ...user, equippedAvatar: avatarUrl || undefined } });
+    }
+  },
+
+  equipFrame: async (frameUrl: string | null) => {
+    const { user } = get();
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { equippedFrame: frameUrl || null });
+      set({ user: { ...user, equippedFrame: frameUrl || undefined } });
+    } catch (error) {
+      console.error("Error equipping frame:", error);
+      set({ user: { ...user, equippedFrame: frameUrl || undefined } });
+    }
   },
 }));

@@ -149,17 +149,30 @@ function LeaderboardPage() {
             )}
           </div>
 
-          {/* Avatar */}
-          <div className="w-12 h-12 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-lg overflow-hidden">
-            {leader.avatar ? (
+          {/* Avatar with frame */}
+          <div className="relative w-14 h-14 flex items-center justify-center shrink-0">
+            {/* Frame layer - lớn hơn avatar */}
+            {leader.equippedFrame && (
               <img
-                src={leader.avatar}
-                alt=""
-                className="w-full h-full object-cover"
+                src={leader.equippedFrame}
+                alt="Frame"
+                className="absolute inset-0 w-14 h-14 object-contain z-10 pointer-events-none"
+                referrerPolicy="no-referrer"
               />
-            ) : (
-              leader.odername?.charAt(0).toUpperCase() || "?"
             )}
+            {/* Avatar - nhỏ hơn frame */}
+            <div className="w-10 h-10 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-sm overflow-hidden">
+              {leader.equippedAvatar || leader.avatar ? (
+                <img
+                  src={leader.equippedAvatar || leader.avatar}
+                  alt=""
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                leader.odername?.charAt(0).toUpperCase() || "?"
+              )}
+            </div>
           </div>
 
           {/* Info */}

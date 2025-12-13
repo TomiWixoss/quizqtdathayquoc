@@ -86,6 +86,10 @@ export interface UserStats {
       completedCollections: number;
     };
   };
+
+  // Equipped cosmetics from gacha
+  equippedAvatar?: string; // URL của avatar đã trang bị
+  equippedFrame?: string; // URL của frame đã trang bị
 }
 
 // Quest Progress Types

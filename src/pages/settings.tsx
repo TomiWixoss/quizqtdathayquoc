@@ -12,6 +12,7 @@ import {
   Target,
   Trash2,
   AlertTriangle,
+  Sparkles,
 } from "lucide-react";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
@@ -446,17 +447,31 @@ function SettingsPage() {
         {/* User Info */}
         {user && (
           <div className="card-3d p-4 mb-6">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-2xl overflow-hidden">
-                {user.avatar ? (
+            <div className="flex items-center gap-4 mb-3">
+              {/* Avatar with frame */}
+              <div className="relative w-20 h-20 flex items-center justify-center">
+                {/* Frame layer - lớn hơn avatar */}
+                {user.equippedFrame && (
                   <img
-                    src={user.avatar}
-                    alt=""
-                    className="w-full h-full object-cover"
+                    src={user.equippedFrame}
+                    alt="Frame"
+                    className="absolute inset-0 w-20 h-20 object-contain z-10 pointer-events-none"
+                    referrerPolicy="no-referrer"
                   />
-                ) : (
-                  user.odername.charAt(0).toUpperCase()
                 )}
+                {/* Avatar - nhỏ hơn frame */}
+                <div className="w-14 h-14 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl overflow-hidden">
+                  {user.equippedAvatar || user.avatar ? (
+                    <img
+                      src={user.equippedAvatar || user.avatar}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    user.odername.charAt(0).toUpperCase()
+                  )}
+                </div>
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
@@ -478,6 +493,14 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
+            {/* Customize Button - Nút lớn rõ ràng */}
+            <button
+              onClick={() => navigate("/customize")}
+              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+            >
+              <Sparkles className="w-5 h-5" />
+              <span>Đổi Avatar & Khung</span>
+            </button>
           </div>
         )}
 

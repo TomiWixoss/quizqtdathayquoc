@@ -10,6 +10,7 @@ import {
   checkAnswer,
 } from "@/services/ai-quiz-service";
 import type { ConquestStats, ConquestSession } from "@/types/quiz";
+import { useUserStore } from "@/stores/user-store";
 
 interface ConquestState {
   // Session state
@@ -265,6 +266,13 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
           };
 
           await addDoc(collection(db, "conquestSessions"), sessionData);
+
+          // Update quest progress
+          const userStore = useUserStore.getState();
+          await userStore.incrementDailyConquests();
+          if (isWin) {
+            await userStore.incrementWeeklyConquestWins();
+          }
 
           console.log("Conquest synced to Firebase:", newConquestStats);
         }

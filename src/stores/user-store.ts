@@ -36,6 +36,11 @@ interface UserState {
   incrementDailyQuizzes: () => Promise<void>;
   incrementWeeklyXP: (xp: number) => Promise<void>;
   incrementWeeklyPerfect: () => Promise<void>;
+  // Conquest quest methods
+  incrementDailyConquests: () => Promise<void>;
+  incrementWeeklyConquestWins: () => Promise<void>;
+  // Gacha quest methods
+  incrementDailyGachaPulls: (count?: number) => Promise<void>;
   // Claimed rewards methods
   claimAchievementReward: (achievementId: string) => Promise<void>;
   claimMail: (mailId: string) => Promise<void>;
@@ -63,6 +68,13 @@ const DEFAULT_QUEST_PROGRESS: QuestProgress = {
   weeklyStartDate: getWeekStart(),
   claimedDailyQuests: [],
   claimedWeeklyQuests: [],
+  // Conquest quests
+  dailyConquests: 0,
+  weeklyConquests: 0,
+  weeklyConquestWins: 0,
+  // Gacha quests
+  dailyGachaPulls: 0,
+  weeklyGachaPulls: 0,
 };
 
 const DEFAULT_STATS: Omit<UserStats, "oderId" | "odername" | "avatar"> = {
@@ -624,6 +636,40 @@ export const useUserStore = create<UserState>((set, get) => ({
     const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
     await updateQuestProgress({
       weeklyPerfect: currentProgress.weeklyPerfect + 1,
+    });
+  },
+
+  // Conquest quest methods
+  incrementDailyConquests: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyConquests: (currentProgress.dailyConquests || 0) + 1,
+      weeklyConquests: (currentProgress.weeklyConquests || 0) + 1,
+    });
+  },
+
+  incrementWeeklyConquestWins: async () => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      weeklyConquestWins: (currentProgress.weeklyConquestWins || 0) + 1,
+    });
+  },
+
+  // Gacha quest methods
+  incrementDailyGachaPulls: async (count: number = 1) => {
+    const { user, updateQuestProgress } = get();
+    if (!user) return;
+
+    const currentProgress = user.questProgress || DEFAULT_QUEST_PROGRESS;
+    await updateQuestProgress({
+      dailyGachaPulls: (currentProgress.dailyGachaPulls || 0) + count,
+      weeklyGachaPulls: (currentProgress.weeklyGachaPulls || 0) + count,
     });
   },
 

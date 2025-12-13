@@ -10,6 +10,9 @@ import {
   CalendarDays,
   Star,
   ArrowLeft,
+  Swords,
+  Sparkles,
+  Award,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState } from "react";
@@ -58,6 +61,26 @@ const DAILY_QUESTS: Quest[] = [
     reward: 20,
     getValue: (user) => user?.questProgress?.dailyQuizzes ?? 0,
   },
+  {
+    id: "daily_conquest_1",
+    name: "Chinh chiến",
+    description: "Hoàn thành 1 trận chinh chiến",
+    icon: Swords,
+    type: "daily",
+    requirement: 1,
+    reward: 25,
+    getValue: (user) => user?.questProgress?.dailyConquests ?? 0,
+  },
+  {
+    id: "daily_gacha_1",
+    name: "Quay gacha",
+    description: "Quay gacha 1 lần",
+    icon: Sparkles,
+    type: "daily",
+    requirement: 1,
+    reward: 15,
+    getValue: (user) => user?.questProgress?.dailyGachaPulls ?? 0,
+  },
 ];
 
 const WEEKLY_QUESTS: Quest[] = [
@@ -90,6 +113,36 @@ const WEEKLY_QUESTS: Quest[] = [
     requirement: 3,
     reward: 100,
     getValue: (user) => user?.questProgress?.weeklyPerfect ?? 0,
+  },
+  {
+    id: "weekly_conquest_5",
+    name: "Chiến binh tuần",
+    description: "Hoàn thành 5 trận chinh chiến",
+    icon: Swords,
+    type: "weekly",
+    requirement: 5,
+    reward: 80,
+    getValue: (user) => user?.questProgress?.weeklyConquests ?? 0,
+  },
+  {
+    id: "weekly_conquest_wins_3",
+    name: "Chuỗi chiến thắng",
+    description: "Thắng 3 trận chinh chiến",
+    icon: Award,
+    type: "weekly",
+    requirement: 3,
+    reward: 120,
+    getValue: (user) => user?.questProgress?.weeklyConquestWins ?? 0,
+  },
+  {
+    id: "weekly_gacha_10",
+    name: "Nhà sưu tập",
+    description: "Quay gacha 10 lần trong tuần",
+    icon: Sparkles,
+    type: "weekly",
+    requirement: 10,
+    reward: 100,
+    getValue: (user) => user?.questProgress?.weeklyGachaPulls ?? 0,
   },
 ];
 

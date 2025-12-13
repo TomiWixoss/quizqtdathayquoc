@@ -98,6 +98,13 @@ export interface QuestProgress {
   weeklyStartDate: string;
   claimedDailyQuests: string[];
   claimedWeeklyQuests: string[];
+  // Conquest quests
+  dailyConquests: number;
+  weeklyConquests: number;
+  weeklyConquestWins: number;
+  // Gacha quests
+  dailyGachaPulls: number;
+  weeklyGachaPulls: number;
 }
 
 // Conquest/Chinh Chiến Types

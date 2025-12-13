@@ -6,6 +6,7 @@ import {
   type GachaPullResult,
   GACHA_CONFIG,
 } from "@/types/gacha";
+import { useUserStore } from "@/stores/user-store";
 
 const DEFAULT_GACHA_STATS = {
   totalNCards: 0,
@@ -213,6 +214,14 @@ export async function pullGacha(
       gems: newGems,
       gachaInventory: inventory,
     });
+
+    // Update quest progress
+    try {
+      const userStore = useUserStore.getState();
+      await userStore.incrementDailyGachaPulls(pullCount);
+    } catch (e) {
+      console.warn("Failed to update gacha quest progress:", e);
+    }
 
     return {
       success: true,

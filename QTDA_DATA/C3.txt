@@ -1,0 +1,141 @@
+Chương 3. ƯỚC LƯỢNG CỦA DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được thế nào là Ước lượng.
+2. Biết được một số phương pháp Ước lượng
+
+3.1 Khái niệm
+Ước lượng là một quá trình mang tính chất lặp. Ngay trong giai đoạn xác định, để có thể viết kế hoạch dự án ban đầu, chúng ta đã phải tiến hành ước lượng lần thứ nhất. Tuy nhiên, ước lượng ở giai đoạn này thường sai số từ 50% đến 100%. Sau khi lập kế hoạch ở giai đoạn phân tích, chúng ta phải xem lại các ước lượng này và chỉnh lại kế hoạch dự án ban đầu thành kế hoạch dự án cuối cùng. Giai đoạn này, ước lượng chính xác lên gấp đôi: sai số chỉ còn từ 25% đến 50%. Sau khi hoàn thành thiết kế mức trung gian, chúng ta xét lại lần nữa các ước lượng. Sai số lúc này giảm xuống còn 10%.
+
+3.2 Kỹ thuật ước lượng
+Có ba kỹ thuật chính được dùng để ước lượng: đánh giá chuyên gia, qui trình lịch sử và công thức.
+
+3.2.1 Sử dụng đánh giá chuyên gia
+Là phương pháp dựa vào kinh nghiệm của các nhà lập trình “chuyên gia”
+- Ưu điểm: là rất nhanh và nếu chúng ta tìm đúng được một “chuyên gia” đúng nghĩa, thì việc ước lượng có thể rất chính xác.
+- Nhược điểm: nếu chúng ta cần tìm một chuyên gia có kinh nghiệm trong lĩnh vực tương ứng, mà những chuyên gia như vậy lại thường khó tìm. Hơn nữa, độ chính xác phụ thuộc vào thời gian chuyên gia bỏ ra để đánh giá. Ước lượng sẽ không thể tin cậy được, nếu chuyên gia đó lại giao cho một người khác thực hiện. Ngoài ra, việc chỉ dựa vào ý kiến chủ quan của số ít chuyên gia, cũng là một điều nguy hiểm.
+
+3.2.2 Dựa vào quy trình lịch sử
+Để không phải phụ thuộc vào một vài người và làm cho ước lượng của chúng ta có cơ sở khoa học hơn, chúng ta nên lưu giữ quy trình lịch sử. Chúng ta hãy viết ra mỗi công việc cần bao lâu để hoàn thành và ai là người chịu trách nhiệm. Sau đó, chúng ta có thể so sánh công việc cần đánh giá với những công việc tương tự đã được thực hiện trong quá khứ và đi tới một ước lượng. Như vậy, chúng ta cần chia dự án thành những công việc thường hay lặp lại để dễ so sánh.
+
+3.2.3 Sử dụng công thức
+Có nhiều công thức đã được công bố về ước lượng phần mềm. Công thức nổi tiếng nhất có tên là COCOMO (COnstructive COst MOdel). Công thức này có thể được dùng để ước lượng giá thành dự án, ngày công (người tháng), lịch biểu (tháng), và biên chế (số nhân viên) cho từng giai đoạn sau:
+- Thiết kế sơ bộ (PD) - Của chúng ta là giai đoạn Phân tích
+- Thiết kế chi tiết (DD) - Của chúng ta là giai đoạn Thiết kế
+- Lập trình và kiểm thử (CUT) - Như của chúng ta
+- Kiểm thử hệ thống (ST) - Của chúng ta là giai đoạn Chấp nhận
+- Kiểm thử Hệ thống
+
+Có ba kiểu đầu vào cho COCOMO: trước hết là chi phí hàng tháng cho đội ngũ nhân viên. Các kiểu nhân viên có thể là người lập trình, nhà phân tích, người kiểm thử, nhân viên hành chính, người viết tài liệu kỹ thuật…
+
+Nhìn chung, COCOMO thực hiện ước lượng tuyệt vời vì các khoản mục ở đây là những yếu tố xác định độ dài dự án. Nhưng có một khó khăn: mục cuối cùng của COCOMO yêu cầu biết số dòng chương trình gốc (LOSC). Có ý kiến cho rằng đến lúc chúng ta có đủ hiểu biết về hệ thống để tiên đoán chính xác LOSC, thì chúng ta cũng chẳng cần công thức nào nữa - có lẽ lúc ấy chúng ta đã có thể ước lượng được toàn bộ dự án.
+
+3.3 Công thức điểm chức năng
+Cách tiếp cận COCOMO được cải tiến khá nhiều bằng những sản phẩm tính các hàm cho LOSC nêu trên, rồi lập kết quả vào công thức của COCOMO. Một trong những sản phẩm như vậy là Before You Leap (BYL) của Nhóm Gordon.
+
+Một sản phẩm khác cũng nên xét ở đây là estimac của Hiệp hội Máy tính (Computer associatess). CA-estimac cho phép chúng ta tìm giá thành, ngày công, lịch biểu, và biên chế như trong COCOMO, nhưng có thêm các yêu cầu phần cứng (hướng IBM), phân tích chia theo sự kiện tài chính, phân tích rủi ro và giá bảo hành cho cả các môi trường một và nhiều dự án. CA-estimac có thể tính tới cả các công cụ phát triển hệ thống hiện đại như bộ sinh chương trình hay bộ tạo bản mẫu. Thậm chí nó còn có thể ước lượng các lộ trình được mua hay phát triển theo yêu cầu.
+
+3.3.1 Ước lượng việc lập trình
+Một cách tiếp cận công thức tỏ ra rất thành công cho việc ước lượng giai đoạn lập trình là cách tiếp cận điểm chức năng đơn giản. Ta hãy xét chi tiết cách tiếp cận này là để hiểu tác dụng của các công thức. Về cơ bản chỉ có hai nhân tố ảnh hưởng tới thời gian để thực hiện một công việc: độ phức tạp của công việc (C) và hiệu năng của người thực hiện. Hiệu năng của người phụ thuộc vào số năm kinh nghiệm nói chung (G) và tri thức về một công việc đã cho (J). Dưới dạng công thức điều này có thể được diễn đạt là:
+D = C x (G + J) [công thức 1] với
+- D là độ dài thời gian thực hiện công việc
+- C là nhân tố độ phức tạp
+- G là nhân tố kinh nghiệm nói chung
+- J là nhân tố tri thức về công việc đang xét
+
+3.3.2 Độ phức tạp
+Để suy ra nhân tố độ phức tạp cho một công việc chúng ta phải chia nó ra thành các chức năng nhỏ nhất lặp lại được và bổ sung thêm độ phức tạp của từng chức năng. Đối với một công việc lập trình, chúng được gọi là các điểm chức năng. Các điểm chức năng có thể là người dùng đưa vào, người dùng hiển thị, thiết bị ngoại vi vào/ra, cấu trúc lại dữ liệu, kiểm tra điều kiện, tính toán, nhảy và gọi. Độ phức tạp của chương trình tất nhiên phụ thuộc vào ngôn ngữ được dùng và độ phức tạp của từng thời điểm chức năng.
+
+3.3.3 Các nhân tố độ phức tạp ước lượng cho việc lập trình
+Các nhân tố này được suy ra bằng cách dùng cách đo hiện thời rồi điều chỉnh sao cho công thức D = C x (G + J) cho kết quả tính bằng người - ngày. Độ phức tạp tổng cộng (C) đối với một chương trình sẽ là tổng các nhân tố cho các điểm chức năng.
+
+3.3.4 Hiệu năng
+Chúng ta cần thiết lập các nhân tố cho tính hiệu năng của đội ngũ nhân viên của mình. Điều này còn khó hơn nhiều với việc tính các nhân tố độ phức tạp công việc, vì hiệu năng của con người có thể thay đổi tuỳ theo mức độ quan tâm của họ, thái độ,... Hiệu năng chịu ảnh hưởng bởi những năm kinh nghiệm nói chung và hiểu biết về công việc. Sau đây là một danh sách các nhân tố dựa trên kinh nghiệm chung của một cá nhân:
+
+Nhân tố hiệu năng dựa trên năm kinh nghiệm nói chung (G):
+| Kiểu người lập trình | Năm kinh nghiệm | Phạm vi nhân tố |
+| :--- | :--- | :--- |
+| Cấp cao | 5 + | 0.5 - 0.75 |
+| Trung bình | 1.5 – 5 | 1.0 - 1.5 |
+| Tập sự | 0.5 - 1.5 | 2.0 - 3.0 |
+| Học nghề | 0.0 - 0.5 | 3.5 - 4.0 |
+
+Tốc độ mà một nhà chuyên môn sẽ tạo ra sản phẩm phụ thuộc không chỉ vào kinh nghiệm chung (G) được tính ở trên, mà còn phụ thuộc không chỉ vào kinh nghiệm đối với một công việc hiện đang làm và với các công việc có liên quan. Bên cạnh đó, khối lượng tri thức thực tế cần tới nên được đưa thành một nhân tố. Có thể dùng bảng sau đây để định tính cho tri thức này (J).
+
+Tri thức về công việc:
+| Tri thức về công việc | Tri thức cần có: Nhiều | Tri thức cần có: Vừa | Tri thức cần có: Không cần |
+| :--- | :--- | :--- | :--- |
+| Tri thức chi tiết về việc này và tri thức về những việc liên quan | 0.75 | 0.25 | 0.0 |
+| Tri thức tốt về việc này và khá về việc liên quan | 1.25 | 0.50 | 0.0 |
+| Tri thức khá về việc này và không biết về các việc liên quan | 1.50 | 0.75 | 0.0 |
+| Không biết về việc này và biết chi tiết về các việc liên quan | 2.00 | 1.25 | 0.25 |
+| Không biết về việc này và không biết về các việc liên quan | | | |
+
+3.3.5 Kết luận về phương pháp công thức.
+Phương pháp này dùng được nếu chúng ta xây dựng các nhân tố chính xác. Cái hay của cách tiếp cận này là ở chỗ ta có thể dùng nó cho bất kỳ công việc nào, dù đó là lập trình hay xây dựng. Lưu ý rằng phương pháp này, như bất kỳ phương pháp ước lượng nào khác, đều tuỳ thuộc vào việc phân chia nhỏ công việc như thế nào.
+
+3.4 Qui tắc ước lượng theo DEC (và các công ty lớn khác)
+- Không bao giờ yêu cầu một người không có kinh nghiệm làm ước lượng. Ước lượng chủ yếu phụ thuộc vào kinh nghiệm. Có thể để một người tập sự học làm ước lượng bằng cách hoặc để anh ta cùng làm việc với một người có kinh nghiệm, hoặc người có kinh nghiệm đưa ra các công thức chi tiết rồi trao cho người tập sự “kiểm chứng”.
+- Lập các nhóm làm ước lượng nếu chúng ta có đủ nhân lực. Hiệu quả của việc kết hợp nhiều trí tuệ tuân theo quy tắc bình thường: hai trí tuệ gộp lại hiệu quả gấp bốn lần một trí tuệ đơn lẻ; ba trí tuệ gấp chín lần,...
+- Không bao giờ ép buộc một nhà chuyên môn như cán bộ lập trình làm ước lượng. Người giám sát trước hết nên hỏi người lập trình anh ta dự kiến công việc mất bao lâu. Nếu người giám sát không đồng ý, thì có thể thương lượng với nhau.
+- Không bao giờ lấy trung bình của các ước lượng. Với một sản phẩm chính, nên có ít nhất hai nhóm hay hai người làm ước lượng độc lập với nhau. Nếu có sai khác lớn, hãy mời mọi người ngồi lại với nhau và đi tới thoả thuận. Lí do duy nhất để hai người cùng kinh nghiệm như nhau cho ước lượng khác nhau (về cùng một việc) chỉ là chỗ một người có tính đến điều gì đó mà người kia không tính.
+- Chia nhỏ xuống mức một tuần hay ít hơn. Một công việc phần mềm thực hiện trong một tuần dường như là điều mọi người đều hình dung và ước lượng được.
+- Luôn luôn cộng thêm (nhân thêm?) phần ngẫu nhiên.
+- Đối với các nhà quản lý hay khách hàng, hãy luôn luôn đưa ra ước lượng trong khoảng từ ... đến ... Đây là vấn đề tâm lý. Nếu chúng ta nói với nhà quản lý là công việc cần 12 tháng ông ta sẽ nghĩ chúng ta có một con số chính xác; nhưng nếu chúng ta nói công việc này đòi hỏi từ 10 đến 14 tháng, thì người ta sẽ hiểu đấy là ước lượng.
+- Hãy dùng "cảm giác" của mình. Sau khi chúng ta xây dựng xong ước lượng, hãy tự hỏi, "Ước lượng này đã ổn chưa?" Cảm giác lại có thể trở nên rất chính xác một khi chúng ta đã có kinh nghiệm, ít ra thì chúng ta cũng cảm nhận được là ước lượng như vậy có vượt ra ngoài phạm vi "ước lượng" hay không.
+
+3.5 Tiến trình ước lượng
+Nếu như có một chương trình phần mềm quản lý dự án tốt, chúng ta có thể sử dụng nó để phát triển WBS của riêng mình và đưa vào các ước lượng cho tất cả các công việc tương ứng. Nếu chúng ta không có, hãy xây dựng và dùng các mẫu sau:
+
+Tóm tắt ước lượng dự án
+Dự án: ..................................................... Ngày tháng: ...........................................
+Khách hàng: ............................................ Tác giả: ..................................................
+Đơn vị: ....................................................
+Xác định
+Phân tích
+Thiết kế hệ thống
+Chuẩn bị ATP
+(ATP - kiểm thử chấp nhận)
+Lập trình (tài liệu, chương trình, kiểm thử)
+Chuẩn bị tài liệu sử dụng
+Kiểm thử hệ thống
+Chấp nhận
+Huấn luyện khách hàng
+Vận hành (bảo trì)
+Quản lý dự án
+Họp dự án
+Ngẫu nhiên
+Các vấn đề khác
+Tổng cộng ---------------------------------------------
+
+3.5.1 Chi tiết ước lượng công việc cho dự án
+Khoản mục: ............................................ Tác giả: ..................................................
+Ngày tháng: ............................................ Tham khảo WBS: ..................................
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+Nhiệm vụ | Mô tả LX | CMP DYS | ước lượng | Chú thích
+-----------------------------------------------------------------------------
+Tổng cộng
+-----------------------------------------------------------------------------
+Trường có tên CMPLX là độ phức tạp công việc: Thấp, Trung bình hay Cao. Điều này về sau sẽ được dùng để phân việc cho người có kinh nghiệm thấp, trung bình hay cao. Trong lập trình, phân chia bao giờ cũng là Thiết kế, Làm tài liệu, Lập trình và Kiểm thử.
+
+3.5.2 Chi tiết ước lượng lập trình cho dự án
+Khoản mục: ............................................ Tác giả: ..................................................
+Ngày tháng: ............................................ Tham khảo WBS: ..................................
+-----------------------------------------------------------------------------
+Nhiệm vụ | Mô tả LX | CMP DYS | ước lượng | Chú thích
+| | | | Thiết kế, Tài liệu, Ch/trình, Kiểm thử
+-----------------------------------------------------------------------------
+Tổng cộng
+-----------------------------------------------------------------------------
+Một trang tính chi tiết có thể trải trên các trang tính chi tiết khác. Không có giới hạn nhưng chúng ta không nên chia nhỏ quá nửa ngày.
+
+3.6 Kết luận về ước lượng
+Ước lượng, là khả năng yếu nhất của chúng ta, nhưng tất cả mọi kế hoạch và kiểm soát đều phụ thuộc vào kỹ năng ước lượng.
+Ước lượng là một quá trình lặp - nó cần phải được hiệu chỉnh dần. Đó là lý do vì sao cần phải có các sự kiện mốc trong quá trình xây dựng một sản phẩm. Sự kiện mốc cho phép ta dừng lại, tính toán xem cần bao lâu để đạt tới đó và ước lượng lại ngày tháng cho các sự kiện mốc tiếp theo dựa trên kinh nghiệm đã có.
+Ước lượng vẫn còn là một nghệ thuật. Không tồn tại phần mềm hay công cụ nào có sẵn để giúp chúng ta làm việc này.
+
+❖ Câu hỏi (bài tập) củng cố:
+1. Vào những lúc nào trong vòng đời dự án chúng ta cần ước lượng (và ước lượng lại) và độ chính xác của các ước lượng đó như thế nào?
+2. Hãy mô tả phương pháp ước lượng đánh giá theo chuyên gia. Đâu là ưu nhược điểm của phương pháp này?
+3. Tại sao phương pháp lịch sử lại tốt hơn đánh giá chuyên gia?

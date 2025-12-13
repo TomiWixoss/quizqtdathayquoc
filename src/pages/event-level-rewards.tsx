@@ -222,14 +222,14 @@ function EventLevelRewardsPage() {
                 key={reward.level}
                 onClick={() => handleClaim(reward.level)}
                 disabled={status !== "available" || claiming}
-                className={`w-full p-4 rounded-2xl border-2 transition-all flex items-center gap-4 ${
+                className={`card-3d w-full p-4 flex items-center gap-4 ${
                   isLegendary
-                    ? "bg-gradient-to-r from-[var(--duo-yellow)]/20 to-[var(--duo-orange)]/20 border-[var(--duo-yellow)]"
+                    ? "border-2 border-[var(--duo-yellow)]"
                     : status === "available"
-                    ? "bg-[var(--duo-green)]/10 border-[var(--duo-green)]"
+                    ? "border-2 border-[var(--duo-green)]"
                     : status === "claimed"
-                    ? "bg-[var(--secondary)] border-[var(--duo-green)]"
-                    : "bg-[var(--secondary)] border-[var(--border)] opacity-60"
+                    ? "border-2 border-[var(--duo-green)]"
+                    : "opacity-60"
                 }`}
               >
                 {/* Level Badge */}
@@ -314,9 +314,9 @@ function EventLevelRewardsPage() {
         </div>
 
         {/* Info */}
-        <div className="mt-4 p-4 rounded-2xl bg-[var(--secondary)]">
+        <div className="mt-4 card-3d p-4">
           <p className="text-sm text-[var(--muted-foreground)]">
-            Hoàn thành quiz để nhận EXP và lên cấp. Mỗi 100 EXP = 1 cấp độ!
+            Hoàn thành quiz để nhận EXP và lên cấp. EXP cần tăng dần theo level!
           </p>
         </div>
       </div>

@@ -212,14 +212,14 @@ function EventLogin7DaysPage() {
                 key={reward.day}
                 onClick={() => handleClaim(reward.day)}
                 disabled={status !== "available" || claiming}
-                className={`relative p-4 rounded-2xl border-2 transition-all ${
+                className={`card-3d relative p-4 ${
                   isSpecial ? "col-span-2" : ""
                 } ${
                   status === "available"
-                    ? "bg-[var(--duo-green)]/10 border-[var(--duo-green)] animate-pulse"
+                    ? "border-2 border-[var(--duo-green)]"
                     : status === "claimed"
-                    ? "bg-[var(--secondary)] border-[var(--duo-green)]"
-                    : "bg-[var(--secondary)] border-[var(--border)]"
+                    ? "border-2 border-[var(--duo-green)]"
+                    : ""
                 }`}
               >
                 {/* Status Icon */}
@@ -241,8 +241,8 @@ function EventLogin7DaysPage() {
                 >
                   <div
                     className={`${
-                      isSpecial ? "w-16 h-16" : "w-12 h-12"
-                    } rounded-xl flex items-center justify-center mb-2 ${
+                      isSpecial ? "w-16 h-16 flex-shrink-0" : "w-12 h-12 mb-2"
+                    } rounded-xl flex items-center justify-center ${
                       isSpecial
                         ? "bg-gradient-to-br from-[var(--duo-yellow)] to-[var(--duo-orange)]"
                         : "bg-[var(--duo-blue)]/20"
@@ -258,7 +258,9 @@ function EventLogin7DaysPage() {
                       />
                     )}
                   </div>
-                  <div className={isSpecial ? "flex-1" : "text-center"}>
+                  <div
+                    className={isSpecial ? "flex-1 text-left" : "text-center"}
+                  >
                     <p
                       className={`font-bold ${
                         isSpecial ? "text-lg" : "text-sm"
@@ -301,7 +303,11 @@ function EventLogin7DaysPage() {
                 </div>
 
                 {status === "available" && (
-                  <div className="mt-3 py-2 rounded-xl bg-[var(--duo-green)] text-white font-bold text-sm">
+                  <div
+                    className={`btn-3d btn-3d-green py-2 text-sm ${
+                      isSpecial ? "mt-3" : "mt-2"
+                    }`}
+                  >
                     Nhận ngay!
                   </div>
                 )}
@@ -311,7 +317,7 @@ function EventLogin7DaysPage() {
         </div>
 
         {/* Info */}
-        <div className="mt-4 p-4 rounded-2xl bg-[var(--secondary)]">
+        <div className="mt-4 card-3d p-4">
           <p className="text-sm text-[var(--muted-foreground)]">
             Đăng nhập mỗi ngày để nhận thưởng. Nếu bỏ lỡ 1 ngày, tiến độ sẽ bị
             reset!

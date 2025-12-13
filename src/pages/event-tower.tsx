@@ -13,12 +13,33 @@ import {
   Check,
   Play,
   X,
+  Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTowerStore, getFloorReward } from "@/stores/tower-store";
 import { useUserStore } from "@/stores/user-store";
 import { RewardModal } from "@/components/ui/reward-modal";
 import confetti from "canvas-confetti";
+
+// Helper format countdown
+function formatCountdown(ms: number): string {
+  if (ms <= 0) return "Đang reset...";
+
+  const seconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  const d = days;
+  const h = hours % 24;
+  const m = minutes % 60;
+  const s = seconds % 60;
+
+  if (d > 0) {
+    return `${d}n ${h}g ${m}p`;
+  }
+  return `${h}g ${m}p ${s}s`;
+}
 
 function EventTowerPage() {
   const navigate = useNavigate();
@@ -41,6 +62,7 @@ function EventTowerPage() {
     claimReward,
     exitQuiz,
     resetTower,
+    getNextResetTime,
   } = towerState;
 
   const { addGems, incrementDailyTowerFloors } = useUserStore();
@@ -49,10 +71,29 @@ function EventTowerPage() {
   const [claimedReward, setClaimedReward] = useState(0);
   const [pendingAnswer, setPendingAnswer] = useState<string | null>(null);
   const currentFloorRef = useRef<HTMLDivElement>(null);
+  const [countdown, setCountdown] = useState("");
 
   useEffect(() => {
     initTower();
   }, []);
+
+  // Countdown timer
+  useEffect(() => {
+    const updateCountdown = () => {
+      const nextReset = getNextResetTime();
+      const remaining = nextReset - Date.now();
+      setCountdown(formatCountdown(remaining));
+
+      // Auto refresh nếu đã hết thời gian
+      if (remaining <= 0) {
+        initTower();
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, [getNextResetTime, initTower]);
 
   useEffect(() => {
     if (totalFloors > 0 && !activeFloor && currentFloorRef.current) {
@@ -352,6 +393,10 @@ function EventTowerPage() {
               {totalFloors} tầng - Leo tháp nhận thưởng!
             </p>
           </div>
+          <div className="flex items-center gap-1.5 bg-white/20 rounded-xl px-3 py-1.5">
+            <Clock className="w-4 h-4 text-white" />
+            <span className="text-white text-xs font-medium">{countdown}</span>
+          </div>
         </div>
       </div>
 
@@ -550,6 +595,9 @@ function EventTowerPage() {
                 <li>• Phần thưởng: Tầng N = N x 10 gems</li>
                 <li>• Sai 1 câu = Rớt xuống tầng 1, leo lại từ đầu</li>
                 <li>• Quà đã nhận vẫn giữ nguyên khi rớt</li>
+                <li className="text-[#8B5CF6] font-medium">
+                  • Reset về tầng 1 mỗi thứ 2 hàng tuần
+                </li>
               </ul>
             </div>
           </div>

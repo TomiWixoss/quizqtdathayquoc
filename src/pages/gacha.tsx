@@ -10,23 +10,15 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-
-interface Collection {
-  id: number;
-  name: string;
-  description: string;
-  startTime: number;
-  relatedUsers: number[];
-  totalPreorderCount: number;
-  totalPurchaseCount: number;
-  act_square_img: string;
-  lottery_image: string;
-}
+import {
+  getGachaCollections,
+  type GachaCollection,
+} from "@/services/gacha-service";
 
 const ITEMS_PER_PAGE = 6;
 
 function GachaPage() {
-  const [collections, setCollections] = useState<Collection[]>([]);
+  const [collections, setCollections] = useState<GachaCollection[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,16 +27,8 @@ function GachaPage() {
     try {
       setLoading(true);
       setError(null);
-      const res = await fetch("https://workers.vrp.moe/laplace/collections", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data: Collection[] = await res.json();
-      // Sort by startTime descending (newest first)
-      data.sort((a, b) => b.startTime - a.startTime);
+      // Đọc từ Firestore thay vì API trực tiếp
+      const data = await getGachaCollections();
       setCollections(data);
     } catch (err) {
       console.error("Fetch error:", err);

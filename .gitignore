@@ -30,6 +30,9 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# Firebase service account key (sensitive!)
+firebase-service-account.json
+
 # Misc
 .DS_Store
 Thumbs.db

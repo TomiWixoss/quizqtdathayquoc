@@ -211,25 +211,44 @@ export function NoHeartsModal({
         </div>
 
         <div className="space-y-3">
-          <button
-            onClick={handleBuyClick}
-            className="w-full py-3 px-4 rounded-xl font-bold text-white flex items-center justify-center gap-2"
-            style={{
-              background: "linear-gradient(135deg, #58cc02 0%, #46a302 100%)",
-              boxShadow: "0 4px 0 #3d8c02",
-            }}
-          >
-            <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
-            <span>Hồi đầy tim</span>
-            <div className="flex items-center gap-1 ml-2 bg-white/20 px-2 py-0.5 rounded-full">
+          {canAfford && (
+            <button
+              onClick={handleBuyClick}
+              className="w-full py-3 px-4 rounded-xl font-bold text-white flex items-center justify-center gap-2"
+              style={{
+                background: "linear-gradient(135deg, #58cc02 0%, #46a302 100%)",
+                boxShadow: "0 4px 0 #3d8c02",
+              }}
+            >
+              <img src="/AppAssets/Heart.png" alt="heart" className="w-5 h-5" />
+              <span>Hồi đầy tim</span>
+              <div className="flex items-center gap-1 ml-2 bg-white/20 px-2 py-0.5 rounded-full">
+                <img
+                  src="/AppAssets/BlueDiamond.png"
+                  alt="gem"
+                  className="w-4 h-4"
+                />
+                <span>{heartCost}</span>
+              </div>
+            </button>
+          )}
+          {!canAfford && (
+            <button
+              onClick={onGoToShop}
+              className="w-full py-3 px-4 rounded-xl font-bold text-white flex items-center justify-center gap-2"
+              style={{
+                background: "linear-gradient(135deg, #1cb0f6 0%, #1899d6 100%)",
+                boxShadow: "0 4px 0 #1682c4",
+              }}
+            >
               <img
                 src="/AppAssets/BlueDiamond.png"
                 alt="gem"
-                className="w-4 h-4"
+                className="w-5 h-5"
               />
-              <span>{heartCost}</span>
-            </div>
-          </button>
+              <span>Kiếm thêm Gems</span>
+            </button>
+          )}
           <button
             onClick={handleClose}
             className="w-full py-3 px-4 rounded-xl font-bold text-[var(--muted-foreground)] bg-[var(--secondary)]"

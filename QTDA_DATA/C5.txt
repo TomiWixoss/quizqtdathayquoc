@@ -1,0 +1,243 @@
+Chương 5. KIỂM SOÁT DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được thế nào là kiểm soát dự án.
+2. Biết được một số phương pháp kiểm soát dự án.
+
+5.1 Kiểm soát dự án
+Gồm ba mảng công việc chính:
+- Giám sát tiến độ dự án so với kế hoạch đề ra;
+- Phát hiện và giải quyết các vấn đề nảy sinh;
+- Trong trường hợp gặp vấn đề không giải quyết được, điều chỉnh lại kế hoạch và thông báo tất cả các bên liên quan.
+
+5.2 Giám sát dự án
+Ở mỗi cấp quản lý khác nhau, việc giám sát dự án đòi hỏi những yêu cầu riêng và có thể tiến hành theo nhiều cách khác nhau. Dưới đây, ta sẽ xét từ phía Ban chỉ đạo (Ban giám đốc) dự án và từ phía khách hàng (người sử dụng).
+
+5.2.1 Giám sát dự án từ phía Ban chỉ đạo dự án
+PGĐ điều hành theo dõi từng ngày tiến độ các công đoạn thiết kế, lập trình và thử nghiệm hệ thống. Cần trực tiếp giám sát các cán bộ chuyên môn tham gia thực hiện dự án chứ không phải thông qua các báo cáo.
+
+PGĐ điều hành cần tiến hành giám sát đến mức nào? Điều này phụ thuộc vào trình độ của các lập trình viên. Cần tăng cường giám sát trong trường hợp có sự trao đổi giữa các chương trình. Đối với mỗi công đoạn hoặc mỗi công việc, lúc bắt đầu là lúc đòi hỏi phải theo dõi nhiều.
+
+PGĐ điều hành làm thế nào để giám sát được nhân viên mà không gây "nhiễu", không cản trở công việc của họ?
+- Có thể tiến hành giám sát một cách không chính thức như ghé thăm, và trò chuyện.
+- Giám sát chính thức, thông qua các cuộc họp hay hội ý thường kỳ hàng tuần.
+
+PGĐ điều hành cần quan tâm theo dõi để làm sao:
+- Các cán bộ lập trình tạo ra sản phẩm hay từng công việc được hoàn thành đúng thời hạn, các chức năng phù hợp với các yêu cầu kỹ thuật đã đặt ra.
+- Các cán bộ lập trình tuân thủ đúng các chuẩn đã được mô tả đối với các thiết kế modun, lập trình cấu trúc và hướng dẫn sử dụng.
+- Các công việc tiến triển theo kế hoạch. Mọi vấn đề có thể gây ra chậm giải quyết.
+
+Ban chỉ đạo cũng cần theo dõi tiến độ dự án, nhưng là những nét chính như thời gian và kinh phí sử dụng, chất lượng, tình hình cán bộ công nhân viên. GĐ dự án có thể đi thăm để nắm tình hình và để có được các thông tin không chính thức từ phía PGĐ và cán bộ lập trình. Tuy nhiên, phần lớn thông tin dự án cho GĐ là do các nhóm làm việc cung cấp, thông qua các cuộc họp chính thức và các báo cáo.
+
+GĐ dự án cần giám sát nhất là trong các trường hợp sau:
+- Dự án phát triển chậm hơn so với kế hoạch
+- Chi phí sử dụng vượt quá ngân sách.
+- Vấn đề con người.
+- Các vấn đề về giao tiếp với lãnh đạo cấp trên với khách hàng.
+
+5.2.2 Giám sát dự án từ phía các cấp quản lý cao hơn
+Cấp quản lý cao hơn (so với ban chỉ đạo) của dự án giám sát trên những phương tiện sau:
+- Các kết quả cuối cùng của dự án; Dự án sẽ hoàn thành đúng thời hạn hay không? Dự án sẽ đem lại lợi ích như dự tính hay không?
+- Khách hàng (người sử dụng) hoàn toàn thoả mãn. Cơ quan (công ty) quản lý dự án cùng một lúc có thể có nhiều dự án đang trong giai đoạn triển khai với cùng một khách hàng. Các cấp quản lý cao nhất của hai bên cần phải gặp gỡ nhau để sao cho các yêu cầu đưa ra đều được đáp ứng một cách thoả đáng.
+- Các vấn đề về con người trong ê- kýp của chính GĐ dự án. Các cấp lãnh đạo phía trên cần phải giúp đỡ trong những vấn đề mà GĐ dự án không thể tự mình giải quyết được. Và nếu bản thân GĐ dự án có vấn đề…
+
+5.2.3 Giám sát dự án từ phía khách hàng
+Mặc dù cơ quan quản lý dự án có thể không đồng ý, khách hàng có quyền được biết tiến độ dự án, vì nếu dự án thất bại, khách hàng là người bị ảnh hường nhiều nhất. Khách hàng muốn kiểm tra ngay từ trước xem sản phẩm liệu sẽ có được giao nộp đúng thời hạn hay không, giá cuối cùng phải trả có giữ đúng như đã quy định hay không và chất lượng sản phẩm có đảm bảo như đã hứa hay không.
+
+Khách hàng cũng có thể giám sát dự án theo đường chính thức; yêu cầu cung cấp các báo cáo định kỳ để nắm được tiến độ dự án cũng như các khuynh hướng dự báo, tham dự phiên họp của ban chỉ đạo dự án hoặc nhân dịp kết thúc các giai đoạn lớn. Tiến độ dự án còn được thể hiện qua các biên bản kiểm tra kỹ thuật ở từng công đoạn trong quá trình triển khai thực hiện dự án, với cả chữ ký đại diện khách hàng. Ngoài ra, khách hàng có thể thường xuyên gặp gỡ Ban chỉ đạo dự án để nắm tình hình.
+
+5.3 Phát hiện và giải quyết các vấn đề
+Các vấn đề sau đây thường hay gặp nhất trong quản lý dự án:
+- Các vấn đề về nhân sự 1-5% (nhưng được ưu tiên cao nhất)
+- Các vấn đề về kinh phí 10-20%
+- Các vấn đề về lịch biểu 90-95%
+
+Tuy nhiên, ở một số dự án kinh phí được coi là quan trọng hơn, thời hạn có thể linh hoạt ít nhiều, trong khi ở một số dự án khác thời hạn lại là quan trọng hơn.
+
+Các vấn đề về lịch biểu
+Vấn đề hay gặp nhất đối với người làm quản lý dự án là vấn đề kéo dài thời hạn. Trong số các nguyên nhân thường dẫn đến kéo dài thời hạn dự án có thể là:
+- Thứ tự ưu tiên thay đổi (có chỉ thị, yêu cầu ngừng dự án để làm việc khác)
+- Hàng đặt được đưa đến không đúng thời hạn
+- Ước lượng sai nhiều
+
+Khi thấy một công việc phải kéo dài, trước hết cần xem công việc đó nằm trên đường găng hay không. Nếu đó không phải là một công việc găng và thời gian kéo dài không nhiều hơn so với khoảng thời gian thả nổi, thì sẽ không có vấn đề gì. Trái lại nếu thời gian kéo dài nhiều so với khoảng thời gian thả nổi hoặc công việc đã cho nằm trên đường găng, thì thời hạn hoàn thành dự án cũng sẽ phải kéo dài theo.
+
+- Nếu đó là công việc đang thực hiện dở dang, chúng ta có thể thử khắc phục bằng cách tăng cường các biện pháp quản lý. Nếu nguyên nhân của sự chậm trễ là các vấn đề thuộc về kỹ thuật, hãy huy động sự giúp đỡ của các chuyên gia. Nếu là do cá nhân lập trình viên kỹ thuật gây ra, hãy tìm hiểu xem hoàn cảnh, cuộc sống riêng tư của người đó. Người làm quản lý dự án cần cố gắng giải quyết các vấn đề nhân sự bằng cách gặp gỡ, nói chuyện trực tiếp với nhân viên, chứ không chỉ thông qua các nhóm trưởng.
+
+- Nếu các nỗ lực về quản lý không đem lại kết quả, hãy xem xét phương án bổ sung nguồn lực, phương tiện để thúc đẩy nhanh công việc. Có thể huy động làm thêm giờ, song cẩn thận; trong lập trình bổ sung thêm nhân lực không có nghĩa là thúc đẩy nhanh công việc, thậm chí có khi ngược lại. Nên tham khảo trước ý kiến của những người trong nhóm và chỉ quyết định bổ sung thêm người nếu họ đồng ý.
+
+- Xét xem các công việc còn phải làm, những công việc nào chúng ta có thể thực hiện song song, nhưng khi lập lịch biểu ta đã để nối tiếp chỉ vì thiếu nguồn lực, phương tiện này. Có thể tình hình ở đó đã thay đổi người ta có thể tăng cường thêm cho chúng ta.
+
+- Nếu có một công việc chưa làm nhưng chắc là sẽ phải kéo dài, và không liên quan đến sự chậm trễ có thể xảy ra ở các công việc đang tiến hành, thì thường là do không được cung cấp nguồn lực, phương tiện theo đúng yêu cầu và thời hạn. Hãy dùng biện pháp quản lý, nói khéo hoặc ngược lại, làm găng, thậm chí đe doạ nếu cần thiết.
+
+- Nếu tất cả các giải pháp trên đều không có hiệu quả, hãy dũng cảm chấp nhận và tuyên bố đẩy lùi thời hạn dự án. Đây là cách phổ biến nhất và trong chừng mực nào đó là tốt nhất vì như vậy ít rủi ro nhất.
+
+Các vấn đề về kinh phí
+Vấn đề thứ hai thường gặp trong quản lý dự án là kinh phí sử dụng vượt quá ngân sách dự kiến. Để xác định xem trong trường hợp này thực sự có vấn đề hay không, và trên cơ sở đó dự báo tổng chi phí cho dự án cũng như thời hạn kết thúc, ta cần xác định được giá trị phần việc đã thực hiện.
+
+Dự báo Thời hạn kết thúc và tổng chi phí bằng cách tính giá trị phần việc đã thực hiện (EV)
+Ta xét ví dụ 1 dự án sau đây. Ngân sách dự tính và kinh phí sử dụng được mô tả trên bảng sau. kế hoạch đề ra mỗi tháng hoàn thành một modun, với giá trị 100$ mỗi modun, tức là ngân sách dự chi 100$ mỗi tháng. Ở thời điểm hiện tại, tức 30/4, đã chi hết 450$ thay vì 400$ như dự kiến. Thoạt nhìn tưởng như vậy là có vấn đề, nhưng thực tế ta đã hoàn thành được 5 modun, chứ không phải 4 như trong kế hoạch. Hơn thế nữa ta lại chỉ tiêu hết 450 $ cho 5 modun. Làm thế náo mà thực hiện báo cáo được tất cả các điểm tốt đó?
+
+Muốn vậy, cần phải chỉ ra Giá trị của phần việc đã thực hiện. Trong ví dụ trên, EV là phần kinh phí theo ngân sách dự tính để hoàn thành 5 modun, tức bằng 500$
+
+Ngày 30-4
+
+| Công việc | Thời hạn hoàn thành theo kế hoạch | Thời hạn hoàn thành thực tế | Chi phí dự tính | Chi phí thực tế từng đợt | Chi phí thực tế cộng dồn |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | 30/1 | 30/1 | 100 | 100 | 100 |
+| 2 | 28/2 | 15/2 | 100 | 100 | 200 |
+| 3 | 31/3 | 28/2 | 100 | 100 | 300 |
+| 4 | 30/4 | 31/3 | 100 | 75 | 375 |
+| 5 | 31/5 | 30/4 | 100 | 75 | 450 |
+| .. | | | | | |
+| 8 | 31/8 | | | | |
+
+[Hình ảnh: Đồ thị 5.1 Đồ thị biểu diễn Giá trị phần việc đã thực hiện (EV)]
+
+Đồ thị này cho thấy mặc dù chi phí thực tế vượt chi phí dự tính, giá trị phần việc đã thực hiện lại cao hơn chi phí thực tế. Người làm quản lý dự án có thể sử dụng dạng đồ thị này để dự báo khuynh hường tiến triển của dự án và thời hạn kết thúc cũng như tổng chi phí.
+
+Thật vậy, giả sử các đường chi phí thực tế và EV có thể phát triển bằng cách tiếp tục kéo dài ra. Khi đó ta có thể thấy:
+
+[Hình ảnh: Đồ thị 5.2 Đồ thị dự báo]
+
+Dự án kết thúc khi hoàn thành cả 8 modun, hay khi EV bằng ngân sách dự tính, tức là 800$. Kéo dài đường EV cho đến khi gặp điểm 800$ trên trục tung. Từ giao điểm nhận được, vẽ một đường thẳng đứng. Đường này gặp trục hoành ở đâu, thì đó là thời hạn dự báo sẽ kết thúc dự án. Trong ví dụ của ta, dự án dự báo sẽ kết thúc vào tháng bảy
+
+Tất nhiên, chúng ta sẽ ngừng chỉ khi dự án kết thúc. Vì vậy cần kéo dài đường Chi phí thực tế cho đến khi gặp đường thẳng đứng vừa vẽ trên một điểm. Qua điểm này vẽ một đường nằm ngang. Giao của đường này với trục tung sẽ cho ta dự báo về tổng chi phí của dự án – trong ví dụ đang xét là 750$
+
+Phát hiện và giải quyết các vấn đề ngay từ trước khi chúng xảy ra
+Dưới đây là một số dấu hiệu "báo động” dự án có vấn đề:
+- Làm việc không có kế hoạch. Dù cho dự án lớn hay nhỏ phải lập kế hoạch thực hiện. Không có dự án nào quá nhỏ để không cần phải lập kế hoạch cả, và nếu không xây dựng kế hoạch ngay từ đầu, thì sau đó với tư cách là người quản lý dự án, chúng ta sẽ rất bận, không có thời gian để làm việc đó nữa.
+- Các yêu cầu về chức năng không rõ ràng hoặc hoàn toàn không được xác định. Nếu thấy ai đó khẳng định “người sử dụng không biết anh ta muốn gì", hoặc "yêu cầu còn sẽ thay đổi”, hoặc nếu chúng ta thấy quá nhiều giả định đặt ra, hãy xem lại phần đặc tả chức năng. Hãy để người sử dụng tham gia cho ý kiến, tạo mẫu thử giao diện, hoặc tiến hành đề cương hai giai đoạn để xác định rõ các đặc tả chức năng.
+- Ước lượng đại khái hoặc tuỳ tiện, hoặc bị áp đặt. Nếu nhiều ý kiến cho rằng, sẽ không thể hoàn thành dự án đúng thời hạn và /hoặc chỉ với ngần ấy kinh phí, chắc là đã có một sự đại khái, tuỳ tiện hoặc áp đặt nào đó trong khi ước tính. Hãy kiểm tra và ước tính lại cho chính xác, khách quan hơn và bảo vệ các ước tính đó.
+
+Phát hiện và giải quyết các vấn đề trong khi triển khai
+Trong quá trình triển khai các dự án thường gặp các vấn đề sau đây:
+- Đề xuất hoặc đề nghị thay đổi hoặc đặc tả chức năng. Qua một thời gian làm việc, trong số các thành viên dự án có thể sẽ có đề nghị thay đổi hoặc đặc tả chức năng, vì thấy nếu giữ như vậy thì sẽ không thể hoàn thành và giao nộp sản phẩm đúng thời hạn được. Câu trả lời ở đây không phải là không, trừ khi được sự đồng ý của người sử dụng. Hãy gác các đề nghị đó lại và chấp nhận kéo dài thêm thời hạn. Ngay cả khi khách hàng đề nghị thay đổi đặc tả chức năng, nếu trong giai đoạn triển khai thì câu trả lời vẫn không. Cần đàm phán để dành những yêu cầu mới cho giai đoạn tiếp theo
+- Tài liệu chưa biên soạn xong. Tài liệu, bao gồm cả hướng dẫn sử dụng, là sản phẩm quan trọng nhất trong một dự án CNTT, hãy đảm bảo hoàn tất các tài liệu cần thiết, thậm chí nếu có vì thế mà phải đẩy lùi công việc khác.
+- Thử nghiệm khi thiết kế chưa kết thúc. Như ta đã thấy trước, các chương trình viết trước khi có thiết kế bao giờ cũng phải viết lại.
+- Các báo cáo định kỳ. Ban chỉ đạo dự án cần phải ra báo cáo hàng tuần về tình hình triển khai thực hiện dự án. Nếu các báo cáo mỗi tuần lại thấy ra muộn hơn, hoặc ngừng bặt, hoặc báo cáo sau không có gì mới so với báo cáo trước, thì chắc chắn dự án có vấn đề. Hãy đi tìm hiểu xem vấn đề đó ở đâu và thử áp dụng các biện pháp nêu trên để giải quyết.
+- Đến các thay đổi về lịch biểu báo cáo trong định kỳ. Có thể đề ra kế hoạch chính xác cho tất cả mọi hoạt động của một dự án lớn.
+- Người có trách nhiệm lâu không thấy xuất hiện. Nếu không thấy người có trách nhiệm trả lời điện thoại, thoái thác hoặc lảng tránh mỗi khi nhìn thấy chúng ta từ xa, thì chắc có vấn đề. Kiên quyết yêu cầu tiếp xúc và xác định xem vấn đề ở đâu.
+- (người sử dụng không thoả mãn). Thông tin này có thể từ khách hàng phản ánh, hoặc từ phía các thành viên dự án. Trưởng ban dự án, với tư cách là người chịu trách nhiệm chính giao cho khách hàng, phải áp dụng ngay các biện pháp cần thiết để khách hàng được thoả mãn.
+
+Phát hiện và giải quyết các vấn đề ở giai đoạn cuối
+Giai đoạn kết thúc của dự án là rất quan trọng, vì mọi công việc đều nằm trên đường găng. Hãy đặc biệt chú ý đến các vấn đề sau đây:
+- Thiếu giờ máy. Nguyên nhân ở đây thường là do khâu thử nghiệm mất nhiều thời gian hơn dự tính (nhiều lỗi kỹ thuật). Tuy nhiên, thà phải kéo thời gian dự án còn hơn là bàn giao một sản phẩm kém chất lượng
+- Làm ngoài giờ quá nhiều. Hiện tượng thường xuyên phải làm ngoài giờ là dấu hiệu chắc chắn dẫn đến sự mệt mỏi, kiệt sức. Các cán bộ lập trình thường có khuynh hướng muốn-thậm chí ham mê-ở lại cơ quan làm việc sau giờ hành chính. Trong một giới hạn nào đó, làm ngoài giờ có thể có năng suất, nhưng nếu vượt quá, chúng ta sẽ thấy hiệu quả rất thấp, thậm chí hoàn toàn không có. Trong một tuần, nói chung không nên để nhân viên ở lại làm ngoài giờ quá hai buổi.
+- Các cấp quản lý phía trên "quan tâm". Càng về cuối dự án (nhất là nếu dự án kết thúc muộn), các cấp trên càng tỏ ra lo lắng.
+
+* Kết luận:
+Người làm quản lý dự án cần luôn giữ tay theo dõi mạch đập của dự án, phản ứng kịp thời với mọi vấn đề phát hiện ra, và bất kỳ trong tình huống nào cũng vẫn phải bình tĩnh, vững vàng. Cuối cùng, nếu không có những vấn đề xảy ra như vậy, thì người ta đã chẳng cần đến nhà quản lý dự án làm gì.
+
+5.4 Kiểm soát thông qua họp định kỳ, họp tổng quan kỹ thuật và các báo cáo
+Tổ dự án cần phải giao tiếp với nhau và thế giới bên ngoài. Các cuộc họp và các báo cáo chính là nhằm mục đích này.
+
+Trong một dự án CNTT, các cuộc họp có thể được phân ra làm ba loại: Loại thứ nhất là các cuộc họp định kỳ để thảo luận tình hình triển khai dự án. Loại thứ hai bao gồm các cuộc họp nhằm xem xét tổng quan sản phẩm, phát hiện và chỉnh sửa các vấn đề thuộc về kỹ thuật. Và loại thứ ba là các cuộc họp về quản lý, báo cáo với các cấp có liên quan về tiến độ dự án. Các cuộc họp quản lý này cũng có thể là các cuộc họp định kỳ, như phiên họp của Ban chỉ đạo, hoặc mỗi đợt sơ kết sau mỗi công đoạn chính.
+
+Hình thức giao tiếp thứ hai là qua các báo cáo. Chẳng hạn những người ít có dịp gặp gỡ trực tiếp với tổ dự án có thể nắm tình hình thông qua các báo cáo định kỳ hàng tuần hoặc hàng tháng.
+
+Các cuộc họp định kỳ
+Mục đích và thành phần
+Đối với các dự án CNTT vừa và nhỏ, cần phải có các cuộc họp định kỳ hàng tuần với sự tham gia của tất cả các thành viên tổ dự án. Các cuộc họp này là dịp để các bộ phận báo cáo với Ban chỉ đạo về tiến độ dự án và những vấn đề nảy sinh. Đối với các dự án lớn, bao gồm nhiều đơn vị, nhiều nhóm làm việc, các cuộc họp định kỳ nên chia thành hai hay ba phần (hai hay ba cuộc họp nhỏ). Trong phần đầu tiên ngắn gọn quảng 30 phút đến 60 phút, nhất là trong tuần nhóm trưởng đã theo sát các khâu. Cuối cùng có thể phần thứ ba, các nhóm trưởng lại họp với Ban chỉ đạo. Thông thường các nhóm trưởng chỉ cần báo cáo miệng, nhưng Ban chỉ đạo có thể yêu cầu báo cáo bằng văn bản.
+
+Nên bố trí họp định kỳ vào ngày nào trong tuần?
+Các chuyên gia về quản lý dự án cho rằng nên bố trí họp định kỳ vào cuối tuần- tốt nhất vào chiều thứ 6 hay sáng thứ 7. Như thế, mọi người sẽ tập trung cố gắng làm việc trong tuần, gạt sang bên những gì không liên quan đến dự án, để cuối tuần có kết quả báo cáo. Nếu bố trí họp vào thứ hai, mọi người sẽ chỉ bắt đầu lo vào cuối tuần và sẽ làm việc căng thẳng cả thứ bảy-chủ nhật để thứ hai kịp báo cáo. Như vậy sẽ không còn thời gian nghỉ ngơi và đỡ bị mệt mỏi.
+
+Các báo cáo định kỳ
+Mục đích và số trang
+Hình thức giao tiếp chủ yếu của dự án với bên ngoài là các báo cáo định kỳ, ngắn gọn và theo mẫu quy định sẵn, do Ban chỉ đạo ra. Báo cáo định kỳ là vấn đề cần phải bàn tới không chỉ với các dự án công nghệ phần mềm, mà còn với cả các dự án trong lĩnh vực khác nữa; báo cáo thường quá dài và đòi hỏi quá nhiều thời gian để chuẩn bị. Ai cũng biết rằng, khi nhận được một tài liệu nào đó, trước hết người ta thường lướt qua mấy dòng đầu tiên xem có gì đáng giá hay không. Nếu thấy hay, có thể người ta mới đọc tiếp trang đầu, để rồi sau đó chuyển ngay xuống đoạn kết của tài liệu. Một báo cáo tuần chỉ nên dài không quá hai ba trang giấy A4: phần tường thuật tối đa một trang đầu, tiếp đến một hoặc hai trang do máy tính in ra. Mỗi báo cáo như vậy GĐ dự án chỉ cần không quá 30 phút là có thể chuẩn bị xong. Không nên kể lể nhiều về các việc đã qua, lý giải dài dòng hoặc thuyết giáo tràn lan về các vấn đề sắp tới. Hãy dành chuyện đó cho các cuộc bàn luận không chính thức.
+
+Định kỳ ra báo cáo
+Để có được những bước tiến đáng kể, việc quyết định ra báo cáo hàng tuần, hai tuần hay hàng tháng... là tuỳ thuộc vào thời gian cần thiết để hoàn thành một khối lượng công việc trung bình trong dự án. Đối với những dự án vừa và nhỏ, có thể phân ra thành những công việc với thời gian thực hiện không quá một tuần, báo cáo tuần là thích hợp hơn cả. Nếu phần lớn các công việc phải cần một tháng mới hoàn thành xong, có thể ra báo cáo tháng, cũng có thể ra các báo cáo ngắn ngày hơn, nếu khách hàng yêu cầu như vậy cho họ thường xuyên nắm được tiến độ, hoặc trong trường hợp dự án phụ thuộc nhiều vào các nguồn lực ở bên ngoài.
+
+Nội dung báo cáo định kỳ
+Báo cáo định kỳ cần bao gồm những phần sau đây:
+1. Các hoạt động và kết quả thu được từ báo cáo trước
+Kê khai các công việc đang thực hiện, tiến độ của từng công việc, các công việc hoàn thành.
+2. Các vấn đề nảy sinh
+Giải thích các trở ngại mới xuất hiện, do ai hoặc cái gì gây ra, ai chịu trách nhiệm theo dõi và hiện đang xử lý đến đâu. Quan trọng nhất là xác định ảnh hưởng của nó tới dự án.
+3. Các vấn đề đã giải quyết
+Giải thích tóm tắt (hoặc dẫn chiếu đến báo cáo kỳ trước), vấn đề đã được giải quyết như thế nào, do ai giải quyết và tác động của nó lên dự án
+4. Các vấn đề còn tồn tại
+Nhắc lại để các bộ phận nhớ là chúng ta, với tư cách là người quản lý dự án, không hề quên những vấn đề còn chưa được giải quyết. Chỉ cần một hay hai câu là đủ. Không cần mô tả lại những vấn đề ở các báo cáo trước.
+5. Lịch biểu mới đối chiếu với kế hoạch
+Trang hai của báo cáo tốt nhất nên dành cho sơ đồ Gantt do máy tính in ra. Ứng với mỗi công việc sẽ có hai đường: đối với các công việc đã hoàn thành-thời gian dự tính theo kế hoạch và thời gian thực tế sử dụng để làm công việc đó, đối với các công việc còn phải làm-thời gian dự tính theo kế hoạch và thời gian theo lịch biểu mới. Giải thích tất cả các thay đổi so với sơ đồ Gantt tuần trước, đặc biệt nếu thời hạn giao hàng đã khác. Gạch dưới để nhấn mạnh các thông báo kéo dài thời hạn.
+6. Đối chiếu chi phí thực tế với dự tính ngân sách
+Có thể sử dụng MS Project để có ngay sơ đồ chiếu giữa chi phí thực tế, dự tính ngân sách (kế hoạch) và Giá trị phần việc đã thực hiện. Tóm tắt những khoản mới phải chi kể từ lần báo cáo trước.
+7. Kế hoạch tuần sau
+Liệt kê các công việc theo kế hoạch và các sự kiện mốc của tuần tới
+
+Các cuộc họp tổng quan kỹ thuật
+Một số các cuộc họp tổng quan là tốn kém và mất thời gian. Vì vậy, cần biết tổ chức sao cho có hiệu quả.
+- Lên lịch họp, phân chia rõ thời gian để thảo luận từng phần
+- Gửi sớm lịch họp và các tài liệu cần thiết cho các thành viên tham dự có thời gian nghiên cứu trước.
+- Bố trí địa điểm họp sao cho không bị quấy nhiễu. Điều khiển phiên họp theo chương trình đã đề ra, khống chế thời gian đã phân cho từng mục, nhưng không quá cứng nhắc, nhất là khi gặp một vấn đề quan trọng cần thảo luận lâu hơn.
+- Dành đủ thời gian để bàn các công việc đã ký kết; kiên quyết yêu cầu giữ đúng tiến độ
+
+Họp xét duyệt kỹ thuật (Kế hoạch, Thiết kế, Mã hóa, Thử nghiệm, Tài liệu)
+Nội dung các cuộc họp này đã được nêu chi tiết khi trình bày các giai đoạn tương ứng của dự án. Mục đích họp xét duyệt là xem xét một chương trình, một tài liệu, một kế hoạch thử nghiệm… là kiểm tra lại các sản phẩm đó, tìm lỗi và đề ra các giải pháp cải tiến tốt hơn. Thành phần tham gia có thể chỉ bao gồm tác giả sản phẩm đưa ra xét và một hoặc hai người nữa, và Phó ban chỉ đạo phụ trách điều hành. Ngoại lệ duy nhất là họp xét duyệt thiết kế hệ thống có thể mời thêm ba hoặc bốn chuyên gia ngoài.
+
+Họp về quản lý
+- Họp ban chỉ đạo. ở mỗi dự án quan trọng thường có một Ban chỉ đạo, thành phần Ban chỉ đạo bao gồm Trưởng-Phó ban, người phụ trách dự án của bên khách hàng, một hoặc hai đại diện của các bộ phận (Viện, Phòng, Ban...) chuyên môn có người tham gia dự án, và ít nhất một thủ trưởng cấp trên, có đủ thẩm quyền đối với tất cả các bộ phận liên quan theo nghĩa là những đơn vị cung cấp nguồn lực cho dự án.
+Ban chỉ đạo họp thường kỳ vào những thời gian định sẵn-trung bình từ 6 đến 8 tuần một lần đối với một dự án từ 6 đến 24 tháng. Mục đích họp là để thu nhận thông tin về tình hình triển khai dự án và xác định các vấn đề. Các cuộc họp này cũng giúp cho các cấp quản lý nắm sát hơn tiến độ dự án, trở nên gần gũi hơn với tổ dự án, và điều đó có tác dụng động viên tất cả mọi người.
+
+- Họp nhân dịp các sự kiện mốc. Mỗi khi kết thúc các công việc chính nên có họp. Các cuộc họp này cần có hai phần: Phần thứ nhất để các nhóm kỹ thuật trao đổi về những gì đã làm được, các vấn đề nảy sinh ở giai đoạn vừa qua, và lập kế hoạch làm việc cho giai đoạn tới. Phần thứ hai dành cho tất cả các thành viên tham gia dự án bao gồm cả khách hàng và các cấp quản lý có liên quan. Trưởng ban chỉ đạo chủ trì phiên họp và sau đó có thể có (tiệc đứng) để mọi người có thể trao đổi và hiểu nhau hơn. Trước khi vào tiệc cần bàn xong các kết quả đã đạt được, những vấn đề đặt ra và nguồn lực cần thiết cho giai đoạn tiếp theo. Các cuộc họp này tăng cường sự gắn bó và hăng hái của mọi người. Dưới đây ta sẽ đề cập một số sự kiện mốc trong dự án
+
+Các cuộc họp đặc biệt nhân các dịp đặc biệt
+Những sự kiện mấu chốt trong chu trình dự án đòi hỏi sự tham gia ý kiến không chỉ của một người. Đối với mỗi sự kiện như vậy, có thể bố trí một cuộc họp riêng để thảo luận.
+
+- Họp đánh giá rủi ro và quyết định có theo đuổi dự án hay không.
+Để đánh giá rủi ro, nên mời những người đã có kinh nghiệm với các dự án cùng loại. Cuộc họp này phải tiến hành trước khi đưa ra đề xuất dự án, để bảo đảm là tất cả các rủi ro đã được đánh giá và tính vào giá thành dự án, trên cơ sở đó quyết định có nên bỏ công sức viết dự án hay không. Thành phần họp là Trưởng-Phó ban chỉ đạo dự án (tương lai) và các chuyên gia.
+
+- Khai trương dự án.
+Ban chỉ đạo dự án tổ chức họp khai trương ngay sau khi dự án được ký kết. Cuộc họp này nên chia làm hai phần: phần long trọng, họp chung, và phần họp riêng, giữa các nhóm kỹ thuật. Mời tham dự phần đầu tất cả những ai liên quan đến dự án; Khách hàng, người cung cấp thiết bị, thành viên Ban chỉ đạo, các cấp quản lý, đội ngũ kỹ thuật viên... Mục đích đề giới thiệu các bên với nhau, đặt quan hệ giao tiếp, nêu rõ nguồn gốc và mục tiêu dự án. Phiên họp này cũng nhằm tạo ra bầu không khí phấn khởi và hăng hái bước vào dự án. Phần thứ hai chỉ dành cho các cán bộ kỹ thuật, nhằm đề ra các hướng chỉ đạo, quy định các thủ tục,... Phải nắm được chính xác trình độ của mỗi người và lên kế hoạch đào tạo nếu cần.
+
+- Họp lập kế hoạch (ước lượng) dự án.
+Như ta đã thấy, sẽ rất tốt nếu để một nhóm nhỏ, ba hoặc bốn người, tiến hành các ước lượng cần thiết. Nhóm này có thể đảm nhiệm luôn khâu phân rã công việc, xác định các nguồn lực, phương tiện cần có và sắp xếp công việc theo thứ tự trước sau.
+
+- Thông qua các đặc tả chức năng. Trước hết họp đội ngũ kỹ thuật viên xem xét các vấn đề của giai đoạn cuối, ước lượng và lịch biểu, nhất là nếu có sự thay đổi về đặc tả chức năng. Sau đó tiến hành họp chung với đông đủ các bên như đã mô tả ở trên. Thông báo về mọi thay đổi trong kế hoạch như lùi thời hạn giao sản phẩm hoặc nâng giá. Cần có sự cam kết từ phía các bộ phận thiết kế và lập trình.
+
+- Thảo luận chi tiết thiết kế mức cao nhất.
+Phó ban chỉ đạo điều hành phiên họp. Nhiều nhất chỉ nên không quá 5 người tham dự bao gồm các cán bộ thiết kế, chuyên gia ngoài hoặc lập trình viên có kinh nghiệm. Tác giả thiết kế trình bày các phương án khác nhau, nói rõ ưu điểm và nhược điểm của từng phương án. Những người tham dự bổ xung ý kiến và đề nghị các phương án khác của họ. Cuộc thảo luận chi tiết này kéo dài từ 2 đến 4 giờ.
+
+- Thảo luận chi tiết thiết kế mức trung.
+Đối với các dự án lớn, cần tiến hành thảo luận chi tiết và lựa chọn thiết kế từng mức, và tất nhiên là cho thiết kế hoàn chỉnh. Mục đích các buổi thảo luận này nhằm phát hiện tất cả các vấn đề còn cần phải làm rõ trong thiết kế. Tuỳ thuộc vào số lượng modun trong thiết kế, có thể phân ra một số buổi, nhưng không nên quá 5 người tham gia và mỗi buổi kéo dài không quá từ 3 đến 5 giờ
+
+- Thông qua thiết kế hệ thống.
+Mục đích và cách tiến hành giống như họp thông qua các đặc tả chức năng. Xem xét lại một lần nữa các ước lượng, đề nghị cam kết về các điều khoản khác nhau như bàn giao phần cứng, đội ngũ cán bộ lập trình, khâu chấp nhận, tài liệu hướng dẫn sử dụng..
+
+- Thảo luận chi tiết và thiết kế modun, tài liệu và kế hoạch thử nghiệm.
+Ba đề mục này có thể thảo luận chung. Chỉ có Phó ban chỉ đạo phụ trách điều hành, cán bộ phụ trách nhóm lập trình và có thể thêm một cán bộ lập trình tham gia. Cuộc họp phải khẳng định thiết kế đã chọn là tốt nhất, và xem còn vấn đề gì nữa không. Có thể thảo luận liền mấy modun, nhưng mỗi modun không quá từ 1 đến 2 giờ, và mỗi buổi không quá 4 giờ. Tác giả modun trình bày, ghi lại các ý kiến đề xuất, để suy nghĩ, tìm cách giải quyết và sẽ báo lại với Ban chỉ đạo sau
+
+- Thảo luận mã tài liệu cho người dùng.
+Tất cả những điều trình bày ở phần thảo luận modun cũng sẽ đúng ở đây. Tuy nhiên cuộc thảo luận này chi tiết có thể có nhiều người tham dự.
+
+- Họp kết thúc chấp nhận thử nghiệm (sự kiện mốc).
+Đây không thật sự là sự kiện mốc như một số sự kiện mốc khác. Chỉ xem như cuộc gặp mặt giữa khách hàng và Trưởng ban chỉ đạo dự án.
+
+- Họp kết thúc giai đoạn vận hành (sự kiện mốc)
+Đây thực ra không phải là một cuộc họp, mà là một bữa tiệc và tất cả mọi người đều được mời, một dịp để xả hơi và chuyển sang giai đoạn hậu dự án
+
+- Họp rút kinh nghiệm sau dự án.
+Đây là một việc thường hay bị bỏ qua, mặc dù rất quan trọng. Cần phải có hai phiên họp- phiên họp với khách hàng và họp nội bộ. Họp với khách hàng có thể mời cả tổ dự án và các cấp quản lý cao hơn. Không để phiên họp này trở thành qua loa. Mục đích là phân tích các trục trặc xảy ra với người sử dụng và bàn cách khắc phục những sự kiện đó trong tương lai. Trong trường hợp khách hàng không thoả mãn, đây có thể là dịp để chứng tỏ với họ rằng vấn đề không nằm trong tầm kiểm soát của chúng ta. Trong trường hợp khách hàng thoả mãn, có thể đề nghị họ giới thiệu với các khách hàng khác.
+
+Phiên họp thứ hai là giữa tổ dự án với các cấp quản lý có liên quan. Phải làm sao đây thật sự là phiên họp phê bình xây dựng. Phân tích những thiếu sót sai lầm, làm thế nào để tránh được những thiếu sót sai lầm đó trong tương lai, ghi lại các đề xuất tương ứng.
+
+- Báo cáo sau dự án.
+Kết quả cuộc họp rút kinh nghiêm sau dự án được ban chỉ đạo trình bày trong một báo cáo chính thức. Báo cáo này sẽ là một tài liệu tổng kết sẽ được lưu hành cho nhiều dự án khác cũng như có thể sẽ được nhiều người ngoài dự án xem. Báo cáo sau dự án cần bao gồm những phần sau đây:
+- Dự án đã được hình thành như thế nào, mục tiêu ban đầu, các giải pháp đề xuất
+- Phương pháp và tổ chức dự án, các kiến nghị cải tiến nếu có
+- So sánh kế hoạch đề ra với kết quả đạt được trên thực tế. Nếu có sự khác nhau đáng kể – giải thích vì sao
+- Cập nhật các công thức và tỷ số dùng để ước lượng
+- Các điểm thành công của dự án
+- Các rủi ro đã gặp phải, đề xuất để tránh những rủi ro đó trong tương lại. Cập nhật tài liệu lưu về rủi ro.
+- Các phần của sản phẩm có thể tái sử dụng
+
+Họp thảo luận các vấn đề gay cấn. Có trường hợp Trưởng ban chỉ đạo một mình không thể giải quyết được khó khăn đặt ra. Ví dụ như tình trạng nhiều cán bộ làm cho dự án xin thôi việc và do đó phải tìm người thay thế, các nguồn lực, phương tiện quan trọng không được cung cấp, nhiều cán bộ quá mệt mỏi hoặc mâu thuẩn lẫn nhau, liên hệ giữa dự án và người sử dụng bị gián đoạn… Trưởng ban chỉ đạo dự án cần mời họp để tham khảo ý kiến tất cả các bên liên quan. Thông thường cần có cấp đại diện quản lý cao của hai bên, bên dự án và bên người sử dụng, tham gia.
+
+Kết luận: Các cuộc họp xem xét tổng quan về kỹ thuật là không thể thiếu được, nếu muốn dự án đạt kết quả tốt. Các cuộc họp chung khác nhằm đảm bảo liên hệ giữa dự án với bên ngoài. Nhưng không phải bất kỳ trường hợp nào cũng phải họp. Chỉ tổ chức họp khi cần trao đổi trực diện giữa các bên. Ngoài ra có thể sử dụng các phương tiện khác nhau như thư, công văn, gọi điện, fax, Email...
+
+❖ Câu hỏi (bài tập) củng cố:
+1. Kiểm soát dự án là gì? Kiểm soát dự án gồm những mảng công việc nào?
+2. Hãy cho biết các cấp độ giám sát?
+3. Chỉ ra các phương pháp giám sát hiệu quả?

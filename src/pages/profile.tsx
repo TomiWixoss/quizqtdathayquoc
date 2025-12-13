@@ -315,7 +315,11 @@ function ProfilePage() {
           <div className="grid grid-cols-3 gap-2">
             <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1 mb-1">
-                <img src={getRankImage(rankInfo)} alt="" className="w-6 h-6" />
+                <img
+                  src={getRankImage(rankInfo)}
+                  alt=""
+                  className="w-10 h-10"
+                />
               </div>
               <p className="font-bold text-sm">
                 {profile.conquestStats?.rankPoints ?? 0}
@@ -326,7 +330,7 @@ function ProfilePage() {
             </div>
             <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1 mb-1">
-                <Flame className="w-5 h-5 text-[var(--duo-orange)]" />
+                <Flame className="w-10 h-10 text-[var(--duo-orange)]" />
               </div>
               <p className="font-bold text-sm">{profile.streak ?? 0}</p>
               <p className="text-[10px] text-[var(--muted-foreground)]">
@@ -335,7 +339,7 @@ function ProfilePage() {
             </div>
             <div className="bg-[var(--secondary)] rounded-xl p-3 text-center">
               <div className="flex items-center justify-center gap-1 mb-1">
-                <Trophy className="w-5 h-5 text-[var(--duo-yellow)]" />
+                <Trophy className="w-10 h-10 text-[var(--duo-yellow)]" />
               </div>
               <p className="font-bold text-sm">{profile.totalScore ?? 0}</p>
               <p className="text-[10px] text-[var(--muted-foreground)]">Điểm</p>

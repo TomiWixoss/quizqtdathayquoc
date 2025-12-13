@@ -473,20 +473,20 @@ function SettingsPage() {
         </div>
       )}
 
-      {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
-        <h1 className="font-bold text-xl text-foreground">Tôi</h1>
+      {/* Header - Fixed with gradient */}
+      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+        <h1 className="font-bold text-xl text-white">Tôi</h1>
       </div>
 
       {/* Content */}
       <div className="px-4 pt-28 pb-32">
-        {/* User Info */}
+        {/* User Info Card - Enhanced 3D */}
         {user && (
-          <div className="card-3d p-4 mb-6">
-            <div className="flex items-center gap-3 mb-3">
+          <div className="card-3d p-4 mb-5">
+            <div className="flex items-center gap-3 mb-4">
               {/* Avatar with frame */}
               <div className="relative w-[88px] h-[88px] flex items-center justify-center shrink-0">
-                {/* Frame layer - lớn hơn avatar */}
+                {/* Frame layer */}
                 {user.equippedFrame && (
                   <img
                     src={getFullImage(user.equippedFrame, 120)}
@@ -495,8 +495,8 @@ function SettingsPage() {
                     referrerPolicy="no-referrer"
                   />
                 )}
-                {/* Avatar - nhỏ hơn frame */}
-                <div className="w-12 h-12 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-lg overflow-hidden">
+                {/* Avatar */}
+                <div className="w-12 h-12 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-lg overflow-hidden border-3 border-[var(--border)] shadow-lg">
                   {user.equippedAvatar || user.avatar ? (
                     <img
                       src={
@@ -515,7 +515,7 @@ function SettingsPage() {
               </div>
               {/* Badge */}
               {user.equippedBadge && (
-                <div className="w-12 h-12 shrink-0">
+                <div className="w-14 h-14 shrink-0 rounded-xl bg-[var(--secondary)] p-1 border-2 border-[var(--border)] shadow-md">
                   <img
                     src={getFullImage(user.equippedBadge, 80)}
                     alt="Badge"
@@ -534,7 +534,7 @@ function SettingsPage() {
                       setNewName(user.odername);
                       setShowNameModal(true);
                     }}
-                    className="p-1.5 rounded-lg bg-[var(--secondary)] hover:bg-[var(--duo-blue)]/20 transition-colors shrink-0"
+                    className="p-1.5 rounded-lg bg-[var(--secondary)] border-2 border-[var(--border)] shadow-[0_2px_0_var(--border)] active:translate-y-0.5 active:shadow-none shrink-0"
                   >
                     <Pencil className="w-4 h-4 text-[var(--muted-foreground)]" />
                   </button>
@@ -544,21 +544,21 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
-            {/* Buttons */}
+            {/* Buttons - 3D Style */}
             <div className="flex gap-2">
               <button
                 onClick={() => navigate(`/profile/${user.oderId}`)}
-                className="flex-1 py-3 px-4 rounded-xl bg-[var(--secondary)] text-foreground font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                className="flex-1 py-3 px-4 rounded-xl bg-[var(--secondary)] text-foreground font-bold flex items-center justify-center gap-2 border-2 border-[var(--border)] shadow-[0_4px_0_var(--border)] active:translate-y-1 active:shadow-none"
               >
                 <User className="w-5 h-5" />
                 <span>Hồ sơ</span>
               </button>
               <button
                 onClick={() => navigate("/customize")}
-                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                className="flex-1 btn-3d btn-3d-purple py-3 px-4 flex items-center justify-center gap-2"
               >
                 <Sparkles className="w-5 h-5" />
-                <span>Trang trí</span>
+                <span>Trang bị</span>
               </button>
             </div>
           </div>

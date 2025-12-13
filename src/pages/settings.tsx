@@ -67,6 +67,16 @@ function SettingsPage() {
       requirement: 3,
       getValue: (u: any) => u?.questProgress?.dailyQuizzes ?? 0,
     },
+    {
+      id: "daily_conquest_1",
+      requirement: 1,
+      getValue: (u: any) => u?.questProgress?.dailyConquests ?? 0,
+    },
+    {
+      id: "daily_gacha_1",
+      requirement: 1,
+      getValue: (u: any) => u?.questProgress?.dailyGachaPulls ?? 0,
+    },
   ];
   const WEEKLY_QUESTS = [
     {
@@ -83,6 +93,21 @@ function SettingsPage() {
       id: "weekly_perfect_3",
       requirement: 3,
       getValue: (u: any) => u?.questProgress?.weeklyPerfect ?? 0,
+    },
+    {
+      id: "weekly_conquest_5",
+      requirement: 5,
+      getValue: (u: any) => u?.questProgress?.weeklyConquests ?? 0,
+    },
+    {
+      id: "weekly_conquest_wins_3",
+      requirement: 3,
+      getValue: (u: any) => u?.questProgress?.weeklyConquestWins ?? 0,
+    },
+    {
+      id: "weekly_gacha_10",
+      requirement: 10,
+      getValue: (u: any) => u?.questProgress?.weeklyGachaPulls ?? 0,
     },
   ];
   const claimedQuests = [

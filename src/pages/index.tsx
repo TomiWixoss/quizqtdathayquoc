@@ -7,13 +7,14 @@ import {
   CheckCircle,
   Swords,
   Dumbbell,
+  Trophy,
 } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState } from "react";
 import { NoHeartsModal } from "@/components/ui/custom-modal";
 import { RewardModal } from "@/components/ui/reward-modal";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, calculateScoreCategories } from "@/lib/utils";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -179,15 +180,11 @@ function HomePage() {
                   {formatNumber(user.gems)}
                 </span>
               </div>
-              {/* XP */}
+              {/* Total Score */}
               <div className="flex items-center gap-1">
-                <img
-                  src="/AppAssets/Lighting.png"
-                  alt="xp"
-                  className="w-5 h-5"
-                />
+                <Trophy className="w-5 h-5 text-[var(--duo-yellow)]" />
                 <span className="font-bold text-sm text-[var(--duo-yellow)]">
-                  {formatNumber(user.exp)}
+                  {formatNumber(calculateScoreCategories(user, 0).totalScore)}
                 </span>
               </div>
             </div>

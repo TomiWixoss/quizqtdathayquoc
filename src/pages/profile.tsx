@@ -341,8 +341,66 @@ function ProfilePage() {
               <div className="flex items-center justify-center gap-1 mb-1">
                 <Trophy className="w-10 h-10 text-[var(--duo-yellow)]" />
               </div>
-              <p className="font-bold text-sm">{profile.totalScore ?? 0}</p>
-              <p className="text-[10px] text-[var(--muted-foreground)]">Điểm</p>
+              <p className="font-bold text-sm">{profile.exp ?? 0}</p>
+              <p className="text-[10px] text-[var(--muted-foreground)]">XP</p>
+            </div>
+          </div>
+
+          {/* Score Categories */}
+          <div className="mt-3 pt-3 border-t border-[var(--border)]">
+            <p className="text-xs text-[var(--muted-foreground)] mb-2">
+              Điểm theo lĩnh vực
+            </p>
+            <div className="grid grid-cols-5 gap-1.5">
+              <div className="bg-[var(--duo-green)]/10 rounded-lg p-2 text-center">
+                <p className="text-xs font-bold text-[var(--duo-green)]">
+                  {(
+                    (profile.totalCorrect ?? 0) * 10 +
+                    (profile.perfectLessons ?? 0) * 50
+                  ).toLocaleString()}
+                </p>
+                <p className="text-[8px] text-[var(--muted-foreground)]">
+                  Quiz
+                </p>
+              </div>
+              <div className="bg-[var(--duo-purple)]/10 rounded-lg p-2 text-center">
+                <p className="text-xs font-bold text-[var(--duo-purple)]">
+                  {(
+                    (profile.conquestStats?.rankPoints ?? 0) +
+                    (profile.conquestStats?.totalConquests ?? 0) * 5
+                  ).toLocaleString()}
+                </p>
+                <p className="text-[8px] text-[var(--muted-foreground)]">
+                  Battle
+                </p>
+              </div>
+              <div className="bg-[var(--duo-yellow)]/10 rounded-lg p-2 text-center">
+                <p className="text-xs font-bold text-[var(--duo-yellow)]">
+                  {(
+                    (gachaStats?.totalURCards ?? 0) * 100 +
+                    (gachaStats?.totalSRCards ?? 0) * 50 +
+                    (gachaStats?.totalRCards ?? 0) * 20 +
+                    (gachaStats?.totalNCards ?? 0) * 5
+                  ).toLocaleString()}
+                </p>
+                <p className="text-[8px] text-[var(--muted-foreground)]">
+                  Gacha
+                </p>
+              </div>
+              <div className="bg-[var(--duo-orange)]/10 rounded-lg p-2 text-center">
+                <p className="text-xs font-bold text-[var(--duo-orange)]">-</p>
+                <p className="text-[8px] text-[var(--muted-foreground)]">
+                  Tower
+                </p>
+              </div>
+              <div className="bg-[var(--duo-blue)]/10 rounded-lg p-2 text-center">
+                <p className="text-xs font-bold text-[var(--duo-blue)]">
+                  {((profile.achievements?.length ?? 0) * 25).toLocaleString()}
+                </p>
+                <p className="text-[8px] text-[var(--muted-foreground)]">
+                  Achieve
+                </p>
+              </div>
             </div>
           </div>
         </div>

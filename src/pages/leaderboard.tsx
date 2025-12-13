@@ -19,6 +19,7 @@ import {
   LEADERBOARD_REWARDS,
   checkAndSendLeaderboardRewards,
 } from "@/services/leaderboard-reward-service";
+import { calculateScoreCategories, formatNumber } from "@/lib/utils";
 import type { UserStats } from "@/types/quiz";
 
 type TabType = "conquest" | "score" | "urCards";
@@ -42,7 +43,7 @@ function LeaderboardPage() {
     const fetchLeaderboard = async () => {
       setLoading(true);
       try {
-        let orderField = "totalScore";
+        let orderField = "exp"; // Default sort by exp for score tab
         if (activeTab === "conquest") {
           orderField = "conquestStats.rankPoints";
         } else if (activeTab === "urCards") {
@@ -52,10 +53,27 @@ function LeaderboardPage() {
         const q = query(
           collection(db, "users"),
           orderBy(orderField, "desc"),
-          limit(50)
+          limit(100) // Fetch more to sort properly
         );
         const snapshot = await getDocs(q);
-        const data = snapshot.docs.map((doc) => doc.data() as UserStats);
+        let data = snapshot.docs.map((doc) => doc.data() as UserStats);
+
+        // Sort by calculated total score for "score" tab
+        if (activeTab === "score") {
+          data = data
+            .map((user) => ({
+              ...user,
+              _calculatedScore: calculateScoreCategories(user, 0).totalScore,
+            }))
+            .sort(
+              (a, b) =>
+                (b as any)._calculatedScore - (a as any)._calculatedScore
+            )
+            .slice(0, 50);
+        } else {
+          data = data.slice(0, 50);
+        }
+
         setLeaders(data);
       } catch (error) {
         console.error("Error fetching leaderboard:", error);
@@ -101,7 +119,9 @@ function LeaderboardPage() {
         case "conquest":
           return leader.conquestStats?.rankPoints ?? 0;
         case "score":
-          return leader.totalScore ?? 0;
+          // Tính điểm tổng hợp từ các lĩnh vực
+          const scores = calculateScoreCategories(leader, 0);
+          return scores.totalScore;
         case "urCards":
           return leader.gachaInventory?.gachaStats?.totalURCards ?? 0;
       }
@@ -120,7 +140,7 @@ function LeaderboardPage() {
                 className="w-6 h-6 object-contain"
               />
               <span className="font-bold text-[var(--duo-purple)]">
-                {value}
+                {formatNumber(value)}
               </span>
             </div>
           );
@@ -128,7 +148,7 @@ function LeaderboardPage() {
           return (
             <div className="flex items-center gap-1 text-[var(--duo-yellow)]">
               <Trophy className="w-5 h-5" />
-              <span className="font-bold text-lg">{value}</span>
+              <span className="font-bold text-lg">{formatNumber(value)}</span>
             </div>
           );
         case "urCards":

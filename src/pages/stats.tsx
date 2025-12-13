@@ -18,12 +18,14 @@ import {
   Frame,
   Award,
   Package,
+  Building,
+  Medal,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useQuizStore } from "@/stores/quiz-store";
 import { getRankFromPoints, getRankImage } from "@/services/ai-quiz-service";
 import { useState, useEffect } from "react";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, calculateScoreCategories } from "@/lib/utils";
 
 type TabType = "overview" | "chapters" | "history" | "gacha";
 
@@ -91,6 +93,23 @@ function StatsPage() {
   });
 
   const completedChapters = chapterStats.filter((c) => c.isCompleted).length;
+
+  // Get tower floor from localStorage
+  const [towerFloor, setTowerFloor] = useState(0);
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("tower_progress");
+      if (saved) {
+        const data = JSON.parse(saved);
+        setTowerFloor(data.currentFloor || 0);
+      }
+    } catch (e) {
+      console.error("Error loading tower progress:", e);
+    }
+  }, []);
+
+  // Calculate score categories
+  const scoreCategories = calculateScoreCategories(user, towerFloor);
 
   return (
     <Page className="bg-background min-h-screen">
@@ -168,6 +187,110 @@ function StatsPage() {
                 <p className="text-xs text-[var(--muted-foreground)]">
                   Câu sai
                 </p>
+              </div>
+            </div>
+
+            {/* Score Categories - Điểm theo lĩnh vực */}
+            <div className="card-3d p-4">
+              <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
+                <Medal className="w-5 h-5 text-[var(--duo-yellow)]" />
+                Điểm theo lĩnh vực
+              </h3>
+
+              {/* Total Score */}
+              <div className="bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] rounded-2xl p-4 mb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white/80 text-sm">Tổng điểm</p>
+                    <p className="text-3xl font-bold text-white">
+                      {formatNumber(scoreCategories.totalScore)}
+                    </p>
+                  </div>
+                  <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+                    <Trophy className="w-7 h-7 text-white" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Score Breakdown */}
+              <div className="space-y-3">
+                {[
+                  {
+                    label: "Luyện tập",
+                    score: scoreCategories.quizScore,
+                    icon: BookOpen,
+                    color: "var(--duo-green)",
+                    bgColor: "var(--duo-green)",
+                  },
+                  {
+                    label: "Chinh Chiến",
+                    score: scoreCategories.conquestScore,
+                    icon: Swords,
+                    color: "var(--duo-purple)",
+                    bgColor: "var(--duo-purple)",
+                  },
+                  {
+                    label: "Bộ sưu tập",
+                    score: scoreCategories.gachaScore,
+                    icon: Sparkles,
+                    color: "var(--duo-yellow)",
+                    bgColor: "var(--duo-yellow)",
+                  },
+                  {
+                    label: "Tháp Luyện Ngục",
+                    score: scoreCategories.towerScore,
+                    icon: Building,
+                    color: "var(--duo-orange)",
+                    bgColor: "var(--duo-orange)",
+                  },
+                  {
+                    label: "Thành tựu",
+                    score: scoreCategories.achievementScore,
+                    icon: Award,
+                    color: "var(--duo-blue)",
+                    bgColor: "var(--duo-blue)",
+                  },
+                ].map((item) => {
+                  const percent =
+                    scoreCategories.totalScore > 0
+                      ? (item.score / scoreCategories.totalScore) * 100
+                      : 0;
+                  return (
+                    <div key={item.label} className="flex items-center gap-3">
+                      <div
+                        className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                        style={{ backgroundColor: `${item.bgColor}20` }}
+                      >
+                        <item.icon
+                          className="w-4.5 h-4.5"
+                          style={{ color: item.color }}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium text-foreground">
+                            {item.label}
+                          </span>
+                          <span
+                            className="text-sm font-bold"
+                            style={{ color: item.color }}
+                          >
+                            {formatNumber(item.score)}
+                          </span>
+                        </div>
+                        <div className="h-1.5 bg-[var(--secondary)] rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{
+                              width: `${Math.min(percent, 100)}%`,
+                              backgroundColor: item.color,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 

@@ -1,3 +1,13 @@
+// Score Categories - Điểm theo lĩnh vực
+export interface ScoreCategories {
+  quizScore: number; // Điểm từ luyện tập (totalCorrect * 10)
+  conquestScore: number; // Điểm từ Chinh Chiến (rankPoints + wins * 5)
+  gachaScore: number; // Điểm từ bộ sưu tập (UR*100 + SR*50 + R*20 + N*5)
+  towerScore: number; // Điểm từ Tháp (floor * 10)
+  achievementScore: number; // Điểm từ thành tựu (achievements * 25)
+  totalScore: number; // Tổng điểm
+}
+
 // Quiz Types
 export interface QuizOption {
   id: string;

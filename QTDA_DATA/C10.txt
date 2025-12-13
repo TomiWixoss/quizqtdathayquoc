@@ -1,0 +1,140 @@
+Chương 10. QUẢN LÝ NGUỒN NHÂN LỰC CỦA DỰ ÁN
+
+❖ Mục tiêu học tập: Sau khi học xong bài này, người học có khả năng:
+1. Hiểu được tầm quan trọng của việc quản lý nhân sự của dự án.
+2. Hiểu được các quản lý nhân sự.
+3. Dùng phần mềm trong quản lý nhân sự dự án.
+
+10.1 Nhân sự dự án
+Trong thực tế có rất nhiều cuộc họp bàn về các việc khác nhau, nhưng lại không phân rõ trách nhiệm ai làm việc gì. Lẽ dĩ nhiên là sau đó chẳng ai làm việc gì cả-vì người nào cũng nghĩ là đã có người khác làm, không phải việc của mình. Nhân sự dự án trước hết là tổ chức dự án- cần biết chính xác ai làm việc gì, ở đâu, khi nào?
+
+10.2 Tổ chức dự án
+Tổ dự án
+Đối với các dự án quy mô vừa và nhỏ, hình thức tổ chức bên dưới tỏ ra thích hợp
+
+[Hình ảnh: Hình 10.1 Tổ chức các dự án vừa và nhỏ]
+
+Mỗi người trong tổ có công việc riêng của mình. Công việc của các cán bộ lập trình, như tên đã gọi, là viết chương trình phần mềm. PGĐ kỹ thuật giám sát, chỉ đạo tất cả các công việc thuộc về kỹ thuật, giải quyết các vấn đề liên quan đến hệ thống, đồng thời chịu trách nhiệm về chất lượng sản phẩm. Trên cùng là GĐ Ban quản lý dự án lãnh đạo về mặt quản lý, đảm bảo liên hệ giữa dự án với bên ngoài, đồng thời chịu trách nhiệm về kế hoạch và kiểm soát.
+
+Người ta nhận thấy rằng, mỗi trưởng nhóm kỹ thuật thường theo dõi tốt được 5 cán bộ lập trình.
+Dự án có thể được phân thành các tổ, sao cho mỗi tổ có thể coi như là một dự án độc lập tương đối.
+
+Tổ chức theo chuyên môn
+Rất nhiều hãng, công ty áp dụng hình thức tổ chức theo chuyên môn. Ví dụ nếu hãng chuyên sản xuất một số loại phần mềm, thì có thể phân chia thành các bộ phận, mỗi bộ phận chịu trách nhiệm về một loại phần mềm nhất định.
+Hình thức tổ chức theo chuyên môn như trên có cả ưu điểm lẫn nhược điểm. Ưu điểm là các cán bộ trong cùng một chuyên môn dễ hiểu nhau hơn, và người làm quản lý đồng thời là trưởng phòng chuyên môn nên cũng dễ làm việc hơn. Nhược điểm là trong trường hợp dự án cần đến nhiều lĩnh vực chuyên môn khác nhau, thì sẽ phải mời chuyên gia ngoài. Các chuyên gia này cùng lúc làm việc cho nhiều dự án, nên thường họ không có đủ thời gian để hoàn thành phần việc được giao một cách có chất lượng. Ngoài ra, đối với một cán bộ có năng lực và thích cái mới, làm việc mãi cho những dự án giống nhau, có thể dẫn đến kém hào hứng và nhàm chán.
+
+10.3 Vai trò của GĐ dự án
+Vai trò quan trọng nhất của GĐ (Trưởng ban quản lý) với tư cách là người quản lý dự án là liên hệ giữa dự án với bên ngoài, GĐ có trách nhiệm báo cáo kế hoạch và tiến độ dự án cho khách hàng, cho cấp quản lý cao hơn và cho tất cả các bên liên quan. Mọi thông tin từ bên ngoài có ảnh hưởng đến dự án, kinh phí, lịch biểu, nhân sự, các thay đổi về tổ chức… cũng đều qua GĐ dự án xem xét, sau đó mới thông báo lại tới các bộ phận cá nhân liên quan.
+Quản lý nhân sự dự án cũng thuộc về trách nhiệm của GĐ. GĐ dự án là thủ trưởng, là người động viên, khuyến khích là người giải quyết mọi vấn đề về con người đặt ra trong dự án.
+Ngoài ra GĐ dự án phải biết bảo vệ dự án và biết bảo vệ chính mình khỏi bị chi phối bởi vô vàn những thủ tục liên quan, cũng như những công việc sự vụ hàng ngày, tập trung thời gian và nguồn lực vào thực hiện các mục tiêu của dự án.
+Dưới đây ta sẽ bàn về trách nhiệm của GĐ trong từng giai đoạn của dự án:
+
+1. Giai đoạn xác định.
+GĐ có thể là một trong những người tham gia quyết định có theo đuổi dự án hay không, chủ trì các cuộc trao đổi và giúp người sử dụng thảo ra các yêu cầu. GĐ dự án có khi chính là tác giả của đề cương dự án. PGĐ kỹ thuật sẽ đảm nhận phần trình bày về kỹ thuật trong đề cương, đồng thời phác thảo sơ bộ kế hoạch dự án. Phần rủi ro cũng được viết với sự hỗ trợ của các chuyên viên. GĐ dự án lập kế hoạch phân bổ ở mức tổng thể, sau đó giao bộ phận phụ trách kỹ thuật phân chia tiếp và cho các ước lượng. Sau khi các công việc được phân ra một cách chi tiết, GĐ sẽ tính toán tổng chi phí, vạch ra lịch thực hiện và liên hệ với các bên cung cấp nguồn lực.
+GĐ dự án chủ trì tất cả các cuộc họp với khách hàng, đàm phán bằng văn bản, thống nhất với đội ngũ kỹ thuật viên về tất cả những thay đổi trong văn bản dự án, và cùng với khách hàng ký kết.
+Sau khi văn bản dự án được ký kết, GĐ sẽ lập ra Văn phòng Dự án, nơi sau này tập trung tất cả các tài liệu dự án, bao gồm các báo cáo định kỳ, chương trình và biên bản các phiên họp, các văn bản ghi nhớ.
+
+2. Giai đoạn phân tích.
+GĐ dự án phải viết các phần sau đây trong hồ sơ đặc tả chức năng: Các tài liệu bàn giao, thay đổi đặc tả, Chấp nhận, Giao diện người sử dụng, Trách nhiệm của phía người sử dụng (chi tiết do PGĐ kỹ thuật cung cấp), Cách thức và Điều kiện, Bảo hành cũng như về các hiệu ứng mà hệ thống mới có thể gây ra do tác động lên môi trường người sử dụng.
+GĐ dự án đảm bảo xây dựng đặc tả Chức năng xong đúng hạn (phía khách hàng cung cấp mô tả đầu vào đúng hạn), đàm phán đặc tả chức năng với khách hàng và để khách hàng ký xác nhận đồng ý. Giai đoạn này là lúc GĐ dự án tập trung vào lập kế hoạch dự án. Phải có được sự cam kết của các bên cung cấp nguồn lực, nhất là của các phòng chuyên môn về việc cử cán bộ thiết kế và lập trình tham gia dự án. Nếu thấy có nhu cầu cần tổ chức ngay các lớp đào tạo.
+Kiểm soát dự án cũng bắt đầu từ giai đoạn này. Giám đốc dự án giám sát tiến trình, triệu tập các cuộc họp định kỳ và họp tổng quan, viết báo cáo định kỳ gửi các bên liên quan và xử lý mọi vấn đề nảy sinh.
+
+3. Giai đoạn thiết kế.
+Vì đây là giai đoạn nặng về kỹ thuật, nên công việc của GĐ dự án có phần nhẹ hơn. Vấn đề là phải có các thủ tục kiểm soát chính thức. GĐ dự án ấn định các cuộc họp và in các báo cáo thường kỳ hàng tuần kiểm tra tiến độ về mặt thời gian và kinh phí so với kế hoạch, dự báo tổng kinh phí ngày giao hàng và cập nhật các sửa đổi cần thiết. GĐ dự án phải phát hiện vấn đề, nếu có thể thì giải quyết các vấn đề đó, nếu không thì xem xét lại kế hoạch. GĐ dự án chủ trì các cuộc họp về quản lí nếu có (họp Ban quản lí dự án, Ban chỉ đạo, họp nhân các sự kiện mốc…) Đặc biệt, GĐ dự án phải đảm bảo sao cho khách hàng thoả mãn với tiến độ sản phẩm.
+Khách hàng thường thay đổi yêu cầu ngay từ giai đoạn thiết kế. Vì vậy GĐ dự án cần đưa ra một qui trình xử lí các yêu cầu đó, đồng thời tính và đưa các chi phí phát sinh vào giá thành.
+
+4. Giai đoạn lập trình.
+Giai đoạn này thu hút nhiều người nhất và do đó có thể có nhiều vấn đề về nhân sự. GĐ dự án phải theo dõi sát và can thiệp ngay nếu thấy có gì không ổn… PGĐ và các nhóm trưởng cung cấp cho GĐ về tình hình làm việc của các nhân viên thuộc mình quản lí.
+Đây có thể xem là giai đoạn dài nhất và không rõ mốc kết thúc. GĐ dự án cần có tầm nhìn xa và đảm bảo tiến độ dự án, thường xuyên gặp gỡ, trao đổi với các cán bộ lập trình để phát hiện các vấn đề ngay trước khi chúng xảy ra.
+
+5. Giai đoạn Tích hợp hệ thống và Thử nghiệm. Điều tốt nhất mà GĐ dự án có thể làm cho giai đoạn này là giữ cho các cán bộ chuyên môn trong dự án khỏi bị quấy nhiễu. Vì khi đó khách hàng, cấp trên... chắc hẳn sẽ lo lắng, liên tục gọi điện, triệu tập họp và yêu cầu báo cáo tiến độ hàng ngày. GĐ dự án sẽ phải đương đầu với tất cả các vụ việc đó, tạo điều kiện cho tổ tập trung hoàn thành giai đoạn cuối.
+
+6. Giai đoạn chấp nhận. GĐ dự án đề xuất thời gian, bố trí các cán bộ và phương tiện để người sử dụng có thể đến và ký chấp nhận.
+
+7. Giai đoạn vận hành. GĐ dự án đảm bảo cung cấp hỗ trợ kỹ thuật như đã hứa và sao cho hệ điều hành đáp ứng các yêu cầu của người sử dụng. Đây cũng là giai đoạn thích hợp, nếu GĐ có ý định đưa ra một dự án mới.
+Cuối cùng GĐ dự án tổ chức họp tổng kết đánh giá dự án và viết báo cáo tổng kết.
+
+10.4 Vai trò của PGĐ kỹ thuật
+Chức năng chủ yếu của PGĐ kỹ thuật là đảm bảo làm ra sản phẩm chất lượng cao. Khác với GĐ thiên về đối ngoại. PGĐ thiên về các hoạt động bên trong dự án. PGĐ cần chỉ đạo, kiểm soát sao cho sản phẩm tạo ra phù hợp với đặc tả chức năng và không bị lỗi. PGĐ lãnh đạo phần lớn các công việc kỹ thuật, chủ trì các cuộc họp tổng quan kỹ thuật, xác định và giao việc cho các cán bộ thiết kế và lập trình, giải quyết những vấn đề lớn liên quan đến vấn đề kỹ thuật, và tự mình đảm nhận những phần việc phức tạp nhất.
+Đối với mỗi giai đoạn trong dự án, trách nhiệm của PGĐ có những đặc thù riêng.
+
+1. Giai đoạn xác định. PGĐ thảo phần lớn kế hoạch sơ bộ của dự án: phân rã công việc ở mức chi tiết và tiến hành ước lượng. Trong trường hợp phía khách hàng phải cung cấp các chi tiết kỹ thuật ở giai đoạn này hoặc nguyên mẫu, PGĐ kỹ thuật là đầu mối liên hệ chính.
+
+2. Giai đoạn phân tích. Trong dự án quy mô vừa và nhỏ, PGĐ là người phân tích chính và soạn thảo tất cả phần kỹ thuật của hồ sơ đặc tả chức năng: Tổng quan, Mục tiêu, Yêu cầu hệ thống, Mô tả các bộ phận. Nếu cần PGĐ hỗ trợ GĐ về phương diện kỹ thuật trong đàm phán về đặc tả chức năng, tính toán chi phí phát sinh khi khách hàng có đề nghị thay đổi. PGĐ cũng đồng thời giúp GĐ tuyển chọn người vào làm việc cho dự án.
+
+3. Giai đoạn thiết kế. PGĐ là người đứng đầu nhóm thiết kế, chủ trì các cuộc trao đổi và họp tổng quan về thiết kế, giao việc cho các cán bộ thiết kế, đồng thời tự mình đảm nhận thiết kế những khâu quan trọng, nhất là ở mức tổng thể.
+Ở giai đoạn này cũng như ở giai đoạn Lập trình và Thử nghiệm Hệ thống, PGĐ cần gặp GĐ hàng tuần để báo cáo tình hình dự án. Vì PGĐ là người tiếp xúc hàng ngày với các nhân viên, nên phải thông tin cho GĐ về tình hình làm việc của mỗi người.
+
+4. Giai đoạn lập trình. Đây là giai đoạn đòi hỏi PGĐ phải làm việc căng nhất. PGĐ phải phân bổ công việc lập trình, giải quyết bất cứ vấn đề gì mà các cán bộ lập trình không giải quyết được. PGĐ duyệt thiết kế chương trình, kế hoạch thử nghiệm, tài liệu người sử dụng, đảm bảo sự liên kết cần thiết giữa các cán bộ lập trình. Mỗi chương dài và phức tạp có thể giao riêng cho một cán bộ lập trình làm việc dưới sự hỗ trợ của PGĐ. Như vậy, PGĐ có thể đánh dấu được các khối chương trình trong khi cán bộ lập trình viết chương trình chi tiết. PGĐ cũng có thể đảm nhận viết trọn vẹn một chương trình, nhưng không phải là chương trình nằm trên đường găng.
+
+5. Giai đoạn Tích hợp hệ thống và Thử nghiệm. Tích hợp và thử nghiệm lần cuối cùng sản phẩm hoàn toàn thuộc phạm vị trách nhiệm của PGĐ. PGĐ lên kế hoạch tích hợp kiểm tra việc thực hiện kế hoạch đó, xác nhận các kết quả đạt được và thường xuyên báo cáo với GĐ về tiến độ thực hiện.
+
+6. Giai đoạn chấp nhận. PGĐ đảm bảo toàn bộ phần kỹ thuật, và có thể là người thảo ra kế hoạch thử nghiệm chấp nhận, đồng thời cũng là người thực hiện kế hoạch đó.
+
+7. Giai đoạn vận hành. Mặc dù có thể chỉ cần cử một cán bộ lập trình trẻ, PGĐ phải là người bảo hành thường trực, sẵn sàng giải đáp các câu hỏi qua điện thoại, hoặc thậm chí đảm nhận phần lớn khâu huấn luyện người sử dụng.
+
+10.5 Vai trò của cán bộ lập trình
+Cán bộ lập trình nhận được thiết kế mức trung để trên cơ sở đó tiến hành thiết kế chi tiết, lập kế hoạch thử nghiệm modun. Cán bộ lập trình cũng có thể chịu trách nhiệm về tài liệu cho người sử dụng và huấn luyện, mặc dù tốt hơn hết vẫn là thuê các chuyên gia soạn tài liệu và giảng dạy đảm nhận các khâu này. Một cán bộ lập trình phải báo cáo tiến độ với PGĐ, có mặt khi thử nghiệm hệ thống các phần liên quan đến chương trình do bản thân mình viết.
+
+10.6 Vai trò của phía khách hàng
+Phía khách hàng có thể có một số trách nhiệm như soạn thảo tài liệu hoặc cung cấp dữ liệu để thử nghiệm. Trong mọi trường hợp phía khách hàng phải cử ra một đại diện, chịu trách nhiệm liên hệ và làm việc với dự án về các vấn đề quản lý. Phía khách hàng phải có ít nhất một người đủ hiểu biết để trả lời câu hỏi của tổ dự án.
+Người sử dụng cũng phải tìm hiểu về quản lý dự án, ít ra là để biết vai trò của mình đến đâu, khi nào thì phải tham gia họp hoặc ký. Người sử dụng phải biết đọc và phê duyệt các tài liệu do phía dự án đưa sang. Mặc dù không can thiệp vào các công việc kỹ thuật, người sử dụng giữ liên hệ với GĐ dự án, đưa ra các đề nghị thay đổi theo đúng quy trình, và qua đó biết được sản phẩm giao nộp có đáp ứng yêu cầu cam kết không.
+Tóm lại để hoàn thành tốt dự án, không có cách nào khác là phải phân công công việc rõ ràng, sao cho mỗi người đều biết phần việc của mình. Đối với các công việc phát sinh ngoài dự kiến, có thể áp dụng phương cách phân trách nhiệm chung như vừa trình bày ở trên: GĐ dự án đảm nhận tất cả các hoạt động đòi hỏi tiếp xúc với bên ngoài, cũng như mọi vấn đề thuộc về nhân sự. PGĐ dự án chịu trách nhiệm về tất cả các vấn đề về kỹ thuật. Như vậy khi có một vấn đề mới nảy sinh, sẽ có thể xác định ngay đó thuộc trách nhiệm của ai, mà không cần mất thời gian bàn cãi.
+
+10.7 Tuyển chọn nhân sự dự án
+GĐ dự án.
+GĐ dự án thường là do cấp trên bổ nhiệm. Cương vị này thực ra đã được bố trí sẵn ngay từ khi dự án mới hình thành, vì có thể chính GĐ là người cho ý kiến xem có nên xây dựng dự án hay không.
+GĐ Dự án trước hết phải là người có nghệ thuật giao tiếp. Tiếp đó là kỹ năng quản lý dự án, tài tổ chức, và cuối cùng là trình độ chuyên môn. Nếu GĐ dự án hiểu được ngôn ngữ của các nhà kỹ thuật, thì sẽ rất thuận lợi trong công việc.
+Cương vị GĐ dự án đôi khi có những đòi hỏi khác về các chính sách và thủ tục của bên cơ quan khách hàng cũng như của cơ quan mình. Những công việc như thế đòi hỏi các kỹ năng về lãnh đạo, đàm phán và ngoại giao.
+Việc lựa chọn ai vào cương vị GĐ dự án nhiều khi còn tuỳ thuộc cơ chế làm việc, chính sách sử dụng người của cơ quan, doanh nghiệp. Kinh nghiệm cho thấy ở một dự án CNTT có nhiều phòng, ban tham gia, GĐ nên là một cán bộ lãnh đạo có đủ thẩm quyền đối với tất cả các phòng ban này, mặc dù có thể không phải là một chuyên gia tin học.
+
+PGĐ kỹ thuật.
+Đây là cương vị thứ hai trong dự án. Tốt nhất là để GĐ dự án chọn PGĐ. Công việc của PGĐ nặng về chuyên môn, vì thế nên chọn trong số các chuyên gia giỏi. PGĐ đồng thời phải là người bao quát được chi tiết toàn bộ dự án, không bị xa đà vào những việc vụn vặt. GĐ phải chọn PGĐ trước khi viết đề cương dự án, vì có rất nhiều chi tiết trong đề cương dự án sẽ do PGĐ điều tra cung cấp.
+PGĐ cũng phải có kỹ năng giao tiếp tốt. Chính PGĐ là người tiến hành phỏng vấn người sử dụng và là người hàng ngày giám sát công việc của các lập trình viên. Hãy chọn vào cương vị này chuyên gia nào biết tổ chức, phân công công việc, biết giữ tiến độ. PGĐ phải có đủ uy tín về mặt chuyên môn để có thể lãnh đạo, giúp đỡ các cán bộ thiết kế cũng như lập trình.
+
+Cán bộ lập trình.
+Hãy chọn cán bộ lập trình trước hết theo năng lực lập trình của họ. Sau đó xét đến kinh nghiệm lập trình mà họ đã có trong lĩnh vực ứng dụng phần mềm tương ứng, nhưng tránh tình trạng để một người làm đi làm lại một việc.
+
+10.8 Tính cách của người làm quản lý dự án
+Điều dễ thấy là tính cách của người quản lý có thể có tác động đến dự án. Sau đây là một số nét về tính cách được coi là cần thiết đối với người làm quản lý dự án:
+Người làm quản lý dự án biết giao tiếp. Đó là một thành viên tổ, sẵn sàng chia sẻ các ý tưởng và hiểu biết có giá trị. Người đó không chỉ biết trình bày các tư tưởng, mà phải có quyết tâm tranh đấu cho những tư tưởng đó.
+Người làm quản lý dự án phải biết lắng nghe ý kiến người khác, và sẵn sàng thừa nhận nếu đó là những ý kiến tốt hơn.
+Người làm quản lý dự án có đầu óc tổ chức. Dự án có rất nhiều việc, mỗi việc phải được hoàn thành vào một thời gian tương ứng. Hãy cẩn thận với những người làm việc không đến nơi đến chốn, sẵn sàng bỏ dở việc này nhảy sang việc khác. Như vậy thì chẳng bao lâu trong dự án sẽ có nhiều việc bị bỏ dở dang.
+Người làm dự án không nên cầu toàn. Quan trọng là biết bảo đảm thời hạn. Kết quả dự án bao giờ còn có thể làm tốt lên. Nhưng phải biết dựng lại ở đâu và dành các đề xuất cải tiến cho lần sau.
+Người làm quản lý dự án có khả năng phân tích, logic và có kinh nghiệm tương ứng
+
+10.9 Giao việc cho từng cá nhân
+Trong cuốn tâm lý học lập trình (The Psychology or Computer Progamming, New-York: Van Nostrand, Reinhold, 1971), G.Weinberg cho rằng động cơ thúc đẩy mạnh nhất đối với một người làm lập trình là học cái mới. Cần giao cho lập trình viên công việc khó hơn so với trước đây. Tuy nhiên không nên phân nhiệm vụ phức tạp cho một lập trình viên mới ra trường, cũng như không nên để các chuyên gia giỏi làm những việc tầm thường.
+Những phần việc hoặc chương trình liên quan đến nhau nên giao cho một người, hoặc tối đa hai người, với điều kiện hai người này kết hợp được tốt với nhau.
+Trong khi phân việc không nên để ra tình trạng tất cả phụ thuộc vào một người, theo nghĩa nếu người đó đi vắng thì tất cả phải ngừng hết. Hãng IBM đã tổng kết thấy rằng phương pháp tổ chức hàm lập trình theo chế độ “kèm cặp" là rất hiệu quả. Theo phương pháp này phụ trách nhóm là một chuyên gia lập trình bậc thầy, đảm nhận tất cả các mã phức tạp "80%" và giúp việc là các lập trình viên học trò, với 20% mã dễ hơn. Đặc biệt có một lập trình viên học trò luôn làm việc cùng với thầy, được thầy kèm cặp hướng dẫn cho đầy đủ, để có thể thay thế thầy mỗi khi thầy đi vắng. Như vậy công việc của cả nhóm sẽ không bị gián đoạn.
+
+* Động cơ thúc đẩy
+Động cơ thúc đẩy làm cho người ta làm việc hăng hái hơn, hiệu xuất cao hơn và đạt kết quả tốt hơn.
+F. Herzberg đã tiến hành một cuộc điều tra về các động cơ thúc đẩy đối với công nhân ở Mỹ. Ông đề nghị mỗi người hãy nhớ trong đầu mình những trường hợp làm việc có hiệu quả nhất và những trường hợp làm việc kém hiệu quả nhất. Kết quả cho thấy những trường hợp sau đây dẫn đến hiệu quả làm việc kém nhất:
+
+Chính sách và cách quản lý hành chính của công ty | 38%
+Sự theo dõi, giám sát | 20%
+Điều kiện làm việc | 18%
+Lương | 8%
+
+Ngoài ra còn là quan hệ cấp trên và / hay với đồng nghiệp, các chế độ đãi ngộ xã hội và bảo hiểm…
+Những trường hợp sau đây dẫn đến hiệu quả làm việc cao nhất:
+Thành quả: 50%
+(Thấy mình hoàn thành xong một công việc, đạt được mục tiêu đề ra. Công việc là một cơ hội để học hỏi, nâng cao trình độ, tay nghề…)
+Tính chất công việc:
+- Đối với người làm chuyên môn: 48%
+- Đối với những người làm không chuyên: 13%
+(Công việc thú vị, thách thức, không quá đơn giản, dễ dàng, mà đòi hỏi phải vận động trí tuệ, trình độ chuyên môn, kinh nghiệm... Môi trường làm việc dễ chịu, điều kiện và phương tiện tốt)
+Được đồng nghiệp ủng hộ và công nhận: 25%
+(Người làm nhận được thông tin phản hồi về kết quả và hiệu quả công việc, thấy rằng việc mình làm được, người khác và nhất là các đồng nghiệp quan tâm và đánh giá tốt )
+Thăng tiến: 23%
+(Được cất nhắc lên cấp quyền lực cao hơn)
+Trách nhiệm
+(Ý thức về trách nhiệm của mình, về vai trò và lợi ích của công việc mình làm trong sự nghiệp chung)
+
+* Câu hỏi (bài tập) củng cố:
+1. Thị trường công việc và tình hình kinh tế ảnh hưởng đến quản trị nguồn nhân lực như thế nào?
+2. Các qui trình trong quản trị nguồn nhân lực
+3. Trình bày sự khác biệt giữa hai kỹ thuật “resource loading” và “resource leveling”. Cho ví dụ đối với mỗi kỹ thuật.
+4. Trình bày 2 loại hoạt động xây dựng nhóm.
+5. Có thể dùng MS. Project 2003 để hỗ trợ quản trị nguồn nhân lực như thế nào?

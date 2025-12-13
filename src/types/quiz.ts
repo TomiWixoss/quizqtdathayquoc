@@ -157,7 +157,9 @@ export interface Achievement {
     | "Coins"
     | "Swords"
     | "Shield"
-    | "Award";
+    | "Award"
+    | "Package"
+    | "Image";
   requirement: number;
   type:
     | "streak"
@@ -168,7 +170,12 @@ export interface Achievement {
     | "chapters"
     | "conquest"
     | "conquest_wins"
-    | "rank_points";
+    | "rank_points"
+    | "gacha_pulls"
+    | "gacha_ur"
+    | "gacha_sr"
+    | "gacha_collections"
+    | "gacha_total_cards";
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
@@ -386,5 +393,138 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: "Trophy",
     requirement: 2000,
     type: "rank_points",
+  },
+  // Gacha achievements - Pulls
+  {
+    id: "gacha_first",
+    name: "Lần đầu quay",
+    description: "Quay gacha lần đầu tiên",
+    icon: "Sparkles",
+    requirement: 1,
+    type: "gacha_pulls",
+  },
+  {
+    id: "gacha_pulls_50",
+    name: "Người chơi hệ",
+    description: "Quay gacha 50 lần",
+    icon: "Package",
+    requirement: 50,
+    type: "gacha_pulls",
+  },
+  {
+    id: "gacha_pulls_100",
+    name: "Đam mê sưu tập",
+    description: "Quay gacha 100 lần",
+    icon: "Sparkles",
+    requirement: 100,
+    type: "gacha_pulls",
+  },
+  {
+    id: "gacha_pulls_500",
+    name: "Gacha Master",
+    description: "Quay gacha 500 lần",
+    icon: "Crown",
+    requirement: 500,
+    type: "gacha_pulls",
+  },
+  // Gacha achievements - UR cards
+  {
+    id: "gacha_ur_1",
+    name: "Thẻ vàng đầu tiên",
+    description: "Sở hữu 1 thẻ UR",
+    icon: "Star",
+    requirement: 1,
+    type: "gacha_ur",
+  },
+  {
+    id: "gacha_ur_5",
+    name: "Bộ sưu tập vàng",
+    description: "Sở hữu 5 thẻ UR",
+    icon: "Star",
+    requirement: 5,
+    type: "gacha_ur",
+  },
+  {
+    id: "gacha_ur_10",
+    name: "Kho báu UR",
+    description: "Sở hữu 10 thẻ UR",
+    icon: "Crown",
+    requirement: 10,
+    type: "gacha_ur",
+  },
+  {
+    id: "gacha_ur_25",
+    name: "Vua thẻ UR",
+    description: "Sở hữu 25 thẻ UR",
+    icon: "Crown",
+    requirement: 25,
+    type: "gacha_ur",
+  },
+  // Gacha achievements - SR cards
+  {
+    id: "gacha_sr_10",
+    name: "Bộ sưu tập tím",
+    description: "Sở hữu 10 thẻ SR",
+    icon: "Gem",
+    requirement: 10,
+    type: "gacha_sr",
+  },
+  {
+    id: "gacha_sr_50",
+    name: "Kho báu SR",
+    description: "Sở hữu 50 thẻ SR",
+    icon: "Gem",
+    requirement: 50,
+    type: "gacha_sr",
+  },
+  // Gacha achievements - Total cards
+  {
+    id: "gacha_cards_25",
+    name: "Nhà sưu tập nhỏ",
+    description: "Sở hữu 25 thẻ unique",
+    icon: "Image",
+    requirement: 25,
+    type: "gacha_total_cards",
+  },
+  {
+    id: "gacha_cards_100",
+    name: "Nhà sưu tập",
+    description: "Sở hữu 100 thẻ unique",
+    icon: "Image",
+    requirement: 100,
+    type: "gacha_total_cards",
+  },
+  {
+    id: "gacha_cards_250",
+    name: "Đại sưu tập gia",
+    description: "Sở hữu 250 thẻ unique",
+    icon: "Crown",
+    requirement: 250,
+    type: "gacha_total_cards",
+  },
+  // Gacha achievements - Collections completed
+  {
+    id: "gacha_collection_1",
+    name: "Hoàn thành bộ đầu",
+    description: "Hoàn thành 1 bộ sưu tập",
+    icon: "Package",
+    requirement: 1,
+    type: "gacha_collections",
+  },
+  {
+    id: "gacha_collection_3",
+    name: "Người sưu tập",
+    description: "Hoàn thành 3 bộ sưu tập",
+    icon: "Package",
+    requirement: 3,
+    type: "gacha_collections",
+  },
+  {
+    id: "gacha_collection_5",
+    name: "Bậc thầy sưu tập",
+    description: "Hoàn thành 5 bộ sưu tập",
+    icon: "Trophy",
+    requirement: 5,
+    type: "gacha_collections",
   },
 ];

@@ -19,6 +19,8 @@ import {
   ArrowLeft,
   Swords,
   Shield,
+  Package,
+  Image,
 } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { ACHIEVEMENTS, Achievement } from "@/types/quiz";
@@ -42,6 +44,8 @@ const ICON_MAP: Record<Achievement["icon"], React.ElementType> = {
   Swords,
   Shield,
   Award,
+  Package,
+  Image,
 };
 
 // Reward gems for each achievement
@@ -72,6 +76,23 @@ const ACHIEVEMENT_REWARDS: Record<string, number> = {
   rank_500: 75,
   rank_1000: 150,
   rank_2000: 300,
+  // Gacha achievements
+  gacha_first: 20,
+  gacha_pulls_50: 50,
+  gacha_pulls_100: 100,
+  gacha_pulls_500: 300,
+  gacha_ur_1: 30,
+  gacha_ur_5: 80,
+  gacha_ur_10: 150,
+  gacha_ur_25: 400,
+  gacha_sr_10: 40,
+  gacha_sr_50: 120,
+  gacha_cards_25: 50,
+  gacha_cards_100: 150,
+  gacha_cards_250: 400,
+  gacha_collection_1: 100,
+  gacha_collection_3: 250,
+  gacha_collection_5: 500,
 };
 
 function AchievementsPage() {
@@ -94,6 +115,13 @@ function AchievementsPage() {
 
   const getCurrentValue = (achievement: Achievement) => {
     if (!user) return 0;
+    const gachaStats = user.gachaInventory?.gachaStats;
+    const totalCards =
+      (gachaStats?.totalURCards ?? 0) +
+      (gachaStats?.totalSRCards ?? 0) +
+      (gachaStats?.totalRCards ?? 0) +
+      (gachaStats?.totalNCards ?? 0);
+
     switch (achievement.type) {
       case "streak":
         return user.streak;
@@ -111,6 +139,17 @@ function AchievementsPage() {
         return user.conquestStats?.bestWinStreak ?? 0;
       case "rank_points":
         return user.conquestStats?.rankPoints ?? 0;
+      // Gacha achievements
+      case "gacha_pulls":
+        return user.gachaInventory?.totalPulls ?? 0;
+      case "gacha_ur":
+        return gachaStats?.totalURCards ?? 0;
+      case "gacha_sr":
+        return gachaStats?.totalSRCards ?? 0;
+      case "gacha_total_cards":
+        return totalCards;
+      case "gacha_collections":
+        return gachaStats?.completedCollections ?? 0;
       default:
         return 0;
     }

@@ -447,6 +447,13 @@ export const useUserStore = create<UserState>((set, get) => ({
       if (user.achievements.includes(achievement.id)) continue;
 
       let earned = false;
+      const gachaStats = user.gachaInventory?.gachaStats;
+      const totalCards =
+        (gachaStats?.totalURCards ?? 0) +
+        (gachaStats?.totalSRCards ?? 0) +
+        (gachaStats?.totalRCards ?? 0) +
+        (gachaStats?.totalNCards ?? 0);
+
       switch (achievement.type) {
         case "streak":
           earned = user.streak >= achievement.requirement;
@@ -475,6 +482,24 @@ export const useUserStore = create<UserState>((set, get) => ({
           break;
         case "gems":
           earned = user.gems >= achievement.requirement;
+          break;
+        // Gacha achievements
+        case "gacha_pulls":
+          earned =
+            (user.gachaInventory?.totalPulls ?? 0) >= achievement.requirement;
+          break;
+        case "gacha_ur":
+          earned = (gachaStats?.totalURCards ?? 0) >= achievement.requirement;
+          break;
+        case "gacha_sr":
+          earned = (gachaStats?.totalSRCards ?? 0) >= achievement.requirement;
+          break;
+        case "gacha_total_cards":
+          earned = totalCards >= achievement.requirement;
+          break;
+        case "gacha_collections":
+          earned =
+            (gachaStats?.completedCollections ?? 0) >= achievement.requirement;
           break;
       }
 

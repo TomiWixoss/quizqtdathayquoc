@@ -447,9 +447,9 @@ function SettingsPage() {
         {/* User Info */}
         {user && (
           <div className="card-3d p-4 mb-6">
-            <div className="flex items-center gap-4 mb-3">
+            <div className="flex items-center gap-3 mb-3">
               {/* Avatar with frame */}
-              <div className="relative w-20 h-20 flex items-center justify-center">
+              <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
                 {/* Frame layer - lớn hơn avatar */}
                 {user.equippedFrame && (
                   <img
@@ -473,9 +473,20 @@ function SettingsPage() {
                   )}
                 </div>
               </div>
-              <div className="flex-1">
+              {/* Badge */}
+              {user.equippedBadge && (
+                <div className="w-12 h-12 shrink-0">
+                  <img
+                    src={user.equippedBadge}
+                    alt="Badge"
+                    className="w-full h-full object-contain"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <h2 className="font-bold text-lg text-foreground">
+                  <h2 className="font-bold text-lg text-foreground truncate">
                     {user.odername}
                   </h2>
                   <button
@@ -483,7 +494,7 @@ function SettingsPage() {
                       setNewName(user.odername);
                       setShowNameModal(true);
                     }}
-                    className="p-1.5 rounded-lg bg-[var(--secondary)] hover:bg-[var(--duo-blue)]/20 transition-colors"
+                    className="p-1.5 rounded-lg bg-[var(--secondary)] hover:bg-[var(--duo-blue)]/20 transition-colors shrink-0"
                   >
                     <Pencil className="w-4 h-4 text-[var(--muted-foreground)]" />
                   </button>
@@ -493,13 +504,13 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
-            {/* Customize Button - Nút lớn rõ ràng */}
+            {/* Customize Button */}
             <button
               onClick={() => navigate("/customize")}
               className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
             >
               <Sparkles className="w-5 h-5" />
-              <span>Đổi Avatar & Khung</span>
+              <span>Đổi Avatar, Khung & Huy hiệu</span>
             </button>
           </div>
         )}

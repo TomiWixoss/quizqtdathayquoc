@@ -1,18 +1,18 @@
 import { Page } from "zmp-ui";
-import { Sparkles, User, Frame, Check, ChevronLeft } from "lucide-react";
+import { Sparkles, User, Frame, Check, ChevronLeft, Award } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "@/stores/user-store";
 import { getFullImage } from "@/services/gacha-service";
 
-type TabType = "avatar" | "frame";
+type TabType = "avatar" | "frame" | "badge";
 
 function CustomizePage() {
   const navigate = useNavigate();
-  const { user, equipAvatar, equipFrame } = useUserStore();
+  const { user, equipAvatar, equipFrame, equipBadge } = useUserStore();
   const [activeTab, setActiveTab] = useState<TabType>("avatar");
 
-  // Get owned avatars and frames from gacha rewards
+  // Get owned items from gacha rewards
   const ownedAvatars = useMemo(() => {
     if (!user?.gachaInventory?.rewards) return [];
     return user.gachaInventory.rewards.filter((r) => r.type === "avatar");
@@ -23,17 +23,15 @@ function CustomizePage() {
     return user.gachaInventory.rewards.filter((r) => r.type === "frame");
   }, [user?.gachaInventory?.rewards]);
 
-  const handleEquipAvatar = async (avatarUrl: string | null) => {
-    await equipAvatar(avatarUrl);
-  };
+  const ownedBadges = useMemo(() => {
+    if (!user?.gachaInventory?.rewards) return [];
+    return user.gachaInventory.rewards.filter((r) => r.type === "badge");
+  }, [user?.gachaInventory?.rewards]);
 
-  const handleEquipFrame = async (frameUrl: string | null) => {
-    await equipFrame(frameUrl);
-  };
-
-  // Get display avatar (equipped or default Zalo avatar)
+  // Get display values
   const displayAvatar = user?.equippedAvatar || user?.avatar;
   const displayFrame = user?.equippedFrame;
+  const displayBadge = user?.equippedBadge;
 
   return (
     <Page className="bg-background min-h-screen">
@@ -59,33 +57,45 @@ function CustomizePage() {
           <p className="text-sm text-[var(--muted-foreground)] mb-3">
             Xem trước
           </p>
-          <div className="relative w-32 h-32 flex items-center justify-center">
-            {/* Frame layer - lớn hơn avatar */}
-            {displayFrame && (
-              <img
-                src={getFullImage(displayFrame, 200)}
-                alt="Frame"
-                className="absolute inset-0 w-32 h-32 object-contain z-10 pointer-events-none"
-                referrerPolicy="no-referrer"
-              />
-            )}
-            {/* Avatar - nhỏ hơn frame */}
-            <div className="w-20 h-20 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-2xl overflow-hidden border-4 border-[var(--border)]">
-              {displayAvatar ? (
+          <div className="flex items-center gap-4">
+            {/* Avatar + Frame */}
+            <div className="relative w-24 h-24 flex items-center justify-center">
+              {displayFrame && (
                 <img
-                  src={
-                    user?.equippedAvatar
-                      ? getFullImage(displayAvatar, 200)
-                      : displayAvatar
-                  }
-                  alt=""
-                  className="w-full h-full object-cover"
+                  src={getFullImage(displayFrame, 200)}
+                  alt="Frame"
+                  className="absolute inset-0 w-24 h-24 object-contain z-10 pointer-events-none"
                   referrerPolicy="no-referrer"
                 />
-              ) : (
-                user?.odername?.charAt(0).toUpperCase() || "?"
               )}
+              <div className="w-16 h-16 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl overflow-hidden border-3 border-[var(--border)]">
+                {displayAvatar ? (
+                  <img
+                    src={
+                      user?.equippedAvatar
+                        ? getFullImage(displayAvatar, 200)
+                        : displayAvatar
+                    }
+                    alt=""
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  user?.odername?.charAt(0).toUpperCase() || "?"
+                )}
+              </div>
             </div>
+            {/* Badge */}
+            {displayBadge && (
+              <div className="w-12 h-12 rounded-xl overflow-hidden">
+                <img
+                  src={getFullImage(displayBadge, 100)}
+                  alt="Badge"
+                  className="w-full h-full object-contain"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            )}
           </div>
           <p className="font-bold text-foreground mt-3">{user?.odername}</p>
           <p className="text-xs text-[var(--muted-foreground)]">
@@ -99,43 +109,54 @@ function CustomizePage() {
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab("avatar")}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all ${
+            className={`flex-1 flex items-center justify-center gap-1 py-2.5 rounded-xl font-semibold text-sm transition-all ${
               activeTab === "avatar"
                 ? "bg-[var(--duo-purple)] text-white"
                 : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
             }`}
           >
-            <User className="w-5 h-5" />
-            Avatar ({ownedAvatars.length})
+            <User className="w-4 h-4" />
+            Avatar
           </button>
           <button
             onClick={() => setActiveTab("frame")}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all ${
+            className={`flex-1 flex items-center justify-center gap-1 py-2.5 rounded-xl font-semibold text-sm transition-all ${
               activeTab === "frame"
                 ? "bg-[var(--duo-blue)] text-white"
                 : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
             }`}
           >
-            <Frame className="w-5 h-5" />
-            Khung ({ownedFrames.length})
+            <Frame className="w-4 h-4" />
+            Khung
+          </button>
+          <button
+            onClick={() => setActiveTab("badge")}
+            className={`flex-1 flex items-center justify-center gap-1 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+              activeTab === "badge"
+                ? "bg-[var(--duo-yellow)] text-white"
+                : "bg-[var(--secondary)] text-[var(--muted-foreground)]"
+            }`}
+          >
+            <Award className="w-4 h-4" />
+            Huy hiệu
           </button>
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content - Grid Layout */}
       <div className="px-4 pb-28">
-        {activeTab === "avatar" ? (
-          <div className="space-y-3">
+        {activeTab === "avatar" && (
+          <div className="grid grid-cols-4 gap-3">
             {/* Default avatar option */}
             <button
-              onClick={() => handleEquipAvatar(null)}
-              className={`card-3d w-full p-3 flex items-center gap-3 ${
+              onClick={() => equipAvatar(null)}
+              className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all ${
                 !user?.equippedAvatar
-                  ? "border-2 border-[var(--duo-green)]"
-                  : ""
+                  ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
+                  : "border-[var(--border)]"
               }`}
             >
-              <div className="w-14 h-14 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl overflow-hidden">
+              <div className="w-full h-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-xl">
                 {user?.avatar ? (
                   <img
                     src={user.avatar}
@@ -146,138 +167,158 @@ function CustomizePage() {
                   user?.odername?.charAt(0).toUpperCase() || "?"
                 )}
               </div>
-              <div className="flex-1 text-left">
-                <p className="font-semibold text-foreground">Avatar Zalo</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Mặc định
-                </p>
-              </div>
               {!user?.equippedAvatar && (
-                <div className="w-8 h-8 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
-                  <Check className="w-5 h-5 text-white" />
+                <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
+                  <Check className="w-3 h-3 text-white" />
                 </div>
               )}
             </button>
 
-            {/* Owned avatars */}
-            {ownedAvatars.length === 0 ? (
-              <div className="text-center py-8">
-                <User className="w-12 h-12 text-[var(--muted-foreground)] mx-auto mb-3" />
-                <p className="text-[var(--muted-foreground)]">
-                  Chưa có avatar nào
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)] mt-1">
-                  Hoàn thành bộ sưu tập gacha để nhận avatar
+            {ownedAvatars.map((avatar, index) => {
+              const isEquipped = user?.equippedAvatar === avatar.image;
+              return (
+                <button
+                  key={index}
+                  onClick={() => equipAvatar(avatar.image)}
+                  className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all ${
+                    isEquipped
+                      ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
+                      : "border-[var(--border)]"
+                  }`}
+                >
+                  <img
+                    src={getFullImage(avatar.image, 150)}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  {isEquipped && (
+                    <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+
+            {ownedAvatars.length === 0 && (
+              <div className="col-span-3 text-center py-6">
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Hoàn thành gacha để nhận thêm
                 </p>
               </div>
-            ) : (
-              ownedAvatars.map((avatar, index) => {
-                const isEquipped = user?.equippedAvatar === avatar.image;
-                return (
-                  <button
-                    key={index}
-                    onClick={() => handleEquipAvatar(avatar.image)}
-                    className={`card-3d w-full p-3 flex items-center gap-3 ${
-                      isEquipped ? "border-2 border-[var(--duo-green)]" : ""
-                    }`}
-                  >
-                    <div className="w-14 h-14 rounded-full bg-[var(--secondary)] overflow-hidden">
-                      <img
-                        src={getFullImage(avatar.image, 100)}
-                        alt={avatar.name}
-                        className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                    <div className="flex-1 text-left">
-                      <p className="font-semibold text-foreground">
-                        {avatar.name}
-                      </p>
-                      <p className="text-xs text-[var(--muted-foreground)]">
-                        Từ gacha
-                      </p>
-                    </div>
-                    {isEquipped && (
-                      <div className="w-8 h-8 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
-                        <Check className="w-5 h-5 text-white" />
-                      </div>
-                    )}
-                  </button>
-                );
-              })
             )}
           </div>
-        ) : (
-          <div className="space-y-3">
+        )}
+
+        {activeTab === "frame" && (
+          <div className="grid grid-cols-4 gap-3">
             {/* No frame option */}
             <button
-              onClick={() => handleEquipFrame(null)}
-              className={`card-3d w-full p-3 flex items-center gap-3 ${
-                !user?.equippedFrame ? "border-2 border-[var(--duo-green)]" : ""
+              onClick={() => equipFrame(null)}
+              className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] flex items-center justify-center ${
+                !user?.equippedFrame
+                  ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
+                  : "border-[var(--border)]"
               }`}
             >
-              <div className="w-14 h-14 rounded-xl bg-[var(--secondary)] flex items-center justify-center">
-                <Frame className="w-8 h-8 text-[var(--muted-foreground)]" />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="font-semibold text-foreground">Không có khung</p>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Mặc định
-                </p>
-              </div>
+              <Frame className="w-8 h-8 text-[var(--muted-foreground)]" />
               {!user?.equippedFrame && (
-                <div className="w-8 h-8 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
-                  <Check className="w-5 h-5 text-white" />
+                <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
+                  <Check className="w-3 h-3 text-white" />
                 </div>
               )}
             </button>
 
-            {/* Owned frames */}
-            {ownedFrames.length === 0 ? (
-              <div className="text-center py-8">
-                <Frame className="w-12 h-12 text-[var(--muted-foreground)] mx-auto mb-3" />
-                <p className="text-[var(--muted-foreground)]">
-                  Chưa có khung nào
-                </p>
-                <p className="text-xs text-[var(--muted-foreground)] mt-1">
-                  Hoàn thành bộ sưu tập gacha để nhận khung
+            {ownedFrames.map((frame, index) => {
+              const isEquipped = user?.equippedFrame === frame.image;
+              return (
+                <button
+                  key={index}
+                  onClick={() => equipFrame(frame.image)}
+                  className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] ${
+                    isEquipped
+                      ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
+                      : "border-[var(--border)]"
+                  }`}
+                >
+                  <img
+                    src={getFullImage(frame.image, 150)}
+                    alt=""
+                    className="w-full h-full object-contain"
+                    referrerPolicy="no-referrer"
+                  />
+                  {isEquipped && (
+                    <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+
+            {ownedFrames.length === 0 && (
+              <div className="col-span-3 text-center py-6">
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Hoàn thành gacha để nhận thêm
                 </p>
               </div>
-            ) : (
-              ownedFrames.map((frame, index) => {
-                const isEquipped = user?.equippedFrame === frame.image;
-                return (
-                  <button
-                    key={index}
-                    onClick={() => handleEquipFrame(frame.image)}
-                    className={`card-3d w-full p-3 flex items-center gap-3 ${
-                      isEquipped ? "border-2 border-[var(--duo-green)]" : ""
-                    }`}
-                  >
-                    <div className="w-14 h-14 rounded-xl bg-[var(--secondary)] overflow-hidden">
-                      <img
-                        src={getFullImage(frame.image, 100)}
-                        alt={frame.name}
-                        className="w-full h-full object-contain"
-                        referrerPolicy="no-referrer"
-                      />
+            )}
+          </div>
+        )}
+
+        {activeTab === "badge" && (
+          <div className="grid grid-cols-4 gap-3">
+            {/* No badge option */}
+            <button
+              onClick={() => equipBadge(null)}
+              className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] flex items-center justify-center ${
+                !user?.equippedBadge
+                  ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
+                  : "border-[var(--border)]"
+              }`}
+            >
+              <Award className="w-8 h-8 text-[var(--muted-foreground)]" />
+              {!user?.equippedBadge && (
+                <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
+                  <Check className="w-3 h-3 text-white" />
+                </div>
+              )}
+            </button>
+
+            {ownedBadges.map((badge, index) => {
+              const isEquipped = user?.equippedBadge === badge.image;
+              return (
+                <button
+                  key={index}
+                  onClick={() => equipBadge(badge.image)}
+                  className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all bg-[var(--secondary)] ${
+                    isEquipped
+                      ? "border-[var(--duo-green)] ring-2 ring-[var(--duo-green)]/30"
+                      : "border-[var(--border)]"
+                  }`}
+                >
+                  <img
+                    src={getFullImage(badge.image, 150)}
+                    alt=""
+                    className="w-full h-full object-contain"
+                    referrerPolicy="no-referrer"
+                  />
+                  {isEquipped && (
+                    <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
+                      <Check className="w-3 h-3 text-white" />
                     </div>
-                    <div className="flex-1 text-left">
-                      <p className="font-semibold text-foreground">
-                        {frame.name}
-                      </p>
-                      <p className="text-xs text-[var(--muted-foreground)]">
-                        Từ gacha
-                      </p>
-                    </div>
-                    {isEquipped && (
-                      <div className="w-8 h-8 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
-                        <Check className="w-5 h-5 text-white" />
-                      </div>
-                    )}
-                  </button>
-                );
-              })
+                  )}
+                </button>
+              );
+            })}
+
+            {ownedBadges.length === 0 && (
+              <div className="col-span-3 text-center py-6">
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Hoàn thành gacha để nhận thêm
+                </p>
+              </div>
             )}
           </div>
         )}

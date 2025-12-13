@@ -175,6 +175,18 @@ function LeaderboardPage() {
             </div>
           </div>
 
+          {/* Badge */}
+          {leader.equippedBadge && (
+            <div className="w-8 h-8 shrink-0">
+              <img
+                src={leader.equippedBadge}
+                alt="Badge"
+                className="w-full h-full object-contain"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          )}
+
           {/* Info */}
           <div className="flex-1 min-w-0">
             <p className="font-bold text-foreground truncate">

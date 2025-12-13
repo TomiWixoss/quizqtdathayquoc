@@ -90,6 +90,7 @@ export interface UserStats {
   // Equipped cosmetics from gacha
   equippedAvatar?: string; // URL của avatar đã trang bị
   equippedFrame?: string; // URL của frame đã trang bị
+  equippedBadge?: string; // URL của badge đã trang bị
 }
 
 // Quest Progress Types

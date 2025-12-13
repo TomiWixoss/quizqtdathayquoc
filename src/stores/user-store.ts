@@ -54,6 +54,7 @@ interface UserState {
   // Cosmetics
   equipAvatar: (avatarUrl: string | null) => Promise<void>;
   equipFrame: (frameUrl: string | null) => Promise<void>;
+  equipBadge: (badgeUrl: string | null) => Promise<void>;
 }
 
 const getWeekStart = () => {
@@ -818,6 +819,20 @@ export const useUserStore = create<UserState>((set, get) => ({
     } catch (error) {
       console.error("Error equipping frame:", error);
       set({ user: { ...user, equippedFrame: frameUrl || undefined } });
+    }
+  },
+
+  equipBadge: async (badgeUrl: string | null) => {
+    const { user } = get();
+    if (!user) return;
+
+    try {
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, { equippedBadge: badgeUrl || null });
+      set({ user: { ...user, equippedBadge: badgeUrl || undefined } });
+    } catch (error) {
+      console.error("Error equipping badge:", error);
+      set({ user: { ...user, equippedBadge: badgeUrl || undefined } });
     }
   },
 }));

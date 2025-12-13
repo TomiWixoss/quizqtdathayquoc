@@ -383,14 +383,21 @@ function CardInventoryPage() {
               {selectedCard.card.video_list &&
               selectedCard.card.video_list.length > 1 ? (
                 <video
+                  key={selectedCard.card.video_list[1]}
                   className="w-full h-full object-contain"
                   autoPlay
                   loop
                   muted
                   playsInline
+                  preload="auto"
                   poster={getFullImage(selectedCard.card.card_img, 600)}
-                  src={selectedCard.card.video_list[1]}
-                />
+                  onError={(e) => console.error("Video error:", e)}
+                >
+                  <source
+                    src={selectedCard.card.video_list[1]}
+                    type="video/mp4"
+                  />
+                </video>
               ) : (
                 <img
                   src={getFullImage(selectedCard.card.card_img, 600)}

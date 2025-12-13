@@ -116,9 +116,11 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
   startTimeAttack: (seconds) => {
     const { questions } = get();
+    // Giới hạn tối đa 10 câu
+    const randomQuestions = shuffleArray(questions).slice(0, 10);
     set({
       currentChapter: null,
-      currentQuestions: shuffleArray(questions),
+      currentQuestions: randomQuestions,
       currentIndex: 0,
       selectedAnswer: null,
       isAnswered: false,
@@ -133,9 +135,11 @@ export const useQuizStore = create<QuizState>((set, get) => ({
 
   startSurvival: (maxWrong) => {
     const { questions } = get();
+    // Giới hạn tối đa 10 câu
+    const randomQuestions = shuffleArray(questions).slice(0, 10);
     set({
       currentChapter: null,
-      currentQuestions: shuffleArray(questions),
+      currentQuestions: randomQuestions,
       currentIndex: 0,
       selectedAnswer: null,
       isAnswered: false,

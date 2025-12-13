@@ -186,6 +186,21 @@ export function NoHeartsModal({
           thêm.
         </p>
 
+        {/* Hiển thị gems hiện tại */}
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <span className="text-sm text-[var(--muted-foreground)]">
+            Gems hiện có:
+          </span>
+          <div className="flex items-center gap-1">
+            <img
+              src="/AppAssets/BlueDiamond.png"
+              alt="gem"
+              className="w-5 h-5"
+            />
+            <span className="font-bold text-[var(--duo-blue)]">{userGems}</span>
+          </div>
+        </div>
+
         {/* Gợi ý cày gems */}
         <div className="bg-[var(--duo-blue)]/10 rounded-xl p-3 mb-4">
           <p className="text-xs text-[var(--duo-blue)] font-semibold">

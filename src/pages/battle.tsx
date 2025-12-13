@@ -1,6 +1,6 @@
 import { useNavigate } from "zmp-ui";
 import { Page } from "zmp-ui";
-import { ArrowLeft, Shuffle, Infinity, Clock, Skull } from "lucide-react";
+import { ArrowLeft, Shuffle, Zap, Clock, Skull } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 
@@ -8,23 +8,23 @@ const gameModes = [
   {
     id: "random",
     name: "Ngẫu nhiên",
-    desc: "20 câu hỏi ngẫu nhiên",
+    desc: "10 câu hỏi ngẫu nhiên",
     icon: Shuffle,
     color: "#ff9600",
     shadow: "#ea7e00",
   },
   {
-    id: "marathon",
-    name: "Marathon",
-    desc: "Tất cả câu hỏi",
-    icon: Infinity,
-    color: "#ce82ff",
-    shadow: "#a855f7",
+    id: "quick",
+    name: "Nhanh",
+    desc: "5 câu - Luyện nhanh",
+    icon: Zap,
+    color: "#58cc02",
+    shadow: "#46a302",
   },
   {
     id: "timeattack",
-    name: "Time Attack",
-    desc: "60 giây - Trả lời nhanh",
+    name: "Chạy Đua",
+    desc: "10 câu - 60 giây",
     icon: Clock,
     color: "#1cb0f6",
     shadow: "#1899d6",
@@ -32,7 +32,7 @@ const gameModes = [
   {
     id: "survival",
     name: "Sinh Tồn",
-    desc: "3 lần sai = Thua",
+    desc: "10 câu - 3 sai = Thua",
     icon: Skull,
     color: "#ff4b4b",
     shadow: "#ea2b2b",
@@ -41,17 +41,16 @@ const gameModes = [
 
 function BattlePage() {
   const navigate = useNavigate();
-  const { startRandomQuiz, startAllQuiz, startTimeAttack, startSurvival } =
-    useQuizStore();
+  const { startRandomQuiz, startTimeAttack, startSurvival } = useQuizStore();
   const { user } = useUserStore();
 
   const startMode = (modeId: string) => {
     switch (modeId) {
       case "random":
-        startRandomQuiz(20);
+        startRandomQuiz(10);
         break;
-      case "marathon":
-        startAllQuiz();
+      case "quick":
+        startRandomQuiz(5);
         break;
       case "timeattack":
         startTimeAttack(60);

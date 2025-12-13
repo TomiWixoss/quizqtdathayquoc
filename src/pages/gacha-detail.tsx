@@ -9,6 +9,7 @@ import {
   Gift,
   User,
   Frame,
+  Sparkles,
 } from "lucide-react";
 import {
   getGachaCollectionDetail,
@@ -308,8 +309,9 @@ function GachaDetailPage() {
                   {getScarcityName(selectedCard.card_scarcity)}
                 </span>
                 {selectedCard.video_list?.length > 0 && (
-                  <span className="text-xs text-[var(--muted-foreground)]">
-                    ✨ Thẻ động
+                  <span className="flex items-center gap-1 text-xs text-[var(--muted-foreground)]">
+                    <Sparkles className="w-3 h-3" />
+                    Thẻ động
                   </span>
                 )}
               </div>

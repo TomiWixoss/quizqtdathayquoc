@@ -14,7 +14,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   getGachaCollections,
   getFullImage,
@@ -34,26 +34,52 @@ type TabType = "all" | "bookmarked" | "spinning" | "completed";
 
 function GachaPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user } = useUserStore();
   const [collections, setCollections] = useState<GachaCollection[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [inventory, setInventory] = useState<GachaInventory | null>(null);
   const [collectionCardCounts, setCollectionCardCounts] = useState<
     Record<number, number>
   >({});
-  const [activeTab, setActiveTab] = useState<TabType>("all");
+
+  // Restore tab and page from URL params
+  const initialTab = (searchParams.get("tab") as TabType) || "all";
+  const initialPage = parseInt(searchParams.get("page") || "1", 10);
+  const [activeTab, setActiveTab] = useState<TabType>(initialTab);
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   const fetchCollections = async () => {
     try {
       setLoading(true);
       setError(null);
+
       const data = await getGachaCollections();
       setCollections(data);
 
-      // Fetch card counts for each collection
-      const counts: Record<number, number> = {};
+      // Check cache for card counts first
+      const CARD_COUNTS_CACHE_KEY = "gacha_card_counts";
+      const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24h
+
+      let counts: Record<number, number> = {};
+      const cachedCounts = localStorage.getItem(CARD_COUNTS_CACHE_KEY);
+
+      if (cachedCounts) {
+        try {
+          const parsed = JSON.parse(cachedCounts);
+          if (Date.now() - parsed.timestamp < CACHE_DURATION) {
+            counts = parsed.data;
+            setCollectionCardCounts(counts);
+            setLoading(false);
+            return;
+          }
+        } catch {
+          // Invalid cache, continue to fetch
+        }
+      }
+
+      // Fetch card counts for each collection (only if no cache)
       for (const col of data.slice(0, 20)) {
         try {
           const lotteries = await getCollectionLotteries(col.id);
@@ -65,6 +91,16 @@ function GachaPage() {
           counts[col.id] = 0;
         }
       }
+
+      // Save to cache
+      localStorage.setItem(
+        CARD_COUNTS_CACHE_KEY,
+        JSON.stringify({
+          data: counts,
+          timestamp: Date.now(),
+        })
+      );
+
       setCollectionCardCounts(counts);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -84,10 +120,22 @@ function GachaPage() {
     }
   }, [user?.oderId]);
 
-  // Reset page when tab changes
+  // Track if tab was changed by user click (not from URL restore)
+  const [tabChangedByUser, setTabChangedByUser] = useState(false);
+
+  // Reset page when tab changes by user click
   useEffect(() => {
-    setCurrentPage(1);
-  }, [activeTab]);
+    if (tabChangedByUser) {
+      setCurrentPage(1);
+      setTabChangedByUser(false);
+    }
+  }, [activeTab, tabChangedByUser]);
+
+  // Wrapper to set tab with user flag
+  const handleTabChange = (tab: TabType) => {
+    setTabChangedByUser(true);
+    setActiveTab(tab);
+  };
 
   // Helper: check if collection is spinning (has cards but not complete)
   const isSpinning = (collectionId: number) => {
@@ -195,7 +243,7 @@ function GachaPage() {
       <div className="fixed top-[116px] left-0 right-0 z-40 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-2 px-4 py-2 overflow-x-auto scrollbar-hide">
           <button
-            onClick={() => setActiveTab("all")}
+            onClick={() => handleTabChange("all")}
             className={`flex items-center gap-1.5 py-2 px-4 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
               activeTab === "all"
                 ? "bg-[var(--duo-purple)] text-white"
@@ -206,7 +254,7 @@ function GachaPage() {
             Tất cả
           </button>
           <button
-            onClick={() => setActiveTab("bookmarked")}
+            onClick={() => handleTabChange("bookmarked")}
             className={`flex items-center gap-1.5 py-2 px-4 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
               activeTab === "bookmarked"
                 ? "bg-[var(--duo-yellow)] text-white"
@@ -217,7 +265,7 @@ function GachaPage() {
             Đã lưu
           </button>
           <button
-            onClick={() => setActiveTab("spinning")}
+            onClick={() => handleTabChange("spinning")}
             className={`flex items-center gap-1.5 py-2 px-4 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
               activeTab === "spinning"
                 ? "bg-[var(--duo-blue)] text-white"
@@ -228,7 +276,7 @@ function GachaPage() {
             Đang quay
           </button>
           <button
-            onClick={() => setActiveTab("completed")}
+            onClick={() => handleTabChange("completed")}
             className={`flex items-center gap-1.5 py-2 px-4 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
               activeTab === "completed"
                 ? "bg-[var(--duo-green)] text-white"
@@ -294,7 +342,11 @@ function GachaPage() {
                 return (
                   <div key={item.id} className="relative">
                     <button
-                      onClick={() => navigate(`/gacha/${item.id}`)}
+                      onClick={() =>
+                        navigate(
+                          `/gacha/${item.id}?tab=${activeTab}&page=${currentPage}`
+                        )
+                      }
                       className="w-full rounded-xl overflow-hidden bg-[var(--secondary)] transition-transform hover:scale-105 active:scale-95 shadow-lg"
                     >
                       <img

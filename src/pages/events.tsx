@@ -75,17 +75,19 @@ function EventsPage() {
                 >
                   <Icon className="w-7 h-7" style={{ color: event.color }} />
                 </div>
-                <div className="flex-1 text-left">
-                  <div className="flex items-center gap-2">
-                    <p className="font-bold text-foreground">{event.title}</p>
+                <div className="flex-1 text-left min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-bold text-foreground whitespace-nowrap">
+                      {event.title}
+                    </p>
                     <span
-                      className="text-xs px-2 py-0.5 rounded-full text-white"
+                      className="text-xs px-2 py-0.5 rounded-full text-white whitespace-nowrap"
                       style={{ backgroundColor: event.color }}
                     >
                       {event.badge}
                     </span>
                   </div>
-                  <p className="text-sm text-[var(--muted-foreground)]">
+                  <p className="text-sm text-[var(--muted-foreground)] mt-1">
                     {event.description}
                   </p>
                 </div>

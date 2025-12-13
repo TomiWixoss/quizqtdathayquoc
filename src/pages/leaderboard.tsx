@@ -409,6 +409,12 @@ function LeaderboardPage() {
             <Trophy className="w-6 h-6 text-white" />
             <h1 className="font-bold text-xl text-white">Bảng xếp hạng</h1>
           </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <p className="text-white/80 text-sm flex items-center gap-1">
+            Top người chơi • Nhấn <Info className="w-3 h-3 inline" /> xem phần
+            thưởng
+          </p>
           <button
             onClick={() => setShowRewardInfo(true)}
             className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center"
@@ -416,10 +422,6 @@ function LeaderboardPage() {
             <Info className="w-5 h-5 text-white" />
           </button>
         </div>
-        <p className="text-white/80 text-sm mt-1 flex items-center gap-1">
-          Top người chơi • Nhấn <Info className="w-3 h-3 inline" /> xem phần
-          thưởng
-        </p>
       </div>
 
       {/* Tabs - Fixed below header */}

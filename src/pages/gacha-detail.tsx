@@ -1,5 +1,5 @@
 import { Page } from "zmp-ui";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   ArrowLeft,
@@ -42,7 +42,13 @@ import {
 function GachaDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { user } = useUserStore();
+
+  // Get tab and page from URL to restore when going back
+  const returnTab = searchParams.get("tab") || "all";
+  const returnPage = searchParams.get("page") || "1";
+  const goBack = () => navigate(`/gacha?tab=${returnTab}&page=${returnPage}`);
 
   const [collection, setCollection] = useState<GachaCollection | null>(null);
   const [lotteries, setLotteries] = useState<GachaLottery[]>([]);
@@ -237,10 +243,7 @@ function GachaDetailPage() {
       <Page className="bg-background min-h-screen">
         <div className="flex flex-col items-center justify-center h-screen px-4">
           <p className="text-[var(--duo-red)] mb-4">{error}</p>
-          <button
-            onClick={() => navigate("/gacha")}
-            className="btn-3d btn-3d-purple px-4 py-2"
-          >
+          <button onClick={goBack} className="btn-3d btn-3d-purple px-4 py-2">
             Quay lại
           </button>
         </div>
@@ -254,7 +257,7 @@ function GachaDetailPage() {
       <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)]">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => navigate("/gacha")}
+            onClick={goBack}
             className="btn-back-3d w-10 h-10 flex items-center justify-center"
           >
             <ArrowLeft className="w-5 h-5 text-white" />

@@ -1,4 +1,5 @@
 import Cerebras from "@cerebras/cerebras_cloud_sdk";
+import { OpenRouter } from "@openrouter/sdk";
 import { QTDA_CHAPTERS, type QTDAChapter } from "@/data/qtda-chapters";
 
 // Rank levels với các bậc (tier) - từ thấp đến cao
@@ -378,59 +379,123 @@ QUY TẮC:
 }
 
 // Cerebras client
-const client = new Cerebras({
+const cerebrasClient = new Cerebras({
   apiKey: import.meta.env.VITE_CEREBRAS_API_KEY || "",
 });
 
+// OpenRouter client (fallback khi Cerebras bị rate limit)
+const openRouterClient = new OpenRouter({
+  apiKey: import.meta.env.VITE_OPENROUTER_API_KEY || "",
+});
+
+// Gọi Cerebras API
+async function callCerebras(
+  systemPrompt: string,
+  userPrompt: string
+): Promise<AIQuestion[]> {
+  const response = await cerebrasClient.chat.completions.create({
+    model: "gpt-oss-120b",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt },
+    ],
+    max_completion_tokens: 65536,
+    temperature: 0.9,
+    top_p: 0.95,
+    reasoning_effort: "high",
+    response_format: {
+      type: "json_schema",
+      json_schema: {
+        name: "quiz_questions",
+        strict: true,
+        schema: questionSchema,
+      },
+    },
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const content = (response as any).choices?.[0]?.message?.content || "";
+  const parsed = JSON.parse(content);
+  return parsed.questions || [];
+}
+
+// Gọi OpenRouter API (fallback)
+async function callOpenRouter(
+  systemPrompt: string,
+  userPrompt: string
+): Promise<AIQuestion[]> {
+  console.log(
+    "🔄 Switching to OpenRouter (nex-agi/deepseek-v3.1-nex-n1:free)..."
+  );
+
+  const response = await openRouterClient.chat.send({
+    model: "nex-agi/deepseek-v3.1-nex-n1:free",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt },
+    ],
+    maxTokens: 65536,
+    temperature: 0.9,
+    topP: 0.95,
+    responseFormat: {
+      type: "json_schema",
+      jsonSchema: {
+        name: "quiz_questions",
+        strict: true,
+        schema: questionSchema,
+      },
+    },
+    stream: false,
+  });
+
+  const rawContent = response.choices?.[0]?.message?.content;
+  const content = typeof rawContent === "string" ? rawContent : "";
+  const parsed = JSON.parse(content);
+  return parsed.questions || [];
+}
+
 // Tạo câu hỏi từ AI với Structured Outputs
 // Random chọn 1 chương và gửi nội dung chương đó cho AI tạo câu hỏi
+// Fallback sang OpenRouter khi Cerebras bị rate limit (429)
 export async function generateAIQuestions(
   rank: UserRank,
   questionCount: number = 5
 ): Promise<AIQuestion[]> {
+  // Random chọn 1 chương
+  const selectedChapter = getRandomChapter();
+
+  console.log("📚 Chương được chọn:", selectedChapter.shortName);
+
+  // Tạo system prompt từ nội dung chương được chọn
+  const systemPrompt = buildSystemPrompt(selectedChapter);
+
+  // Tạo user prompt với thông tin rank và yêu cầu
+  const userPrompt = buildQuestionPrompt(rank, questionCount, selectedChapter);
+
   try {
-    // Random chọn 1 chương
-    const selectedChapter = getRandomChapter();
-
-    console.log("📚 Chương được chọn:", selectedChapter.shortName);
-
-    // Tạo system prompt từ nội dung chương được chọn
-    const systemPrompt = buildSystemPrompt(selectedChapter);
-
-    // Tạo user prompt với thông tin rank và yêu cầu
-    const userPrompt = buildQuestionPrompt(
-      rank,
-      questionCount,
-      selectedChapter
-    );
-
-    // Sử dụng model gpt-oss-120b với Structured Outputs
-    // Temperature cao hơn (0.9) để tạo câu hỏi đa dạng hơn mỗi lần gọi
-    const response = await client.chat.completions.create({
-      model: "gpt-oss-120b",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-      max_completion_tokens: 65536,
-      temperature: 0.9,
-      top_p: 0.95,
-      reasoning_effort: "high",
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "quiz_questions",
-          strict: true,
-          schema: questionSchema,
-        },
-      },
-    });
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const content = (response as any).choices?.[0]?.message?.content || "";
-    const parsed = JSON.parse(content);
-    return parsed.questions || [];
+    // Thử gọi Cerebras trước
+    return await callCerebras(systemPrompt, userPrompt);
   } catch (error) {
+    // Kiểm tra nếu là rate limit (429) thì fallback sang OpenRouter
+    const isRateLimit =
+      error instanceof Error &&
+      (error.message.includes("429") ||
+        error.message.includes("rate limit") ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (error as any).status === 429);
+
+    if (isRateLimit) {
+      console.warn(
+        "⚠️ Cerebras rate limited (429), falling back to OpenRouter..."
+      );
+      try {
+        return await callOpenRouter(systemPrompt, userPrompt);
+      } catch (openRouterError) {
+        console.error("Error with OpenRouter fallback:", openRouterError);
+        return getFallbackQuestions(questionCount);
+      }
+    }
+
     console.error("Error generating AI questions:", error);
     return getFallbackQuestions(questionCount);
   }

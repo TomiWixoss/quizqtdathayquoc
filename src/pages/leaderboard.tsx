@@ -19,7 +19,6 @@ import {
   LEADERBOARD_REWARDS,
   checkAndSendLeaderboardRewards,
 } from "@/services/leaderboard-reward-service";
-import { CustomModal } from "@/components/ui/custom-modal";
 import type { UserStats } from "@/types/quiz";
 
 type TabType = "conquest" | "score" | "urCards";
@@ -257,103 +256,129 @@ function LeaderboardPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Reward Info Modal */}
-      <CustomModal
-        isOpen={showRewardInfo}
-        onClose={() => setShowRewardInfo(false)}
-      >
-        <div className="text-center">
-          {/* Icon */}
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[var(--duo-yellow)] to-[var(--duo-orange)] flex items-center justify-center">
-            <Gift className="w-8 h-8 text-white" />
-          </div>
+      {/* Reward Info Bottom Sheet */}
+      {showRewardInfo && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm"
+          onClick={() => setShowRewardInfo(false)}
+        >
+          <div
+            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-[var(--card)] to-[var(--background)] rounded-t-[2rem] max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Handle bar */}
+            <div className="flex justify-center pt-4 pb-2">
+              <div className="w-12 h-1.5 bg-[var(--border)] rounded-full" />
+            </div>
 
-          <h2 className="text-xl font-bold text-[var(--duo-orange)] mb-2">
-            Phần thưởng BXH
-          </h2>
-
-          {/* Info box */}
-          <div className="bg-[var(--secondary)] rounded-xl p-3 mb-4 text-left">
-            <p className="text-sm text-[var(--muted-foreground)]">
-              Phần thưởng được gửi vào{" "}
-              <span className="text-[var(--duo-orange)] font-bold">
-                Hòm thư
-              </span>{" "}
-              mỗi ngày dựa trên thứ hạng của bạn.
-            </p>
-          </div>
-
-          {/* Rewards list */}
-          <div className="space-y-4 max-h-[40vh] overflow-y-auto text-left">
-            {Object.entries(LEADERBOARD_REWARDS).map(([key, category]) => (
-              <div key={key} className="space-y-2">
-                <h3 className="font-bold text-foreground flex items-center gap-2 text-sm">
-                  {key === "conquest" && (
-                    <Swords className="w-4 h-4 text-[var(--duo-purple)]" />
-                  )}
-                  {key === "score" && (
-                    <Trophy className="w-4 h-4 text-[var(--duo-yellow)]" />
-                  )}
-                  {key === "urCards" && (
-                    <Sparkles className="w-4 h-4 text-[var(--duo-orange)]" />
-                  )}
-                  {category.name}
-                </h3>
-                <div className="space-y-1">
-                  {category.rewards.map((reward, idx) => {
-                    const getRankIcon = () => {
-                      if (reward.icon === "crown")
-                        return (
-                          <Crown className="w-4 h-4 text-[var(--duo-yellow)]" />
-                        );
-                      if (reward.icon === "medal")
-                        return <Medal className="w-4 h-4 text-gray-400" />;
-                      if (reward.icon === "trophy")
-                        return <Trophy className="w-4 h-4 text-amber-600" />;
-                      return (
-                        <Sparkles className="w-4 h-4 text-[var(--duo-blue)]" />
-                      );
-                    };
-                    return (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between bg-[var(--secondary)] rounded-xl px-3 py-2"
-                      >
-                        <div className="flex items-center gap-2">
-                          {getRankIcon()}
-                          <span className="text-sm text-foreground">
-                            {typeof reward.rank === "number"
-                              ? `Top ${reward.rank}`
-                              : `Top ${reward.rank[0]}-${reward.rank[1]}`}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <img
-                            src="/AppAssets/BlueDiamond.png"
-                            alt="gem"
-                            className="w-5 h-5"
-                          />
-                          <span className="font-bold text-[var(--duo-blue)]">
-                            +{reward.gems}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
+            {/* Header */}
+            <div className="px-5 pb-4">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--duo-yellow)] to-[var(--duo-orange)] flex items-center justify-center">
+                  <Gift className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg text-[var(--duo-orange)]">
+                    Phần thưởng BXH
+                  </h2>
+                  <p className="text-xs text-[var(--muted-foreground)]">
+                    Nhận thưởng mỗi ngày theo thứ hạng
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
 
-          {/* Button */}
-          <button
-            onClick={() => setShowRewardInfo(false)}
-            className="btn-3d btn-3d-orange w-full py-3 mt-4"
-          >
-            Đã hiểu!
-          </button>
+            {/* Info box */}
+            <div className="px-5 pb-4">
+              <div className="bg-[var(--secondary)]/50 rounded-2xl p-3">
+                <p className="text-sm text-[var(--muted-foreground)] text-center">
+                  Phần thưởng được gửi vào{" "}
+                  <span className="text-[var(--duo-orange)] font-bold">
+                    Hòm thư
+                  </span>{" "}
+                  mỗi ngày dựa trên thứ hạng của bạn.
+                </p>
+              </div>
+            </div>
+
+            {/* Rewards list */}
+            <div className="flex-1 overflow-y-auto px-5 pb-8">
+              <div className="space-y-4">
+                {Object.entries(LEADERBOARD_REWARDS).map(([key, category]) => (
+                  <div key={key} className="space-y-2">
+                    <h3 className="font-bold text-foreground flex items-center gap-2 text-sm">
+                      {key === "conquest" && (
+                        <Swords className="w-4 h-4 text-[var(--duo-purple)]" />
+                      )}
+                      {key === "score" && (
+                        <Trophy className="w-4 h-4 text-[var(--duo-yellow)]" />
+                      )}
+                      {key === "urCards" && (
+                        <Sparkles className="w-4 h-4 text-[var(--duo-orange)]" />
+                      )}
+                      {category.name}
+                    </h3>
+                    <div className="space-y-1.5">
+                      {category.rewards.map((reward, idx) => {
+                        const getRankIcon = () => {
+                          if (reward.icon === "crown")
+                            return (
+                              <Crown className="w-4 h-4 text-[var(--duo-yellow)]" />
+                            );
+                          if (reward.icon === "medal")
+                            return <Medal className="w-4 h-4 text-gray-400" />;
+                          if (reward.icon === "trophy")
+                            return (
+                              <Trophy className="w-4 h-4 text-amber-600" />
+                            );
+                          return (
+                            <Sparkles className="w-4 h-4 text-[var(--duo-blue)]" />
+                          );
+                        };
+                        return (
+                          <div
+                            key={idx}
+                            className="flex items-center justify-between bg-[var(--secondary)] rounded-xl px-3 py-2.5"
+                          >
+                            <div className="flex items-center gap-2">
+                              {getRankIcon()}
+                              <span className="text-sm text-foreground font-medium">
+                                {typeof reward.rank === "number"
+                                  ? `Top ${reward.rank}`
+                                  : `Top ${reward.rank[0]}-${reward.rank[1]}`}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <img
+                                src="/AppAssets/BlueDiamond.png"
+                                alt="gem"
+                                className="w-5 h-5"
+                              />
+                              <span className="font-bold text-[var(--duo-blue)]">
+                                +{reward.gems}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Button */}
+            <div className="px-5 pb-6">
+              <button
+                onClick={() => setShowRewardInfo(false)}
+                className="btn-3d btn-3d-orange w-full py-3"
+              >
+                Đã hiểu!
+              </button>
+            </div>
+          </div>
         </div>
-      </CustomModal>
+      )}
 
       {/* Header - Fixed */}
       <div

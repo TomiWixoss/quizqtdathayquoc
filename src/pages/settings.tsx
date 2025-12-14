@@ -218,11 +218,29 @@ function SettingsPage() {
       try {
         // Get claimed mails from Firebase user data
         const claimedMails = user.claimedMails || [];
+        const deletedMails = user.deletedMails || [];
         const mailRef = collection(db, "mails");
         const q = query(mailRef, where("active", "==", true));
         const snapshot = await getDocs(q);
-        const unread = snapshot.docs.filter(
-          (d) => !claimedMails.includes(d.id)
+
+        // Lọc mail theo user (giống mailbox.tsx)
+        const validMails = snapshot.docs.filter((doc) => {
+          const data = doc.data();
+          const targetUserId = data.targetUserId;
+          const mailType = data.type;
+
+          // Mail BXH (leaderboard_reward) BẮT BUỘC phải có targetUserId khớp
+          if (mailType === "leaderboard_reward") {
+            return targetUserId === user.oderId;
+          }
+
+          // Mail khác: global (không có targetUserId) hoặc riêng cho user
+          return !targetUserId || targetUserId === user.oderId;
+        });
+
+        // Đếm mail chưa nhận và chưa xóa
+        const unread = validMails.filter(
+          (d) => !claimedMails.includes(d.id) && !deletedMails.includes(d.id)
         ).length;
         setUnreadMail(unread);
       } catch (error) {
@@ -230,7 +248,7 @@ function SettingsPage() {
       }
     };
     checkMail();
-  }, [user?.oderId, user?.claimedMails]);
+  }, [user?.oderId, user?.claimedMails, user?.deletedMails]);
 
   // Change name handler
   const handleChangeName = async () => {

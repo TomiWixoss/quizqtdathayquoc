@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { getFullImage } from "@/services/gacha-service";
+import { getFullImage, getFreshVideoUrl } from "@/services/gacha-service";
 
 interface VideoCardProps {
   videoList?: string[];
@@ -7,6 +7,9 @@ interface VideoCardProps {
   className?: string;
   imageSize?: number;
   timeout?: number; // Custom timeout in ms
+  // For fetching fresh video URL via proxy
+  collectionId?: number;
+  lotteryId?: number;
 }
 
 /**
@@ -19,16 +22,31 @@ export function VideoCard({
   className = "w-full h-full object-contain",
   imageSize = 600,
   timeout = 8000, // Default 8 seconds timeout
+  collectionId,
+  lotteryId,
 }: VideoCardProps) {
   const [status, setStatus] = useState<"loading" | "playing" | "error">(
     "loading"
   );
+  const [freshVideoUrl, setFreshVideoUrl] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const hasVideo = videoList && videoList.length > 1 && videoList[1];
-  const videoUrl = hasVideo ? videoList[1] : null;
+  const videoUrl = freshVideoUrl || (hasVideo ? videoList[1] : null);
   const posterUrl = getFullImage(imageUrl, imageSize);
+
+  // Fetch fresh video URL via proxy when old URL fails
+  const fetchFreshUrl = useCallback(async () => {
+    if (!collectionId || !lotteryId || !imageUrl) return null;
+    console.log("[VideoCard] Fetching fresh URL via proxy...");
+    const url = await getFreshVideoUrl(collectionId, lotteryId, imageUrl);
+    if (url) {
+      console.log("[VideoCard] Got fresh URL:", url.substring(0, 60) + "...");
+      setFreshVideoUrl(url);
+    }
+    return url;
+  }, [collectionId, lotteryId, imageUrl]);
 
   const clearTimeoutRef = useCallback(() => {
     if (timeoutRef.current) {
@@ -41,6 +59,7 @@ export function VideoCard({
   useEffect(() => {
     console.log("[VideoCard] Card changed, resetting state");
     setStatus("loading");
+    setFreshVideoUrl(null);
     clearTimeoutRef();
 
     if (!hasVideo) {
@@ -80,7 +99,7 @@ export function VideoCard({
   }, [clearTimeoutRef, videoUrl]);
 
   const handleError = useCallback(
-    (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    async (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
       const video = e.currentTarget;
       const error = video.error;
 
@@ -94,7 +113,6 @@ export function VideoCard({
         return;
       }
 
-      clearTimeoutRef();
       console.error("[VideoCard] Video error:", {
         url: videoUrl,
         code: error?.code,
@@ -102,9 +120,28 @@ export function VideoCard({
         networkState: video.networkState,
         readyState: video.readyState,
       });
+
+      // Try to fetch fresh URL via proxy if we haven't already
+      if (!freshVideoUrl && collectionId && lotteryId) {
+        console.log("[VideoCard] Trying to fetch fresh URL...");
+        const newUrl = await fetchFreshUrl();
+        if (newUrl) {
+          // Fresh URL fetched, component will re-render with new URL
+          return;
+        }
+      }
+
+      clearTimeoutRef();
       setStatus("error");
     },
-    [clearTimeoutRef, videoUrl]
+    [
+      clearTimeoutRef,
+      videoUrl,
+      freshVideoUrl,
+      collectionId,
+      lotteryId,
+      fetchFreshUrl,
+    ]
   );
 
   const handleLoadedData = useCallback(() => {

@@ -669,6 +669,8 @@ function GachaDetailPage() {
                 imageUrl={selectedCard.card_img}
                 className="w-full h-full object-contain"
                 imageSize={600}
+                collectionId={collectionId}
+                lotteryId={lotteries[selectedLottery]?.lottery_id}
               />
             </div>
             <div className="p-4">

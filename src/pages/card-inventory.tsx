@@ -385,6 +385,7 @@ function CardInventoryPage() {
                 imageUrl={selectedCard.card.card_img}
                 className="w-full h-full object-contain"
                 imageSize={600}
+                collectionId={selectedCard.collectionId}
               />
             </div>
             <div className="p-4">

@@ -587,6 +587,7 @@ function ProfilePage() {
                 imageUrl={viewingCard.card_img}
                 className="w-full h-full object-contain"
                 imageSize={600}
+                collectionId={viewingCard.collectionId}
               />
             </div>
             <div className="p-4">

@@ -1,17 +1,12 @@
-import { db } from "@/lib/firebase";
-import {
-  collection,
-  getDocs,
-  query,
-  orderBy,
-  limit,
-  doc,
-  getDoc,
-} from "firebase/firestore";
+// ============ GACHA SERVICE - PROXY VERSION ============
+// All API calls go through backend proxy to bypass CORS
+
+// Backend proxy URL
+const PROXY_URL =
+  import.meta.env.VITE_GACHA_PROXY_URL || "http://localhost:3001";
 
 // ============ TYPES ============
 
-// Card info đầy đủ
 export interface CardInfo {
   card_id?: number;
   card_name: string;
@@ -41,12 +36,11 @@ export interface GachaCard {
   is_physical_orientation?: number;
 }
 
-// Reward khi sưu tập
 export interface CollectReward {
   redeem_text: string;
   redeem_item_name: string;
   redeem_item_image: string;
-  redeem_item_type?: number; // avatar, frame, badge...
+  redeem_item_type?: number;
   require_item_amount?: number;
 }
 
@@ -64,8 +58,6 @@ export interface GachaLottery {
   collect_list: CollectList;
   collect_infos: CollectReward[];
   collect_chain: CollectReward[];
-  _raw_lottery_info?: unknown;
-  updatedAt?: Date;
 }
 
 export interface LotteryBasic {
@@ -107,20 +99,6 @@ export interface GachaCollection {
   related_user_infos?: Record<string, UserInfo>;
   collector_medal_info?: MedalInfo[] | MedalInfo;
   lottery_list?: LotteryBasic[];
-  _raw_detail?: unknown;
-  updatedAt?: Date;
-  syncError?: string;
-}
-
-export interface GachaMetadata {
-  totalCollections: number;
-  lastSync: Date;
-  lastSyncStats?: {
-    newSynced: number;
-    errors: number;
-    skipped: number;
-    fullData?: boolean;
-  };
 }
 
 // ============ HELPER FUNCTIONS ============
@@ -143,13 +121,13 @@ export function getScarcityName(scarcity: number): string {
 export function getScarcityColor(scarcity: number): string {
   switch (scarcity) {
     case 40:
-      return "#FFD700"; // Gold
+      return "#FFD700";
     case 30:
-      return "#9B59B6"; // Purple
+      return "#9B59B6";
     case 20:
-      return "#3498DB"; // Blue
+      return "#3498DB";
     case 10:
-      return "#95A5A6"; // Gray
+      return "#95A5A6";
     default:
       return "#7F8C8D";
   }
@@ -159,7 +137,6 @@ export function formatPrice(price: number): string {
   return `¥${(price / 100).toFixed(2)}`;
 }
 
-// Thumbnail - crop vuông cho grid
 export function getHQImage(url: string, size = 400): string {
   if (!url) return "";
   if (url.includes("hdslb.com")) {
@@ -168,7 +145,6 @@ export function getHQImage(url: string, size = 400): string {
   return url;
 }
 
-// Full image - giữ tỷ lệ gốc cho modal
 export function getFullImage(url: string, width = 600): string {
   if (!url) return "";
   if (url.includes("hdslb.com")) {
@@ -177,55 +153,41 @@ export function getFullImage(url: string, width = 600): string {
   return url;
 }
 
-// Get video URL - video_list[1] is the actual video, [0] is usually thumbnail
 export function getVideoUrl(videoList?: string[]): string | null {
   if (!videoList || videoList.length < 2) return null;
   return videoList[1];
 }
 
-// Check if card has animated video
 export function hasCardVideo(videoList?: string[]): boolean {
   return Boolean(videoList && videoList.length > 1 && videoList[1]);
 }
 
-// ============ CACHE CONFIG ============
-const CACHE_KEYS = {
-  COLLECTIONS: "gacha_collections",
-  COLLECTION_DETAIL: "gacha_detail_",
-  LOTTERIES: "gacha_lotteries_",
-};
-const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+// ============ LOCAL CACHE ============
+
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes for list data
 
 interface CacheItem<T> {
   data: T;
-  timestamp: number;
+  expiry: number;
 }
 
-function getCache<T>(key: string): T | null {
-  try {
-    const cached = localStorage.getItem(key);
-    if (!cached) return null;
-    const item: CacheItem<T> = JSON.parse(cached);
-    if (Date.now() - item.timestamp > CACHE_DURATION) {
-      localStorage.removeItem(key);
-      return null;
-    }
+const memoryCache = new Map<string, CacheItem<unknown>>();
+
+function getCached<T>(key: string): T | null {
+  const item = memoryCache.get(key) as CacheItem<T> | undefined;
+  if (item && item.expiry > Date.now()) {
     return item.data;
-  } catch {
-    return null;
   }
+  memoryCache.delete(key);
+  return null;
 }
 
-function setCache<T>(key: string, data: T): void {
-  try {
-    const item: CacheItem<T> = { data, timestamp: Date.now() };
-    localStorage.setItem(key, JSON.stringify(item));
-  } catch (e) {
-    console.warn("Cache write failed:", e);
-  }
+function setCached<T>(key: string, data: T, duration = CACHE_DURATION): void {
+  memoryCache.set(key, { data, expiry: Date.now() + duration });
 }
 
 // ============ IMAGE PRELOAD ============
+
 const preloadedImages = new Set<string>();
 
 export function preloadImages(urls: string[]): void {
@@ -233,7 +195,6 @@ export function preloadImages(urls: string[]): void {
     if (!url || preloadedImages.has(url)) return;
     const img = new Image();
     img.referrerPolicy = "no-referrer";
-    img.crossOrigin = "anonymous";
     img.src = url;
     preloadedImages.add(url);
   });
@@ -247,140 +208,189 @@ export function preloadLotteryImages(lottery: GachaLottery): void {
   preloadImages(urls);
 }
 
-// ============ FIRESTORE FUNCTIONS ============
-
 export function preloadCollectionImages(collections: GachaCollection[]): void {
   const urls = collections.map((c) => getFullImage(c.act_square_img, 400));
   preloadImages(urls);
 }
 
-export async function getGachaCollections(
-  maxItems?: number
-): Promise<GachaCollection[]> {
-  // Check cache first
-  const cacheKey = CACHE_KEYS.COLLECTIONS + (maxItems || "all");
-  const cached = getCache<GachaCollection[]>(cacheKey);
+// ============ API FUNCTIONS (via Proxy) ============
+
+/**
+ * Get all gacha collections
+ */
+export async function getGachaCollections(): Promise<GachaCollection[]> {
+  const cacheKey = "collections";
+  const cached = getCached<GachaCollection[]>(cacheKey);
   if (cached) {
-    // Preload collection images from cache
     preloadCollectionImages(cached);
     return cached;
   }
 
   try {
-    const collectionRef = collection(db, "gachaCollections");
-    let q = query(collectionRef, orderBy("startTime", "desc"));
-    if (maxItems) q = query(q, limit(maxItems));
-    const snapshot = await getDocs(q);
-    const data = snapshot.docs.map((d) => d.data() as GachaCollection);
-    setCache(cacheKey, data);
-    // Preload collection images
+    const response = await fetch(`${PROXY_URL}/api/collections`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data: GachaCollection[] = await response.json();
+
+    // Sort by startTime descending
+    data.sort((a, b) => b.startTime - a.startTime);
+
+    setCached(cacheKey, data);
     preloadCollectionImages(data);
     return data;
   } catch (error) {
-    console.error("Error fetching gacha collections:", error);
+    console.error("[getGachaCollections] Error:", error);
     throw error;
   }
 }
 
+/**
+ * Get collection detail
+ */
 export async function getGachaCollectionDetail(
   actId: number
 ): Promise<GachaCollection | null> {
-  // Check cache first
-  const cacheKey = CACHE_KEYS.COLLECTION_DETAIL + actId;
-  const cached = getCache<GachaCollection>(cacheKey);
+  const cacheKey = `collection-${actId}`;
+  const cached = getCached<GachaCollection>(cacheKey);
   if (cached) return cached;
 
   try {
-    const docRef = doc(db, "gachaCollections", actId.toString());
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const data = docSnap.data() as GachaCollection;
-      setCache(cacheKey, data);
-      return data;
+    const response = await fetch(`${PROXY_URL}/api/collection/${actId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const json = await response.json();
+    const data = json.data as GachaCollection;
+
+    if (data) {
+      setCached(cacheKey, data);
     }
-    return null;
+    return data || null;
   } catch (error) {
-    console.error("Error fetching collection detail:", error);
+    console.error("[getGachaCollectionDetail] Error:", error);
     throw error;
   }
 }
 
+/**
+ * Get lotteries for a collection
+ */
 export async function getCollectionLotteries(
   actId: number
 ): Promise<GachaLottery[]> {
-  // Check cache first
-  const cacheKey = CACHE_KEYS.LOTTERIES + actId;
-  const cached = getCache<GachaLottery[]>(cacheKey);
-  if (cached) {
-    // Preload images from cache
-    cached.forEach(preloadLotteryImages);
-    return cached;
+  // First get collection detail to get lottery list
+  const collection = await getGachaCollectionDetail(actId);
+  if (!collection?.lottery_list?.length) return [];
+
+  const lotteries: GachaLottery[] = [];
+
+  for (const lotteryBasic of collection.lottery_list) {
+    const lottery = await getLotteryDetail(actId, lotteryBasic.lottery_id);
+    if (lottery) {
+      lotteries.push(lottery);
+    }
   }
 
-  try {
-    const lotteriesRef = collection(
-      db,
-      "gachaCollections",
-      actId.toString(),
-      "lotteries"
-    );
-    const snapshot = await getDocs(lotteriesRef);
-    const data = snapshot.docs.map((d) => d.data() as GachaLottery);
-    setCache(cacheKey, data);
-    // Preload images
-    data.forEach(preloadLotteryImages);
-    return data;
-  } catch (error) {
-    console.error("Error fetching lotteries:", error);
-    throw error;
-  }
+  return lotteries;
 }
 
+/**
+ * Get lottery detail with all cards (fresh video URLs)
+ */
 export async function getLotteryDetail(
   actId: number,
   lotteryId: number
 ): Promise<GachaLottery | null> {
+  const cacheKey = `lottery-${actId}-${lotteryId}`;
+  const cached = getCached<GachaLottery>(cacheKey);
+  if (cached) {
+    preloadLotteryImages(cached);
+    return cached;
+  }
+
   try {
-    const docRef = doc(
-      db,
-      "gachaCollections",
-      actId.toString(),
-      "lotteries",
-      lotteryId.toString()
+    const response = await fetch(
+      `${PROXY_URL}/api/lottery/${actId}/${lotteryId}`
     );
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data() as GachaLottery;
-    }
-    return null;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const json = await response.json();
+    const rawData = json.data;
+
+    if (!rawData) return null;
+
+    // Transform API response to GachaLottery format
+    const lottery: GachaLottery = {
+      lottery_id: lotteryId,
+      lottery_name: rawData.lottery_name || "",
+      price: rawData.price || 0,
+      lottery_image: rawData.lottery_image || "",
+      item_list: (rawData.item_list || []).map(
+        (item: { item_type: number; card_info: CardInfo }) => ({
+          item_type: item.item_type,
+          card_info: item.card_info,
+          // Extract for easy access
+          card_name: item.card_info?.card_name || "",
+          card_img: item.card_info?.card_img || "",
+          card_scarcity: item.card_info?.card_scarcity || 0,
+          card_type: item.card_info?.card_type,
+          card_id: item.card_info?.card_id,
+          width: item.card_info?.width || 0,
+          height: item.card_info?.height || 0,
+          video_list: item.card_info?.video_list || [],
+          card_img_download: item.card_info?.card_img_download || "",
+          is_physical_orientation: item.card_info?.is_physical_orientation,
+        })
+      ),
+      collect_list: rawData.collect_list || {},
+      collect_infos: rawData.collect_list?.collect_infos || [],
+      collect_chain: rawData.collect_list?.collect_chain || [],
+    };
+
+    // Cache for 30 minutes (video URLs expire after ~15-24h)
+    setCached(cacheKey, lottery, 30 * 60 * 1000);
+    preloadLotteryImages(lottery);
+    return lottery;
   } catch (error) {
-    console.error("Error fetching lottery detail:", error);
+    console.error("[getLotteryDetail] Error:", error);
     throw error;
   }
 }
 
-export async function getGachaMetadata(): Promise<GachaMetadata | null> {
+/**
+ * Get fresh video URL for a card
+ */
+export async function getFreshVideoUrl(
+  collectionId: number,
+  lotteryId: number,
+  cardImg: string
+): Promise<string | null> {
+  const cacheKey = `video-${collectionId}-${lotteryId}-${cardImg}`;
+  const cached = getCached<string>(cacheKey);
+  if (cached) return cached;
+
   try {
-    const docRef = doc(db, "metadata", "gacha");
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data() as GachaMetadata;
+    const params = new URLSearchParams({
+      collectionId: collectionId.toString(),
+      lotteryId: lotteryId.toString(),
+      cardImg,
+    });
+
+    const response = await fetch(`${PROXY_URL}/api/video-url?${params}`);
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    if (data.videoUrl) {
+      setCached(cacheKey, data.videoUrl, 25 * 60 * 1000);
+      return data.videoUrl;
     }
     return null;
   } catch (error) {
-    console.error("Error fetching gacha metadata:", error);
+    console.error("[getFreshVideoUrl] Error:", error);
     return null;
   }
 }
 
-// Clear cache (for admin/debug)
+// Clear cache
 export function clearGachaCache(): void {
-  Object.values(CACHE_KEYS).forEach((prefix) => {
-    for (let i = localStorage.length - 1; i >= 0; i--) {
-      const key = localStorage.key(i);
-      if (key?.startsWith(prefix)) {
-        localStorage.removeItem(key);
-      }
-    }
-  });
+  memoryCache.clear();
 }

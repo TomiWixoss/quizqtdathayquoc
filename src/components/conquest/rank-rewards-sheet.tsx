@@ -1,0 +1,448 @@
+import { useState, useEffect } from "react";
+import { X, Gift, Check, Lock, Trophy } from "lucide-react";
+import {
+  RANK_LEVELS,
+  getRankFromPoints,
+  getRankImage,
+} from "@/services/ai-quiz-service";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useUserStore } from "@/stores/user-store";
+import { RewardModal } from "@/components/ui/reward-modal";
+import confetti from "canvas-confetti";
+
+// Tạo danh sách tất cả các mốc rank rewards
+// Mỗi rank có 7 tier (7 = thấp nhất, 1 = cao nhất)
+// Master thưởng mỗi 100 điểm từ 4000 trở đi
+
+interface RankRewardItem {
+  id: string;
+  rankId: string;
+  rankName: string;
+  tier: number; // 7-1 cho rank thường, 0 cho master milestones
+  minPoints: number;
+  gems: number;
+  label: string;
+  isMaster?: boolean;
+  masterMilestone?: number; // 4100, 4200, 4300...
+  rankFolder?: string; // Folder chứa ảnh rank
+}
+
+// Lấy ảnh rank cho từng tier
+function getRankTierImage(rankId: string, tier: number): string {
+  const rankInfo = RANK_LEVELS.find((r) => r.id === rankId);
+  if (!rankInfo) return "/Rank/Wood/rank-wood-1_NoOL_large.png";
+
+  if (rankId === "master") {
+    return "/Rank/master.png";
+  }
+
+  // tier 7 -> ảnh 1, tier 1 -> ảnh 7
+  const imageNumber = 8 - tier;
+  return `/Rank/${rankInfo.folder}/rank-${rankId}-${imageNumber}_NoOL_large.png`;
+}
+
+// Tính điểm cần cho mỗi tier trong rank
+function getTierMinPoints(rankId: string, tier: number): number {
+  const rankIndex = RANK_LEVELS.findIndex((r) => r.id === rankId);
+  if (rankIndex === -1) return 0;
+
+  const rank = RANK_LEVELS[rankIndex];
+  const nextRank = RANK_LEVELS[rankIndex + 1];
+
+  if (!nextRank || rank.id === "master") return rank.minScore;
+
+  const pointsPerTier = (nextRank.minScore - rank.minScore) / rank.tiers;
+  // tier 7 = minScore, tier 1 = gần nextRank
+  const tierFromBottom = rank.tiers - tier;
+  return Math.floor(rank.minScore + tierFromBottom * pointsPerTier);
+}
+
+// Tạo danh sách rewards
+function generateRankRewards(): RankRewardItem[] {
+  const rewards: RankRewardItem[] = [];
+
+  // Rewards cho các rank thường (wood -> onyx)
+  const normalRanks = RANK_LEVELS.filter((r) => r.id !== "master");
+
+  normalRanks.forEach((rank, rankIndex) => {
+    // Base gems tăng theo rank
+    const baseGems = 10 + rankIndex * 15; // wood: 10, stone: 25, bronze: 40...
+
+    for (let tier = 7; tier >= 1; tier--) {
+      const minPoints = getTierMinPoints(rank.id, tier);
+      // Gems tăng theo tier (tier 7 ít nhất, tier 1 nhiều nhất)
+      const tierBonus = (8 - tier) * 5;
+      const gems = baseGems + tierBonus;
+
+      rewards.push({
+        id: `${rank.id}_${tier}`,
+        rankId: rank.id,
+        rankName: rank.name,
+        tier,
+        minPoints,
+        gems,
+        label: `${rank.name} ${tier}`,
+        rankFolder: rank.folder,
+      });
+    }
+  });
+
+  // Rewards cho Master - mỗi 100 điểm từ 4000
+  const masterRank = RANK_LEVELS.find((r) => r.id === "master");
+  if (masterRank) {
+    // Tạo milestones từ 4000 đến 10000 (mỗi 100 điểm)
+    for (let points = 4000; points <= 10000; points += 100) {
+      const milestone = points;
+      const gemsBase = 100 + Math.floor((points - 4000) / 100) * 10; // 100, 110, 120...
+
+      rewards.push({
+        id: `master_${milestone}`,
+        rankId: "master",
+        rankName: "Huyền Thoại",
+        tier: 0,
+        minPoints: milestone,
+        gems: gemsBase,
+        label: `Huyền Thoại ${milestone} RP`,
+        isMaster: true,
+        masterMilestone: milestone,
+      });
+    }
+  }
+
+  return rewards;
+}
+
+const ALL_RANK_REWARDS = generateRankRewards();
+
+interface RankRewardsSheetProps {
+  isOpen: boolean;
+  onClose: () => void;
+  userRankPoints: number;
+}
+
+export function RankRewardsSheet({
+  isOpen,
+  onClose,
+  userRankPoints,
+}: RankRewardsSheetProps) {
+  const { user, addGems } = useUserStore();
+  const [claimedRewards, setClaimedRewards] = useState<string[]>([]);
+  const [claiming, setClaiming] = useState(false);
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [claimedReward, setClaimedReward] = useState<{
+    gems: number;
+    label: string;
+  } | null>(null);
+
+  // Load claimed rewards từ Firebase
+  useEffect(() => {
+    const loadClaimedRewards = async () => {
+      if (!user?.oderId) return;
+
+      try {
+        const userRef = doc(db, "users", user.oderId);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          setClaimedRewards(data.claimedRankRewards || []);
+        }
+      } catch (error) {
+        console.error("Error loading claimed rank rewards:", error);
+      }
+    };
+
+    if (isOpen) {
+      loadClaimedRewards();
+    }
+  }, [user?.oderId, isOpen]);
+
+  if (!isOpen) return null;
+
+  const getRewardStatus = (reward: RankRewardItem) => {
+    if (claimedRewards.includes(reward.id)) return "claimed";
+    if (userRankPoints >= reward.minPoints) return "available";
+    return "locked";
+  };
+
+  const handleClaim = async (reward: RankRewardItem) => {
+    if (!user?.oderId || claiming) return;
+    if (getRewardStatus(reward) !== "available") return;
+
+    setClaiming(true);
+
+    try {
+      const newClaimedRewards = [...claimedRewards, reward.id];
+
+      // Update Firebase
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, {
+        claimedRankRewards: newClaimedRewards,
+      });
+
+      // Add gems
+      await addGems(reward.gems);
+
+      setClaimedRewards(newClaimedRewards);
+      setClaimedReward({ gems: reward.gems, label: reward.label });
+      setShowRewardModal(true);
+
+      confetti({
+        particleCount: 80,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ["#58cc02", "#ffc800", "#ce82ff"],
+      });
+    } catch (error) {
+      console.error("Error claiming rank reward:", error);
+    } finally {
+      setClaiming(false);
+    }
+  };
+
+  // Nhận tất cả quà có thể nhận
+  const handleClaimAll = async () => {
+    if (!user?.oderId || claiming) return;
+
+    const availableRewards = ALL_RANK_REWARDS.filter(
+      (r) => getRewardStatus(r) === "available"
+    );
+
+    if (availableRewards.length === 0) return;
+
+    setClaiming(true);
+
+    try {
+      const newClaimedIds = availableRewards.map((r) => r.id);
+      const totalGems = availableRewards.reduce((sum, r) => sum + r.gems, 0);
+      const newClaimedRewards = [...claimedRewards, ...newClaimedIds];
+
+      // Update Firebase
+      const userRef = doc(db, "users", user.oderId);
+      await updateDoc(userRef, {
+        claimedRankRewards: newClaimedRewards,
+      });
+
+      // Add gems
+      await addGems(totalGems);
+
+      setClaimedRewards(newClaimedRewards);
+      setClaimedReward({
+        gems: totalGems,
+        label: `${availableRewards.length} phần thưởng`,
+      });
+      setShowRewardModal(true);
+
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.5 },
+        colors: ["#58cc02", "#ffc800", "#ce82ff", "#1cb0f6"],
+      });
+    } catch (error) {
+      console.error("Error claiming all rank rewards:", error);
+    } finally {
+      setClaiming(false);
+    }
+  };
+
+  // Đếm số quà có thể nhận
+  const availableCount = ALL_RANK_REWARDS.filter(
+    (r) => getRewardStatus(r) === "available"
+  ).length;
+
+  const claimedCount = claimedRewards.length;
+
+  // Hiển thị TẤT CẢ rewards
+  const currentRank = getRankFromPoints(userRankPoints);
+
+  return (
+    <>
+      {/* Reward Modal */}
+      <RewardModal
+        isOpen={showRewardModal && !!claimedReward}
+        onClose={() => setShowRewardModal(false)}
+        title="Nhận quà thành công!"
+        subtitle={claimedReward?.label || ""}
+        rewards={
+          claimedReward ? [{ type: "gems", amount: claimedReward.gems }] : []
+        }
+        gradientFrom="var(--duo-purple)"
+        gradientTo="var(--duo-blue)"
+      />
+
+      {/* Bottom Sheet */}
+      <div
+        className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      >
+        <div
+          className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-[var(--card)] to-[var(--background)] rounded-t-[2rem] max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Handle bar */}
+          <div className="flex justify-center pt-4 pb-2">
+            <div className="w-12 h-1.5 bg-[var(--border)] rounded-full" />
+          </div>
+
+          {/* Header */}
+          <div className="px-5 pb-4">
+            <div className="flex items-center justify-between mb-1">
+              <button
+                onClick={onClose}
+                className="w-10 h-10 rounded-xl flex items-center justify-center bg-[var(--secondary)] border-2 border-[var(--border)] active:scale-95 transition-transform"
+              >
+                <X className="w-5 h-5 text-[var(--muted-foreground)]" />
+              </button>
+              <div className="text-center">
+                <h2 className="font-bold text-lg flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-[var(--duo-yellow)]" />
+                  Quà Thưởng Rank
+                </h2>
+                <p className="text-xs text-[var(--muted-foreground)]">
+                  Nhận quà khi đạt mốc rank
+                </p>
+              </div>
+              {availableCount > 0 ? (
+                <button
+                  onClick={handleClaimAll}
+                  disabled={claiming}
+                  className="btn-3d btn-3d-green px-3 py-2 rounded-xl text-sm font-bold text-white flex items-center gap-1.5"
+                >
+                  <Gift className="w-4 h-4" />
+                  Nhận hết
+                </button>
+              ) : (
+                <div className="w-10" />
+              )}
+            </div>
+          </div>
+
+          {/* Current Rank Info */}
+          <div className="px-5 pb-4">
+            <div className="bg-[var(--secondary)]/50 rounded-2xl p-3">
+              <div className="flex items-center gap-3">
+                <img
+                  src={getRankImage(currentRank)}
+                  alt={currentRank.rankName}
+                  className="w-12 h-12 object-contain"
+                />
+                <div className="flex-1">
+                  <p className="font-bold text-foreground">
+                    {currentRank.rankName}
+                  </p>
+                  <p className="text-sm text-[var(--muted-foreground)]">
+                    {userRankPoints} Rank Points
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-[var(--muted-foreground)]">
+                    Đã nhận
+                  </p>
+                  <p className="font-bold text-[var(--duo-green)]">
+                    {claimedCount}
+                  </p>
+                </div>
+                {availableCount > 0 && (
+                  <div className="bg-[var(--duo-red)] px-2 py-1 rounded-full">
+                    <span className="text-white text-xs font-bold">
+                      {availableCount}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Rewards List - Hiển thị TẤT CẢ với icon rank */}
+          <div className="flex-1 overflow-y-auto px-5 pb-8">
+            <div className="space-y-2">
+              {ALL_RANK_REWARDS.map((reward) => {
+                const status = getRewardStatus(reward);
+                const isMaster = reward.isMaster;
+                const rankImage = getRankTierImage(reward.rankId, reward.tier);
+
+                return (
+                  <div
+                    key={reward.id}
+                    className={`card-3d p-3 flex items-center gap-3 ${
+                      status === "available"
+                        ? "border-[var(--duo-green)] border-2"
+                        : status === "claimed"
+                        ? "opacity-70"
+                        : "opacity-50"
+                    }`}
+                  >
+                    {/* Rank Icon - Hiển thị ảnh rank thực tế */}
+                    <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center">
+                      <img
+                        src={rankImage}
+                        alt={reward.label}
+                        className={`w-10 h-10 object-contain ${
+                          status === "locked" ? "grayscale" : ""
+                        }`}
+                      />
+                    </div>
+
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <p
+                        className={`font-bold text-sm truncate ${
+                          status === "claimed"
+                            ? "text-[var(--muted-foreground)]"
+                            : "text-foreground"
+                        }`}
+                      >
+                        {reward.label}
+                      </p>
+                      <p className="text-xs text-[var(--muted-foreground)]">
+                        {reward.minPoints} RP
+                      </p>
+                    </div>
+
+                    {/* Gems */}
+                    <div className="flex items-center gap-1">
+                      <span
+                        className={`font-bold ${
+                          isMaster
+                            ? "text-[var(--duo-yellow)]"
+                            : "text-[var(--duo-blue)]"
+                        }`}
+                      >
+                        +{reward.gems}
+                      </span>
+                      <img
+                        src="/AppAssets/BlueDiamond.png"
+                        alt="gem"
+                        className="w-4 h-4"
+                      />
+                    </div>
+
+                    {/* Action */}
+                    {status === "claimed" ? (
+                      <div className="w-8 h-8 rounded-full bg-[var(--duo-green)] flex items-center justify-center">
+                        <Check className="w-4 h-4 text-white" />
+                      </div>
+                    ) : status === "available" ? (
+                      <button
+                        onClick={() => handleClaim(reward)}
+                        disabled={claiming}
+                        className="btn-3d btn-3d-green px-3 py-1.5 text-xs"
+                      >
+                        Nhận
+                      </button>
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-[var(--muted-foreground)]/30 flex items-center justify-center">
+                        <Lock className="w-3 h-3 text-[var(--muted-foreground)]" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

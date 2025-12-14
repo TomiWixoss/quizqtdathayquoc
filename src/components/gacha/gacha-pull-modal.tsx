@@ -195,44 +195,43 @@ export function GachaPullModal({
           </button>
         )}
 
-        {/* Loading Animation - Genshin style with scarcity hint */}
+        {/* Loading Animation - Smooth, không chớp */}
         {revealPhase === "loading" && (
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
             className="absolute inset-0 flex flex-col items-center justify-center"
           >
-            {/* Meteor/shooting star effect based on highest scarcity */}
-            <div className="relative">
-              {/* Outer glow ring */}
-              <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="absolute inset-0 w-40 h-40 rounded-full"
+            {/* Smooth spinning animation */}
+            <div className="relative w-40 h-40 flex items-center justify-center">
+              {/* Outer glow - smooth pulse */}
+              <div
+                className="absolute inset-0 rounded-full animate-pulse"
                 style={{
                   background: `radial-gradient(circle, ${getScarcityColor(
                     highestScarcity
-                  )}40 0%, transparent 70%)`,
+                  )}30 0%, transparent 70%)`,
                 }}
               />
-              {/* Spinning ring */}
+              {/* Spinning ring - smooth rotation */}
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 className="w-32 h-32 rounded-full border-4"
                 style={{
                   borderColor: `${getScarcityColor(highestScarcity)}`,
                   borderTopColor: "transparent",
-                  borderRightColor: `${getScarcityColor(highestScarcity)}80`,
+                  borderRightColor: `${getScarcityColor(highestScarcity)}60`,
                 }}
               />
-              {/* Center star */}
+              {/* Center star - gentle pulse */}
               <motion.div
-                animate={{ scale: [0.8, 1.2, 0.8], rotate: [0, 180, 360] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <Star
@@ -243,17 +242,22 @@ export function GachaPullModal({
               </motion.div>
             </div>
             <p className="text-white mt-6 text-lg">Đang quay...</p>
-            {/* Scarcity hint text */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-              className="mt-2 text-sm font-bold"
-              style={{ color: getScarcityColor(highestScarcity) }}
-            >
-              {highestScarcity === 40 && "Có thẻ UR!"}
-              {highestScarcity === 30 && "Có thẻ SR!"}
-            </motion.p>
+            {/* Scarcity hint - smooth fade */}
+            {(highestScarcity === 40 || highestScarcity === 30) && (
+              <motion.p
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="mt-2 text-sm font-bold"
+                style={{ color: getScarcityColor(highestScarcity) }}
+              >
+                {highestScarcity === 40 && "Có thẻ UR!"}
+                {highestScarcity === 30 && "Có thẻ SR!"}
+              </motion.p>
+            )}
           </motion.div>
         )}
 
@@ -261,23 +265,20 @@ export function GachaPullModal({
         {revealPhase === "reveal" && currentResult && !showAll && (
           <motion.div
             key={currentIndex}
-            initial={{ scale: 0, rotateY: 180 }}
-            animate={{ scale: 1, rotateY: 0 }}
-            transition={{ type: "spring", duration: 0.8 }}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", duration: 0.5 }}
             className="flex flex-col items-center px-4"
             onClick={handleNext}
           >
             {/* UR Golden explosion effect */}
             {isUR && <GoldenParticles />}
 
-            {/* Glow effect - bigger for UR */}
+            {/* Glow effect - bigger for UR, smooth animation */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{
-                opacity: isUR ? [0, 1, 0.8] : [0, 1, 0.5],
-                scale: isUR ? [0.5, 1.5, 1.2] : [0.5, 1.2, 1],
-              }}
-              transition={{ duration: isUR ? 0.8 : 0.5 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isUR ? 0.8 : 0.5 }}
+              transition={{ duration: 0.3 }}
               className={`absolute rounded-full blur-3xl ${
                 isUR ? "w-96 h-96" : "w-80 h-80"
               }`}
@@ -288,9 +289,9 @@ export function GachaPullModal({
               }}
             />
 
-            {/* Card */}
+            {/* Card - preload image trước khi hiện */}
             <div
-              className={`relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px] min-h-[300px] bg-black/50 ${
+              className={`relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px] min-h-[300px] bg-gradient-to-b from-gray-800 to-gray-900 ${
                 isUR
                   ? "ring-4 ring-yellow-400/50 ring-offset-2 ring-offset-black"
                   : ""
@@ -328,6 +329,8 @@ export function GachaPullModal({
                   alt=""
                   className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
+                  loading="eager"
+                  decoding="sync"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     if (target.src.includes("@")) {
@@ -419,8 +422,8 @@ export function GachaPullModal({
             animate={{ opacity: 1, y: 0 }}
             className="w-full h-full flex flex-col"
           >
-            {/* Header - fixed */}
-            <h2 className="text-white text-xl font-bold text-center py-4 flex items-center justify-center gap-2 flex-shrink-0">
+            {/* Header - fixed, thêm padding top để tránh app bar */}
+            <h2 className="text-white text-xl font-bold text-center pt-16 pb-4 flex items-center justify-center gap-2 flex-shrink-0">
               <Sparkles className="w-6 h-6 text-[var(--duo-yellow)]" />
               Kết quả ({results.length} thẻ)
             </h2>

@@ -1,6 +1,6 @@
 import { Page, useNavigate } from "zmp-ui";
 import { useState, useEffect } from "react";
-import { X, Swords, Trophy, Zap, Loader2 } from "lucide-react";
+import { X, Swords, Trophy, Zap, Loader2, Gift } from "lucide-react";
 import { useConquestStore } from "@/stores/conquest-store";
 import { useUserStore } from "@/stores/user-store";
 import {
@@ -10,6 +10,7 @@ import {
 } from "@/services/ai-quiz-service";
 import { ConquestQuizCard } from "@/components/conquest/conquest-quiz-card";
 import { ConquestResult } from "@/components/conquest/conquest-result";
+import { RankRewardsSheet } from "@/components/conquest/rank-rewards-sheet";
 
 function ConquestPage() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function ConquestPage() {
     bestWinStreak: number;
   } | null>(null);
   const [isLoadingStats, setIsLoadingStats] = useState(true);
+  const [showRankRewards, setShowRankRewards] = useState(false);
 
   // Load conquest stats from Firebase on mount
   useEffect(() => {
@@ -283,7 +285,7 @@ function ConquestPage() {
               )}
 
               {/* Rank tiers preview - 2 hàng x 4 cột */}
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-2 mb-4">
                 {RANK_LEVELS.slice(0, 8).map((r) => (
                   <div
                     key={r.id}
@@ -299,6 +301,15 @@ function ConquestPage() {
                   </div>
                 ))}
               </div>
+
+              {/* Nút xem quà rank */}
+              <button
+                onClick={() => setShowRankRewards(true)}
+                className="w-full btn-3d btn-3d-yellow py-3 flex items-center justify-center gap-2"
+              >
+                <Gift className="w-5 h-5" />
+                <span>Xem Quà Rank</span>
+              </button>
             </div>
 
             {/* Game Info */}
@@ -365,6 +376,13 @@ function ConquestPage() {
           </>
         )}
       </div>
+
+      {/* Rank Rewards Bottom Sheet */}
+      <RankRewardsSheet
+        isOpen={showRankRewards}
+        onClose={() => setShowRankRewards(false)}
+        userRankPoints={userRankPoints}
+      />
     </Page>
   );
 }

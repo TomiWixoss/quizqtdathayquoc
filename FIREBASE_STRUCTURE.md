@@ -137,7 +137,14 @@ Lưu thông tin người dùng
   },
   "claimedAchievementRewards": "string[] - ID thành tựu đã nhận thưởng",
   "claimedMails": "string[] - ID thư đã nhận",
-  "usedRedeemCodes": "string[] - ID mã đã sử dụng"
+  "usedRedeemCodes": "string[] - ID mã đã sử dụng",
+  "claimedRankRewards": "string[] - ID quà rank đã nhận (format: rankId_tier hoặc master_milestone)",
+  "claimedLevelRewards": "number[] - Level đã nhận thưởng",
+  "loginEvent": {
+    "currentDay": "number - Ngày hiện tại trong chuỗi 7 ngày",
+    "claimedDays": "number[] - Các ngày đã nhận thưởng",
+    "lastClaimDate": "string - Ngày cuối cùng nhận thưởng"
+  }
 }
 ```
 

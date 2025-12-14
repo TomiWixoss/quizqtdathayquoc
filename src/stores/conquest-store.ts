@@ -8,6 +8,8 @@ import {
   getRankFromPoints,
   calculateRankPoints,
   checkAnswer,
+  getRankMinPoints,
+  RANK_REWARDS,
 } from "@/services/ai-quiz-service";
 import type { ConquestStats, ConquestSession } from "@/types/quiz";
 import { useUserStore } from "@/stores/user-store";
@@ -148,7 +150,10 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
     const timeBonus = 0; // Có thể thêm logic time bonus sau
     const points = calculateRankPoints(correct, rank, timeBonus);
 
-    const newRankPoints = Math.max(0, rankPoints + points);
+    // Tính điểm mới, nhưng KHÔNG rớt xuống dưới điểm tối thiểu của rank hiện tại
+    const minPoints = getRankMinPoints(rank);
+    const rawNewPoints = rankPoints + points;
+    const newRankPoints = Math.max(minPoints, rawNewPoints); // Không rớt bậc
     const newRank = getRankFromPoints(newRankPoints);
 
     set({
@@ -217,6 +222,22 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
             newWinStreak
           );
 
+          // Kiểm tra xem có đạt rank mới không (để thưởng)
+          const oldRankId = currentStats.highestRankId || "wood";
+          const newRankId = rank.rankId;
+          let rankUpReward = 0;
+
+          // Nếu rank mới cao hơn rank cao nhất từng đạt
+          if (
+            newRankId !== oldRankId &&
+            rankPoints > (currentStats.rankPoints || 0)
+          ) {
+            const reward = RANK_REWARDS[newRankId];
+            if (reward) {
+              rankUpReward = reward.gems;
+            }
+          }
+
           // Update conquest stats
           const newConquestStats: ConquestStats = {
             rankPoints: rankPoints,
@@ -251,7 +272,7 @@ export const useConquestStore = create<ConquestState>((set, get) => ({
             totalCorrect: (userData.totalCorrect || 0) + correctCount,
             totalWrong: (userData.totalWrong || 0) + wrongCount,
             exp: (userData.exp || 0) + xpGained,
-            gems: (userData.gems || 0) + gemsEarned,
+            gems: (userData.gems || 0) + gemsEarned + rankUpReward,
           });
 
           // Save conquest session history

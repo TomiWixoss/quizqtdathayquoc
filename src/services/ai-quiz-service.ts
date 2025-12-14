@@ -581,23 +581,47 @@ function getFallbackQuestions(count: number): AIQuestion[] {
 }
 
 // Tính điểm thưởng/phạt dựa trên rank
+// Rank cao hơn = trừ điểm nhiều hơn khi sai, nhưng KHÔNG rớt bậc
 export function calculateRankPoints(
   isCorrect: boolean,
   rank: UserRank,
   timeBonus: number = 0
 ): number {
-  const basePoints = isCorrect ? 10 : -5;
-  const difficultyMultiplier =
-    RANK_LEVELS.find((r) => r.id === rank.rankId)?.difficulty || 1;
+  const rankInfo = RANK_LEVELS.find((r) => r.id === rank.rankId);
+  const difficultyMultiplier = rankInfo?.difficulty || 1;
   const tierBonus = (8 - rank.tier) * 0.2;
 
   if (isCorrect) {
+    // Điểm cộng: base 10 + bonus theo rank và tier
+    const basePoints = 10;
     return Math.round(
       basePoints * (1 + difficultyMultiplier * 0.1 + tierBonus) + timeBonus
     );
+  } else {
+    // Điểm trừ: rank càng cao trừ càng nhiều
+    // Wood/Stone: -3, Bronze/Silver: -5, Gold/Platinum: -8, Amethyst/Onyx: -12, Master: -15
+    const basePenalty = Math.min(3 + difficultyMultiplier * 1.5, 15);
+    return -Math.round(basePenalty);
   }
-  return basePoints;
 }
+
+// Lấy điểm tối thiểu của rank hiện tại (để không rớt bậc)
+export function getRankMinPoints(rank: UserRank): number {
+  const rankInfo = RANK_LEVELS.find((r) => r.id === rank.rankId);
+  return rankInfo?.minScore || 0;
+}
+
+// Quà thưởng khi đạt rank mới
+export const RANK_REWARDS: Record<string, { gems: number; title: string }> = {
+  stone: { gems: 50, title: "Đạt rank Đá" },
+  bronze: { gems: 100, title: "Đạt rank Đồng" },
+  silver: { gems: 200, title: "Đạt rank Bạc" },
+  gold: { gems: 400, title: "Đạt rank Vàng" },
+  platinum: { gems: 600, title: "Đạt rank Bạch Kim" },
+  amethyst: { gems: 1000, title: "Đạt rank Thạch Anh" },
+  onyx: { gems: 1500, title: "Đạt rank Hắc Ngọc" },
+  master: { gems: 3000, title: "Đạt rank Huyền Thoại" },
+};
 
 // Kiểm tra đáp án
 export function checkAnswer(

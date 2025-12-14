@@ -271,7 +271,7 @@ function MailboxPage() {
                         <CheckCircle className="w-5 h-5 text-[var(--duo-green)]" />
                         <button
                           onClick={() => handleDeleteMail(mail)}
-                          className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center hover:bg-red-500/20 transition-colors"
+                          className="w-9 h-9 rounded-lg bg-red-500/10 flex items-center justify-center hover:bg-red-500/20 transition-colors"
                         >
                           <Trash2 className="w-4 h-4 text-red-500" />
                         </button>
@@ -279,7 +279,7 @@ function MailboxPage() {
                     ) : (
                       <button
                         onClick={() => handleClaimReward(mail)}
-                        className="btn-3d btn-3d-green px-3 py-2 text-xs shrink-0"
+                        className="btn-3d btn-3d-green px-4 py-2.5 text-sm shrink-0 min-w-[60px]"
                       >
                         Nhận
                       </button>

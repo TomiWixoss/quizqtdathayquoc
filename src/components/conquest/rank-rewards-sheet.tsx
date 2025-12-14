@@ -5,7 +5,7 @@ import {
   getRankFromPoints,
   getRankImage,
 } from "@/services/ai-quiz-service";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useUserStore } from "@/stores/user-store";
 import { RewardModal } from "@/components/ui/reward-modal";
@@ -158,27 +158,12 @@ export function RankRewardsSheet({
     label: string;
   } | null>(null);
 
-  // Load claimed rewards từ Firebase
+  // Sync claimedRewards từ user store (đã load sẵn)
   useEffect(() => {
-    const loadClaimedRewards = async () => {
-      if (!user?.oderId) return;
-
-      try {
-        const userRef = doc(db, "users", user.oderId);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          const data = userSnap.data();
-          setClaimedRewards(data.claimedRankRewards || []);
-        }
-      } catch (error) {
-        console.error("Error loading claimed rank rewards:", error);
-      }
-    };
-
-    if (isOpen) {
-      loadClaimedRewards();
+    if (user?.claimedRankRewards) {
+      setClaimedRewards(user.claimedRankRewards);
     }
-  }, [user?.oderId, isOpen]);
+  }, [user?.claimedRankRewards]);
 
   if (!isOpen) return null;
 

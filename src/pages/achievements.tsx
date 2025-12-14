@@ -424,9 +424,9 @@ function AchievementsPage() {
                 {canClaimReward ? (
                   <button
                     onClick={() => handleClaimReward(achievement)}
-                    className="btn-3d btn-3d-green px-3 py-2 text-xs"
+                    className="btn-3d btn-3d-green px-4 py-2.5 text-sm min-w-[70px]"
                   >
-                    Nhận quà
+                    Nhận
                   </button>
                 ) : earned && claimed ? (
                   <CheckCircle className="w-6 h-6 text-[var(--duo-green)]" />

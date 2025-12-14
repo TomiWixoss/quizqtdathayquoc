@@ -69,6 +69,7 @@ export interface UserStats {
   claimedMails?: string[];
   deletedMails?: string[];
   usedRedeemCodes?: string[];
+  claimedRankRewards?: string[];
 
   // Unlimited hearts
   unlimitedHeartsUntil?: string;

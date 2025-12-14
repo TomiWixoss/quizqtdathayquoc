@@ -433,7 +433,7 @@ function QuestsPage() {
                       {canClaimReward ? (
                         <button
                           onClick={() => handleClaimReward(quest)}
-                          className="btn-3d btn-3d-green px-2.5 py-1.5 text-xs"
+                          className="btn-3d btn-3d-green px-4 py-2 text-sm min-w-[56px]"
                         >
                           Nhận
                         </button>
@@ -531,7 +531,7 @@ function QuestsPage() {
                       {canClaimReward ? (
                         <button
                           onClick={() => handleClaimReward(quest)}
-                          className="btn-3d btn-3d-purple px-2.5 py-1.5 text-xs"
+                          className="btn-3d btn-3d-purple px-4 py-2 text-sm min-w-[56px]"
                         >
                           Nhận
                         </button>

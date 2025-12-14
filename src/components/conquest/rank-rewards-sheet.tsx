@@ -59,21 +59,41 @@ function getTierMinPoints(rankId: string, tier: number): number {
 }
 
 // Tạo danh sách rewards
+// Cân bằng với hệ thống quà app:
+// - Login 7 ngày: 50-500 gems
+// - Level rewards: 150-2500 gems
+// - Daily quests: 25-60 gems
+// - Weekly quests: 150-300 gems
+// - Gacha: 150 gems/lần
+// Rank rewards nên có giá trị tương xứng với effort leo rank
 function generateRankRewards(): RankRewardItem[] {
   const rewards: RankRewardItem[] = [];
 
   // Rewards cho các rank thường (wood -> onyx)
   const normalRanks = RANK_LEVELS.filter((r) => r.id !== "master");
 
-  normalRanks.forEach((rank, rankIndex) => {
-    // Base gems tăng theo rank
-    const baseGems = 10 + rankIndex * 15; // wood: 10, stone: 25, bronze: 40...
+  // Base gems cho mỗi rank - TĂNG MẠNH vì rank rất khó leo
+  // Wood: 100, Stone: 150, Bronze: 250, Silver: 400, Gold: 600, Platinum: 900, Amethyst: 1300, Onyx: 2000
+  const rankBaseGems: Record<string, number> = {
+    wood: 100,
+    stone: 150,
+    bronze: 250,
+    silver: 400,
+    gold: 600,
+    platinum: 900,
+    amethyst: 1300,
+    onyx: 2000,
+  };
+
+  normalRanks.forEach((rank) => {
+    const baseGems = rankBaseGems[rank.id] || 100;
 
     for (let tier = 7; tier >= 1; tier--) {
       const minPoints = getTierMinPoints(rank.id, tier);
-      // Gems tăng theo tier (tier 7 ít nhất, tier 1 nhiều nhất)
-      const tierBonus = (8 - tier) * 5;
-      const gems = baseGems + tierBonus;
+      // Gems tăng theo tier (tier 7 = base, tier 1 = base x2)
+      // tier 7: x1.0, tier 6: x1.15, tier 5: x1.3, tier 4: x1.45, tier 3: x1.6, tier 2: x1.75, tier 1: x2.0
+      const tierMultiplier = 1 + (8 - tier) * 0.15;
+      const gems = Math.round(baseGems * tierMultiplier);
 
       rewards.push({
         id: `${rank.id}_${tier}`,
@@ -89,12 +109,15 @@ function generateRankRewards(): RankRewardItem[] {
   });
 
   // Rewards cho Master - mỗi 100 điểm từ 4000
+  // Master rewards phải CAO HƠN Onyx tier 1 (4100 gems)
   const masterRank = RANK_LEVELS.find((r) => r.id === "master");
   if (masterRank) {
     // Tạo milestones từ 4000 đến 10000 (mỗi 100 điểm)
     for (let points = 4000; points <= 10000; points += 100) {
       const milestone = points;
-      const gemsBase = 100 + Math.floor((points - 4000) / 100) * 10; // 100, 110, 120...
+      // Master: 5000 gems base, +100 gems mỗi 100 điểm
+      // 4000: 5000, 4100: 5100, 4200: 5200... 10000: 11000
+      const gemsBase = 5000 + Math.floor((points - 4000) / 100) * 100;
 
       rewards.push({
         id: `master_${milestone}`,

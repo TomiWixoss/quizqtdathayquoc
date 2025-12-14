@@ -63,13 +63,13 @@ function RingBurst({ color }: { color: string }) {
       {[1, 2, 3].map((i) => (
         <motion.div
           key={i}
-          className="absolute inset-0 rounded-full border-4 pointer-events-none"
+          className="absolute w-32 h-32 rounded-full border-4 pointer-events-none"
           style={{ borderColor: color }}
-          initial={{ scale: 0.5, opacity: 0.8 }}
-          animate={{ scale: 3, opacity: 0 }}
+          initial={{ scale: 0.3, opacity: 0.9 }}
+          animate={{ scale: 4, opacity: 0 }}
           transition={{
-            duration: 1.2,
-            delay: i * 0.15,
+            duration: 1.5,
+            delay: i * 0.2,
             ease: "easeOut",
           }}
         />
@@ -298,8 +298,8 @@ export function GachaPullModal({
               color={getScarcityColor(currentResult.cardScarcity)}
             />
 
-            {/* Ring burst for SR/UR */}
-            {(isUR || currentResult.cardScarcity === 30) && (
+            {/* Ring burst for UR only */}
+            {isUR && (
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <RingBurst
                   color={getScarcityColor(currentResult.cardScarcity)}
@@ -307,18 +307,33 @@ export function GachaPullModal({
               </div>
             )}
 
-            {/* Glow effect - bigger for UR */}
+            {/* Glow effect - bigger for UR, medium for SR */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: isUR ? 0.9 : 0.6, scale: 1 }}
+              animate={{
+                opacity: isUR
+                  ? 0.9
+                  : currentResult.cardScarcity === 30
+                  ? 0.7
+                  : 0.5,
+                scale: 1,
+              }}
               transition={{ duration: 0.5 }}
               className={`absolute rounded-full blur-3xl ${
-                isUR ? "w-[400px] h-[400px]" : "w-80 h-80"
+                isUR
+                  ? "w-[400px] h-[400px]"
+                  : currentResult.cardScarcity === 30
+                  ? "w-[350px] h-[350px]"
+                  : "w-72 h-72"
               }`}
               style={{
                 backgroundColor:
                   getScarcityColor(currentResult.cardScarcity) +
-                  (isUR ? "70" : "50"),
+                  (isUR
+                    ? "70"
+                    : currentResult.cardScarcity === 30
+                    ? "60"
+                    : "40"),
               }}
             />
 

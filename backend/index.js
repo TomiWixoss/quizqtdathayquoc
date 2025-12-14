@@ -1,14 +1,38 @@
-import express from "express";
-import cors from "cors";
+/**
+ * Firebase Bridge Server for Render
+ * - Listen for commands at /gacha_commands
+ * - Execute API calls to workers.vrp.moe
+ * - Write results back to Firebase
+ */
+
+import admin from "firebase-admin";
 import fetch from "node-fetch";
+import express from "express";
 
-const app = express();
+// Load service account from environment variable
+let serviceAccount;
+try {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT || "{}");
+  if (!serviceAccount.project_id) {
+    throw new Error("Invalid service account");
+  }
+} catch (e) {
+  console.error("❌ FIREBASE_SERVICE_ACCOUNT env not set or invalid");
+  console.error("Set it as JSON string in Render environment variables");
+  process.exit(1);
+}
 
-// Enable CORS for all origins
-app.use(cors());
-app.use(express.json());
+// Initialize Firebase Admin
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: `https://${serviceAccount.project_id}-default-rtdb.firebaseio.com`,
+});
 
-// In-memory cache (note: resets on each serverless invocation)
+const db = admin.database();
+console.log("✅ Firebase Admin initialized");
+console.log("📍 Project:", serviceAccount.project_id);
+
+// In-memory cache
 const cache = new Map();
 
 function getCache(key, maxAge = 30 * 60 * 1000) {
@@ -16,6 +40,7 @@ function getCache(key, maxAge = 30 * 60 * 1000) {
   if (cached && cached.expiry > Date.now()) {
     return cached.data;
   }
+  cache.delete(key);
   return null;
 }
 
@@ -23,156 +48,159 @@ function setCache(key, data, maxAge = 30 * 60 * 1000) {
   cache.set(key, { data, expiry: Date.now() + maxAge });
 }
 
-// ============ COLLECTIONS ============
+// API Executors
+const executors = {
+  async getCollections() {
+    const cacheKey = "collections";
+    const cached = getCache(cacheKey, 5 * 60 * 1000);
+    if (cached) return { success: true, data: cached, cached: true };
 
-/**
- * GET /api/collections
- * Get all gacha collections list
- */
-app.get("/api/collections", async (_req, res) => {
-  const cacheKey = "collections";
-  const cached = getCache(cacheKey, 5 * 60 * 1000);
-  if (cached) {
-    return res.json(cached);
-  }
-
-  try {
-    console.log("[API] Fetching collections list...");
     const response = await fetch("https://workers.vrp.moe/laplace/collections");
-    const json = await response.json();
-    setCache(cacheKey, json, 5 * 60 * 1000);
-    res.json(json);
-  } catch (error) {
-    console.error(`[Error] ${error.message}`);
-    res.status(500).json({ error: error.message });
-  }
-});
+    const data = await response.json();
+    setCache(cacheKey, data, 5 * 60 * 1000);
+    return { success: true, data };
+  },
 
-/**
- * GET /api/collection/:actId
- * Get collection detail
- */
-app.get("/api/collection/:actId", async (req, res) => {
-  const { actId } = req.params;
-  const cacheKey = `collection-${actId}`;
-  const cached = getCache(cacheKey, 5 * 60 * 1000);
-  if (cached) {
-    return res.json(cached);
-  }
+  async getCollection({ actId }) {
+    if (!actId) throw new Error("Missing actId");
 
-  try {
-    console.log(`[API] Fetching collection ${actId}...`);
+    const cacheKey = `collection-${actId}`;
+    const cached = getCache(cacheKey, 5 * 60 * 1000);
+    if (cached) return { success: true, data: cached, cached: true };
+
     const response = await fetch(
       `https://workers.vrp.moe/bilibili/collection/${actId}`
     );
-    const json = await response.json();
-    setCache(cacheKey, json, 5 * 60 * 1000);
-    res.json(json);
-  } catch (error) {
-    console.error(`[Error] ${error.message}`);
-    res.status(500).json({ error: error.message });
-  }
-});
+    const data = await response.json();
+    setCache(cacheKey, data, 5 * 60 * 1000);
+    return { success: true, data };
+  },
 
-// ============ LOTTERIES ============
+  async getLottery({ collectionId, lotteryId }) {
+    if (!collectionId || !lotteryId)
+      throw new Error("Missing collectionId or lotteryId");
 
-/**
- * GET /api/lottery/:collectionId/:lotteryId
- * Get lottery info with all cards (fresh video URLs)
- */
-app.get("/api/lottery/:collectionId/:lotteryId", async (req, res) => {
-  const { collectionId, lotteryId } = req.params;
-  const cacheKey = `lottery-${collectionId}-${lotteryId}`;
-  const cached = getCache(cacheKey, 30 * 60 * 1000);
-  if (cached) {
-    return res.json(cached);
-  }
+    const cacheKey = `lottery-${collectionId}-${lotteryId}`;
+    const cached = getCache(cacheKey, 30 * 60 * 1000);
+    if (cached) return { success: true, data: cached, cached: true };
 
-  try {
-    console.log(`[API] Fetching lottery ${collectionId}/${lotteryId}...`);
     const response = await fetch(
       `https://workers.vrp.moe/bilibili/collection-info/${collectionId}/${lotteryId}`
     );
-    const json = await response.json();
-    setCache(cacheKey, json, 30 * 60 * 1000);
-    res.json(json);
-  } catch (error) {
-    console.error(`[Error] ${error.message}`);
-    res.status(500).json({ error: error.message });
-  }
-});
+    const data = await response.json();
+    setCache(cacheKey, data, 30 * 60 * 1000);
+    return { success: true, data };
+  },
 
-// ============ VIDEO URL ============
+  async getVideoUrl({ collectionId, lotteryId, cardImg }) {
+    if (!collectionId || !lotteryId || !cardImg) {
+      throw new Error("Missing collectionId, lotteryId, or cardImg");
+    }
 
-/**
- * GET /api/video-url
- * Get fresh video URL for a specific card
- */
-app.get("/api/video-url", async (req, res) => {
-  const { collectionId, lotteryId, cardImg } = req.query;
+    const cacheKey = `video-${collectionId}-${lotteryId}-${cardImg}`;
+    const cached = getCache(cacheKey, 30 * 60 * 1000);
+    if (cached) return { success: true, videoUrl: cached, cached: true };
 
-  if (!collectionId || !lotteryId || !cardImg) {
-    return res.status(400).json({
-      error: "Missing required params: collectionId, lotteryId, cardImg",
-    });
-  }
-
-  const cacheKey = `video-${collectionId}-${lotteryId}-${cardImg}`;
-  const cached = getCache(cacheKey, 30 * 60 * 1000);
-  if (cached) {
-    return res.json({ videoUrl: cached, cached: true });
-  }
-
-  try {
-    console.log(`[API] Fetching video URL for card...`);
     const response = await fetch(
       `https://workers.vrp.moe/bilibili/collection-info/${collectionId}/${lotteryId}`
     );
     const json = await response.json();
     const items = json.data?.item_list || [];
-
     const card = items.find((item) => item.card_info?.card_img === cardImg);
 
     if (!card?.card_info?.video_list?.length) {
-      return res.status(404).json({ error: "Video not found" });
+      throw new Error("Video not found");
     }
 
     const videoUrl =
       card.card_info.video_list[1] || card.card_info.video_list[0];
     setCache(cacheKey, videoUrl, 30 * 60 * 1000);
-    res.json({ videoUrl, cached: false });
-  } catch (error) {
-    console.error(`[Error] ${error.message}`);
-    res.status(500).json({ error: error.message });
-  }
-});
+    return { success: true, videoUrl };
+  },
+};
 
-// ============ HEALTH ============
+// Process command
+async function processCommand(commandId, commandData) {
+  const { action, params = {} } = commandData;
+  const commandRef = db.ref(`gacha_commands/${commandId}`);
 
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok", cacheSize: cache.size });
-});
+  console.log(`📥 [${commandId}] ${action}`, params);
 
-app.get("/", (_req, res) => {
-  res.json({
-    name: "Gacha API Proxy",
-    endpoints: [
-      "GET /api/collections",
-      "GET /api/collection/:actId",
-      "GET /api/lottery/:collectionId/:lotteryId",
-      "GET /api/video-url?collectionId=X&lotteryId=Y&cardImg=Z",
-      "GET /health",
-    ],
+  await commandRef.update({
+    status: "processing",
+    processedAt: admin.database.ServerValue.TIMESTAMP,
   });
-});
 
-// For local development
-const PORT = process.env.PORT || 3001;
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => {
-    console.log(`🚀 Gacha API Proxy running on port ${PORT}`);
+  try {
+    if (!action || !executors[action]) {
+      throw new Error(`Invalid action: ${action}`);
+    }
+
+    const result = await executors[action](params);
+
+    await commandRef.update({
+      status: "completed",
+      response: result,
+      completedAt: admin.database.ServerValue.TIMESTAMP,
+    });
+
+    console.log(`✅ [${commandId}] completed`);
+
+    // Auto-delete after 10 seconds
+    setTimeout(() => commandRef.remove().catch(() => {}), 10000);
+  } catch (error) {
+    console.error(`❌ [${commandId}] ${error.message}`);
+
+    await commandRef.update({
+      status: "error",
+      response: { success: false, error: error.message },
+      completedAt: admin.database.ServerValue.TIMESTAMP,
+    });
+
+    setTimeout(() => commandRef.remove().catch(() => {}), 10000);
+  }
+}
+
+// Start Firebase listener
+function startListener() {
+  const commandsRef = db.ref("gacha_commands");
+  console.log("🎧 Listening for commands at /gacha_commands...");
+
+  commandsRef.on("child_added", async (snapshot) => {
+    const commandId = snapshot.key;
+    const commandData = snapshot.val();
+
+    if (
+      commandData.status === "completed" ||
+      commandData.status === "error" ||
+      commandData.status === "processing"
+    ) {
+      return;
+    }
+
+    await processCommand(commandId, commandData);
   });
 }
 
-// Export for Vercel serverless
-export default app;
+// Express server for health check (Render needs this)
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.get("/", (req, res) => {
+  res.json({
+    status: "running",
+    service: "Gacha Firebase Bridge",
+    cacheSize: cache.size,
+    uptime: process.uptime(),
+  });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+app.listen(PORT, () => {
+  console.log(`🌐 Health server on port ${PORT}`);
+  startListener();
+  console.log("🚀 Firebase Bridge Server running!");
+});

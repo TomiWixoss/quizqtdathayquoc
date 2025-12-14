@@ -1,54 +1,74 @@
-# Gacha API Proxy
+# Gacha API Backend
 
-Backend proxy để bypass CORS khi gọi API từ `workers.vrp.moe`.
+Backend server để xử lý gacha API calls thông qua Firebase Realtime Database.
 
-## Endpoints
+## Cách hoạt động
 
-| Endpoint                                                  | Description                            |
-| --------------------------------------------------------- | -------------------------------------- |
-| `GET /api/collections`                                    | Lấy danh sách tất cả gacha collections |
-| `GET /api/collection/:actId`                              | Lấy chi tiết collection                |
-| `GET /api/lottery/:collectionId/:lotteryId`               | Lấy lottery với cards (video URLs mới) |
-| `GET /api/video-url?collectionId=X&lotteryId=Y&cardImg=Z` | Lấy video URL mới cho card             |
-| `GET /health`                                             | Health check                           |
-
-## Local Development
-
-```bash
-npm install
-npm run dev
+```
+App (Zalo Mini App)
+    ↓ write command
+Firebase Realtime Database (/gacha_commands)
+    ↓ listen
+Backend Server (firebase-bridge.js)
+    ↓ fetch
+workers.vrp.moe API
+    ↓ write response
+Firebase Realtime Database
+    ↓ listen
+App (nhận kết quả)
 ```
 
-Server chạy tại `http://localhost:3001`
+## Setup
 
-## Deploy to Vercel
+1. Đảm bảo `firebase-service-account.json` có ở thư mục gốc project
 
-1. Install Vercel CLI:
-
-```bash
-npm i -g vercel
-```
-
-2. Deploy:
+2. Cài dependencies:
 
 ```bash
 cd backend
-vercel
+npm install
 ```
 
-3. Sau khi deploy, copy URL production (vd: `https://your-project.vercel.app`)
+3. Chạy Firebase Bridge Server:
 
-4. Cập nhật `.env` ở frontend:
+```bash
+npm run bridge
+```
 
+Hoặc với auto-reload:
+
+```bash
+npm run bridge:dev
 ```
-VITE_GACHA_PROXY_URL=https://your-project.vercel.app
-```
+
+## Commands hỗ trợ
+
+| Action           | Params                                 | Description               |
+| ---------------- | -------------------------------------- | ------------------------- |
+| `getCollections` | -                                      | Lấy danh sách collections |
+| `getCollection`  | `actId`                                | Lấy chi tiết collection   |
+| `getLottery`     | `collectionId`, `lotteryId`            | Lấy lottery với cards     |
+| `getVideoUrl`    | `collectionId`, `lotteryId`, `cardImg` | Lấy video URL mới         |
 
 ## Caching
 
-- Collections list: 5 phút
+- Collections: 5 phút
 - Collection detail: 5 phút
-- Lottery detail: 30 phút
+- Lottery: 30 phút
 - Video URL: 30 phút
 
-Video URLs từ Bilibili CDN hết hạn sau ~15-24 giờ, nên cache 30 phút là an toàn.
+## Deploy
+
+Server này cần chạy liên tục để listen Firebase commands. Có thể deploy lên:
+
+- VPS (DigitalOcean, Vultr, etc.)
+- Railway
+- Render
+- Fly.io
+
+Hoặc chạy local với `pm2`:
+
+```bash
+npm i -g pm2
+pm2 start firebase-bridge.js --name gacha-bridge
+```

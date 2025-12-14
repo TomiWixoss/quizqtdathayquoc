@@ -1,9 +1,65 @@
-// ============ GACHA SERVICE - PROXY VERSION ============
-// All API calls go through backend proxy to bypass CORS
+// ============ GACHA SERVICE - FIREBASE BRIDGE VERSION ============
+// All API calls go through Firebase Realtime Database
+// Backend server listens and processes, then writes results back
+// This bypasses CORS issues in Zalo Mini App
 
-// Backend proxy URL
-const PROXY_URL =
-  import.meta.env.VITE_GACHA_PROXY_URL || "http://localhost:3001";
+import { ref, push, onValue, off, set } from "firebase/database";
+import { rtdb } from "@/lib/firebase";
+
+// Timeout for waiting response (ms)
+const COMMAND_TIMEOUT = 15000;
+
+// Send command and wait for response
+async function sendCommand<T>(
+  action: string,
+  params: Record<string, unknown> = {}
+): Promise<T> {
+  const commandsRef = ref(rtdb, "gacha_commands");
+  const commandRef = push(commandsRef);
+
+  return new Promise((resolve, reject) => {
+    let resolved = false;
+
+    const timeout = setTimeout(() => {
+      if (!resolved) {
+        resolved = true;
+        off(commandRef);
+        reject(new Error(`Command timeout: ${action}`));
+      }
+    }, COMMAND_TIMEOUT);
+
+    onValue(commandRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data || resolved) return;
+
+      if (data.status === "completed" || data.status === "error") {
+        resolved = true;
+        clearTimeout(timeout);
+        off(commandRef);
+
+        if (data.status === "error") {
+          reject(new Error(data.response?.error || "Unknown error"));
+        } else {
+          resolve(data.response as T);
+        }
+      }
+    });
+
+    set(commandRef, {
+      action,
+      params,
+      status: "pending",
+      createdAt: Date.now(),
+    }).catch((err) => {
+      if (!resolved) {
+        resolved = true;
+        clearTimeout(timeout);
+        off(commandRef);
+        reject(err);
+      }
+    });
+  });
+}
 
 // ============ TYPES ============
 
@@ -11,7 +67,7 @@ export interface CardInfo {
   card_id?: number;
   card_name: string;
   card_img: string;
-  card_scarcity: number; // 40=UR/SSR, 30=SR, 20=R, 10=N
+  card_scarcity: number;
   card_type?: number;
   width: number;
   height: number;
@@ -23,7 +79,6 @@ export interface CardInfo {
 export interface GachaCard {
   item_type: number;
   card_info: CardInfo;
-  // Extracted fields for easy access
   card_name: string;
   card_img: string;
   card_scarcity: number;
@@ -164,7 +219,7 @@ export function hasCardVideo(videoList?: string[]): boolean {
 
 // ============ LOCAL CACHE ============
 
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes for list data
+const CACHE_DURATION = 5 * 60 * 1000;
 
 interface CacheItem<T> {
   data: T;
@@ -213,7 +268,31 @@ export function preloadCollectionImages(collections: GachaCollection[]): void {
   preloadImages(urls);
 }
 
-// ============ API FUNCTIONS (via Proxy) ============
+// ============ API FUNCTIONS (via Firebase Bridge) ============
+
+interface CollectionsResponse {
+  success: boolean;
+  data: GachaCollection[];
+  cached?: boolean;
+}
+
+interface CollectionResponse {
+  success: boolean;
+  data: { data: GachaCollection };
+  cached?: boolean;
+}
+
+interface LotteryResponse {
+  success: boolean;
+  data: { data: Record<string, unknown> };
+  cached?: boolean;
+}
+
+interface VideoUrlResponse {
+  success: boolean;
+  videoUrl: string;
+  cached?: boolean;
+}
 
 /**
  * Get all gacha collections
@@ -227,16 +306,15 @@ export async function getGachaCollections(): Promise<GachaCollection[]> {
   }
 
   try {
-    const response = await fetch(`${PROXY_URL}/api/collections`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    console.log("[Gacha] Fetching collections via Firebase bridge...");
+    const result = await sendCommand<CollectionsResponse>("getCollections");
+    const data = result.data || [];
 
-    const data: GachaCollection[] = await response.json();
-
-    // Sort by startTime descending
     data.sort((a, b) => b.startTime - a.startTime);
 
     setCached(cacheKey, data);
     preloadCollectionImages(data);
+    console.log("[Gacha] Got", data.length, "collections");
     return data;
   } catch (error) {
     console.error("[getGachaCollections] Error:", error);
@@ -255,11 +333,10 @@ export async function getGachaCollectionDetail(
   if (cached) return cached;
 
   try {
-    const response = await fetch(`${PROXY_URL}/api/collection/${actId}`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const json = await response.json();
-    const data = json.data as GachaCollection;
+    const result = await sendCommand<CollectionResponse>("getCollection", {
+      actId,
+    });
+    const data = result.data?.data as GachaCollection;
 
     if (data) {
       setCached(cacheKey, data);
@@ -277,7 +354,6 @@ export async function getGachaCollectionDetail(
 export async function getCollectionLotteries(
   actId: number
 ): Promise<GachaLottery[]> {
-  // First get collection detail to get lottery list
   const collection = await getGachaCollectionDetail(actId);
   if (!collection?.lottery_list?.length) return [];
 
@@ -294,7 +370,7 @@ export async function getCollectionLotteries(
 }
 
 /**
- * Get lottery detail with all cards (fresh video URLs)
+ * Get lottery detail with all cards
  */
 export async function getLotteryDetail(
   actId: number,
@@ -308,45 +384,47 @@ export async function getLotteryDetail(
   }
 
   try {
-    const response = await fetch(
-      `${PROXY_URL}/api/lottery/${actId}/${lotteryId}`
-    );
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const json = await response.json();
-    const rawData = json.data;
+    const result = await sendCommand<LotteryResponse>("getLottery", {
+      collectionId: actId,
+      lotteryId,
+    });
+    const rawData = result.data?.data;
 
     if (!rawData) return null;
 
-    // Transform API response to GachaLottery format
     const lottery: GachaLottery = {
       lottery_id: lotteryId,
-      lottery_name: rawData.lottery_name || "",
-      price: rawData.price || 0,
-      lottery_image: rawData.lottery_image || "",
-      item_list: (rawData.item_list || []).map(
-        (item: { item_type: number; card_info: CardInfo }) => ({
-          item_type: item.item_type,
-          card_info: item.card_info,
-          // Extract for easy access
-          card_name: item.card_info?.card_name || "",
-          card_img: item.card_info?.card_img || "",
-          card_scarcity: item.card_info?.card_scarcity || 0,
-          card_type: item.card_info?.card_type,
-          card_id: item.card_info?.card_id,
-          width: item.card_info?.width || 0,
-          height: item.card_info?.height || 0,
-          video_list: item.card_info?.video_list || [],
-          card_img_download: item.card_info?.card_img_download || "",
-          is_physical_orientation: item.card_info?.is_physical_orientation,
-        })
-      ),
-      collect_list: rawData.collect_list || {},
-      collect_infos: rawData.collect_list?.collect_infos || [],
-      collect_chain: rawData.collect_list?.collect_chain || [],
+      lottery_name: (rawData.lottery_name as string) || "",
+      price: (rawData.price as number) || 0,
+      lottery_image: (rawData.lottery_image as string) || "",
+      item_list: (
+        (rawData.item_list as Array<{
+          item_type: number;
+          card_info: CardInfo;
+        }>) || []
+      ).map((item) => ({
+        item_type: item.item_type,
+        card_info: item.card_info,
+        card_name: item.card_info?.card_name || "",
+        card_img: item.card_info?.card_img || "",
+        card_scarcity: item.card_info?.card_scarcity || 0,
+        card_type: item.card_info?.card_type,
+        card_id: item.card_info?.card_id,
+        width: item.card_info?.width || 0,
+        height: item.card_info?.height || 0,
+        video_list: item.card_info?.video_list || [],
+        card_img_download: item.card_info?.card_img_download || "",
+        is_physical_orientation: item.card_info?.is_physical_orientation,
+      })),
+      collect_list: (rawData.collect_list as CollectList) || {},
+      collect_infos:
+        ((rawData.collect_list as CollectList)
+          ?.collect_infos as CollectReward[]) || [],
+      collect_chain:
+        ((rawData.collect_list as CollectList)
+          ?.collect_chain as CollectReward[]) || [],
     };
 
-    // Cache for 30 minutes (video URLs expire after ~15-24h)
     setCached(cacheKey, lottery, 30 * 60 * 1000);
     preloadLotteryImages(lottery);
     return lottery;
@@ -369,19 +447,15 @@ export async function getFreshVideoUrl(
   if (cached) return cached;
 
   try {
-    const params = new URLSearchParams({
-      collectionId: collectionId.toString(),
-      lotteryId: lotteryId.toString(),
+    const result = await sendCommand<VideoUrlResponse>("getVideoUrl", {
+      collectionId,
+      lotteryId,
       cardImg,
     });
 
-    const response = await fetch(`${PROXY_URL}/api/video-url?${params}`);
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    if (data.videoUrl) {
-      setCached(cacheKey, data.videoUrl, 25 * 60 * 1000);
-      return data.videoUrl;
+    if (result.videoUrl) {
+      setCached(cacheKey, result.videoUrl, 25 * 60 * 1000);
+      return result.videoUrl;
     }
     return null;
   } catch (error) {

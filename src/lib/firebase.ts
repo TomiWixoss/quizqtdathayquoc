@@ -16,7 +16,7 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
   databaseURL: `https://${
     import.meta.env.VITE_FIREBASE_PROJECT_ID
-  }-default-rtdb.firebaseio.com`,
+  }-default-rtdb.asia-southeast1.firebasedatabase.app`,
 };
 
 // Initialize Firebase

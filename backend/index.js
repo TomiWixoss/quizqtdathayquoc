@@ -9,23 +9,45 @@ import admin from "firebase-admin";
 import fetch from "node-fetch";
 import express from "express";
 
-// Load service account from environment variable
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Load service account - try env first, then local file
 let serviceAccount;
 try {
-  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT || "{}");
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    // From environment variable (Render)
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  } else {
+    // From local file (development)
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "firebase-service-account.json"
+    );
+    serviceAccount = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    console.log("📁 Loaded service account from local file");
+  }
+
   if (!serviceAccount.project_id) {
     throw new Error("Invalid service account");
   }
 } catch (e) {
-  console.error("❌ FIREBASE_SERVICE_ACCOUNT env not set or invalid");
-  console.error("Set it as JSON string in Render environment variables");
+  console.error("❌ Cannot load Firebase service account");
+  console.error("   - Set FIREBASE_SERVICE_ACCOUNT env (for Render)");
+  console.error(
+    "   - Or place firebase-service-account.json in project root (for local)"
+  );
   process.exit(1);
 }
 
 // Initialize Firebase Admin
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: `https://${serviceAccount.project_id}-default-rtdb.firebaseio.com`,
+  databaseURL: `https://${serviceAccount.project_id}-default-rtdb.asia-southeast1.firebasedatabase.app`,
 });
 
 const db = admin.database();
@@ -146,8 +168,8 @@ async function processCommand(commandId, commandData) {
 
     console.log(`✅ [${commandId}] completed`);
 
-    // Auto-delete after 10 seconds
-    setTimeout(() => commandRef.remove().catch(() => {}), 10000);
+    // Auto-delete after 60 seconds
+    setTimeout(() => commandRef.remove().catch(() => {}), 60000);
   } catch (error) {
     console.error(`❌ [${commandId}] ${error.message}`);
 
@@ -157,7 +179,7 @@ async function processCommand(commandId, commandData) {
       completedAt: admin.database.ServerValue.TIMESTAMP,
     });
 
-    setTimeout(() => commandRef.remove().catch(() => {}), 10000);
+    setTimeout(() => commandRef.remove().catch(() => {}), 60000);
   }
 }
 

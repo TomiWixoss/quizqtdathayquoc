@@ -7,7 +7,7 @@ import { ref, push, onValue, off, set } from "firebase/database";
 import { rtdb } from "@/lib/firebase";
 
 // Timeout for waiting response (ms)
-const COMMAND_TIMEOUT = 15000;
+const COMMAND_TIMEOUT = 30000;
 
 // Send command and wait for response
 async function sendCommand<T>(

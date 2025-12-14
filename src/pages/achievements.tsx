@@ -312,31 +312,34 @@ function AchievementsPage() {
       />
 
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
-        <div className="flex items-center gap-3 mb-2">
+      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-3 px-3 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/settings")}
-            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+            className="btn-back-3d w-9 h-9 flex items-center justify-center shrink-0"
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <ArrowLeft className="w-4 h-4 text-white" />
           </button>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <Award className="w-6 h-6 text-white" />
-              <h1 className="font-bold text-xl text-white">Thành tựu</h1>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5">
+              <Award className="w-5 h-5 text-white shrink-0" />
+              <h1 className="font-bold text-lg text-white truncate">
+                Thành tựu
+              </h1>
             </div>
-            <p className="text-white/80 text-sm mt-1">
-              Đã đạt {earnedCount}/{ACHIEVEMENTS.length} thành tựu
+            <p className="text-white/80 text-xs truncate">
+              {earnedCount}/{ACHIEVEMENTS.length} đã đạt
             </p>
           </div>
           {claimableCount > 0 && (
             <button
               onClick={handleClaimAll}
               disabled={claimingAll}
-              className="btn-3d btn-3d-green px-3 py-1.5 rounded-xl text-sm font-bold text-white flex items-center gap-1.5"
+              className="btn-3d btn-3d-green px-2 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
             >
-              <Gift className="w-4 h-4" />
-              Nhận hết ({claimableCount})
+              <Gift className="w-3.5 h-3.5" />
+              <span className="hidden xs:inline">Nhận hết</span> (
+              {claimableCount})
             </button>
           )}
         </div>

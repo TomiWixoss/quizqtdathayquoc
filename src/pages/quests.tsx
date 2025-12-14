@@ -315,20 +315,22 @@ function QuestsPage() {
       />
 
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-blue)]">
-        <div className="flex items-center gap-3">
+      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-3 px-3 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-blue)]">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/settings")}
-            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+            className="btn-back-3d w-9 h-9 flex items-center justify-center shrink-0"
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <ArrowLeft className="w-4 h-4 text-white" />
           </button>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <Trophy className="w-6 h-6 text-white" />
-              <h1 className="font-bold text-xl text-white">Nhiệm vụ</h1>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5">
+              <Trophy className="w-5 h-5 text-white shrink-0" />
+              <h1 className="font-bold text-lg text-white truncate">
+                Nhiệm vụ
+              </h1>
             </div>
-            <p className="text-white/80 text-sm mt-1">
+            <p className="text-white/80 text-xs truncate">
               Hoàn thành để nhận gems
             </p>
           </div>
@@ -336,10 +338,11 @@ function QuestsPage() {
             <button
               onClick={handleClaimAll}
               disabled={claimingAll}
-              className="btn-3d btn-3d-green px-3 py-1.5 rounded-xl text-sm font-bold text-white flex items-center gap-1.5"
+              className="btn-3d btn-3d-green px-2 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
             >
-              <Trophy className="w-4 h-4" />
-              Nhận hết ({totalClaimable})
+              <Trophy className="w-3.5 h-3.5" />
+              <span className="hidden xs:inline">Nhận hết</span> (
+              {totalClaimable})
             </button>
           )}
         </div>

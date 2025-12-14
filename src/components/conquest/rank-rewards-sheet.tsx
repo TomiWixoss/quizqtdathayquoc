@@ -309,34 +309,33 @@ export function RankRewardsSheet({
           </div>
 
           {/* Header */}
-          <div className="px-5 pb-4">
-            <div className="flex items-center justify-between mb-1">
+          <div className="px-4 pb-3">
+            <div className="flex items-center gap-2">
               <button
                 onClick={onClose}
-                className="w-10 h-10 rounded-xl flex items-center justify-center bg-[var(--secondary)] border-2 border-[var(--border)] active:scale-95 transition-transform"
+                className="w-9 h-9 rounded-xl flex items-center justify-center bg-[var(--secondary)] border-2 border-[var(--border)] active:scale-95 transition-transform shrink-0"
               >
-                <X className="w-5 h-5 text-[var(--muted-foreground)]" />
+                <X className="w-4 h-4 text-[var(--muted-foreground)]" />
               </button>
-              <div className="text-center">
-                <h2 className="font-bold text-lg flex items-center gap-2">
-                  <Trophy className="w-5 h-5 text-[var(--duo-yellow)]" />
-                  Quà Thưởng Rank
+              <div className="flex-1 min-w-0 text-center">
+                <h2 className="font-bold text-base flex items-center justify-center gap-1.5">
+                  <Trophy className="w-4 h-4 text-[var(--duo-yellow)] shrink-0" />
+                  <span className="truncate">Quà Rank</span>
                 </h2>
-                <p className="text-xs text-[var(--muted-foreground)]">
-                  Nhận quà khi đạt mốc rank
+                <p className="text-[10px] text-[var(--muted-foreground)] truncate">
+                  Nhận quà khi đạt mốc
                 </p>
               </div>
               {availableCount > 0 ? (
                 <button
                   onClick={handleClaimAll}
                   disabled={claiming}
-                  className="btn-3d btn-3d-green px-3 py-2 rounded-xl text-sm font-bold text-white flex items-center gap-1.5"
+                  className="btn-3d btn-3d-green px-2 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
                 >
-                  <Gift className="w-4 h-4" />
-                  Nhận hết
+                  <Gift className="w-3.5 h-3.5" />({availableCount})
                 </button>
               ) : (
-                <div className="w-10" />
+                <div className="w-9" />
               )}
             </div>
           </div>

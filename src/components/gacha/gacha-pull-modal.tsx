@@ -22,62 +22,6 @@ function getHighestScarcity(results: GachaPullResult[]): number {
   return Math.max(...results.map((r) => r.cardScarcity));
 }
 
-// Sparkle particles effect
-function SparkleParticles({ color }: { color: string }) {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(30)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute"
-          initial={{
-            x: "50%",
-            y: "50%",
-            scale: 0,
-            opacity: 1,
-          }}
-          animate={{
-            x: `${Math.random() * 100}%`,
-            y: `${Math.random() * 100}%`,
-            scale: [0, 1.5, 0],
-            opacity: [1, 1, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 2,
-            delay: i * 0.03,
-            ease: "easeOut",
-          }}
-        >
-          <Star className="w-3 h-3" style={{ color }} fill={color} />
-        </motion.div>
-      ))}
-    </div>
-  );
-}
-
-// Ring burst effect
-function RingBurst({ color }: { color: string }) {
-  return (
-    <>
-      {[1, 2, 3].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute w-32 h-32 rounded-full border-4 pointer-events-none"
-          style={{ borderColor: color }}
-          initial={{ scale: 0.3, opacity: 0.9 }}
-          animate={{ scale: 4, opacity: 0 }}
-          transition={{
-            duration: 1.5,
-            delay: i * 0.2,
-            ease: "easeOut",
-          }}
-        />
-      ))}
-    </>
-  );
-}
-
 export function GachaPullModal({
   isOpen,
   onClose,
@@ -293,20 +237,6 @@ export function GachaPullModal({
             className="flex flex-col items-center px-4 perspective-1000"
             onClick={handleNext}
           >
-            {/* Sparkle particles effect */}
-            <SparkleParticles
-              color={getScarcityColor(currentResult.cardScarcity)}
-            />
-
-            {/* Ring burst for UR only */}
-            {isUR && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <RingBurst
-                  color={getScarcityColor(currentResult.cardScarcity)}
-                />
-              </div>
-            )}
-
             {/* Glow effect - bigger for UR, medium for SR */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}

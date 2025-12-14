@@ -250,6 +250,54 @@ function QuestsPage() {
   const dailyClaimable = DAILY_QUESTS.filter((q) => canClaim(q)).length;
   const weeklyClaimable = WEEKLY_QUESTS.filter((q) => canClaim(q)).length;
   const totalClaimable = dailyClaimable + weeklyClaimable;
+  const [claimingAll, setClaimingAll] = useState(false);
+
+  // Nhận tất cả nhiệm vụ có thể nhận
+  const handleClaimAll = async () => {
+    if (claimingAll) return;
+
+    const claimableDaily = DAILY_QUESTS.filter((q) => canClaim(q));
+    const claimableWeekly = WEEKLY_QUESTS.filter((q) => canClaim(q));
+    const allClaimable = [...claimableDaily, ...claimableWeekly];
+
+    if (allClaimable.length === 0) return;
+
+    setClaimingAll(true);
+
+    try {
+      // Tính tổng gems
+      const totalGems = allClaimable.reduce((sum, q) => sum + q.reward, 0);
+
+      // Claim từng quest
+      for (const quest of claimableDaily) {
+        await claimDailyQuest(quest.id);
+      }
+      for (const quest of claimableWeekly) {
+        await claimWeeklyQuest(quest.id);
+      }
+
+      // Add tổng gems 1 lần
+      await addGems(totalGems);
+
+      // Show modal
+      setCurrentReward({
+        quest: { name: `${allClaimable.length} nhiệm vụ` } as Quest,
+        gems: totalGems,
+      });
+      setShowRewardModal(true);
+
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.5 },
+        colors: ["#58cc02", "#ffc800", "#1cb0f6", "#ce82ff"],
+      });
+    } catch (error) {
+      console.error("Error claiming all quests:", error);
+    } finally {
+      setClaimingAll(false);
+    }
+  };
 
   return (
     <Page className="bg-background min-h-screen">
@@ -285,11 +333,14 @@ function QuestsPage() {
             </p>
           </div>
           {totalClaimable > 0 && (
-            <div className="bg-[var(--duo-red)] px-3 py-1.5 rounded-full">
-              <span className="text-white text-sm font-bold">
-                {totalClaimable}
-              </span>
-            </div>
+            <button
+              onClick={handleClaimAll}
+              disabled={claimingAll}
+              className="btn-3d btn-3d-green px-3 py-1.5 rounded-xl text-sm font-bold text-white flex items-center gap-1.5"
+            >
+              <Trophy className="w-4 h-4" />
+              Nhận hết ({totalClaimable})
+            </button>
           )}
         </div>
       </div>

@@ -116,6 +116,48 @@ function MailboxPage() {
   const unclaimedCount = mails.filter(
     (m) => !claimedMails.includes(m.id)
   ).length;
+  const [claimingAll, setClaimingAll] = useState(false);
+
+  // Nhận tất cả thư có thể nhận
+  const handleClaimAll = async () => {
+    if (claimingAll) return;
+
+    const unclaimedMails = mails.filter((m) => !claimedMails.includes(m.id));
+    if (unclaimedMails.length === 0) return;
+
+    setClaimingAll(true);
+
+    try {
+      // Tính tổng gems
+      const totalGems = unclaimedMails.reduce((sum, m) => sum + m.reward, 0);
+
+      // Claim từng mail
+      for (const mail of unclaimedMails) {
+        await claimMail(mail.id);
+      }
+
+      // Add tổng gems 1 lần
+      await addGems(totalGems);
+
+      // Show modal
+      setCurrentReward({
+        title: `${unclaimedMails.length} thư`,
+        gems: totalGems,
+      });
+      setShowRewardModal(true);
+
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.5 },
+        colors: ["#58cc02", "#ffc800", "#1cb0f6", "#ce82ff"],
+      });
+    } catch (error) {
+      console.error("Error claiming all mails:", error);
+    } finally {
+      setClaimingAll(false);
+    }
+  };
 
   return (
     <Page className="bg-background min-h-screen">
@@ -141,7 +183,7 @@ function MailboxPage() {
           >
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
-          <div>
+          <div className="flex-1">
             <h1 className="font-bold text-xl text-white">Hòm thư</h1>
             <p className="text-white/80 text-xs">
               {unclaimedCount > 0
@@ -149,6 +191,16 @@ function MailboxPage() {
                 : "Không có thư mới"}
             </p>
           </div>
+          {unclaimedCount > 0 && (
+            <button
+              onClick={handleClaimAll}
+              disabled={claimingAll}
+              className="btn-3d btn-3d-green px-3 py-1.5 rounded-xl text-sm font-bold text-white flex items-center gap-1.5"
+            >
+              <Mail className="w-4 h-4" />
+              Nhận hết ({unclaimedCount})
+            </button>
+          )}
         </div>
       </div>
 

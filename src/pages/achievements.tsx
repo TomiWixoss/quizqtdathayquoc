@@ -248,6 +248,53 @@ function AchievementsPage() {
 
   const earnedCount = ACHIEVEMENTS.filter((a) => isEarned(a)).length;
   const claimableCount = ACHIEVEMENTS.filter((a) => canClaim(a.id)).length;
+  const [claimingAll, setClaimingAll] = useState(false);
+
+  // Nhận tất cả thành tựu có thể nhận
+  const handleClaimAll = async () => {
+    if (claimingAll) return;
+
+    const claimableAchievements = ACHIEVEMENTS.filter((a) => canClaim(a.id));
+    if (claimableAchievements.length === 0) return;
+
+    setClaimingAll(true);
+
+    try {
+      // Tính tổng gems
+      const totalGems = claimableAchievements.reduce(
+        (sum, a) => sum + (ACHIEVEMENT_REWARDS[a.id] || 10),
+        0
+      );
+
+      // Claim tất cả
+      for (const achievement of claimableAchievements) {
+        await claimAchievementReward(achievement.id);
+      }
+
+      // Add tổng gems 1 lần
+      await addGems(totalGems);
+
+      // Show modal
+      setCurrentReward({
+        achievement: {
+          name: `${claimableAchievements.length} thành tựu`,
+        } as Achievement,
+        gems: totalGems,
+      });
+      setShowRewardModal(true);
+
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.5 },
+        colors: ["#58cc02", "#ffc800", "#1cb0f6", "#ce82ff"],
+      });
+    } catch (error) {
+      console.error("Error claiming all achievements:", error);
+    } finally {
+      setClaimingAll(false);
+    }
+  };
 
   return (
     <Page className="bg-background min-h-screen">
@@ -283,11 +330,14 @@ function AchievementsPage() {
             </p>
           </div>
           {claimableCount > 0 && (
-            <div className="bg-[var(--duo-red)] px-3 py-1.5 rounded-full">
-              <span className="text-white text-sm font-bold">
-                {claimableCount}
-              </span>
-            </div>
+            <button
+              onClick={handleClaimAll}
+              disabled={claimingAll}
+              className="btn-3d btn-3d-green px-3 py-1.5 rounded-xl text-sm font-bold text-white flex items-center gap-1.5"
+            >
+              <Gift className="w-4 h-4" />
+              Nhận hết ({claimableCount})
+            </button>
           )}
         </div>
       </div>

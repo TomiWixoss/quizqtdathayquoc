@@ -86,12 +86,12 @@ function CustomizePage() {
           </p>
           <div className="flex items-center gap-4">
             {/* Avatar + Frame */}
-            <div className="relative w-24 h-24 flex items-center justify-center">
+            <div className="relative w-[88px] h-[88px] flex items-center justify-center">
               {displayFrame && (
                 <img
                   src={getFullImage(displayFrame, 150)}
                   alt="Frame"
-                  className="absolute inset-0 w-24 h-24 object-contain z-10 pointer-events-none"
+                  className="absolute inset-0 w-[88px] h-[88px] object-contain z-10 pointer-events-none"
                   referrerPolicy="no-referrer"
                 />
               )}

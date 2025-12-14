@@ -503,18 +503,18 @@ function SettingsPage() {
           <div className="card-3d p-4 mb-5">
             <div className="flex items-center gap-3 mb-4">
               {/* Avatar with frame */}
-              <div className="relative w-[72px] h-[72px] flex items-center justify-center shrink-0">
+              <div className="relative w-[80px] h-[80px] flex items-center justify-center shrink-0">
                 {/* Frame layer */}
                 {user.equippedFrame && (
                   <img
-                    src={getFullImage(user.equippedFrame, 100)}
+                    src={getFullImage(user.equippedFrame, 120)}
                     alt="Frame"
-                    className="absolute inset-0 w-[72px] h-[72px] object-contain z-10 pointer-events-none"
+                    className="absolute inset-0 w-[80px] h-[80px] object-contain z-10 pointer-events-none"
                     referrerPolicy="no-referrer"
                   />
                 )}
                 {/* Avatar */}
-                <div className="w-10 h-10 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-base overflow-hidden border-2 border-[var(--border)] shadow-lg">
+                <div className="w-11 h-11 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-base overflow-hidden border-2 border-[var(--border)] shadow-lg">
                   {user.equippedAvatar || user.avatar ? (
                     <img
                       src={

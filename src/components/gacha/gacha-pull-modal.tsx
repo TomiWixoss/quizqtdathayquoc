@@ -22,14 +22,14 @@ function getHighestScarcity(results: GachaPullResult[]): number {
   return Math.max(...results.map((r) => r.cardScarcity));
 }
 
-// Golden particles for UR
-function GoldenParticles() {
+// Sparkle particles effect
+function SparkleParticles({ color }: { color: string }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
+      {[...Array(30)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-yellow-400 rounded-full"
+          className="absolute"
           initial={{
             x: "50%",
             y: "50%",
@@ -39,17 +39,42 @@ function GoldenParticles() {
           animate={{
             x: `${Math.random() * 100}%`,
             y: `${Math.random() * 100}%`,
-            scale: [0, 1, 0],
+            scale: [0, 1.5, 0],
             opacity: [1, 1, 0],
+            rotate: [0, 180, 360],
           }}
           transition={{
-            duration: 1.5,
-            delay: i * 0.05,
+            duration: 2,
+            delay: i * 0.03,
+            ease: "easeOut",
+          }}
+        >
+          <Star className="w-3 h-3" style={{ color }} fill={color} />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// Ring burst effect
+function RingBurst({ color }: { color: string }) {
+  return (
+    <>
+      {[1, 2, 3].map((i) => (
+        <motion.div
+          key={i}
+          className="absolute inset-0 rounded-full border-4 pointer-events-none"
+          style={{ borderColor: color }}
+          initial={{ scale: 0.5, opacity: 0.8 }}
+          animate={{ scale: 3, opacity: 0 }}
+          transition={{
+            duration: 1.2,
+            delay: i * 0.15,
             ease: "easeOut",
           }}
         />
       ))}
-    </div>
+    </>
   );
 }
 
@@ -261,39 +286,57 @@ export function GachaPullModal({
           </motion.div>
         )}
 
-        {/* Single Card Reveal */}
+        {/* Single Card Reveal with Flip Effect */}
         {revealPhase === "reveal" && currentResult && !showAll && (
           <motion.div
             key={currentIndex}
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", duration: 0.5 }}
-            className="flex flex-col items-center px-4"
+            className="flex flex-col items-center px-4 perspective-1000"
             onClick={handleNext}
           >
-            {/* UR Golden explosion effect */}
-            {isUR && <GoldenParticles />}
+            {/* Sparkle particles effect */}
+            <SparkleParticles
+              color={getScarcityColor(currentResult.cardScarcity)}
+            />
 
-            {/* Glow effect - bigger for UR, smooth animation */}
+            {/* Ring burst for SR/UR */}
+            {(isUR || currentResult.cardScarcity === 30) && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <RingBurst
+                  color={getScarcityColor(currentResult.cardScarcity)}
+                />
+              </div>
+            )}
+
+            {/* Glow effect - bigger for UR */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isUR ? 0.8 : 0.5 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: isUR ? 0.9 : 0.6, scale: 1 }}
+              transition={{ duration: 0.5 }}
               className={`absolute rounded-full blur-3xl ${
-                isUR ? "w-96 h-96" : "w-80 h-80"
+                isUR ? "w-[400px] h-[400px]" : "w-80 h-80"
               }`}
               style={{
                 backgroundColor:
                   getScarcityColor(currentResult.cardScarcity) +
-                  (isUR ? "60" : "40"),
+                  (isUR ? "70" : "50"),
               }}
             />
 
-            {/* Card - preload image trước khi hiện */}
-            <div
+            {/* Flip Card Container */}
+            <motion.div
+              initial={{ rotateY: 180, scale: 0.8 }}
+              animate={{ rotateY: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                duration: 0.8,
+              }}
               className={`relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px] min-h-[300px] bg-gradient-to-b from-gray-800 to-gray-900 ${
                 isUR
-                  ? "ring-4 ring-yellow-400/50 ring-offset-2 ring-offset-black"
+                  ? "ring-4 ring-yellow-400/60 ring-offset-2 ring-offset-black animate-pulse"
+                  : currentResult.cardScarcity === 30
+                  ? "ring-2 ring-purple-400/50"
                   : ""
               }`}
               style={{
@@ -302,8 +345,25 @@ export function GachaPullModal({
                   currentResult.width && currentResult.height
                     ? currentResult.width / currentResult.height
                     : 2 / 3,
+                transformStyle: "preserve-3d",
+                boxShadow: `0 0 ${isUR ? "60px" : "30px"} ${getScarcityColor(
+                  currentResult.cardScarcity
+                )}${isUR ? "80" : "50"}`,
               }}
             >
+              {/* Shine overlay effect */}
+              <motion.div
+                className="absolute inset-0 z-20 pointer-events-none"
+                initial={{ x: "-100%", opacity: 0 }}
+                animate={{ x: "200%", opacity: [0, 0.5, 0] }}
+                transition={{ duration: 1, delay: 0.3 }}
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                  transform: "skewX(-20deg)",
+                }}
+              />
+
               {hasCardVideo(currentResult.videoList) &&
               !videoErrors[currentIndex] ? (
                 <video
@@ -340,12 +400,13 @@ export function GachaPullModal({
                 />
               )}
 
-              {/* NEW badge */}
+              {/* NEW badge with bounce */}
               {currentResult.isNew && (
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute top-2 left-2 px-3 py-1 bg-[var(--duo-green)] text-white text-xs font-bold rounded-full"
+                  initial={{ scale: 0, rotate: -15 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", delay: 0.5 }}
+                  className="absolute top-2 left-2 px-3 py-1 bg-[var(--duo-green)] text-white text-xs font-bold rounded-full shadow-lg"
                 >
                   MỚI!
                 </motion.div>
@@ -356,7 +417,8 @@ export function GachaPullModal({
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute top-2 right-2 px-2 py-1 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center gap-1"
+                  transition={{ delay: 0.5 }}
+                  className="absolute top-2 right-2 px-2 py-1 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center gap-1 shadow-lg"
                 >
                   <img
                     src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
@@ -365,50 +427,65 @@ export function GachaPullModal({
                   +{currentResult.shardsGained}
                 </motion.div>
               )}
-            </div>
+            </motion.div>
 
-            {/* Scarcity label - animated for UR */}
+            {/* Scarcity label with entrance animation */}
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 30, opacity: 0, scale: 0.8 }}
               animate={{
                 y: 0,
                 opacity: 1,
-                scale: isUR ? [1, 1.1, 1] : 1,
+                scale: 1,
               }}
               transition={{
-                delay: 0.3,
-                scale: { duration: 0.5, repeat: isUR ? Infinity : 0 },
+                delay: 0.4,
+                type: "spring",
+                stiffness: 200,
               }}
-              className="mt-4 flex items-center gap-2"
+              className="mt-5 flex items-center gap-2"
             >
-              <Star
-                className={isUR ? "w-8 h-8" : "w-6 h-6"}
-                style={{ color: getScarcityColor(currentResult.cardScarcity) }}
-                fill={getScarcityColor(currentResult.cardScarcity)}
-              />
-              <span
-                className={`font-bold ${isUR ? "text-3xl" : "text-2xl"}`}
-                style={{ color: getScarcityColor(currentResult.cardScarcity) }}
+              <motion.div
+                animate={isUR ? { rotate: [0, 360] } : {}}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               >
-                {getScarcityName(currentResult.cardScarcity)}
-              </span>
-              {isUR && (
                 <Star
-                  className="w-8 h-8"
+                  className={isUR ? "w-8 h-8" : "w-6 h-6"}
                   style={{
                     color: getScarcityColor(currentResult.cardScarcity),
                   }}
                   fill={getScarcityColor(currentResult.cardScarcity)}
                 />
+              </motion.div>
+              <motion.span
+                animate={isUR ? { scale: [1, 1.05, 1] } : {}}
+                transition={{ duration: 1, repeat: Infinity }}
+                className={`font-bold ${isUR ? "text-3xl" : "text-2xl"}`}
+                style={{ color: getScarcityColor(currentResult.cardScarcity) }}
+              >
+                {getScarcityName(currentResult.cardScarcity)}
+              </motion.span>
+              {isUR && (
+                <motion.div
+                  animate={{ rotate: [0, -360] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                >
+                  <Star
+                    className="w-8 h-8"
+                    style={{
+                      color: getScarcityColor(currentResult.cardScarcity),
+                    }}
+                    fill={getScarcityColor(currentResult.cardScarcity)}
+                  />
+                </motion.div>
               )}
             </motion.div>
 
             {/* Tap hint */}
             <motion.p
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="text-white/60 mt-4 text-sm"
+              animate={{ opacity: [0.3, 0.8, 0.3] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="text-white/70 mt-4 text-sm"
             >
               Chạm để tiếp tục ({currentIndex + 1}/{results.length})
             </motion.p>

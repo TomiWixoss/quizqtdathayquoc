@@ -379,28 +379,34 @@ function EventTowerPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[#8B5CF6] to-[#A855F7]">
-        <div className="flex items-center gap-3">
+      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-3 px-4 bg-gradient-to-r from-[#8B5CF6] to-[#A855F7]">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => navigate(-1)}
-            className="btn-back-3d w-10 h-10 flex items-center justify-center"
+            className="btn-back-3d w-10 h-10 flex items-center justify-center shrink-0"
           >
             <ArrowLeft className="w-5 h-5 text-white" />
           </button>
-          <div className="flex-1">
-            <h1 className="font-bold text-xl text-white">Tháp Luyện Ngục</h1>
-            <p className="text-white/80 text-sm">
-              {totalFloors} tầng - Leo tháp nhận thưởng!
-            </p>
-          </div>
-          <div className="flex items-center gap-1.5 bg-white/20 rounded-xl px-3 py-1.5">
-            <Clock className="w-4 h-4 text-white" />
-            <span className="text-white text-xs font-medium">{countdown}</span>
+          <div className="flex-1 min-w-0">
+            <h1 className="font-bold text-lg text-white truncate">
+              Tháp Luyện Ngục
+            </h1>
+            <div className="flex items-center gap-2">
+              <p className="text-white/80 text-xs whitespace-nowrap">
+                {totalFloors} tầng
+              </p>
+              <div className="flex items-center gap-1 bg-white/20 rounded-lg px-2 py-0.5 shrink-0">
+                <Clock className="w-3 h-3 text-white shrink-0" />
+                <span className="text-white text-[10px] font-medium whitespace-nowrap">
+                  {countdown}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="px-4 pt-36 pb-28">
+      <div className="px-4 pt-32 pb-28">
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

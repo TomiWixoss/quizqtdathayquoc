@@ -8,16 +8,28 @@ import { db } from "@/lib/firebase";
 import { RewardModal } from "@/components/ui/reward-modal";
 import confetti from "canvas-confetti";
 
-// Phần thưởng theo cấp độ (tăng đáng kể cho 233 gói thẻ)
+// Phần thưởng theo cấp độ (tăng mạnh cho 233 gói gacha - mỗi gói 233 gems)
 const LEVEL_REWARDS = [
-  { level: 5, gems: 150, label: "Cấp 5" },
-  { level: 10, gems: 300, label: "Cấp 10", special: true },
-  { level: 15, gems: 400, label: "Cấp 15" },
-  { level: 20, gems: 500, label: "Cấp 20", special: true },
-  { level: 25, gems: 600, label: "Cấp 25" },
-  { level: 30, gems: 800, label: "Cấp 30", special: true },
-  { level: 40, gems: 1200, label: "Cấp 40", special: true },
-  { level: 50, gems: 2500, label: "Cấp 50", special: true, legendary: true },
+  { level: 5, gems: 500, label: "Cấp 5" },
+  { level: 10, gems: 1000, label: "Cấp 10", special: true },
+  { level: 15, gems: 1200, label: "Cấp 15" },
+  { level: 20, gems: 1500, label: "Cấp 20", special: true },
+  { level: 25, gems: 1800, label: "Cấp 25" },
+  { level: 30, gems: 2500, label: "Cấp 30", special: true },
+  { level: 35, gems: 2000, label: "Cấp 35" },
+  { level: 40, gems: 3000, label: "Cấp 40", special: true },
+  { level: 45, gems: 2500, label: "Cấp 45" },
+  { level: 50, gems: 5000, label: "Cấp 50", special: true, legendary: true },
+  { level: 55, gems: 3000, label: "Cấp 55" },
+  { level: 60, gems: 4000, label: "Cấp 60", special: true },
+  { level: 65, gems: 3500, label: "Cấp 65" },
+  { level: 70, gems: 5000, label: "Cấp 70", special: true },
+  { level: 75, gems: 4500, label: "Cấp 75" },
+  { level: 80, gems: 6000, label: "Cấp 80", special: true },
+  { level: 85, gems: 5500, label: "Cấp 85" },
+  { level: 90, gems: 8000, label: "Cấp 90", special: true },
+  { level: 95, gems: 7000, label: "Cấp 95" },
+  { level: 100, gems: 15000, label: "Cấp 100", special: true, legendary: true },
 ];
 
 function EventLevelRewardsPage() {

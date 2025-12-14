@@ -335,11 +335,10 @@ function AchievementsPage() {
             <button
               onClick={handleClaimAll}
               disabled={claimingAll}
-              className="btn-3d btn-3d-green px-2 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
+              className="btn-3d btn-3d-green px-3 py-1.5 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
             >
               <Gift className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline">Nhận hết</span> (
-              {claimableCount})
+              Nhận ({claimableCount})
             </button>
           )}
         </div>

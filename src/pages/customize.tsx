@@ -85,11 +85,11 @@ function CustomizePage() {
             Xem trước
           </p>
           <div className="flex items-center gap-4">
-            {/* Avatar + Frame */}
+            {/* Avatar + Frame - same size as profile page */}
             <div className="relative w-[88px] h-[88px] flex items-center justify-center">
               {displayFrame && (
                 <img
-                  src={getFullImage(displayFrame, 150)}
+                  src={getFullImage(displayFrame, 120)}
                   alt="Frame"
                   className="absolute inset-0 w-[88px] h-[88px] object-contain z-10 pointer-events-none"
                   referrerPolicy="no-referrer"
@@ -100,7 +100,7 @@ function CustomizePage() {
                   <img
                     src={
                       user?.equippedAvatar
-                        ? getFullImage(displayAvatar, 150)
+                        ? getFullImage(displayAvatar, 100)
                         : displayAvatar
                     }
                     alt=""

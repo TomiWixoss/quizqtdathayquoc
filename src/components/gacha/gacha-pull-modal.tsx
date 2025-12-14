@@ -268,111 +268,150 @@ export function GachaPullModal({
             />
 
             {/* Flip Card Container */}
-            <motion.div
-              initial={{ rotateY: 180, scale: 0.8 }}
-              animate={{ rotateY: 0, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-                duration: 0.8,
-              }}
-              className={`relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px] min-h-[300px] bg-gradient-to-b from-gray-800 to-gray-900 ${
-                isUR
-                  ? "ring-4 ring-yellow-400/60 ring-offset-2 ring-offset-black animate-pulse"
-                  : currentResult.cardScarcity === 30
-                  ? "ring-2 ring-purple-400/50"
-                  : ""
-              }`}
-              style={{
-                borderColor: getScarcityColor(currentResult.cardScarcity),
-                aspectRatio:
-                  currentResult.width && currentResult.height
-                    ? currentResult.width / currentResult.height
-                    : 2 / 3,
-                transformStyle: "preserve-3d",
-                boxShadow: `0 0 ${isUR ? "60px" : "30px"} ${getScarcityColor(
-                  currentResult.cardScarcity
-                )}${isUR ? "80" : "50"}`,
-              }}
-            >
-              {/* Shine overlay effect */}
-              <motion.div
-                className="absolute inset-0 z-20 pointer-events-none"
-                initial={{ x: "-100%", opacity: 0 }}
-                animate={{ x: "200%", opacity: [0, 0.5, 0] }}
-                transition={{ duration: 1, delay: 0.3 }}
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-                  transform: "skewX(-20deg)",
-                }}
-              />
-
-              {hasCardVideo(currentResult.videoList) &&
-              !videoErrors[currentIndex] ? (
-                <video
-                  key={currentResult.videoList![1]}
-                  className="w-full h-full object-contain"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster={getFullImage(currentResult.cardImg, 400)}
-                  onError={() =>
-                    setVideoErrors((prev) => ({
-                      ...prev,
-                      [currentIndex]: true,
-                    }))
-                  }
-                >
-                  <source src={currentResult.videoList![1]} type="video/mp4" />
-                </video>
-              ) : (
-                <img
-                  src={getFullImage(currentResult.cardImg, 400)}
-                  alt=""
-                  className="w-full h-full object-contain"
-                  referrerPolicy="no-referrer"
-                  loading="eager"
-                  decoding="sync"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    if (target.src.includes("@")) {
-                      target.src = currentResult.cardImg;
-                    }
+            <div className="relative">
+              {/* Outer glow ring effect - separate from card */}
+              {isUR && (
+                <motion.div
+                  animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.02, 1] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -inset-2 rounded-2xl pointer-events-none"
+                  style={{
+                    background: `linear-gradient(45deg, ${getScarcityColor(
+                      40
+                    )}60, ${getScarcityColor(40)}30, ${getScarcityColor(
+                      40
+                    )}60)`,
+                    filter: "blur(8px)",
+                  }}
+                />
+              )}
+              {currentResult.cardScarcity === 30 && (
+                <motion.div
+                  animate={{ opacity: [0.3, 0.6, 0.3] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute -inset-1.5 rounded-2xl pointer-events-none"
+                  style={{
+                    background: `linear-gradient(45deg, ${getScarcityColor(
+                      30
+                    )}50, ${getScarcityColor(30)}20, ${getScarcityColor(
+                      30
+                    )}50)`,
+                    filter: "blur(6px)",
                   }}
                 />
               )}
 
-              {/* NEW badge with bounce */}
-              {currentResult.isNew && (
+              <motion.div
+                initial={{ rotateY: 180, scale: 0.8 }}
+                animate={{ rotateY: 0, scale: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  duration: 0.8,
+                }}
+                className="relative rounded-2xl overflow-hidden border-4 shadow-2xl max-w-[280px] min-h-[300px] bg-gradient-to-b from-gray-800 to-gray-900"
+                style={{
+                  borderColor: getScarcityColor(currentResult.cardScarcity),
+                  aspectRatio:
+                    currentResult.width && currentResult.height
+                      ? currentResult.width / currentResult.height
+                      : 2 / 3,
+                  transformStyle: "preserve-3d",
+                  boxShadow: `0 0 ${isUR ? "60px" : "30px"} ${getScarcityColor(
+                    currentResult.cardScarcity
+                  )}${isUR ? "80" : "50"}`,
+                }}
+              >
+                {/* Shine overlay effect */}
                 <motion.div
-                  initial={{ scale: 0, rotate: -15 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: "spring", delay: 0.5 }}
-                  className="absolute top-2 left-2 px-3 py-1 bg-[var(--duo-green)] text-white text-xs font-bold rounded-full shadow-lg"
-                >
-                  MỚI!
-                </motion.div>
-              )}
+                  className="absolute inset-0 z-20 pointer-events-none"
+                  initial={{ x: "-100%", opacity: 0 }}
+                  animate={{ x: "200%", opacity: [0, 0.5, 0] }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                    transform: "skewX(-20deg)",
+                  }}
+                />
 
-              {/* Shards if duplicate */}
-              {currentResult.shardsGained > 0 && (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="absolute top-2 right-2 px-2 py-1 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center gap-1 shadow-lg"
-                >
+                {hasCardVideo(currentResult.videoList) &&
+                !videoErrors[currentIndex] ? (
+                  <video
+                    key={currentResult.videoList![1]}
+                    className="w-full h-full object-contain"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster={getFullImage(currentResult.cardImg, 400)}
+                    onError={() =>
+                      setVideoErrors((prev) => ({
+                        ...prev,
+                        [currentIndex]: true,
+                      }))
+                    }
+                  >
+                    <source
+                      src={currentResult.videoList![1]}
+                      type="video/mp4"
+                    />
+                  </video>
+                ) : (
                   <img
-                    src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
-                    className="w-4 h-4"
+                    src={getFullImage(currentResult.cardImg, 400)}
+                    alt=""
+                    className="w-full h-full object-contain"
+                    referrerPolicy="no-referrer"
+                    loading="eager"
+                    decoding="sync"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (target.src.includes("@")) {
+                        target.src = currentResult.cardImg;
+                      }
+                    }}
                   />
-                  +{currentResult.shardsGained}
-                </motion.div>
-              )}
-            </motion.div>
+                )}
+
+                {/* NEW badge with bounce */}
+                {currentResult.isNew && (
+                  <motion.div
+                    initial={{ scale: 0, rotate: -15 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", delay: 0.5 }}
+                    className="absolute top-2 left-2 px-3 py-1 bg-[var(--duo-green)] text-white text-xs font-bold rounded-full shadow-lg"
+                  >
+                    MỚI!
+                  </motion.div>
+                )}
+
+                {/* Shards if duplicate */}
+                {currentResult.shardsGained > 0 && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="absolute top-2 right-2 px-2 py-1 bg-purple-500 text-white text-xs font-bold rounded-full flex items-center gap-1 shadow-lg"
+                  >
+                    <img
+                      src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
+                      className="w-4 h-4"
+                    />
+                    +{currentResult.shardsGained}
+                  </motion.div>
+                )}
+              </motion.div>
+            </div>
 
             {/* Scarcity label with entrance animation */}
             <motion.div

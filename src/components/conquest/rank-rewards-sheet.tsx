@@ -317,7 +317,8 @@ export function RankRewardsSheet({
                   disabled={claiming}
                   className="btn-3d btn-3d-green px-2 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
                 >
-                  <Gift className="w-3.5 h-3.5" />({availableCount})
+                  <Gift className="w-3.5 h-3.5" />
+                  Nhận ({availableCount})
                 </button>
               ) : (
                 <div className="w-9" />

@@ -1,5 +1,12 @@
 import { Page, useNavigate } from "zmp-ui";
-import { ArrowLeft, Mail, CheckCircle, Inbox, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Mail,
+  CheckCircle,
+  Inbox,
+  Trash2,
+  Gift,
+} from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -195,11 +202,10 @@ function MailboxPage() {
             <button
               onClick={handleClaimAll}
               disabled={claimingAll}
-              className="btn-3d btn-3d-green px-2 py-1 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
+              className="btn-3d btn-3d-green px-3 py-1.5 rounded-lg text-xs font-bold text-white flex items-center gap-1 shrink-0"
             >
-              <Mail className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline">Nhận hết</span> (
-              {unclaimedCount})
+              <Gift className="w-3.5 h-3.5" />
+              Nhận ({unclaimedCount})
             </button>
           )}
         </div>

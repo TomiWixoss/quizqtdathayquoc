@@ -5,6 +5,7 @@ import {
   getScarcityColor,
   getScarcityName,
   getHQImage,
+  hasCardVideo,
 } from "@/services/gacha-service";
 import { exchangeShardsForCard } from "@/services/gacha-pull-service";
 import { GACHA_CONFIG, type GachaInventory } from "@/types/gacha";
@@ -165,7 +166,7 @@ export function ShardExchangeModal({
             <div className="grid grid-cols-3 gap-3">
               {availableCards.map((card, idx) => {
                 const isSelected = selectedCard?.card_img === card.card_img;
-                const hasVideo = card.video_list && card.video_list.length > 1;
+                const hasVideo = hasCardVideo(card.video_list);
                 return (
                   <button
                     key={idx}

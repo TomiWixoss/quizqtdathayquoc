@@ -6,6 +6,7 @@ import {
   getScarcityName,
   getScarcityColor,
   getFullImage,
+  hasCardVideo,
 } from "@/services/gacha-service";
 
 interface GachaPullModalProps {
@@ -302,30 +303,31 @@ export function GachaPullModal({
                     : 2 / 3,
               }}
             >
-              {currentResult.videoList &&
-              currentResult.videoList.length > 1 &&
+              {hasCardVideo(currentResult.videoList) &&
               !videoErrors[currentIndex] ? (
                 <video
+                  key={currentResult.videoList![1]}
                   className="w-full h-full object-contain"
                   autoPlay
                   loop
                   muted
                   playsInline
-                  src={currentResult.videoList[1]}
+                  poster={getFullImage(currentResult.cardImg, 400)}
                   onError={() =>
                     setVideoErrors((prev) => ({
                       ...prev,
                       [currentIndex]: true,
                     }))
                   }
-                />
+                >
+                  <source src={currentResult.videoList![1]} type="video/mp4" />
+                </video>
               ) : (
                 <img
                   src={getFullImage(currentResult.cardImg, 400)}
                   alt=""
                   className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
-                  crossOrigin="anonymous"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     if (target.src.includes("@")) {

@@ -16,11 +16,12 @@ import {
   getScarcityName,
   getScarcityColor,
   getHQImage,
-  getFullImage,
+  hasCardVideo,
   type GachaCard,
 } from "@/services/gacha-service";
 import { getUserGachaInventory } from "@/services/gacha-pull-service";
 import { useUserStore } from "@/stores/user-store";
+import { VideoCard } from "@/components/ui/video-player";
 
 type TabType = "all" | "ur" | "sr" | "r" | "n";
 
@@ -281,8 +282,7 @@ function CardInventoryPage() {
             {/* Cards Grid */}
             <div className="grid grid-cols-3 gap-2">
               {currentCards.map((item, idx) => {
-                const hasVideo =
-                  item.card.video_list && item.card.video_list.length > 1;
+                const hasVideo = hasCardVideo(item.card.video_list);
                 return (
                   <button
                     key={`${item.collectionId}-${item.card.card_img}-${idx}`}
@@ -380,25 +380,12 @@ function CardInventoryPage() {
                     : 2 / 3,
               }}
             >
-              {selectedCard.card.video_list &&
-              selectedCard.card.video_list.length > 1 ? (
-                <video
-                  className="w-full h-full object-contain"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster={getFullImage(selectedCard.card.card_img, 600)}
-                  src={selectedCard.card.video_list[1]}
-                />
-              ) : (
-                <img
-                  src={getFullImage(selectedCard.card.card_img, 600)}
-                  alt=""
-                  className="w-full h-full object-contain"
-                  referrerPolicy="no-referrer"
-                />
-              )}
+              <VideoCard
+                videoList={selectedCard.card.video_list}
+                imageUrl={selectedCard.card.card_img}
+                className="w-full h-full object-contain"
+                imageSize={600}
+              />
             </div>
             <div className="p-4">
               <div className="flex items-center justify-between mb-3">

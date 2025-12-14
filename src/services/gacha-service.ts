@@ -177,6 +177,17 @@ export function getFullImage(url: string, width = 600): string {
   return url;
 }
 
+// Get video URL - video_list[1] is the actual video, [0] is usually thumbnail
+export function getVideoUrl(videoList?: string[]): string | null {
+  if (!videoList || videoList.length < 2) return null;
+  return videoList[1];
+}
+
+// Check if card has animated video
+export function hasCardVideo(videoList?: string[]): boolean {
+  return Boolean(videoList && videoList.length > 1 && videoList[1]);
+}
+
 // ============ CACHE CONFIG ============
 const CACHE_KEYS = {
   COLLECTIONS: "gacha_collections",

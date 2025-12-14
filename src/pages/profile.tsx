@@ -21,8 +21,10 @@ import {
   getScarcityColor,
   getScarcityName,
   getCollectionLotteries,
+  hasCardVideo,
   type GachaCard,
 } from "@/services/gacha-service";
+import { VideoCard } from "@/components/ui/video-player";
 import { getUserGachaInventory } from "@/services/gacha-pull-service";
 import type { UserStats } from "@/types/quiz";
 
@@ -549,7 +551,7 @@ function ProfilePage() {
                   >
                     {getScarcityName(card.card_scarcity)}
                   </div>
-                  {card.video_list && card.video_list.length > 1 && (
+                  {hasCardVideo(card.video_list) && (
                     <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50">
                       <Sparkles className="w-3 h-3 text-white" />
                     </div>
@@ -580,24 +582,12 @@ function ProfilePage() {
                     : 2 / 3,
               }}
             >
-              {viewingCard.video_list && viewingCard.video_list.length > 1 ? (
-                <video
-                  className="w-full h-full object-contain"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster={getFullImage(viewingCard.card_img, 600)}
-                  src={viewingCard.video_list[1]}
-                />
-              ) : (
-                <img
-                  src={getFullImage(viewingCard.card_img, 600)}
-                  alt=""
-                  className="w-full h-full object-contain"
-                  referrerPolicy="no-referrer"
-                />
-              )}
+              <VideoCard
+                videoList={viewingCard.video_list}
+                imageUrl={viewingCard.card_img}
+                className="w-full h-full object-contain"
+                imageSize={600}
+              />
             </div>
             <div className="p-4">
               <div className="flex items-center justify-between mb-3">
@@ -611,7 +601,7 @@ function ProfilePage() {
                 >
                   {getScarcityName(viewingCard.card_scarcity)}
                 </span>
-                {viewingCard.video_list?.length > 0 && (
+                {hasCardVideo(viewingCard.video_list) && (
                   <span className="flex items-center gap-1 text-xs text-[var(--muted-foreground)]">
                     <Sparkles className="w-3 h-3" />
                     Thẻ động

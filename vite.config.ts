@@ -19,7 +19,7 @@ export default defineConfig({
   server: {
     headers: {
       "Content-Security-Policy":
-        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; worker-src 'self' blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.cloudfunctions.net https://workers.vrp.moe https://api.cerebras.ai; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline';",
+        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; worker-src 'self' blob:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.cloudfunctions.net https://workers.vrp.moe https://api.cerebras.ai https://*.hdslb.com; img-src 'self' data: blob: https:; media-src 'self' https: blob: data:; style-src 'self' 'unsafe-inline';",
     },
   },
 });

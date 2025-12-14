@@ -485,23 +485,23 @@ function SettingsPage() {
           <div className="card-3d p-4 mb-5">
             <div className="flex items-center gap-3 mb-4">
               {/* Avatar with frame */}
-              <div className="relative w-[88px] h-[88px] flex items-center justify-center shrink-0">
+              <div className="relative w-[72px] h-[72px] flex items-center justify-center shrink-0">
                 {/* Frame layer */}
                 {user.equippedFrame && (
                   <img
-                    src={getFullImage(user.equippedFrame, 120)}
+                    src={getFullImage(user.equippedFrame, 100)}
                     alt="Frame"
-                    className="absolute inset-0 w-[88px] h-[88px] object-contain z-10 pointer-events-none"
+                    className="absolute inset-0 w-[72px] h-[72px] object-contain z-10 pointer-events-none"
                     referrerPolicy="no-referrer"
                   />
                 )}
                 {/* Avatar */}
-                <div className="w-12 h-12 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-lg overflow-hidden border-3 border-[var(--border)] shadow-lg">
+                <div className="w-10 h-10 rounded-full bg-[var(--duo-blue)] flex items-center justify-center text-white font-bold text-base overflow-hidden border-2 border-[var(--border)] shadow-lg">
                   {user.equippedAvatar || user.avatar ? (
                     <img
                       src={
                         user.equippedAvatar
-                          ? getFullImage(user.equippedAvatar, 100)
+                          ? getFullImage(user.equippedAvatar, 80)
                           : user.avatar
                       }
                       alt=""
@@ -515,7 +515,7 @@ function SettingsPage() {
               </div>
               {/* Badge */}
               {user.equippedBadge && (
-                <div className="w-14 h-14 shrink-0 rounded-xl bg-[var(--secondary)] p-1 border-2 border-[var(--border)] shadow-md">
+                <div className="w-12 h-12 shrink-0">
                   <img
                     src={getFullImage(user.equippedBadge, 80)}
                     alt="Badge"

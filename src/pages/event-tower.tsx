@@ -51,7 +51,6 @@ function EventTowerPage() {
     claimedFloors,
     totalFloors,
     normalFloorsCount,
-    exFloorsCount,
     activeFloor,
     currentQuestion,
     selectedAnswer,
@@ -206,7 +205,7 @@ function EventTowerPage() {
           </div>
         </div>
 
-        <div className="px-4 pt-24 pb-32">
+        <div className="px-4 pt-20 pb-24">
           <h2 className="text-lg font-bold text-foreground mb-5 leading-relaxed">
             {currentQuestion.question}
           </h2>
@@ -409,7 +408,7 @@ function EventTowerPage() {
         </div>
       </div>
 
-      <div className="px-4 pt-32 pb-28">
+      <div className="px-4 pt-24 pb-28">
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

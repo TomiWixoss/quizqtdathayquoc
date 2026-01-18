@@ -425,7 +425,7 @@ function LeaderboardPage() {
       </div>
 
       {/* Tabs - Fixed below header */}
-      <div className="fixed top-[124px] left-0 right-0 z-40 px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
+      <div className="fixed top-[96px] left-0 right-0 z-40 px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab("conquest")}
@@ -464,7 +464,7 @@ function LeaderboardPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[188px] pb-28">
+      <div className="px-4 pt-[168px] pb-28">
         {loading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[var(--duo-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />

@@ -346,7 +346,7 @@ function AchievementsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-36 pb-28 space-y-3">
+      <div className="px-4 pt-20 pb-28 space-y-3">
         {ACHIEVEMENTS.map((achievement) => {
           const earned = isEarned(achievement);
           const claimed = claimedRewards.includes(achievement.id);

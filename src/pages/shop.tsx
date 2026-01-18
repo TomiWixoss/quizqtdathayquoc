@@ -193,7 +193,7 @@ function ShopPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-32 pb-28 space-y-4">
+      <div className="px-4 pt-24 pb-28 space-y-4">
         {/* Currency Display */}
         {user && (
           <div className="card-3d p-4">

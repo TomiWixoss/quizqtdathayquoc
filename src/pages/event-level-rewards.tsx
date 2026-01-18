@@ -145,7 +145,7 @@ function EventLevelRewardsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-32 pb-28">
+      <div className="px-4 pt-24 pb-28">
         {/* Current Level */}
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center justify-between">

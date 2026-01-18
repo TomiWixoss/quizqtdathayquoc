@@ -256,7 +256,7 @@ function GachaPage() {
       </div>
 
       {/* Tabs - Scrollable */}
-      <div className="fixed top-[116px] left-0 right-0 z-40 bg-[var(--card)] border-b border-[var(--border)]">
+      <div className="fixed top-[84px] left-0 right-0 z-40 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-2 px-4 py-2 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => handleTabChange("all")}
@@ -306,7 +306,7 @@ function GachaPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[180px] pb-28">
+      <div className="px-4 pt-[140px] pb-28">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader2 className="w-10 h-10 text-[var(--duo-purple)] animate-spin" />

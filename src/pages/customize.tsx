@@ -79,7 +79,7 @@ function CustomizePage() {
       </div>
 
       {/* Preview Section */}
-      <div className="px-4 pt-32 pb-4">
+      <div className="px-4 pt-24 pb-4">
         <div className="card-3d p-6 flex flex-col items-center">
           <p className="text-sm text-[var(--muted-foreground)] mb-3">
             Xem trước

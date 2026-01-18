@@ -109,7 +109,7 @@ function EventsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-32 pb-28">
+      <div className="px-4 pt-24 pb-28">
         {/* Events List */}
         <div className="space-y-3">
           {EVENTS.map((event) => {

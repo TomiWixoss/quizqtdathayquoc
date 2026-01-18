@@ -256,7 +256,7 @@ function ProfilePage() {
       </div>
 
       {/* Content */}
-      <div className="pt-28 pb-24 px-4">
+      <div className="pt-24 pb-24 px-4">
         {/* Profile Card */}
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center gap-3 mb-4">

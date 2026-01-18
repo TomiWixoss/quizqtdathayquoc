@@ -269,7 +269,7 @@ function GachaDetailPage() {
       </div>
 
       {/* Content */}
-      <div className="pt-28 pb-32 px-4">
+      <div className="pt-24 pb-32 px-4">
         {/* Banner Image */}
         <div className="card-3d overflow-hidden mb-4">
           <img

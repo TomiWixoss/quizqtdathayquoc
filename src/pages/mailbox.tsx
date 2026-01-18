@@ -213,7 +213,7 @@ function MailboxPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-30 pb-28">
+      <div className="px-4 pt-24 pb-28">
         {loading ? (
           <div className="text-center py-10">
             <p className="text-[var(--muted-foreground)]">Đang tải...</p>

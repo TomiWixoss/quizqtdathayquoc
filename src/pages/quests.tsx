@@ -350,7 +350,7 @@ function QuestsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-32 pb-28 space-y-5">
+      <div className="px-4 pt-24 pb-28 space-y-5">
         {/* Daily Quests */}
         <div>
           <div className="flex items-center gap-2 mb-3">

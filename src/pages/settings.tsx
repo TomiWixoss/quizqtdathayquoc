@@ -498,7 +498,7 @@ function SettingsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-28 pb-32">
+      <div className="px-4 pt-24 pb-32">
         {/* User Info Card - Enhanced 3D */}
         {user && (
           <div className="card-3d p-4 mb-5">

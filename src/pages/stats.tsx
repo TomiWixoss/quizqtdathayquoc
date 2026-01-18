@@ -136,7 +136,7 @@ function StatsPage() {
       </div>
 
       {/* Tabs - Fixed */}
-      <div className="fixed top-[108px] left-0 right-0 z-40 px-4 py-2 bg-[var(--card)] border-b border-[var(--border)]">
+      <div className="fixed top-[84px] left-0 right-0 z-40 px-4 py-2 bg-[var(--card)] border-b border-[var(--border)]">
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {[
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
@@ -161,7 +161,7 @@ function StatsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-44 pb-28">
+      <div className="px-4 pt-[148px] pb-28">
         {/* Overview Tab */}
         {activeTab === "overview" && (
           <div className="space-y-4">

@@ -1,5 +1,5 @@
-import { useNavigate } from "zmp-ui";
-import { Page } from "zmp-ui";
+import { useNavigate } from "react-router-dom";
+import { Page } from "@/components/ui/page";
 import {
   BookOpen,
   Star,

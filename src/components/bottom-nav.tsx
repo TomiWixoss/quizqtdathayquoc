@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "zmp-ui";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Home, Trophy, Sparkles, Calendar, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useConquestStore } from "@/stores/conquest-store";

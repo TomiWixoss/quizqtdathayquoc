@@ -1,5 +1,5 @@
-import { Page } from "zmp-ui";
-import { useNavigate } from "zmp-ui";
+import { Page } from "@/components/ui/page";
+import { useNavigate } from "react-router-dom";
 import {
   Calendar,
   Gift,

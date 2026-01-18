@@ -1,4 +1,4 @@
-import { Page } from "zmp-ui";
+import { Page } from "@/components/ui/page";
 import { Sparkles, User, Frame, Check, ChevronLeft, Award } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";

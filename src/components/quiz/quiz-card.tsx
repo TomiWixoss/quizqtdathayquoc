@@ -4,7 +4,7 @@ import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
-import { useNavigate } from "zmp-ui";
+import { useNavigate } from "react-router-dom";
 import { NoHeartsModal } from "@/components/ui/custom-modal";
 
 export function QuizCard() {

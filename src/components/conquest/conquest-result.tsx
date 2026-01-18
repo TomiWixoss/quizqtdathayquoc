@@ -1,4 +1,4 @@
-import { Page } from "zmp-ui";
+import { Page } from "@/components/ui/page";
 import {
   Trophy,
   Target,

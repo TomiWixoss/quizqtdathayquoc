@@ -1,11 +1,4 @@
-import { getSystemInfo } from "zmp-sdk";
-import {
-  AnimationRoutes,
-  App,
-  Route,
-  SnackbarProvider,
-  ZMPRouter,
-} from "zmp-ui";
+import { Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useEffect, useState } from "react";
 import { Pencil } from "lucide-react";
@@ -37,8 +30,6 @@ import { useThemeStore } from "@/stores/theme-store";
 import { useUserStore } from "@/stores/user-store";
 
 const Layout = () => {
-  const systemInfo = getSystemInfo();
-  const zaloTheme = systemInfo.zaloTheme as "dark" | "light" | undefined;
   const { theme, setTheme } = useThemeStore();
   const { user, updateUsername } = useUserStore();
   const [showNameModal, setShowNameModal] = useState(false);
@@ -47,12 +38,22 @@ const Layout = () => {
     "idle"
   );
 
-  // Sync with Zalo theme on first load if not set
+  // Sync with system theme on first load if not set
   useEffect(() => {
-    if (zaloTheme && !localStorage.getItem("quiz-theme")) {
-      setTheme(zaloTheme);
+    if (!localStorage.getItem("quiz-theme")) {
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      setTheme(prefersDark ? "dark" : "light");
     }
-  }, [zaloTheme]);
+  }, [setTheme]);
+
+  // Apply theme class to document
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
+  }, [theme]);
 
   // Check if user has default name and show modal
   useEffect(() => {
@@ -82,7 +83,7 @@ const Layout = () => {
   };
 
   return (
-    <App theme={theme}>
+    <div className={theme}>
       {/* Welcome Name Modal */}
       {showNameModal && (
         <div className="fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4">
@@ -136,44 +137,34 @@ const Layout = () => {
           </div>
         </div>
       )}
-      {/* @ts-expect-error zmp-ui types issue */}
-      <SnackbarProvider>
-        <ZMPRouter>
-          <AnimationRoutes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/quiz" element={<QuizPage />} />
-            <Route path="/leaderboard" element={<LeaderboardPage />} />
-            <Route path="/achievements" element={<AchievementsPage />} />
-            <Route path="/quests" element={<QuestsPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/stats" element={<StatsPage />} />
-            <Route path="/mailbox" element={<MailboxPage />} />
-            <Route path="/shop" element={<ShopPage />} />
-            <Route path="/events" element={<EventsPage />} />
-            <Route
-              path="/event-login-7days"
-              element={<EventLogin7DaysPage />}
-            />
-            <Route
-              path="/event-level-rewards"
-              element={<EventLevelRewardsPage />}
-            />
-            <Route path="/event-tower" element={<EventTowerPage />} />
-            <Route path="/gacha" element={<GachaPage />} />
-            <Route path="/gacha/:id" element={<GachaDetailPage />} />
-            <Route path="/customize" element={<CustomizePage />} />
-            <Route path="/card-inventory" element={<CardInventoryPage />} />
-            <Route path="/profile/:id" element={<ProfilePage />} />
 
-            <Route path="/battle" element={<BattlePage />} />
-            <Route path="/conquest" element={<ConquestPage />} />
-            <Route path="/test-firebase" element={<TestFirebasePage />} />
-          </AnimationRoutes>
-          <BottomNav />
-        </ZMPRouter>
-      </SnackbarProvider>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/quiz" element={<QuizPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route path="/achievements" element={<AchievementsPage />} />
+        <Route path="/quests" element={<QuestsPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/stats" element={<StatsPage />} />
+        <Route path="/mailbox" element={<MailboxPage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/event-login-7days" element={<EventLogin7DaysPage />} />
+        <Route path="/event-level-rewards" element={<EventLevelRewardsPage />} />
+        <Route path="/event-tower" element={<EventTowerPage />} />
+        <Route path="/gacha" element={<GachaPage />} />
+        <Route path="/gacha/:id" element={<GachaDetailPage />} />
+        <Route path="/customize" element={<CustomizePage />} />
+        <Route path="/card-inventory" element={<CardInventoryPage />} />
+        <Route path="/profile/:id" element={<ProfilePage />} />
+
+        <Route path="/battle" element={<BattlePage />} />
+        <Route path="/conquest" element={<ConquestPage />} />
+        <Route path="/test-firebase" element={<TestFirebasePage />} />
+      </Routes>
+      <BottomNav />
       <Toaster position="top-center" richColors />
-    </App>
+    </div>
   );
 };
 

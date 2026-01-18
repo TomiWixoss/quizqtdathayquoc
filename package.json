@@ -2,21 +2,12 @@
   "name": "quizqtdathayquoc",
   "private": true,
   "version": "1.0.0",
-  "description": "Quiz App - Zalo Mini App",
+  "description": "Quiz App - Vite + React",
   "type": "module",
-  "browserslist": [
-    "Android >= 5",
-    "IOS >= 9.3",
-    "Edge >= 15",
-    "Safari >= 9.1",
-    "Chrome >= 49",
-    "Firefox >= 31",
-    "Samsung >= 5"
-  ],
   "scripts": {
-    "login": "zmp login",
-    "start": "zmp start",
-    "deploy": "zmp deploy"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@cerebras/cerebras_cloud_sdk": "^1.59.0",
@@ -55,13 +46,12 @@
     "react-circular-progressbar": "^2.2.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.68.0",
+    "react-router-dom": "^7.12.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
     "use-sound": "^5.0.0",
     "vaul": "^1.1.2",
-    "zmp-sdk": "latest",
-    "zmp-ui": "latest",
     "zod": "^4.1.13",
     "zustand": "^5.0.9"
   },
@@ -74,7 +64,6 @@
     "@vitejs/plugin-react": "^4.3.1",
     "tw-animate-css": "^1.4.0",
     "typescript": "^5.7.2",
-    "vite": "^5.2.13",
-    "zmp-vite-plugin": "latest"
+    "vite": "^5.2.13"
   }
 }

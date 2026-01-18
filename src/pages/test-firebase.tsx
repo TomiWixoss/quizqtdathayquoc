@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Page, Box } from "zmp-ui";
+import { Page } from "@/components/ui/page";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/firebase";
@@ -86,7 +86,7 @@ function TestFirebasePage() {
           </div>
 
           {status !== "idle" && (
-            <Box className="rounded-lg border p-4">
+            <div className="rounded-lg border p-4">
               <div className="flex items-center gap-2 mb-2">
                 {status === "loading" && (
                   <Loader2 className="h-5 w-5 animate-spin text-blue-500" />
@@ -115,10 +115,10 @@ function TestFirebasePage() {
                   {JSON.stringify(data, null, 2)}
                 </pre>
               )}
-            </Box>
+            </div>
           )}
 
-          <Box className="rounded-lg bg-orange-50 dark:bg-orange-950 p-4 text-sm">
+          <div className="rounded-lg bg-orange-50 dark:bg-orange-950 p-4 text-sm">
             <p className="font-medium text-orange-800 dark:text-orange-200 mb-2">
               🔥 Firebase Firestore đã được cấu hình!
             </p>
@@ -126,7 +126,7 @@ function TestFirebasePage() {
               Nhớ bật Firestore trong Firebase Console và set rules cho phép
               read/write.
             </p>
-          </Box>
+          </div>
         </CardContent>
       </Card>
     </Page>

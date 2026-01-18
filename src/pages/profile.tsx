@@ -1,4 +1,4 @@
-import { Page } from "zmp-ui";
+import { Page } from "@/components/ui/page";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {

@@ -1,5 +1,5 @@
-import { useNavigate } from "zmp-ui";
-import { Page } from "zmp-ui";
+import { useNavigate } from "react-router-dom";
+import { Page } from "@/components/ui/page";
 import { X, Clock, Skull } from "lucide-react";
 import { QuizCard } from "@/components/quiz/quiz-card";
 import { QuizResult } from "@/components/quiz/quiz-result";

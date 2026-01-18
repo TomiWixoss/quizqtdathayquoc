@@ -1,4 +1,5 @@
-import { Page, useNavigate } from "zmp-ui";
+import { Page } from "@/components/ui/page";
+import { useNavigate } from "react-router-dom";
 import { Gift, Clock, Sparkles, Zap, Snowflake, ArrowLeft } from "lucide-react";
 import { useUserStore } from "@/stores/user-store";
 import { useState, useEffect } from "react";

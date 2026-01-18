@@ -1,4 +1,5 @@
-import { Page, useNavigate } from "zmp-ui";
+import { Page } from "@/components/ui/page";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import {
   ArrowLeft,

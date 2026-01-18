@@ -1,5 +1,5 @@
-import { Page } from "zmp-ui";
-import { useNavigate } from "zmp-ui";
+import { Page } from "@/components/ui/page";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Trophy, Gift, Check, Lock, Star } from "lucide-react";
 import { useUserStore, getExpProgress } from "@/stores/user-store";
 import { useState, useEffect } from "react";

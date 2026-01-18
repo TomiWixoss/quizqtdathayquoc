@@ -1,4 +1,5 @@
-import { Page, useNavigate } from "zmp-ui";
+import { Page } from "@/components/ui/page";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { X, Swords, Trophy, Zap, Loader2, Gift } from "lucide-react";
 import { useConquestStore } from "@/stores/conquest-store";

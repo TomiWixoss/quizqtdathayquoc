@@ -1,8 +1,23 @@
 import { create } from "zustand";
-import { getUserInfo } from "zmp-sdk";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import type { UserStats, ChapterProgress, QuestProgress } from "@/types/quiz";
+
+// Helper function to get or create user ID from localStorage
+const getOrCreateUserId = (): string => {
+  const STORAGE_KEY = "quiz_user_id";
+  let userId = localStorage.getItem(STORAGE_KEY);
+  if (!userId) {
+    userId = "web_user_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9);
+    localStorage.setItem(STORAGE_KEY, userId);
+  }
+  return userId;
+};
+
+// Helper function to get stored user name
+const getStoredUserName = (): string => {
+  return localStorage.getItem("quiz_user_name") || "Người chơi";
+};
 
 interface UserState {
   user: UserStats | null;
@@ -221,8 +236,8 @@ export const useUserStore = create<UserState>((set, get) => ({
   initUser: async () => {
     set({ isLoading: true, error: null });
     try {
-      const { userInfo } = await getUserInfo({});
-      const oderId = userInfo.id;
+      const oderId = getOrCreateUserId();
+      const userName = getStoredUserName();
       const userRef = doc(db, "users", oderId);
       const userSnap = await getDoc(userRef);
 
@@ -258,8 +273,8 @@ export const useUserStore = create<UserState>((set, get) => ({
       } else {
         const newUser: UserStats = {
           oderId,
-          odername: userInfo.name || "Người chơi",
-          avatar: userInfo.avatar || "",
+          odername: userName,
+          avatar: "",
           ...DEFAULT_STATS,
         };
         await setDoc(userRef, newUser);

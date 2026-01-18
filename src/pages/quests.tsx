@@ -317,7 +317,7 @@ function QuestsPage() {
       />
 
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-3 pb-3 px-3 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-blue)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-40 pt-3 pb-3 px-3 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-blue)] transition-all duration-300">
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/settings")}
@@ -350,7 +350,7 @@ function QuestsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-24 pb-28 space-y-5">
+      <div className="px-4 pt-24 pb-28 md:pb-10 space-y-5 max-w-4xl mx-auto">
         {/* Daily Quests */}
         <div>
           <div className="flex items-center gap-2 mb-3">

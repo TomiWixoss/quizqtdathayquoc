@@ -28,7 +28,7 @@ import {
 import { useUserStore } from "@/stores/user-store";
 import type { GachaInventory } from "@/types/gacha";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 24;
 
 type TabType = "all" | "bookmarked" | "spinning" | "completed";
 
@@ -246,7 +246,7 @@ function GachaPage() {
     <Page className="bg-background min-h-screen">
       {/* Header */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}
+        className={`fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-gradient-to-r ${getTabColor()} transition-all duration-300`}
       >
         <div className="flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-white" />
@@ -256,8 +256,8 @@ function GachaPage() {
       </div>
 
       {/* Tabs - Scrollable */}
-      <div className="fixed top-[84px] left-0 right-0 z-40 bg-[var(--card)] border-b border-[var(--border)]">
-        <div className="flex gap-2 px-4 py-2 overflow-x-auto scrollbar-hide">
+      <div className="fixed top-[84px] left-0 right-0 md:left-64 z-40 bg-[var(--card)]/95 backdrop-blur supports-[backdrop-filter]:bg-[var(--card)]/60 border-b border-[var(--border)] transition-all duration-300">
+        <div className="flex gap-2 px-4 py-3 overflow-x-auto scrollbar-hide max-w-6xl mx-auto">
           <button
             onClick={() => handleTabChange("all")}
             className={`flex items-center gap-1.5 py-2 px-4 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
@@ -306,7 +306,7 @@ function GachaPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[140px] pb-28">
+      <div className="px-4 pt-[150px] pb-28 md:pb-10 max-w-7xl mx-auto">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader2 className="w-10 h-10 text-[var(--duo-purple)] animate-spin" />
@@ -346,7 +346,7 @@ function GachaPage() {
         ) : (
           <>
             {/* Grid */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {currentItems.map((item) => {
                 const totalCards = collectionCardCounts[item.id] || 0;
                 const ownedCards = inventory?.cards[item.id]

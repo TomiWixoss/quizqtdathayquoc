@@ -265,7 +265,7 @@ export function QuizCard() {
       {/* Bottom Sheet - Result or Check Button */}
       <div
         className={cn(
-          "fixed bottom-0 left-0 right-0 z-40 safe-bottom",
+          "fixed bottom-0 left-0 right-0 z-40 safe-bottom transition-colors duration-300",
           isAnswered
             ? isCorrect
               ? "bg-[#d7ffb8]"
@@ -273,6 +273,7 @@ export function QuizCard() {
             : "bg-[var(--card)] border-t-2 border-[var(--border)]"
         )}
       >
+        <div className="max-w-2xl mx-auto w-full">
         {isAnswered ? (
           // Result bottom sheet - Duolingo style
           <div className="px-4 pt-4 pb-6">
@@ -332,6 +333,7 @@ export function QuizCard() {
             </button>
           </div>
         )}
+        </div>
       </div>
 
       {/* Spacer for bottom sheet */}

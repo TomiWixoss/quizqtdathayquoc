@@ -256,7 +256,7 @@ function GachaDetailPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={goBack}
@@ -269,380 +269,382 @@ function GachaDetailPage() {
       </div>
 
       {/* Content */}
-      <div className="pt-24 pb-32 px-4">
-        {/* Banner Image */}
-        <div className="card-3d overflow-hidden mb-4">
-          <img
-            src={getFullImage(collection.act_square_img, 800)}
-            alt="Banner"
-            className="w-full h-auto"
-            referrerPolicy="no-referrer"
-          />
-        </div>
+      <div className="pt-24 pb-32 md:pb-10 px-4 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* LEFT COLUMN: Visuals & Lists */}
+          <div className="lg:col-span-8 space-y-4">
+            {/* Banner Image */}
+            <div className="card-3d overflow-hidden">
+              <img
+                src={getFullImage(collection.act_square_img, 800)}
+                alt="Banner"
+                className="w-full max-h-[400px] object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
 
-        {/* Currency Display */}
-        <div className="card-3d p-3 mb-4">
-          <div className="flex items-center justify-center gap-2">
-            <img
-              src="/AppAssets/BlueDiamond.png"
-              alt="gem"
-              className="w-5 h-5"
-            />
-            <span className="font-bold text-[var(--duo-blue)]">
-              {formatNumber(user?.gems || 0)}
-            </span>
-            <span className="text-sm text-[var(--muted-foreground)]">Gems</span>
-          </div>
-        </div>
+            {/* Lottery Tabs */}
+            {lotteries.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {lotteries.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedLottery(index)}
+                    className={`px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-colors ${
+                      selectedLottery === index
+                        ? "bg-[var(--duo-purple)] text-white"
+                        : "bg-[var(--secondary)] text-foreground hover:bg-[var(--secondary)]/80"
+                    }`}
+                  >
+                    Pool {index + 1}
+                  </button>
+                ))}
+              </div>
+            )}
 
-        {/* Progress */}
-        <div className="card-3d p-3 mb-4">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium">Tiến độ sưu tập</span>
-            <span className="text-sm font-bold text-[var(--duo-purple)]">
-              {ownedCount}/{totalCards}
-            </span>
-          </div>
-          <div className="h-2 bg-[var(--secondary)] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] transition-all"
-              style={{
-                width: `${
-                  totalCards > 0 ? (ownedCount / totalCards) * 100 : 0
-                }%`,
-              }}
-            />
-          </div>
-        </div>
+            {/* Cards Grid */}
+            {currentLottery && (
+              <div className="card-3d p-4">
+                <h3 className="font-bold mb-3 flex items-center gap-2">
+                  <Frame className="w-4 h-4" />
+                  Danh sách thẻ
+                </h3>
 
-        {/* Rates & Pity Info */}
-        <div className="card-3d p-3 mb-4">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium">Tỷ lệ rơi</span>
-            {inventory && (
-              <div className="flex items-center gap-1 text-xs">
-                <span className="text-[var(--muted-foreground)]">
-                  Bảo hiểm:
-                </span>
-                <span className="font-bold text-[var(--duo-yellow)]">
-                  {inventory.pityCounters[0] || 0}/{GACHA_CONFIG.PITY_UR}
-                </span>
+                {sortedScarcities.map((scarcity) => (
+                  <div key={scarcity} className="mb-6 last:mb-0">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Star
+                        className="w-4 h-4"
+                        style={{ color: getScarcityColor(scarcity) }}
+                        fill={getScarcityColor(scarcity)}
+                      />
+                      <span
+                        className="font-bold text-sm"
+                        style={{ color: getScarcityColor(scarcity) }}
+                      >
+                        {getScarcityName(scarcity)} (
+                        {groupedCards![scarcity].length})
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                      {groupedCards![scarcity].map((card, idx) => {
+                        const hasVideo = hasCardVideo(card.video_list);
+                        const owned = inventory
+                          ? hasCard(inventory, collectionId, card.card_img)
+                          : false;
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => owned && setSelectedCard(card)}
+                            disabled={!owned}
+                            className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all group ${
+                              owned
+                                ? "bg-[var(--secondary)] hover:scale-105 cursor-pointer shadow-sm"
+                                : "bg-black/30 brightness-50 cursor-not-allowed opacity-70"
+                            }`}
+                            style={{
+                              borderColor: owned
+                                ? getScarcityColor(card.card_scarcity)
+                                : "var(--border)",
+                            }}
+                          >
+                            <img
+                              src={getHQImage(card.card_img, 300)}
+                              alt=""
+                              className="w-full h-full object-cover object-top"
+                              referrerPolicy="no-referrer"
+                              loading="lazy"
+                            />
+                            {hasVideo && (
+                              <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50 backdrop-blur-sm">
+                                <Sparkles className="w-3 h-3 text-white" />
+                              </div>
+                            )}
+                            {owned && (
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Rewards List */}
+                {(() => {
+                  const rewards = getCollectionRewards();
+                  if (rewards.length === 0) return null;
+
+                  const getRewardLabel = (type: number) => {
+                    switch (type) {
+                      case 3:
+                        return { icon: Frame, label: "Khung" };
+                      case 1001:
+                        return { icon: Sparkles, label: "Huy hiệu" };
+                      case 1000:
+                        return { icon: User, label: "Avatar" };
+                      default:
+                        return { icon: Gift, label: "Thưởng" };
+                    }
+                  };
+
+                  return (
+                    <div className="mt-6 pt-4 border-t border-[var(--border)]">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Gift className="w-4 h-4 text-[var(--duo-yellow)]" />
+                        <span className="font-bold text-sm">Phần thưởng sưu tập</span>
+                      </div>
+                      <div className="flex gap-4 flex-wrap">
+                        {rewards.map((reward, idx) => {
+                          const { icon: Icon, label } = getRewardLabel(
+                            reward.redeem_item_type || 0
+                          );
+                          return (
+                            <div
+                              key={idx}
+                              className="flex flex-col items-center gap-2 p-2 rounded-xl bg-[var(--secondary)]/50"
+                            >
+                              {reward.redeem_item_image && (
+                                <img
+                                  src={getHQImage(reward.redeem_item_image, 100)}
+                                  alt=""
+                                  className="w-12 h-12 rounded-lg object-cover bg-background"
+                                  referrerPolicy="no-referrer"
+                                />
+                              )}
+                              <div className="flex items-center gap-1 text-[10px] text-[var(--muted-foreground)]">
+                                <Icon className="w-3 h-3" />
+                                <span>{label}</span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             )}
           </div>
-          <div className="grid grid-cols-4 gap-2 text-center text-xs">
-            <div className="p-2 rounded-lg bg-[var(--secondary)]">
-              <Star
-                className="w-4 h-4 mx-auto mb-1"
-                style={{ color: getScarcityColor(40) }}
-                fill={getScarcityColor(40)}
-              />
-              <div
-                className="font-bold"
-                style={{ color: getScarcityColor(40) }}
-              >
-                UR
-              </div>
-              <div className="text-[var(--muted-foreground)]">
-                {GACHA_CONFIG.RATES[40]}%
-              </div>
-            </div>
-            <div className="p-2 rounded-lg bg-[var(--secondary)]">
-              <Star
-                className="w-4 h-4 mx-auto mb-1"
-                style={{ color: getScarcityColor(30) }}
-                fill={getScarcityColor(30)}
-              />
-              <div
-                className="font-bold"
-                style={{ color: getScarcityColor(30) }}
-              >
-                SR
-              </div>
-              <div className="text-[var(--muted-foreground)]">
-                {GACHA_CONFIG.RATES[30]}%
-              </div>
-            </div>
-            <div className="p-2 rounded-lg bg-[var(--secondary)]">
-              <Star
-                className="w-4 h-4 mx-auto mb-1"
-                style={{ color: getScarcityColor(20) }}
-                fill={getScarcityColor(20)}
-              />
-              <div
-                className="font-bold"
-                style={{ color: getScarcityColor(20) }}
-              >
-                R
-              </div>
-              <div className="text-[var(--muted-foreground)]">
-                {GACHA_CONFIG.RATES[20]}%
-              </div>
-            </div>
-            <div className="p-2 rounded-lg bg-[var(--secondary)]">
-              <Star
-                className="w-4 h-4 mx-auto mb-1"
-                style={{ color: getScarcityColor(10) }}
-                fill={getScarcityColor(10)}
-              />
-              <div
-                className="font-bold"
-                style={{ color: getScarcityColor(10) }}
-              >
-                N
-              </div>
-              <div className="text-[var(--muted-foreground)]">
-                {GACHA_CONFIG.RATES[10]}%
-              </div>
-            </div>
-          </div>
-          <p className="text-[10px] text-[var(--muted-foreground)] mt-2 text-center">
-            Đảm bảo UR sau {GACHA_CONFIG.PITY_UR} lần quay không trúng (tích lũy
-            chung tất cả gói)
-          </p>
-        </div>
 
-        {/* Shards & Exchange */}
-        {inventory && (
-          <div className="card-3d p-3 mb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <img
-                  src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
-                  className="w-6 h-6"
-                />
-                <div>
-                  <div className="font-bold">
-                    {formatNumber(inventory.shards)} mảnh
-                  </div>
-                  <div className="text-[10px] text-[var(--muted-foreground)]">
-                    Đổi {GACHA_CONFIG.UR_EXCHANGE_COST} mảnh = 1 thẻ UR
-                  </div>
-                </div>
+          {/* RIGHT COLUMN: Stats & Actions */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="lg:sticky lg:top-24 space-y-4">
+              {/* Collection Title (Desktop) */}
+              <div className="hidden lg:block card-3d p-4 bg-gradient-to-br from-[var(--card)] to-[var(--secondary)]/20">
+                <h2 className="font-bold text-xl mb-1">{collection.name}</h2>
+                <p className="text-sm text-[var(--muted-foreground)] flex items-center justify-between">
+                    <span>{lotteries.length} Hộp quà</span>
+                    <span>{totalCards} Thẻ</span>
+                </p>
               </div>
-              <button
-                onClick={() => setShowExchangeModal(true)}
-                className="btn-3d btn-3d-purple px-3 py-2 text-sm"
-              >
-                Đổi thẻ
-              </button>
-            </div>
-          </div>
-        )}
 
-        {/* Lottery Tabs */}
-        {lotteries.length > 1 && (
-          <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-            {lotteries.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedLottery(index)}
-                className={`px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap ${
-                  selectedLottery === index
-                    ? "bg-[var(--duo-purple)] text-white"
-                    : "bg-[var(--secondary)] text-foreground"
-                }`}
-              >
-                Pool {index + 1}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Cards */}
-        {currentLottery && (
-          <div className="card-3d p-4 mb-4">
-            <h3 className="font-bold mb-3">Danh sách thẻ</h3>
-
-            {sortedScarcities.map((scarcity) => (
-              <div key={scarcity} className="mb-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Star
-                    className="w-4 h-4"
-                    style={{ color: getScarcityColor(scarcity) }}
-                    fill={getScarcityColor(scarcity)}
-                  />
-                  <span
-                    className="font-bold text-sm"
-                    style={{ color: getScarcityColor(scarcity) }}
-                  >
-                    {getScarcityName(scarcity)} (
-                    {groupedCards![scarcity].length})
-                  </span>
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  {groupedCards![scarcity].map((card, idx) => {
-                    const hasVideo = hasCardVideo(card.video_list);
-                    const owned = inventory
-                      ? hasCard(inventory, collectionId, card.card_img)
-                      : false;
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => owned && setSelectedCard(card)}
-                        disabled={!owned}
-                        className={`relative aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${
-                          owned
-                            ? "bg-[var(--secondary)] hover:scale-105"
-                            : "bg-black/30 brightness-50 cursor-not-allowed"
-                        }`}
-                        style={{
-                          borderColor: owned
-                            ? getScarcityColor(card.card_scarcity)
-                            : "var(--border)",
-                        }}
-                      >
+               {/* Stats & Resources */}
+              <div className="card-3d p-4 space-y-4">
+                 {/* Gems */}
+                <div className="flex items-center justify-between p-3 rounded-xl bg-[var(--secondary)]">
+                    <span className="text-sm font-bold flex items-center gap-2">
+                        <User className="w-4 h-4 text-[var(--duo-blue)]" />
+                        Tài nguyên
+                    </span>
+                    <div className="flex items-center gap-1.5 bg-background px-3 py-1.5 rounded-lg border border-[var(--border)]">
                         <img
-                          src={getHQImage(card.card_img, 300)}
-                          alt=""
-                          className="w-full h-full object-cover object-top"
-                          referrerPolicy="no-referrer"
-                          loading="lazy"
+                        src="/AppAssets/BlueDiamond.png"
+                        alt="gem"
+                        className="w-4 h-4"
                         />
-                        {hasVideo && (
-                          <div className="absolute top-1 right-1 p-1 rounded-full bg-black/50">
-                            <Sparkles className="w-3 h-3 text-white" />
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })}
+                        <span className="font-bold text-[var(--duo-blue)]">
+                            {formatNumber(user?.gems || 0)}
+                        </span>
+                    </div>
                 </div>
-              </div>
-            ))}
 
-            {/* Rewards Section */}
-            {(() => {
-              const REWARD_TYPES = [3, 1001, 1000];
-              const collectInfos =
-                currentLottery.collect_list?.collect_infos?.filter((r) =>
-                  REWARD_TYPES.includes(r.redeem_item_type || 0)
-                ) || [];
-              const collectChain =
-                currentLottery.collect_list?.collect_chain?.filter((r) =>
-                  REWARD_TYPES.includes(r.redeem_item_type || 0)
-                ) || [];
-              const allRewards = [...collectInfos, ...collectChain];
-
-              if (allRewards.length === 0) return null;
-
-              const getRewardLabel = (type: number) => {
-                switch (type) {
-                  case 3:
-                    return { icon: Frame, label: "Khung" };
-                  case 1001:
-                    return { icon: Sparkles, label: "Huy hiệu" };
-                  case 1000:
-                    return { icon: User, label: "Avatar" };
-                  default:
-                    return { icon: Gift, label: "Thưởng" };
-                }
-              };
-
-              return (
-                <div className="mt-4 pt-4 border-t border-[var(--border)]">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Gift className="w-4 h-4 text-[var(--duo-yellow)]" />
-                    <span className="font-bold text-sm">Phần thưởng</span>
-                  </div>
-                  <div className="flex gap-3 flex-wrap">
-                    {allRewards.map((reward, idx) => {
-                      const { icon: Icon, label } = getRewardLabel(
-                        reward.redeem_item_type || 0
-                      );
-                      return (
+                {/* Progress */}
+                <div>
+                   <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-medium text-[var(--muted-foreground)]">Tiến độ</span>
+                        <span className="text-xs font-bold text-[var(--duo-purple)]">
+                            {ownedCount}/{totalCards} ({totalCards > 0 ? Math.round((ownedCount / totalCards) * 100) : 0}%)
+                        </span>
+                    </div>
+                    <div className="h-2.5 bg-[var(--secondary)] rounded-full overflow-hidden">
                         <div
-                          key={idx}
-                          className="flex flex-col items-center gap-1"
-                        >
-                          {reward.redeem_item_image && (
-                            <img
-                              src={getHQImage(reward.redeem_item_image, 100)}
-                              alt=""
-                              className="w-12 h-12 rounded-lg object-cover"
-                              referrerPolicy="no-referrer"
-                            />
-                          )}
-                          <div className="flex items-center gap-1 text-[10px] text-[var(--muted-foreground)]">
-                            <Icon className="w-3 h-3" />
-                            <span>{label}</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                        className="h-full bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] transition-all duration-500 ease-out"
+                        style={{
+                            width: `${totalCards > 0 ? (ownedCount / totalCards) * 100 : 0}%`,
+                        }}
+                        />
+                    </div>
                 </div>
-              );
-            })()}
+
+                 {/* Shards Exchange */}
+                 {inventory && (
+                    <div className="p-3 rounded-xl bg-[var(--secondary)]/50 border border-[var(--border)]">
+                        <div className="flex items-center justify-between mb-2">
+                             <div className="flex items-center gap-2">
+                                <img
+                                src="/IconPack/Currency/Crystal/256w/Crystal Blue 256px.png"
+                                className="w-6 h-6"
+                                />
+                                <div className="leading-tight">
+                                    <div className="font-bold text-sm">
+                                        {formatNumber(inventory.shards)} mảnh
+                                    </div>
+                                    <div className="text-[10px] text-[var(--muted-foreground)]">
+                                        {GACHA_CONFIG.UR_EXCHANGE_COST} mảnh = 1 UR
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                             onClick={() => setShowExchangeModal(true)}
+                             className="w-full py-2 rounded-lg bg-[var(--background)] hover:bg-[var(--accent)] border border-[var(--border)] text-xs font-bold transition-colors"
+                        >
+                            Đổi thẻ còn thiếu
+                        </button>
+                    </div>
+                )}
+
+                 {/* Rates Grid */}
+                 <div>
+                    <span className="text-xs font-medium text-[var(--muted-foreground)] block mb-2">Tỷ lệ & Bảo hiểm</span>
+                    <div className="grid grid-cols-4 gap-2 text-center">
+                        {[40, 30, 20, 10].map(scarcity => (
+                            <div key={scarcity} className="p-2 rounded bg-[var(--secondary)]">
+                                <div className="font-bold text-[10px]" style={{ color: getScarcityColor(scarcity) }}>
+                                    {getScarcityName(scarcity)}
+                                </div>
+                                <div className="text-[10px] text-[var(--muted-foreground)]">
+                                    {GACHA_CONFIG.RATES[scarcity as keyof typeof GACHA_CONFIG.RATES]}%
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <p className="text-[10px] text-[var(--muted-foreground)] mt-2 text-center bg-[var(--secondary)] py-1 rounded">
+                         Bảo hiểm UR: <span className="text-[var(--duo-yellow)] font-bold">{inventory?.pityCounters[0] || 0}/{GACHA_CONFIG.PITY_UR}</span>
+                    </p>
+                 </div>
+              </div>
+
+              {/* ACTION BUTTONS (Desktop) */}
+              <div className="card-3d p-4 border-2 border-[var(--duo-purple)]/20 shadow-lg shadow-[var(--duo-purple)]/5 hidden md:block">
+                 {isCollectionComplete ? (
+                     <button
+                        onClick={() => !rewardsClaimed && handleClaimRewards()}
+                        disabled={rewardsClaimed}
+                        className={`w-full btn-3d py-4 text-base ${
+                        rewardsClaimed ? "btn-3d-gray opacity-60" : "btn-3d-yellow"
+                        }`}
+                    >
+                        <div className="flex items-center justify-center gap-2">
+                        <Gift className="w-5 h-5" />
+                        <span>
+                            {rewardsClaimed ? "Đã nhận thưởng hoàn thành" : "Nhận thưởng hoàn thành"}
+                        </span>
+                        </div>
+                    </button>
+                 ) : (
+                     <div className="space-y-3">
+                        <button
+                            onClick={() => handlePull(1)}
+                            disabled={isPulling || !user || (user.gems || 0) < GACHA_CONFIG.COST_PER_PULL}
+                            className="w-full btn-3d btn-3d-purple py-3 px-4 flex items-center justify-between group"
+                        >
+                            <span className="font-bold group-hover:translate-x-1 transition-transform">Quay x1</span>
+                            <div className="flex items-center gap-1.5 bg-black/20 px-2 py-1 rounded-lg">
+                                <img src="/AppAssets/BlueDiamond.png" className="w-4 h-4" />
+                                <span className="font-bold text-sm">{GACHA_CONFIG.COST_PER_PULL}</span>
+                            </div>
+                        </button>
+
+                         <button
+                            onClick={() => handlePull(10)}
+                            disabled={isPulling || !user || (user.gems || 0) < GACHA_CONFIG.COST_PER_PULL * 10}
+                            className="w-full btn-3d btn-3d-red py-4 px-4 flex items-center justify-between group"
+                        >
+                            <div className="flex items-center gap-2">
+                                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                                <span className="font-bold text-lg">Quay x10</span>
+                            </div>
+                             <div className="flex items-center gap-1.5 bg-black/20 px-3 py-1 rounded-lg">
+                                <img src="/AppAssets/BlueDiamond.png" className="w-5 h-5" />
+                                <span className="font-bold text-lg">{GACHA_CONFIG.COST_PER_PULL * 10}</span>
+                            </div>
+                        </button>
+                     </div>
+                 )}
+              </div>
+
+            </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Fixed Pull Buttons */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-[var(--border)]">
-        {isCollectionComplete ? (
-          // Show claim rewards button when collection complete
-          <button
-            onClick={() => !rewardsClaimed && handleClaimRewards()}
-            disabled={rewardsClaimed}
-            className={`w-full btn-3d py-3 ${
-              rewardsClaimed ? "btn-3d-gray opacity-60" : "btn-3d-yellow"
-            }`}
-          >
-            <div className="flex items-center justify-center gap-2">
-              <Gift className="w-5 h-5" />
-              <span>
-                {rewardsClaimed ? "Đã nhận phần thưởng" : "Nhận phần thưởng"}
-              </span>
+      {/* Fixed Pull Buttons (Mobile Only) */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-[var(--border)] transition-all duration-300 md:hidden z-40">
+        <div className="max-w-4xl mx-auto">
+          {isCollectionComplete ? (
+            <button
+              onClick={() => !rewardsClaimed && handleClaimRewards()}
+              disabled={rewardsClaimed}
+              className={`w-full btn-3d py-3 ${
+                rewardsClaimed ? "btn-3d-gray opacity-60" : "btn-3d-yellow"
+              }`}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <Gift className="w-5 h-5" />
+                <span>
+                  {rewardsClaimed ? "Đã nhận phần thưởng" : "Nhận phần thưởng"}
+                </span>
+              </div>
+            </button>
+          ) : (
+            <div className="flex gap-3">
+              <button
+                onClick={() => handlePull(1)}
+                disabled={
+                  isPulling || !user || (user?.gems || 0) < GACHA_CONFIG.COST_PER_PULL
+                }
+                className="flex-1 btn-3d btn-3d-purple py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Sparkles className="w-5 h-5" />
+                  <span>Quay x1</span>
+                </div>
+                <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
+                  <img
+                    src="/AppAssets/BlueDiamond.png"
+                    alt="gem"
+                    className="w-3 h-3"
+                  />
+                  <span>{GACHA_CONFIG.COST_PER_PULL}</span>
+                </div>
+              </button>
+              <button
+                onClick={() => handlePull(10)}
+                disabled={
+                  isPulling ||
+                  !user ||
+                  (user?.gems || 0) < GACHA_CONFIG.COST_PER_PULL * 10
+                }
+                className="flex-1 btn-3d btn-3d-red py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <Sparkles className="w-5 h-5" />
+                  <span>Quay x10</span>
+                </div>
+                <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
+                  <img
+                    src="/AppAssets/BlueDiamond.png"
+                    alt="gem"
+                    className="w-3 h-3"
+                  />
+                  <span>{GACHA_CONFIG.COST_PER_PULL * 10}</span>
+                </div>
+              </button>
             </div>
-          </button>
-        ) : (
-          // Show pull buttons
-          <div className="flex gap-3">
-            <button
-              onClick={() => handlePull(1)}
-              disabled={
-                isPulling || !user || user.gems < GACHA_CONFIG.COST_PER_PULL
-              }
-              className="flex-1 btn-3d btn-3d-purple py-3 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <div className="flex items-center justify-center gap-2">
-                <Sparkles className="w-5 h-5" />
-                <span>Quay x1</span>
-              </div>
-              <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
-                <img
-                  src="/AppAssets/BlueDiamond.png"
-                  alt="gem"
-                  className="w-3 h-3"
-                />
-                <span>{GACHA_CONFIG.COST_PER_PULL}</span>
-              </div>
-            </button>
-            <button
-              onClick={() => handlePull(10)}
-              disabled={
-                isPulling ||
-                !user ||
-                user.gems < GACHA_CONFIG.COST_PER_PULL * 10
-              }
-              className="flex-1 btn-3d btn-3d-red py-3 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <div className="flex items-center justify-center gap-2">
-                <Sparkles className="w-5 h-5" />
-                <span>Quay x10</span>
-              </div>
-              <div className="flex items-center justify-center gap-1 text-xs opacity-80 mt-0.5">
-                <img
-                  src="/AppAssets/BlueDiamond.png"
-                  alt="gem"
-                  className="w-3 h-3"
-                />
-                <span>{GACHA_CONFIG.COST_PER_PULL * 10}</span>
-              </div>
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Card Detail Modal */}

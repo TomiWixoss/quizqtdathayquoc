@@ -102,8 +102,8 @@ function QuizPage() {
     <Page className="bg-background min-h-screen">
       {/* Header */}
       {!isFinished && (
-        <div className="pt-4 pb-2 px-4 bg-background sticky top-0 z-10">
-          <div className="flex items-center justify-between">
+        <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-background border-b shadow-sm">
+          <div className="flex items-center justify-between max-w-2xl mx-auto">
             <button
               onClick={handleClose}
               className="w-10 h-10 rounded-xl bg-[var(--secondary)] flex items-center justify-center"
@@ -148,7 +148,7 @@ function QuizPage() {
 
       {/* Content */}
       <div
-        className={`px-4 pb-8 ${isFinished ? "pt-4" : ""}`}
+        className={`px-4 pb-24 ${isFinished ? "pt-4" : "pt-24"} max-w-2xl mx-auto`}
         style={{ minHeight: "calc(100vh - 100px)" }}
       >
         {isFinished ? <QuizResult /> : <QuizCard />}

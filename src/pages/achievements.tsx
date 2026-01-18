@@ -313,7 +313,7 @@ function AchievementsPage() {
       />
 
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-3 pb-3 px-3 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-40 pt-3 pb-3 px-3 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] transition-all duration-300">
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/settings")}
@@ -346,7 +346,7 @@ function AchievementsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-20 pb-28 space-y-3">
+      <div className="px-4 pt-20 pb-28 md:pb-10 space-y-3 max-w-4xl mx-auto">
         {ACHIEVEMENTS.map((achievement) => {
           const earned = isEarned(achievement);
           const claimed = claimedRewards.includes(achievement.id);

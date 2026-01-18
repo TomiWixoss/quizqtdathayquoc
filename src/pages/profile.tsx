@@ -243,7 +243,7 @@ function ProfilePage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] pt-4 pb-4 px-4">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] pt-4 pb-4 px-4 transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
@@ -256,7 +256,7 @@ function ProfilePage() {
       </div>
 
       {/* Content */}
-      <div className="pt-24 pb-24 px-4">
+      <div className="pt-24 pb-24 md:pb-10 px-4 max-w-4xl mx-auto">
         {/* Profile Card */}
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center gap-3 mb-4">
@@ -529,7 +529,7 @@ function ProfilePage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
               {showcaseCards.map((card, idx) => (
                 <button
                   key={`${card.collectionId}-${card.card_img}-${idx}`}
@@ -623,11 +623,11 @@ function ProfilePage() {
       {/* Edit Showcase Bottom Sheet */}
       {isEditing && (
         <div
-          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-end md:items-center justify-center"
           onClick={() => setIsEditing(false)}
         >
           <div
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-[var(--card)] to-[var(--background)] rounded-t-[2rem] max-h-[90vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl"
+            className="w-full bg-gradient-to-b from-[var(--card)] to-[var(--background)] rounded-t-[2rem] md:rounded-2xl max-h-[90vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl md:max-w-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Handle bar */}
@@ -795,7 +795,7 @@ function ProfilePage() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
                   {ownedCards
                     .filter(
                       (card) =>

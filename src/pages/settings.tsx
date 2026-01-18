@@ -493,12 +493,12 @@ function SettingsPage() {
       )}
 
       {/* Header - Fixed with gradient */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] transition-all duration-300">
         <h1 className="font-bold text-xl text-white">Tôi</h1>
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-24 pb-32">
+      <div className="px-4 pt-24 pb-32 md:pb-10 max-w-4xl mx-auto">
         {/* User Info Card - Enhanced 3D */}
         {user && (
           <div className="card-3d p-4 mb-5">

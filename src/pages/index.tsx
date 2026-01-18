@@ -106,7 +106,7 @@ function HomePage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-3 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-40 pt-3 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)] transition-all duration-300">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-[var(--duo-green)] flex items-center justify-center">
@@ -193,7 +193,7 @@ function HomePage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-32 pb-28">
+      <div className="px-4 pt-36 pb-28 md:pb-10 max-w-4xl mx-auto">
         {/* Daily Goal */}
         {user && (
           <div className="card-3d p-3 mb-4">

@@ -71,7 +71,7 @@ function BattlePage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="pt-4 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/")}
@@ -90,7 +90,7 @@ function BattlePage() {
 
       {/* User Stats - Luyện tập không cần tim */}
       {user && (
-        <div className="px-4 py-3 flex items-center justify-center gap-6 bg-[var(--card)] border-b-2 border-[var(--border)]">
+        <div className="pt-24 px-4 pb-3 flex items-center justify-center gap-6 bg-[var(--card)] border-b-2 border-[var(--border)] md:pt-24 max-w-4xl mx-auto">
           <div className="flex items-center gap-1.5 bg-[var(--duo-green)]/20 px-3 py-1 rounded-full">
             <span className="text-sm font-bold text-[var(--duo-green)]">
               Không giới hạn tim
@@ -106,7 +106,7 @@ function BattlePage() {
       )}
 
       {/* Game Modes */}
-      <div className="px-4 py-6 space-y-4">
+      <div className="px-4 py-6 space-y-4 max-w-4xl mx-auto">
         {gameModes.map((mode) => {
           const Icon = mode.icon;
           return (

@@ -32,7 +32,7 @@ interface OwnedCardInfo {
   count: number;
 }
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 30;
 
 function CardInventoryPage() {
   const navigate = useNavigate();
@@ -157,7 +157,7 @@ function CardInventoryPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-pink)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
@@ -178,8 +178,8 @@ function CardInventoryPage() {
       </div>
 
       {/* Tabs */}
-      <div className="fixed top-[84px] left-0 right-0 z-40 bg-[var(--card)] border-b border-[var(--border)]">
-        <div className="flex gap-2 px-4 py-2 overflow-x-auto scrollbar-hide">
+      <div className="fixed top-[84px] left-0 right-0 md:left-64 z-40 bg-[var(--card)] border-b border-[var(--border)] transition-all duration-300">
+        <div className="flex gap-2 px-4 py-2 overflow-x-auto scrollbar-hide max-w-7xl mx-auto">
           <button
             onClick={() => setActiveTab("all")}
             className={`flex items-center gap-1.5 py-2 px-4 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
@@ -254,7 +254,7 @@ function CardInventoryPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[140px] pb-24">
+      <div className="px-4 pt-[140px] pb-24 md:pb-10 max-w-7xl mx-auto">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <Loader2 className="w-10 h-10 text-[var(--duo-purple)] animate-spin" />
@@ -280,7 +280,7 @@ function CardInventoryPage() {
         ) : (
           <>
             {/* Cards Grid */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-3">
               {currentCards.map((item, idx) => {
                 const hasVideo = hasCardVideo(item.card.video_list);
                 return (

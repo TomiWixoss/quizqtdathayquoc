@@ -172,7 +172,7 @@ function ShopPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-40 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/settings")}
@@ -193,7 +193,7 @@ function ShopPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-24 pb-28 space-y-4">
+      <div className="px-4 pt-24 pb-28 md:pb-10 space-y-4 max-w-4xl mx-auto">
         {/* Currency Display */}
         {user && (
           <div className="card-3d p-4">

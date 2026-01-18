@@ -281,11 +281,11 @@ export function RankRewardsSheet({
 
       {/* Bottom Sheet */}
       <div
-        className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm"
+        className="fixed inset-0 z-[100] bg-black/80 flex items-end md:items-center justify-center md:p-4 backdrop-blur-sm"
         onClick={onClose}
       >
         <div
-          className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-[var(--card)] to-[var(--background)] rounded-t-[2rem] max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl"
+          className="bg-gradient-to-b from-[var(--card)] to-[var(--background)] w-full max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl rounded-t-[2rem] md:rounded-2xl md:max-w-lg"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Handle bar */}

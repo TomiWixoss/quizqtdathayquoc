@@ -120,8 +120,8 @@ function ConquestPage() {
     return (
       <Page className="bg-background min-h-screen">
         {/* Header */}
-        <div className="pt-4 pb-2 px-4 bg-background sticky top-0 z-10">
-          <div className="flex items-center justify-between">
+        <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-background border-b shadow-sm">
+          <div className="flex items-center justify-between max-w-2xl mx-auto">
             <button
               onClick={handleEnd}
               className="w-10 h-10 rounded-xl bg-[var(--secondary)] flex items-center justify-center"
@@ -158,7 +158,7 @@ function ConquestPage() {
         </div>
 
         {/* Question */}
-        <div style={{ minHeight: "calc(100vh - 100px)" }}>
+        <div className="pt-24 max-w-2xl mx-auto" style={{ minHeight: "calc(100vh - 100px)" }}>
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-64 gap-3">
               <Loader2 className="w-8 h-8 animate-spin text-[var(--duo-purple)]" />
@@ -206,7 +206,7 @@ function ConquestPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="pt-4 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/")}
@@ -224,10 +224,7 @@ function ConquestPage() {
       </div>
 
       {/* Content with padding for bottom nav */}
-      <div
-        className="px-4 py-4 pb-28 overflow-y-auto"
-        style={{ height: "calc(100vh - 100px)" }}
-      >
+      <div className="px-4 pt-24 pb-28 md:pb-10 max-w-4xl mx-auto">
         {isLoadingStats ? (
           <div className="flex flex-col items-center justify-center h-64 gap-3">
             <Loader2 className="w-8 h-8 animate-spin text-[var(--duo-purple)]" />

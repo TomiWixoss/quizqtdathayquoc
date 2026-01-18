@@ -60,7 +60,7 @@ function CustomizePage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
@@ -79,7 +79,7 @@ function CustomizePage() {
       </div>
 
       {/* Preview Section */}
-      <div className="px-4 pt-24 pb-4">
+      <div className="px-4 pt-24 pb-4 max-w-4xl mx-auto">
         <div className="card-3d p-6 flex flex-col items-center">
           <p className="text-sm text-[var(--muted-foreground)] mb-3">
             Xem trước
@@ -132,7 +132,7 @@ function CustomizePage() {
       </div>
 
       {/* Tabs */}
-      <div className="px-4 py-2">
+      <div className="px-4 py-2 max-w-4xl mx-auto">
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab("avatar")}
@@ -171,9 +171,9 @@ function CustomizePage() {
       </div>
 
       {/* Content - Grid Layout */}
-      <div className="px-4 pb-28">
+      <div className="px-4 pb-28 md:pb-10 max-w-4xl mx-auto">
         {activeTab === "avatar" && (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
             {/* Default avatar option */}
             <button
               onClick={() => handleEquipAvatar(null)}
@@ -229,7 +229,7 @@ function CustomizePage() {
             })}
 
             {ownedAvatars.length === 0 && (
-              <div className="col-span-3 text-center py-6">
+              <div className="col-span-4 md:col-span-8 text-center py-6">
                 <p className="text-xs text-[var(--muted-foreground)]">
                   Hoàn thành gacha để nhận thêm
                 </p>
@@ -239,7 +239,7 @@ function CustomizePage() {
         )}
 
         {activeTab === "frame" && (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
             {/* No frame option */}
             <button
               onClick={() => handleEquipFrame(null)}
@@ -285,7 +285,7 @@ function CustomizePage() {
             })}
 
             {ownedFrames.length === 0 && (
-              <div className="col-span-3 text-center py-6">
+              <div className="col-span-4 md:col-span-8 text-center py-6">
                 <p className="text-xs text-[var(--muted-foreground)]">
                   Hoàn thành gacha để nhận thêm
                 </p>
@@ -295,7 +295,7 @@ function CustomizePage() {
         )}
 
         {activeTab === "badge" && (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
             {/* No badge option */}
             <button
               onClick={() => handleEquipBadge(null)}
@@ -341,7 +341,7 @@ function CustomizePage() {
             })}
 
             {ownedBadges.length === 0 && (
-              <div className="col-span-3 text-center py-6">
+              <div className="col-span-4 md:col-span-8 text-center py-6">
                 <p className="text-xs text-[var(--muted-foreground)]">
                   Hoàn thành gacha để nhận thêm
                 </p>

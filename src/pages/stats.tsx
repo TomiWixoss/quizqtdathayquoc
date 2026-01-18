@@ -115,7 +115,7 @@ function StatsPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-blue)] to-[var(--duo-purple)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-40 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-blue)] to-[var(--duo-purple)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/settings")}
@@ -136,8 +136,8 @@ function StatsPage() {
       </div>
 
       {/* Tabs - Fixed */}
-      <div className="fixed top-[84px] left-0 right-0 z-40 px-4 py-2 bg-[var(--card)] border-b border-[var(--border)]">
-        <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+      <div className="fixed top-[84px] left-0 right-0 md:left-64 z-40 px-4 py-2 bg-[var(--card)] border-b border-[var(--border)] transition-all duration-300">
+        <div className="flex gap-1.5 overflow-x-auto no-scrollbar max-w-4xl mx-auto">
           {[
             { id: "overview", label: "Tổng quan", icon: TrendingUp },
             { id: "chapters", label: "Chương", icon: BookOpen },
@@ -161,7 +161,7 @@ function StatsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[148px] pb-28">
+      <div className="px-4 pt-[148px] pb-28 md:pb-10 max-w-4xl mx-auto">
         {/* Overview Tab */}
         {activeTab === "overview" && (
           <div className="space-y-4">

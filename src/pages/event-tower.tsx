@@ -174,8 +174,8 @@ function EventTowerPage() {
   if (activeFloor && currentQuestion) {
     return (
       <Page className="bg-background min-h-screen">
-        <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-background">
-          <div className="flex items-center justify-between">
+        <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-background border-b shadow-sm">
+          <div className="flex items-center justify-between max-w-2xl mx-auto">
             <button
               onClick={() => exitQuiz()}
               className="w-10 h-10 rounded-xl bg-[var(--secondary)] flex items-center justify-center"
@@ -205,7 +205,7 @@ function EventTowerPage() {
           </div>
         </div>
 
-        <div className="px-4 pt-20 pb-24">
+        <div className="px-4 pt-24 pb-24 max-w-2xl mx-auto">
           <h2 className="text-lg font-bold text-foreground mb-5 leading-relaxed">
             {currentQuestion.question}
           </h2>
@@ -266,7 +266,7 @@ function EventTowerPage() {
 
         <div
           className={cn(
-            "fixed bottom-0 left-0 right-0 z-40 safe-bottom",
+            "fixed bottom-0 left-0 right-0 z-40 safe-bottom transition-all duration-300",
             isAnswered
               ? isCorrect
                 ? "bg-[#d7ffb8]"
@@ -274,6 +274,7 @@ function EventTowerPage() {
               : "bg-[var(--card)] border-t-2 border-[var(--border)]"
           )}
         >
+          <div className="max-w-2xl mx-auto w-full">
           {isAnswered ? (
             <div className="px-4 pt-4 pb-6">
               <div className="flex items-center gap-4 mb-4">
@@ -336,6 +337,7 @@ function EventTowerPage() {
               </button>
             </div>
           )}
+          </div>
         </div>
 
         <RewardModal
@@ -381,7 +383,7 @@ function EventTowerPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      <div className="fixed top-0 left-0 right-0 z-50 pt-3 pb-3 px-4 bg-gradient-to-r from-[#8B5CF6] to-[#A855F7]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-3 pb-3 px-4 bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] transition-all duration-300">
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate(-1)}
@@ -408,7 +410,7 @@ function EventTowerPage() {
         </div>
       </div>
 
-      <div className="px-4 pt-24 pb-28">
+      <div className="px-4 pt-24 pb-28 md:pb-10 max-w-4xl mx-auto">
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

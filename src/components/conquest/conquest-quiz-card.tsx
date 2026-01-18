@@ -218,6 +218,7 @@ export function ConquestQuizCard({ question, onEnd }: Props) {
             : "bg-[var(--card)] border-t-2 border-[var(--border)]"
         )}
       >
+        <div className="max-w-2xl mx-auto w-full">
         {isSubmitted && result ? (
           // Result bottom sheet - Duolingo style
           <div className="px-4 pt-4 pb-6">
@@ -297,6 +298,7 @@ export function ConquestQuizCard({ question, onEnd }: Props) {
             </button>
           </div>
         )}
+        </div>
       </div>
     </div>
   );

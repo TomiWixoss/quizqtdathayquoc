@@ -279,11 +279,11 @@ function LeaderboardPage() {
       {/* Reward Info Bottom Sheet */}
       {showRewardInfo && (
         <div
-          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] bg-black/80 flex items-end md:items-center justify-center md:p-4 backdrop-blur-sm"
           onClick={() => setShowRewardInfo(false)}
         >
           <div
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-[var(--card)] to-[var(--background)] rounded-t-[2rem] max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl"
+            className="bg-gradient-to-b from-[var(--card)] to-[var(--background)] w-full max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300 shadow-2xl rounded-t-[2rem] md:rounded-2xl md:max-w-lg"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Handle bar */}
@@ -402,7 +402,7 @@ function LeaderboardPage() {
 
       {/* Header - Fixed */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}
+        className={`fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-gradient-to-r ${getTabColor()} transition-all duration-300`}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -425,8 +425,8 @@ function LeaderboardPage() {
       </div>
 
       {/* Tabs - Fixed below header */}
-      <div className="fixed top-[96px] left-0 right-0 z-40 px-4 py-3 bg-[var(--card)] border-b border-[var(--border)]">
-        <div className="flex gap-2">
+      <div className="fixed top-[96px] left-0 right-0 md:left-64 z-40 px-4 py-3 bg-[var(--card)] border-b border-[var(--border)] transition-all duration-300">
+        <div className="flex gap-2 max-w-4xl mx-auto">
           <button
             onClick={() => setActiveTab("conquest")}
             className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-semibold transition-all ${
@@ -464,7 +464,7 @@ function LeaderboardPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-[168px] pb-28">
+      <div className="px-4 pt-[168px] pb-28 md:pb-10 max-w-4xl mx-auto">
         {loading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[var(--duo-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />

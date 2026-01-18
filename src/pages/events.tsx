@@ -100,7 +100,7 @@ function EventsPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-orange)] to-[var(--duo-yellow)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-orange)] to-[var(--duo-yellow)] transition-all duration-300">
         <div className="flex items-center gap-2">
           <Calendar className="w-6 h-6 text-white" />
           <h1 className="font-bold text-xl text-white">Sự kiện</h1>
@@ -109,7 +109,7 @@ function EventsPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-24 pb-28">
+      <div className="px-4 pt-24 pb-28 md:pb-10 max-w-4xl mx-auto">
         {/* Events List */}
         <div className="space-y-3">
           {EVENTS.map((event) => {

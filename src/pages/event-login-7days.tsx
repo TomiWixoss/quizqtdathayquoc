@@ -165,7 +165,7 @@ function EventLogin7DaysPage() {
       />
 
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-teal)]">
+      <div className="fixed top-0 left-0 right-0 md:left-64 z-40 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-green)] to-[var(--duo-teal)] transition-all duration-300">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
@@ -181,7 +181,7 @@ function EventLogin7DaysPage() {
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-24 pb-28">
+      <div className="px-4 pt-24 pb-28 md:pb-10 max-w-4xl mx-auto">
         {/* Progress */}
         <div className="card-3d p-4 mb-4">
           <div className="flex items-center justify-between mb-3">

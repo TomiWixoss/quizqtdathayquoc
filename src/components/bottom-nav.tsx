@@ -28,7 +28,7 @@ export function BottomNav() {
     return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50">
+    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
       <div className="bg-[var(--card)] border-t-2 border-[var(--border)] pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center justify-around py-1 px-1">
           {navItems.map((item) => {

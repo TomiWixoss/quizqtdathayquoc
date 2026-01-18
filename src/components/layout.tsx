@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useEffect, useState } from "react";
 import { Pencil } from "lucide-react";
@@ -26,7 +26,10 @@ import BattlePage from "../pages/battle";
 import ConquestPage from "../pages/conquest";
 import TestFirebasePage from "../pages/test-firebase";
 import { BottomNav } from "./bottom-nav";
+import { Sidebar } from "./sidebar";
 import { useThemeStore } from "@/stores/theme-store";
+import { useConquestStore } from "@/stores/conquest-store";
+import { useTowerStore } from "@/stores/tower-store";
 import { useUserStore } from "@/stores/user-store";
 
 const Layout = () => {
@@ -34,9 +37,17 @@ const Layout = () => {
   const { user, updateUsername } = useUserStore();
   const [showNameModal, setShowNameModal] = useState(false);
   const [newName, setNewName] = useState("");
-  const [nameStatus, setNameStatus] = useState<"idle" | "success" | "error">(
-    "idle"
-  );
+  const [nameStatus, setNameStatus] = useState<"idle" | "success" | "error">("idle");
+  
+
+  const location = useLocation();
+  const { isActive: isConquestActive } = useConquestStore();
+  const { activeFloor } = useTowerStore();
+
+  const shouldHideNav =
+    location.pathname === "/quiz" ||
+    (location.pathname === "/conquest" && isConquestActive) ||
+    (location.pathname === "/event-tower" && activeFloor);
 
   // Sync with system theme on first load if not set
   useEffect(() => {
@@ -138,30 +149,38 @@ const Layout = () => {
         </div>
       )}
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/quiz" element={<QuizPage />} />
-        <Route path="/leaderboard" element={<LeaderboardPage />} />
-        <Route path="/achievements" element={<AchievementsPage />} />
-        <Route path="/quests" element={<QuestsPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/stats" element={<StatsPage />} />
-        <Route path="/mailbox" element={<MailboxPage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/events" element={<EventsPage />} />
-        <Route path="/event-login-7days" element={<EventLogin7DaysPage />} />
-        <Route path="/event-level-rewards" element={<EventLevelRewardsPage />} />
-        <Route path="/event-tower" element={<EventTowerPage />} />
-        <Route path="/gacha" element={<GachaPage />} />
-        <Route path="/gacha/:id" element={<GachaDetailPage />} />
-        <Route path="/customize" element={<CustomizePage />} />
-        <Route path="/card-inventory" element={<CardInventoryPage />} />
-        <Route path="/profile/:id" element={<ProfilePage />} />
+      {!shouldHideNav && <Sidebar />}
+      <div
+        className={`min-h-screen transition-all duration-300 ease-in-out ${
+          !shouldHideNav ? "md:pl-64" : ""
+        }`}
+      >
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
+          <Route path="/achievements" element={<AchievementsPage />} />
+          <Route path="/quests" element={<QuestsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/stats" element={<StatsPage />} />
+          <Route path="/mailbox" element={<MailboxPage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/event-login-7days" element={<EventLogin7DaysPage />} />
+          <Route path="/event-level-rewards" element={<EventLevelRewardsPage />} />
+          <Route path="/event-tower" element={<EventTowerPage />} />
+          <Route path="/gacha" element={<GachaPage />} />
+          <Route path="/gacha/:id" element={<GachaDetailPage />} />
+          <Route path="/customize" element={<CustomizePage />} />
+          <Route path="/card-inventory" element={<CardInventoryPage />} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
 
-        <Route path="/battle" element={<BattlePage />} />
-        <Route path="/conquest" element={<ConquestPage />} />
-        <Route path="/test-firebase" element={<TestFirebasePage />} />
-      </Routes>
+          <Route path="/battle" element={<BattlePage />} />
+          <Route path="/conquest" element={<ConquestPage />} />
+          <Route path="/test-firebase" element={<TestFirebasePage />} />
+        </Routes>
+        <div className="h-20 md:hidden"></div> {/* Spacer for bottom nav on mobile */}
+      </div>
       <BottomNav />
       <Toaster position="top-center" richColors />
     </div>

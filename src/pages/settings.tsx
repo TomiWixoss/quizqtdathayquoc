@@ -493,7 +493,7 @@ function SettingsPage() {
       )}
 
       {/* Header - Fixed with gradient */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      <div className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
         <h1 className="font-bold text-xl text-white">Tôi</h1>
       </div>
 

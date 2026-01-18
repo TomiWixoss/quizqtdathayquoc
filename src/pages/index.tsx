@@ -106,7 +106,7 @@ function HomePage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      <div className="fixed top-0 left-0 right-0 z-50 pt-3 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl bg-[var(--duo-green)] flex items-center justify-center">

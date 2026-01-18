@@ -50,6 +50,8 @@ function EventTowerPage() {
     highestFloor,
     claimedFloors,
     totalFloors,
+    normalFloorsCount,
+    exFloorsCount,
     activeFloor,
     currentQuestion,
     selectedAnswer,
@@ -173,7 +175,7 @@ function EventTowerPage() {
   if (activeFloor && currentQuestion) {
     return (
       <Page className="bg-background min-h-screen">
-        <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-background">
+        <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-background">
           <div className="flex items-center justify-between">
             <button
               onClick={() => exitQuiz()}
@@ -380,7 +382,7 @@ function EventTowerPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      <div className="fixed top-0 left-0 right-0 z-50 pt-12 pb-3 px-4 bg-gradient-to-r from-[#8B5CF6] to-[#A855F7]">
+      <div className="fixed top-0 left-0 right-0 z-50 pt-3 pb-3 px-4 bg-gradient-to-r from-[#8B5CF6] to-[#A855F7]">
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate(-1)}
@@ -471,6 +473,9 @@ function EventTowerPage() {
               const isMilestone =
                 floor % 100 === 0 || floor % 50 === 0 || floor % 10 === 0;
               const isLegendary = floor === totalFloors;
+              const isExFloor = floor > normalFloorsCount;
+              const exFloorNumber = isExFloor ? floor - normalFloorsCount : 0;
+              const isExMilestone = isExFloor && exFloorNumber % 10 === 0;
 
               return (
                 <div
@@ -479,8 +484,10 @@ function EventTowerPage() {
                   className={cn(
                     "card-3d p-3 flex items-center gap-3",
                     isLegendary && "border-2 border-[var(--duo-yellow)]",
-                    isCurrent && !isLegendary && "border-2 border-[#8B5CF6]",
-                    isCompleted &&
+                    isExFloor && !isLegendary && isCurrent && "border-2 border-[#F97316]",
+                    isExFloor && !isLegendary && !isCurrent && isCompleted && "border-2 border-[#FB923C]",
+                    !isExFloor && isCurrent && !isLegendary && "border-2 border-[#8B5CF6]",
+                    !isExFloor && isCompleted &&
                       !isCurrent &&
                       !isLegendary &&
                       "border-2 border-[var(--duo-green)]",
@@ -492,14 +499,20 @@ function EventTowerPage() {
                       "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
                       isLegendary &&
                         "bg-gradient-to-br from-[var(--duo-yellow)] to-[var(--duo-orange)]",
-                      isMilestone &&
+                      isExFloor && !isLegendary && (isExMilestone || isMilestone) &&
+                        "bg-gradient-to-br from-[#F97316] to-[#FBBF24]",
+                      isExFloor && !isLegendary && !isExMilestone && !isMilestone && isCompleted &&
+                        "bg-[#FB923C]",
+                      isExFloor && !isLegendary && !isExMilestone && !isMilestone && !isCompleted &&
+                        "bg-[var(--secondary)]",
+                      !isExFloor && (isMilestone) &&
                         !isLegendary &&
                         "bg-gradient-to-br from-[#8B5CF6] to-[#A855F7]",
-                      isCompleted &&
+                      !isExFloor && isCompleted &&
                         !isMilestone &&
                         !isLegendary &&
                         "bg-[var(--duo-green)]",
-                      !isCompleted &&
+                      !isExFloor && !isCompleted &&
                         !isMilestone &&
                         !isLegendary &&
                         "bg-[var(--secondary)]"
@@ -526,17 +539,24 @@ function EventTowerPage() {
                       <p
                         className={cn(
                           "font-bold",
-                          isCurrent ? "text-[#8B5CF6]" : "text-foreground"
+                          isExFloor && isCurrent ? "text-[#F97316]" : "",
+                          !isExFloor && isCurrent ? "text-[#8B5CF6]" : "",
+                          !isCurrent ? "text-foreground" : ""
                         )}
                       >
-                        Tầng {floor}
+                        {isExFloor ? `EX ${exFloorNumber}` : `Tầng ${floor}`}
                       </p>
                       {isLegendary && (
                         <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--duo-yellow)] text-black font-bold">
                           ĐỈNH
                         </span>
                       )}
-                      {isMilestone && !isLegendary && floor % 50 === 0 && (
+                      {isExFloor && !isLegendary && (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-[#F97316] to-[#FBBF24] text-white font-bold">
+                          EX
+                        </span>
+                      )}
+                      {!isExFloor && isMilestone && !isLegendary && floor % 50 === 0 && (
                         <span className="text-xs px-2 py-0.5 rounded-full bg-[#8B5CF6] text-white">
                           Mốc
                         </span>

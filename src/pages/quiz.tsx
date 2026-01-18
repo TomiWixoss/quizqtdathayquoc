@@ -100,9 +100,9 @@ function QuizPage() {
 
   return (
     <Page className="bg-background min-h-screen">
-      {/* Header - pt-16 để tránh dính nút X của Zalo */}
+      {/* Header */}
       {!isFinished && (
-        <div className="pt-16 pb-2 px-4 bg-background sticky top-0 z-10">
+        <div className="pt-4 pb-2 px-4 bg-background sticky top-0 z-10">
           <div className="flex items-center justify-between">
             <button
               onClick={handleClose}
@@ -148,7 +148,7 @@ function QuizPage() {
 
       {/* Content */}
       <div
-        className={`px-4 pb-8 ${isFinished ? "pt-16" : ""}`}
+        className={`px-4 pb-8 ${isFinished ? "pt-4" : ""}`}
         style={{ minHeight: "calc(100vh - 100px)" }}
       >
         {isFinished ? <QuizResult /> : <QuizCard />}

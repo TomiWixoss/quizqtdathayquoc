@@ -108,7 +108,7 @@ export function ConquestResult({ result, rank, onPlayAgain, onGoBack }: Props) {
         gradientTo={isWin ? "#ec4899" : "var(--duo-purple)"}
       />
 
-      <div className="pt-16 px-4 pb-28">
+      <div className="pt-4 px-4 pb-28">
         {/* Header */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-foreground mb-2">

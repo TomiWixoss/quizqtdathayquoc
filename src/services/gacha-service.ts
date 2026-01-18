@@ -1,64 +1,32 @@
-// ============ GACHA SERVICE - FIREBASE BRIDGE VERSION ============
-// All API calls go through Firebase Realtime Database
-// Backend server listens and processes, then writes results back
-// This bypasses CORS issues in Zalo Mini App
+// ============ GACHA SERVICE - DIRECT API VERSION ============
+// Call workers.vrp.moe API directly (no Firebase bridge)
 
-import { ref, push, onValue, off, set } from "firebase/database";
-import { rtdb } from "@/lib/firebase";
+// Timeout for API calls
+const API_TIMEOUT = 30000;
 
-// Timeout for waiting response (ms)
-const COMMAND_TIMEOUT = 30000;
+// Base API URL
+const API_BASE = "https://workers.vrp.moe";
 
-// Send command and wait for response
-async function sendCommand<T>(
-  action: string,
-  params: Record<string, unknown> = {}
-): Promise<T> {
-  const commandsRef = ref(rtdb, "gacha_commands");
-  const commandRef = push(commandsRef);
+// Fetch with timeout
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit = {},
+  timeout = API_TIMEOUT
+): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-  return new Promise((resolve, reject) => {
-    let resolved = false;
-
-    const timeout = setTimeout(() => {
-      if (!resolved) {
-        resolved = true;
-        off(commandRef);
-        reject(new Error(`Command timeout: ${action}`));
-      }
-    }, COMMAND_TIMEOUT);
-
-    onValue(commandRef, (snapshot) => {
-      const data = snapshot.val();
-      if (!data || resolved) return;
-
-      if (data.status === "completed" || data.status === "error") {
-        resolved = true;
-        clearTimeout(timeout);
-        off(commandRef);
-
-        if (data.status === "error") {
-          reject(new Error(data.response?.error || "Unknown error"));
-        } else {
-          resolve(data.response as T);
-        }
-      }
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
     });
-
-    set(commandRef, {
-      action,
-      params,
-      status: "pending",
-      createdAt: Date.now(),
-    }).catch((err) => {
-      if (!resolved) {
-        resolved = true;
-        clearTimeout(timeout);
-        off(commandRef);
-        reject(err);
-      }
-    });
-  });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
 }
 
 // ============ TYPES ============
@@ -268,31 +236,7 @@ export function preloadCollectionImages(collections: GachaCollection[]): void {
   preloadImages(urls);
 }
 
-// ============ API FUNCTIONS (via Firebase Bridge) ============
-
-interface CollectionsResponse {
-  success: boolean;
-  data: GachaCollection[];
-  cached?: boolean;
-}
-
-interface CollectionResponse {
-  success: boolean;
-  data: { data: GachaCollection };
-  cached?: boolean;
-}
-
-interface LotteryResponse {
-  success: boolean;
-  data: { data: Record<string, unknown> };
-  cached?: boolean;
-}
-
-interface VideoUrlResponse {
-  success: boolean;
-  videoUrl: string;
-  cached?: boolean;
-}
+// ============ API FUNCTIONS (Direct HTTP calls) ============
 
 /**
  * Get all gacha collections
@@ -306,9 +250,14 @@ export async function getGachaCollections(): Promise<GachaCollection[]> {
   }
 
   try {
-    console.log("[Gacha] Fetching collections via Firebase bridge...");
-    const result = await sendCommand<CollectionsResponse>("getCollections");
-    const data = result.data || [];
+    console.log("[Gacha] Fetching collections directly from API...");
+    const response = await fetchWithTimeout(`${API_BASE}/laplace/collections`);
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    
+    const data = await response.json() as GachaCollection[];
 
     data.sort((a, b) => b.startTime - a.startTime);
 
@@ -333,10 +282,16 @@ export async function getGachaCollectionDetail(
   if (cached) return cached;
 
   try {
-    const result = await sendCommand<CollectionResponse>("getCollection", {
-      actId,
-    });
-    const data = result.data?.data as GachaCollection;
+    const response = await fetchWithTimeout(
+      `${API_BASE}/bilibili/collection/${actId}`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    
+    const result = await response.json() as { data: GachaCollection };
+    const data = result.data;
 
     if (data) {
       setCached(cacheKey, data);
@@ -384,11 +339,16 @@ export async function getLotteryDetail(
   }
 
   try {
-    const result = await sendCommand<LotteryResponse>("getLottery", {
-      collectionId: actId,
-      lotteryId,
-    });
-    const rawData = result.data?.data;
+    const response = await fetchWithTimeout(
+      `${API_BASE}/bilibili/collection-info/${actId}/${lotteryId}`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    
+    const result = await response.json() as { data: Record<string, unknown> };
+    const rawData = result.data;
 
     if (!rawData) return null;
 
@@ -447,17 +407,29 @@ export async function getFreshVideoUrl(
   if (cached) return cached;
 
   try {
-    const result = await sendCommand<VideoUrlResponse>("getVideoUrl", {
-      collectionId,
-      lotteryId,
-      cardImg,
-    });
-
-    if (result.videoUrl) {
-      setCached(cacheKey, result.videoUrl, 25 * 60 * 1000);
-      return result.videoUrl;
+    const response = await fetchWithTimeout(
+      `${API_BASE}/bilibili/collection-info/${collectionId}/${lotteryId}`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
     }
-    return null;
+    
+    const result = await response.json() as { 
+      data: { 
+        item_list?: Array<{ card_info?: CardInfo }> 
+      } 
+    };
+    const items = result.data?.item_list || [];
+    const card = items.find((item) => item.card_info?.card_img === cardImg);
+
+    if (!card?.card_info?.video_list?.length) {
+      return null;
+    }
+
+    const videoUrl = card.card_info.video_list[1] || card.card_info.video_list[0];
+    setCached(cacheKey, videoUrl, 25 * 60 * 1000);
+    return videoUrl;
   } catch (error) {
     console.error("[getFreshVideoUrl] Error:", error);
     return null;

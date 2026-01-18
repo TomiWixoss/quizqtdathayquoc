@@ -183,7 +183,7 @@ function MailboxPage() {
       />
 
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-3 px-3 bg-gradient-to-r from-[var(--duo-orange)] to-[var(--duo-yellow)]">
+      <div className="fixed top-0 left-0 right-0 z-40 pt-3 pb-3 px-3 bg-gradient-to-r from-[var(--duo-orange)] to-[var(--duo-yellow)]">
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/settings")}

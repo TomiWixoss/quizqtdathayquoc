@@ -43,6 +43,8 @@ interface TowerState {
   // Quiz state (not persisted)
   allQuestions: Question[];
   totalFloors: number;
+  normalFloorsCount: number; // Số tầng normal (câu hỏi không phải EX)
+  exFloorsCount: number; // Số tầng EX
   activeFloor: number | null; // Tầng đang làm quiz
   currentQuestion: Question | null;
   selectedAnswer: string | null;
@@ -79,6 +81,8 @@ export const useTowerStore = create<TowerState>()(
       // Non-persisted state
       allQuestions: [],
       totalFloors: 0,
+      normalFloorsCount: 0,
+      exFloorsCount: 0,
       activeFloor: null,
       currentQuestion: null,
       selectedAnswer: null,
@@ -89,6 +93,12 @@ export const useTowerStore = create<TowerState>()(
         const { lastResetTime } = get();
         const data = quizData as QuizData;
 
+        // Count normal vs EX questions
+        const normalQuestions = data.questions.filter((q: Question) => !q.isEx);
+        const exQuestions = data.questions.filter((q: Question) => q.isEx);
+        const normalCount = normalQuestions.length;
+        const exCount = exQuestions.length;
+
         // Kiểm tra reset tuần
         if (shouldResetWeekly(lastResetTime)) {
           set({
@@ -98,6 +108,8 @@ export const useTowerStore = create<TowerState>()(
             lastResetTime: Date.now(),
             allQuestions: data.questions,
             totalFloors: data.questions.length,
+            normalFloorsCount: normalCount,
+            exFloorsCount: exCount,
           });
         } else {
           // Nếu chưa có lastResetTime (lần đầu), set nó
@@ -106,11 +118,15 @@ export const useTowerStore = create<TowerState>()(
               lastResetTime: Date.now(),
               allQuestions: data.questions,
               totalFloors: data.questions.length,
+              normalFloorsCount: normalCount,
+              exFloorsCount: exCount,
             });
           } else {
             set({
               allQuestions: data.questions,
               totalFloors: data.questions.length,
+              normalFloorsCount: normalCount,
+              exFloorsCount: exCount,
             });
           }
         }

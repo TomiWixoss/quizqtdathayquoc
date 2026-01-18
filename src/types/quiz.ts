@@ -21,6 +21,7 @@ export interface Question {
   correctAnswer: string;
   chapter: number;
   chapterName: string;
+  isEx?: boolean; // Câu hỏi EX (từ chương luyện tập)
 }
 
 export interface Chapter {
@@ -28,6 +29,7 @@ export interface Chapter {
   name: string;
   totalQuestions: number;
   icon: string;
+  isEx?: boolean; // Chương EX (đề luyện tập)
 }
 
 export interface QuizData {

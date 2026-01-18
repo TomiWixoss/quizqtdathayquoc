@@ -246,7 +246,7 @@ function GachaPage() {
     <Page className="bg-background min-h-screen">
       {/* Header */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}
+        className={`fixed top-0 left-0 right-0 z-50 pt-4 pb-4 px-4 bg-gradient-to-r ${getTabColor()}`}
       >
         <div className="flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-white" />

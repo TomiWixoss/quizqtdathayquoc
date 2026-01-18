@@ -1,0 +1,1260 @@
+Câu hỏi 1
+Sai
+Đạt điểm 0,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Mệnh đề nào sau đây về đường găng trong sơ đồ mạng là ĐÚNG?
+Câu hỏi 1 Trả lời
+ 
+a. 
+Các công việc trên đường găng chứa đựng nhiều rủi ro nhất trong dự án.
+ 
+b. 
+Các công việc trên đường găng không có thời gian dự trữ.
+ 
+c. 
+Đường kết nối liên tục tính từ sự kiện đầu đến sự kiện cuối.
+ 
+d. 
+Đường găng là đường ngắn nhất trong sơ đồ mạng.
+Phản hồi
+The correct answer is: Các công việc trên đường găng không có thời gian dự trữ.
+Câu hỏi 2
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Hãy cho biết công thức tính “độ dài thời gian thực hiện công việc”?
+Câu hỏi 2 Trả lời
+ 
+a. 
+CV) =EV-AC
+ 
+b. 
+CV =EV-AC
+ 
+c. 
+D=C x (G+J)
+ 
+d. 
+EV=PV* % thời gian hoàn thành.
+Phản hồi
+The correct answer is: D=C x (G+J)
+Câu hỏi 3
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Giai đoạn “đảm bảo chất lượng” là giai đoạn nào?
+Câu hỏi 3 Trả lời
+ 
+a. 
+Đánh giá toàn bộ việc thực hiện dự án để chắc chắn dự án sẽ thoả mãn những vấn đề liên quan tới tiêu chuẩn chất lượng.
+ 
+b. 
+Kiểm tra chi tiết những kết quả dự án để chắc chắn rằng chúng đã tuân thủ những tiêu chuẩn chất lượng có liên quan.
+ 
+c. 
+Đánh giá có thể sử dụng để phát minh những sáng kiến cải tiến chất lượng.
+ 
+d. 
+Nhận biết được tiêu chuẩn chất lượng nào có liên quan tới dự án.
+Phản hồi
+The correct answer is: Đánh giá toàn bộ việc thực hiện dự án để chắc chắn dự án sẽ thoả mãn những vấn đề liên quan tới tiêu chuẩn chất lượng.
+Câu hỏi 4
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Bộ ba ràng buộc trong quản lý dự án là gì?
+Câu hỏi 4 Trả lời
+ 
+a. 
+Khởi tạo, lập kế hoạch, triển khai.
+ 
+b. 
+Phạm vi, thời gian, chi phí.
+ 
+c. 
+Thống kê, Kiểm soát, Tổng hợp.
+ 
+d. 
+Tổ chức, phân tích, lập lịch.
+Phản hồi
+The correct answer is: Phạm vi, thời gian, chi phí.
+Câu hỏi 5
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+WBS (Work breakdown structure) là gì?
+Câu hỏi 5 Trả lời
+ 
+a. 
+Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ quan hệ liên tục giữa các công việc.
+ 
+b. 
+Nhân tố tri thức về công việc đang xét trong dự án.
+ 
+c. 
+Quy trình yêu cầu đảm bảo cho dự án được hoàn tất trong sự cho phép của ngân sách.
+ 
+d. 
+Một danh sách chi tiết các bước cần để hoàn thánh một dự án.
+Phản hồi
+The correct answer is: Một danh sách chi tiết các bước cần để hoàn thánh một dự án.
+Câu hỏi 6
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Mệnh đề nào sau đây về biểu đồ GANTT là SAI?
+Câu hỏi 6 Trả lời
+ 
+a. 
+Phản ánh mối quan hệ giữa các công việc.
+ 
+b. 
+Cho biết tiến trình chứa đựng nhiều rủi ro nhất trong dự án.
+ 
+c. 
+Dễ vẽ, dễ nhận biết tiến trình thực tế của từng công việc.
+ 
+d. 
+Cho biết độ dài thời gian thực hiện từng công việc và toàn bộ dự án.
+Phản hồi
+The correct answer is: Cho biết tiến trình chứa đựng nhiều rủi ro nhất trong dự án.
+Câu hỏi 7
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Hãy cho biết công thức tính chi phí phát sinh CV (Cost Variance)?
+Câu hỏi 7 Trả lời
+ 
+a. 
+EV - AC
+ 
+b. 
+EV - PV
+ 
+c. 
+EV / PV
+ 
+d. 
+EV / AC
+Phản hồi
+The correct answer is: EV - AC
+Câu hỏi 8
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Một giai đoạn trong qui trình quản lý dự án mà “Yêu cầu thiết lập phạm vi công việc của dự án, điều chỉnh lại mục tiêu và xác định đường đi tới mục tiêu đó.”, được gọi là giai đoạn nào?
+Câu hỏi 8 Trả lời
+ 
+a. 
+Triển khai.
+ 
+b. 
+Giám sát và kiểm soát.
+ 
+c. 
+Kết thúc.
+ 
+d. 
+Lập kế hoạch dự án.
+Phản hồi
+The correct answer is: Lập kế hoạch dự án.
+Câu hỏi 9
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Công thức độ dài thời gian thực hiện công việc: D=C x (G+J). Vậy ký hiệu C có ý nghĩa gì?
+Câu hỏi 9 Trả lời
+ 
+a. 
+Nhân tố tri thức về công việc đang xét.
+ 
+b. 
+Nhân tố kinh nghiệm.
+ 
+c. 
+Nhân tố độ phức tạp.
+ 
+d. 
+Giá trị trù tính.
+Phản hồi
+The correct answer is: Nhân tố độ phức tạp.
+Câu hỏi 10
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Để ước lượng dự án, công thức D=C x (G+J). Vậy ký hiệu D có ý nghĩa gì:
+Câu hỏi 10 Trả lời
+ 
+a. 
+Giá trị trù tính.
+ 
+b. 
+Độ dài thời gian thực hiện công việc.
+ 
+c. 
+Nhân tố độ phức tạp.
+ 
+d. 
+Nhân tố tri thức về công việc đang xét.
+Phản hồi
+The correct answer is: Độ dài thời gian thực hiện công việc.
+Câu hỏi 11
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Một giai đoạn trong qui trình quản lý dự án mà “Thực hiện hoàn thành các công việc được xác định trong phần lập kế hoạch để đảm bảo các yêu cầu của dự án.”, được gọi là giai đoạn nào?
+Câu hỏi 11 Trả lời
+ 
+a. 
+Kết thúc.
+ 
+b. 
+Lập kế hoạch dự án.
+ 
+c. 
+Giám sát và kiểm soát.
+ 
+d. 
+Triển khai.
+Phản hồi
+The correct answer is: Triển khai.
+Câu hỏi 12
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Hãy cho biết công thức tính biến động lịch SV (Schedule Variance)?
+Câu hỏi 12 Trả lời
+ 
+a. 
+BAC / CPI
+ 
+b. 
+EV / AC
+ 
+c. 
+EV - PV
+ 
+d. 
+EV / PV
+Phản hồi
+The correct answer is: EV - PV
+Câu hỏi 13
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Một giai đoạn trong qui trình quản lý dự án mà “thực hiện để kết thúc tất cả các hoạt động của dự án để chính thức đóng lại dự án.”, được gọi là giai đoạn nào?
+Câu hỏi 13 Trả lời
+ 
+a. 
+Lập kế hoạch dự án.
+ 
+b. 
+Kết thúc.
+ 
+c. 
+Triển khai.
+ 
+d. 
+Giám sát và kiểm soát.
+Phản hồi
+The correct answer is: Kết thúc.
+Câu hỏi 14
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Dự án phần mềm cần thực hiện các bước nào?
+Câu hỏi 14 Trả lời
+ 
+a. 
+Tổng thể công việc lặp đi, lặp lại.
+ 
+b. 
+Xác định yêu cầu chung; Viết dự án
+ 
+c. 
+Chỉ thực hiện một bước là “Triển khai”.
+ 
+d. 
+Tiêu chuẩn hóa mô hình chất lượng theo ISO (International Standart Organisation).
+Phản hồi
+The correct answer is: Xác định yêu cầu chung; Viết dự án
+Câu hỏi 15
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+ISO (International Standart Organisation) nghĩa là gì?
+Câu hỏi 15 Trả lời
+ 
+a. 
+Qui trình quản lý chất lượng.
+ 
+b. 
+Tổ chức quốc tế về tiêu chuẩn hoá.
+ 
+c. 
+Thước đo công việc thực hiện thể hiện bằng ngân sách.
+ 
+d. 
+Kỹ thuật đo lường sự thực hiện dự án.
+Phản hồi
+The correct answer is: Tổ chức quốc tế về tiêu chuẩn hoá.
+Câu hỏi 16
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Theo thống kê chung trên thế giới, “33% các dự án thất bại” vì lý do gì?
+Câu hỏi 16 Trả lời
+ 
+a. 
+Người quản lý dự án không phân công rõ nhiệm vụ của từng người.
+ 
+b. 
+Thiếu hoặc không hiểu rõ các công cụ hỗ trợ cho việc phát triển hệ thống cũng như cho việc quản lý - theo dõi dự án.
+ 
+c. 
+Dự án có thể mắc sai lầm trong giai đoạn phân tích và thiết kế.
+ 
+d. 
+Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại.
+Phản hồi
+The correct answer is: Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại.
+Câu hỏi 17
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Quản lý dự án là gì?
+Câu hỏi 17 Trả lời
+ 
+a. 
+Một quá trình gồm nhiều công việc được thực hiện mà có tính lặp đi lặp lại, liên tục.
+ 
+b. 
+Một quá trình gồm nhiều công việc, nhiệm vụ có liên quan với nhau, được thực hiện nhằm đạt mục tiêu đã đề ra, trong điều kiện ràng buột về thời gian, phạm vi và chi phí.
+ 
+c. 
+Nổ lực ngắn hạn trong vài tuần, hoặc vài tháng được thực hiện bởi một tổ chức nào đó.
+ 
+d. 
+Một kế hoạch dài hạn, tổng hợp, được thực hiện trên một phạm vi không gian rộng lớn, thời gian dài không xác định.
+Phản hồi
+The correct answer is: Một quá trình gồm nhiều công việc, nhiệm vụ có liên quan với nhau, được thực hiện nhằm đạt mục tiêu đã đề ra, trong điều kiện ràng buột về thời gian, phạm vi và chi phí.
+Câu hỏi 18
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Lập kế hoạch chất lượng” là giai đoạn nào sau đây?
+Câu hỏi 18 Trả lời
+ 
+a. 
+Nhận biết được tiêu chuẩn chất lượng có liên quan tới dự án.
+ 
+b. 
+Đánh giá toàn bộ việc thực hiện dự án để chắc chắn dự án sẽ thoả mãn những vấn đề liên quan tới tiêu chuẩn chất lượng.
+ 
+c. 
+Kiểm tra chi tiết những kết quả dự án.
+ 
+d. 
+Đánh giá có thể sử dụng để phát minh những sáng kiến cải tiến chất lượng.
+Phản hồi
+The correct answer is: Nhận biết được tiêu chuẩn chất lượng có liên quan tới dự án.
+Câu hỏi 19
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Nguyên lý nào KHÔNG là nguyên lý cơ bản tạo WBS (Work breakdown structure)?
+Câu hỏi 19 Trả lời
+ 
+a. 
+Một mục WBS là nhiệm vụ của chỉ một người, ngay cả khi có nhiều người thực hiện công việc này.
+ 
+b. 
+Những quy trình yêu cầu đảm bảo cho dự án được hoàn tất trong sự cho phép của ngân sách.
+ 
+c. 
+Một đơn vị công việc chỉ xuất hiện một nơi trong WBS.
+ 
+d. 
+Nội dung công việc trong một mục WBS bằng tổng các công việc dưới nó.
+Phản hồi
+The correct answer is: Những quy trình yêu cầu đảm bảo cho dự án được hoàn tất trong sự cho phép của ngân sách.
+Câu hỏi 20
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Qui trình quản lý chất lượng bao gồm các giai đoạn nào?
+Câu hỏi 20 Trả lời
+ 
+a. 
+Lập kế hoạch dự án; Triển khai; Kết thúc
+ 
+b. 
+Khởi tạo dự án; Lập kế hoạch dự án; Triển khai; Giám sát và kiểm soát; Kết thúc
+ 
+c. 
+Lập kế hoạch; Đảm bảo; Kiểm tra
+ 
+d. 
+Lập kế hoạch dự án; Triển khai; Kết thúc
+Phản hồi
+The correct answer is: Lập kế hoạch; Đảm bảo; Kiểm tra
+Câu hỏi 21
+Sai
+Đạt điểm 0,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Thả nổi hay đề chùng” trong sơ đồ mạng công việc là gì?
+Câu hỏi 21 Trả lời
+ 
+a. 
+Một khoảng thời gian mà các hoạt động đó có thể trượt mà vẫn không ảnh hưởng tới đường găng.
+ 
+b. 
+Khoảng thời gian thả nổi mà một hoạt động có trước khi nó ảnh hưởng tới bất kì hoạt động nào khác (không găng).
+ 
+c. 
+Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ mối quan hệ liên tục giữa các công việc.
+ 
+d. 
+Cho biết tiến trình chứa đựng nhiều rủi ro nhất trong dự án.
+Phản hồi
+The correct answer is: Cho biết tiến trình chứa đựng nhiều rủi ro nhất trong dự án.
+Câu hỏi 22
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Trong quản lý dự án phần mềm việc lập kế hoạch thực hiện dự án là công việc gì?
+Câu hỏi 22 Trả lời
+ 
+a. 
+Hoạt động diễn ra chỉ trong quá trình giao sản phẩm.
+ 
+b. 
+Hoạt động diễn ra chỉ trong quá trình khởi tạo dự án.
+ 
+c. 
+Hoạt động diễn ra trong suốt quá trình từ khi bắt đầu thực hiện dự án đến khi bàn giao sản phẩm với nhiều loại.
+ 
+d. 
+Hoạt động diễn ra chỉ trong quá trình hỗ trợ kế hoạch chính của dự án.
+Phản hồi
+The correct answer is: Hoạt động diễn ra trong suốt quá trình từ khi bắt đầu thực hiện dự án đến khi bàn giao sản phẩm với nhiều loại.
+Câu hỏi 23
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Ngày nghiệm thu dự án, ngày bàn giao dự án” là nội dung tài liệu mô tả đề án về nội dung nào?
+Câu hỏi 23 Trả lời
+ 
+a. 
+Ràng buộc thời gian thực hiện dự án .
+ 
+b. 
+Ràng buộc công nghệ phát triển.
+ 
+c. 
+Ràng buộc kinh phí.
+ 
+d. 
+Chữ ký các bên liên quan tới dự án.
+Phản hồi
+The correct answer is: Ràng buộc thời gian thực hiện dự án .
+Câu hỏi 24
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Giám đốc dự án” có vai trò gì trong dự án?
+Câu hỏi 24 Trả lời
+ 
+a. 
+Quản lý các hoạt động bên trong dự án.
+ 
+b. 
+Nhận được thiết kế mức trung để tiến hành thiết kế chi tiết.
+ 
+c. 
+Soạn thảo tài liệu hoặc cung cấp dữ liệu để thử nghiệm.
+ 
+d. 
+Liên hệ giữa dự án với bên ngoài.
+Phản hồi
+The correct answer is: Liên hệ giữa dự án với bên ngoài.
+Câu hỏi 25
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Những người liên quan tới dự án, các hoạt động nghiệp vụ cần tin học hóa” là nội dung tài liệu mô tả đề án về nội dung nào?
+Câu hỏi 25 Trả lời
+ 
+a. 
+Nguồn nhân lực tham gia dự án.
+ 
+b. 
+Ràng buộc kinh phí.
+ 
+c. 
+Ràng buộc thời gian thực hiện dự án.
+ 
+d. 
+Phạm vi dự án của một dự án.
+Phản hồi
+The correct answer is: Phạm vi dự án của một dự án.
+Câu hỏi 26
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Trình tự nào sau đây theo đúng “Qui trình quản lý dự án”?
+Câu hỏi 26 Trả lời
+ 
+a. 
+Khởi tạo Dự Án -> Lập kế hoạch dự án -> (Kiểm tra & giám sát) <-> Triển khai dự án -> Kết thúc dự án.
+ 
+b. 
+Khởi tạo Dự Án -> (Kiểm tra & giám sát) <-> Lập kế hoạch dự án -> Triển khai dự án -> Kết thúc dự án.
+ 
+c. 
+Khởi tạo Dự Án -> Triển khai dự án -> (Kiểm tra & giám sát) <-> Lập kế hoạch dự án -> Kết thúc dự án.
+ 
+d. 
+Khởi tạo Dự -> Lập kế hoạch dự án -> Kết thúc dự án ->(Kiểm tra & giám sát) <-> Triển khai dự án.
+Phản hồi
+The correct answer is: Khởi tạo Dự Án -> Lập kế hoạch dự án -> (Kiểm tra & giám sát) <-> Triển khai dự án -> Kết thúc dự án.
+Câu hỏi 27
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Trong công cụ hỗ trợ kiểm tra chi phí, BAC (Budget At Completion) là gì?
+Câu hỏi 27 Trả lời
+ 
+a. 
+Chi phí thực sự của công việc được thực hiện.
+ 
+b. 
+Kỹ thuật đo lường sự thực hiện dự án thông qua tích hợp các dữ liệu về chi phí.
+ 
+c. 
+Tổng ngân sách chi phí công việc đã lên lịch tới thời điểm hoàn thành.
+ 
+d. 
+Chi phí ngân sách cho việc tiến hành công việc.
+Phản hồi
+The correct answer is: Tổng ngân sách chi phí công việc đã lên lịch tới thời điểm hoàn thành.
+Câu hỏi 28
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Qui trình nào để quản lý chi phí dự án?
+Câu hỏi 28 Trả lời
+ 
+a. 
+Tổng kết về tất cả các sản phẩm trung gian của dự án.
+ 
+b. 
+Nhận biết điều gì có thể dẫn đến sai sót và vẫn trong kiểm soát khi có điều trục trặc.
+ 
+c. 
+Lập kế hoạch cho nguồn tài nguyên.
+ 
+d. 
+Cân bằng được các yêu cầu cạnh tranh trong dự án.
+Phản hồi
+The correct answer is: Lập kế hoạch cho nguồn tài nguyên.
+Câu hỏi 29
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Căn cứ pháp lý để thực hiện dự án, hiện trạng công nghệ thông tin của khách hàng trước khi có dự án, nhu cầu ứng dụng phần mềm của khách hàng, đặc điểm và phạm vi của phần mềm sẽ xây dựng” là nội dung tài liệu mô tả đề án về vấn đề gì?
+Câu hỏi 29 Trả lời
+ 
+a. 
+Nguồn nhân lực tham gia dự án.
+ 
+b. 
+Bối cảnh thực hiện dự án.
+ 
+c. 
+Phạm vi dự án của một dự án.
+ 
+d. 
+Mục đích và mục tiêu của dự án.
+Phản hồi
+The correct answer is: Bối cảnh thực hiện dự án.
+Câu hỏi 30
+Sai
+Đạt điểm 0,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Phạm vi dự án là gì?
+Câu hỏi 30 Trả lời
+ 
+a. 
+Kỹ thuật đánh giá và xem xét chương trình.
+ 
+b. 
+Một danh sách tất cả những gì dự án phải làm.
+ 
+c. 
+Quy trình yêu cầu đảm bảo cho dự án hoàn tất trong sự cho phép của ngân sách.
+ 
+d. 
+Những qui trình bảo đảm hoàn tất dự án đúng hạn.
+Phản hồi
+The correct answer is: Những qui trình bảo đảm hoàn tất dự án đúng hạn.
+Câu hỏi 31
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Tuyên bố nào là thành phần chính trong bản tuyên bố phạm vi?
+Câu hỏi 31 Trả lời
+ 
+a. 
+Không bao giờ yêu cầu một người không có kinh nghiệm làm ước lượng.
+ 
+b. 
+Quy trình yêu cầu đảm bảo cho dự án hoàn tất trong sự cho phép của ngân sách.
+ 
+c. 
+Một danh sách tất cả những gì dự án phải làm.
+ 
+d. 
+Tuyên bố về những yếu tố xác định thành công của dự án.
+Phản hồi
+The correct answer is: Tuyên bố về những yếu tố xác định thành công của dự án.
+Câu hỏi 32
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Theo thống kê chung trên thế giới, có các nguyên nhân dẫn đến 33% các dự án bị huỷ, NGOẠI TRỪ nguyên nhân nào?
+Câu hỏi 32 Trả lời
+ 
+a. 
+Người quản lý dự án không phân công rõ nhiệm vụ của từng người.
+ 
+b. 
+Vượt qua giới hạn về thời gian hoặc kinh phí.
+ 
+c. 
+Người dùng hoặc khách hàng không cần tới nó nữa.
+ 
+d. 
+Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại.
+Phản hồi
+The correct answer is: Người quản lý dự án không phân công rõ nhiệm vụ của từng người.
+Câu hỏi 33
+Sai
+Đạt điểm 0,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Mệnh đề nào là ĐÚNG về đường găng trong sơ đồ mạng công việc?
+Câu hỏi 33 Trả lời
+ 
+a. 
+Là đường nối các sự kiện găng.
+ 
+b. 
+Các công việc trên đường găng chứa đựng nhiều rủi ro nhất trong dự án.
+ 
+c. 
+Đường găng là đường ngắn nhất trong sơ đồ mạng.
+ 
+d. 
+Đường kết nối liên tục tính từ sự kiện đầu đến sự kiện cuối.
+Phản hồi
+The correct answer is: Là đường nối các sự kiện găng.
+Câu hỏi 34
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Công thức độ dài thời gian thực hiện công việc: D=C x (G+J). Vậy ký hiệu J có ý nghĩa gì?
+Câu hỏi 34 Trả lời
+ 
+a. 
+Nhân tố tri thức về công việc đang xét.
+ 
+b. 
+Giá trị trù tính.
+ 
+c. 
+Biến động lịch.
+ 
+d. 
+Nhân tố kinh nghiệm.
+Phản hồi
+The correct answer is: Nhân tố tri thức về công việc đang xét.
+Câu hỏi 35
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Nguyên lý nào sau đây KHÔNG phải là nguyên lý tạo ra WBS (Work breakdown structure)?
+Câu hỏi 35 Trả lời
+ 
+a. 
+Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ mối quan hệ liên tục giữa các công việc.
+ 
+b. 
+WBS phải nhất quán với cách thực hiện công việc; trước hết nó phải phục vụ nhóm dự án và các mục đích khác nếu thực tế cho phép.
+ 
+c. 
+Mỗi mục WBS phải có tài liệu đi kèm để bảo đảm hiểu được chính xác phạm vi công việc.
+ 
+d. 
+Các thành viên nhóm dự án phải tham gia phát triển WBS để bảo đảm tính nhất quán.
+Phản hồi
+The correct answer is: Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ mối quan hệ liên tục giữa các công việc.
+Câu hỏi 36
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Số đường găng có trong sơ đồ mạng như thế nào?
+Câu hỏi 36 Trả lời
+ 
+a. 
+Mặc định là một găng.
+ 
+b. 
+Trên hai đường găng.
+ 
+c. 
+Mặc định là hai đường găng
+ 
+d. 
+Một đường găng hoặc nhiều hơn.
+Phản hồi
+The correct answer is: Một đường găng hoặc nhiều hơn.
+Câu hỏi 37
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Trong công cụ hỗ trợ kiểm tra chi phí, PV (Planned Value) gọi là “Giá trị trù tính”, vậy giá trị trù tính là gì?
+Câu hỏi 37 Trả lời
+ 
+a. 
+Chi phí ngân sách cho việc tiến hành công việc.
+ 
+b. 
+Ngân sách chi phí công việc đã lên lịch.
+ 
+c. 
+Chi phí thực sự của công việc được thực hiện.
+ 
+d. 
+Kỹ thuật đo lường sự thực hiện dự án thông qua tích hợp các dữ liệu về chi phí.
+Phản hồi
+The correct answer is: Ngân sách chi phí công việc đã lên lịch.
+Câu hỏi 38
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+WBS (Work breakdown structure) là công cụ hữu ích gì cho nhà quản lý dự án?
+Câu hỏi 38 Trả lời
+ 
+a. 
+Tiến hành ước tính chi phí.
+ 
+b. 
+Xác định sự bắt đầu của công việc.
+ 
+c. 
+Xác định thời gian dự trữ của các công việc.
+ 
+d. 
+Xác định các công việc cụ thể của dự án.
+Phản hồi
+The correct answer is: Xác định các công việc cụ thể của dự án.
+Câu hỏi 39
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Một giai đoạn trong qui trình quản lý dự án mà “thực hiện để kết thúc tất cả các hoạt động của dự án để chính thức đóng lại dự án.”, được gọi là giai đoạn nào?
+Câu hỏi 39 Trả lời
+ 
+a. 
+Giám sát và kiểm soát.
+ 
+b. 
+Kết thúc.
+ 
+c. 
+Lập kế hoạch dự án.
+ 
+d. 
+Triển khai.
+Phản hồi
+The correct answer is: Kết thúc.
+Câu hỏi 40
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Yếu tố nào KHÔNG thuộc đặc trưng bộ ba ràng buộc trong quản lý dự án?
+Câu hỏi 40 Trả lời
+ 
+a. 
+Chất lượng (ISO)
+ 
+b. 
+Thời gian (Time)
+ 
+c. 
+Chi phí (Cost)
+ 
+d. 
+Phạm vi (Scope)
+Phản hồi
+The correct answer is: Chất lượng (ISO)
+Câu hỏi 41
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Trong công cụ hỗ trợ kiểm tra chi phí, EV (Earned Value) gọi là “Giá trị thu được”, vậy giá trị thu được là gì?
+Câu hỏi 41 Trả lời
+ 
+a. 
+Ngân sách chi phí công việc đã lên lịch.
+ 
+b. 
+Chi phí ngân sách cho việc tiến hành công việc.
+ 
+c. 
+Kỹ thuật đo lường sự thực hiện dự án thông qua tích hợp các dữ liệu về chi phí.
+ 
+d. 
+Tổng cộng các chi phí trực tiếp hay gián tiếp trong việc hoàn tất công việc trong một giai đoạn định trước.
+Phản hồi
+The correct answer is: Chi phí ngân sách cho việc tiến hành công việc.
+Câu hỏi 42
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Hãy cho biết công thức tính chi phí thực sự AC (Actual Cost)?
+Câu hỏi 42 Trả lời
+ 
+a. 
+EV - PV
+ 
+b. 
+EV - CV
+ 
+c. 
+EV / AC
+ 
+d. 
+EV / PV
+Phản hồi
+The correct answer is: EV - CV
+Câu hỏi 43
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Chi phí trong quản lý dự án là gì?
+Câu hỏi 43 Trả lời
+ 
+a. 
+Những qui trình bảo đảm hoàn tất dự án đúng hạn.
+ 
+b. 
+Những kết quả của dự án mà sẽ chuyển giao.
+ 
+c. 
+Một danh sách tất cả những gì dự án phải làm.
+ 
+d. 
+Tài nguyên được hy sinh hay tính trước để đạt được một mục tiêu rõ ràng hay để trao đổi cái gì đó, được đo bằng đơn vị tiền tệ.
+Phản hồi
+The correct answer is: Tài nguyên được hy sinh hay tính trước để đạt được một mục tiêu rõ ràng hay để trao đổi cái gì đó, được đo bằng đơn vị tiền tệ.
+Câu hỏi 44
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Theo thống kê chung trên thế giới, có “50% - 100% các dự án bị hủy” nguyên nhân bởi?
+Câu hỏi 44 Trả lời
+ 
+a. 
+Dự án có thể mắc sai lầm trong giai đoạn phân tích và thiết kế.
+ 
+b. 
+Một dự án mà kéo dài quá 50% thời gian dự định.
+ 
+c. 
+Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại.
+ 
+d. 
+Người quản lý dự án không phân công rõ nhiệm vụ của từng người.
+Phản hồi
+The correct answer is: Một dự án mà kéo dài quá 50% thời gian dự định.
+Câu hỏi 45
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Công việc: “mô tả các phương pháp, nguồn lực, lịch trình thẩm định hệ thống”, là loại kế hoạch nào?
+Câu hỏi 45 Trả lời
+ 
+a. 
+Kế hoạch thẩm định.
+ 
+b. 
+Kế hoạch phát triển đội ngũ.
+ 
+c. 
+Kế hoạch quản lý cấu hình.
+ 
+d. 
+Kế hoạch bảo trì.
+Phản hồi
+The correct answer is: Kế hoạch thẩm định.
+Câu hỏi 46
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Để quản lý chi phí dự án, cần qui trình nào?
+Câu hỏi 46 Trả lời
+ 
+a. 
+Tổng kết về tất cả các sản phẩm trung gian của dự án.
+ 
+b. 
+Cân bằng được các yêu cầu cạnh tranh trong dự án.
+ 
+c. 
+Nhận biết điều gì có thể dẫn đến sai sót.
+ 
+d. 
+Kiểm soát – Điều chỉnh chi phí: điều chỉnh thay đổi chi phí dự án
+Phản hồi
+The correct answer is: Kiểm soát – Điều chỉnh chi phí: điều chỉnh thay đổi chi phí dự án
+Câu hỏi 47
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Trong quản lý chất lượng có “Chi phí ngăn ngừa”, nghĩa là gì?
+Câu hỏi 47 Trả lời
+ 
+a. 
+Chi phí liên quan đến tất cả lỗi không được nhận ra trước khi đưa đến cho khách hàng.
+ 
+b. 
+Chi phí đánh giá quá trình và sản phẩm đưa ra đạt chất lượng.
+ 
+c. 
+Chi phí dự tính và thực thi dự án có thể là không lỗi hay lỗi có thể chấp nhận được.
+ 
+d. 
+Chi phí dùng để chỉ định chính xác thiếu xót được định ra trước khi khách hàng nhận được sản phẩm.
+Phản hồi
+The correct answer is: Chi phí dự tính và thực thi dự án có thể là không lỗi hay lỗi có thể chấp nhận được.
+Câu hỏi 48
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Theo thống kê chung trên thế giới, có “33% các dự án bị huỷ” bởi nguyên nhân?
+Câu hỏi 48 Trả lời
+ 
+a. 
+Dự án có thể mắc sai lầm trong giai đoạn phân tích và thiết kế.
+ 
+b. 
+Người quản lý dự án không phân công rõ nhiệm vụ của từng người.
+ 
+c. 
+Vượt qua giới hạn về thời gian hoặc kinh phí.
+ 
+d. 
+Thiếu hoặc không hiểu rõ các công cụ hỗ trợ cho việc phát triển hệ thống.
+Phản hồi
+The correct answer is: Vượt qua giới hạn về thời gian hoặc kinh phí.
+Câu hỏi 49
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Một số kỹ thuật và công cụ trong giai đoạn “Kiểm tra chất lượng dự án” bao gồm:
+Câu hỏi 49 Trả lời
+ 
+a. 
+phân tích Pareto, mẫu thống kê, độ lệch chuẩn.
+ 
+b. 
+sơ đồ mạng, EMV (Earned value management).
+ 
+c. 
+biểu đồ GANTT, sơ đồ mạng.
+ 
+d. 
+EMV (Earned value management). biểu đồ GANTT.
+Phản hồi
+The correct answer is: phân tích Pareto, mẫu thống kê, độ lệch chuẩn.
+Câu hỏi 50
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Nguyên tắc “80-20” thuộc kỹ thuật hay công cụ nào sau đây?
+Câu hỏi 50 Trả lời
+ 
+a. 
+EMV (Earned value management).
+ 
+b. 
+Phân tích Pareto.
+ 
+c. 
+PERT (Program Evaluation and Review Technique).
+ 
+d. 
+ISO (International Organization for Standardization).
+Phản hồi
+The correct answer is: Phân tích Pareto.
+Câu hỏi 51
+Sai
+Đạt điểm 0,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Mục tiêu của dự án là gì?
+Câu hỏi 51 Trả lời
+ 
+a. 
+Theo dõi, rà soát và điều chỉnh lại tiến độ và khả năng thực hiện của dự án
+ 
+b. 
+Một quá trình gồm nhiều công việc, nhiệm vụ có liên quan với nhau, được thực hiện nhằm đạt mục tiêu đã đề ra.
+ 
+c. 
+Giải quyết được những yêu cầu được đặt ra trong thực tế khi bắt đầu dự án.
+ 
+d. 
+Một danh sách tất cả những gì dự án phải làm (và cũng có thể là không phải làm).
+Phản hồi
+The correct answer is: Một danh sách tất cả những gì dự án phải làm (và cũng có thể là không phải làm).
+Câu hỏi 52
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Dự đoán rủi ro”, nghĩa là gì?
+Câu hỏi 52 Trả lời
+ 
+a. 
+Bảo đảm các chiến lược đối phó rủi ro được lên kế hoạch.
+ 
+b. 
+Chọn lựa chiến lược và phương pháp đối phó rủi ro.
+ 
+c. 
+Xác định và chọn ra những rủi ro quan trọng cần giải quyết.
+ 
+d. 
+Nhận biết điều gì có thể dẫn đến sai sót.
+Phản hồi
+The correct answer is: Nhận biết điều gì có thể dẫn đến sai sót.
+Câu hỏi 53
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Loại dự án nào thuộc về “Xây dựng cơ sở hạ tầng công nghệ thông tin” (CNTT)?
+Câu hỏi 53 Trả lời
+ 
+a. 
+Phát triển hệ thống mạng từ 4G lên 5G.
+ 
+b. 
+Xây dựng Khu Công nghệ Phần mềm tại Thành phố ABC.
+ 
+c. 
+Xây dựng cơ sở dữ liệu về căn cước công dân.
+ 
+d. 
+Xây dựng cơ sở dữ liệu về căn cước công dân
+Phản hồi
+The correct answer is: Phát triển hệ thống mạng từ 4G lên 5G.
+Câu hỏi 54
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Sơ đồ mạng PERT (Program Evaluation and Review Technique), là gì?
+Câu hỏi 54 Trả lời
+ 
+a. 
+Những qui trình bảo đảm hoàn tất dự án đúng hạn.
+ 
+b. 
+Những quy trình yêu cầu đảm bảo cho dự án.
+ 
+c. 
+Kỹ thuật đánh giá và xem xét chương trình.
+ 
+d. 
+Một danh sách tất cả những gì dự án phải làm.
+Phản hồi
+The correct answer is: Kỹ thuật đánh giá và xem xét chương trình.
+Câu hỏi 55
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Kinh phí trong từng giai đoạn thực hiện dự án” là nội dung tài liệu mô tả đề án về nội dung nào?
+Câu hỏi 55 Trả lời
+ 
+a. 
+Ràng buộc kinh phí.
+ 
+b. 
+Nguồn nhân lực tham gia dự án.
+ 
+c. 
+Ràng buộc công nghệ phát triển.
+ 
+d. 
+Chữ ký các bên liên quan tới dự án.
+Phản hồi
+The correct answer is: Ràng buộc kinh phí.
+Câu hỏi 56
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+“Thả nổi toàn bộ” trong sơ đồ mạng công việc là gì?
+Câu hỏi 56 Trả lời
+ 
+a. 
+Nhiệm vụ không có tính lặp lại, liên tục mà có tính chất mới mẻ.
+ 
+b. 
+Quãng thời gian thả nổi mà một hoạt động có trước khi ảnh hưởng tới đường găng
+ 
+c. 
+Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ mối quan hệ liên tục giữa các công việc.
+ 
+d. 
+Khoảng thời gian thả nổi mà một hoạt động có trước khi nó ảnh hưởng tới bất kì hoạt động nào khác.
+Phản hồi
+The correct answer is: Quãng thời gian thả nổi mà một hoạt động có trước khi ảnh hưởng tới đường găng
+Câu hỏi 57
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Trong quản lý chi phí dự án, qui trình nào để quản lý chi phí?
+Câu hỏi 57 Trả lời
+ 
+a. 
+Nhận biết điều gì có thể dẫn đến sai sót và vẫn trong kiểm soát khi có điều trục trặc.
+ 
+b. 
+Cân bằng được các yêu cầu cạnh tranh trong dự án.
+ 
+c. 
+Tổng kết về tất cả các sản phẩm trung gian của dự án.
+ 
+d. 
+Dự toán chi phí: phân bổ toàn bộ chi phí ước tính vào từng hạng mục công việc để thiết lập một đường mức cho việc đo lường việc thực hiện
+Phản hồi
+The correct answer is: Dự toán chi phí: phân bổ toàn bộ chi phí ước tính vào từng hạng mục công việc để thiết lập một đường mức cho việc đo lường việc thực hiện
+Câu hỏi 58
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Thành phần nào KHÔNG phải là thành phần chính của bản tuyên bố phạm vi?
+Câu hỏi 58 Trả lời
+ 
+a. 
+Mô tả ngắn về sản phẩm của dự án.
+ 
+b. 
+Tuyên bố về những yếu tố xác định thành công của dự án,
+ 
+c. 
+Tổng kết về tất cả các sản phẩm trung gian của dự án.
+ 
+d. 
+Không bao giờ yêu cầu một người không có kinh nghiệm làm ước lượng.
+Phản hồi
+The correct answer is: Không bao giờ yêu cầu một người không có kinh nghiệm làm ước lượng.
+Câu hỏi 59
+Đúng
+Đạt điểm 1,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Vai trò của “Phó giám đốc kỹ thuật dự án” là gì?
+Câu hỏi 59 Trả lời
+ 
+a. 
+Quản lý các hoạt động bên trong dự án.
+ 
+b. 
+Nhận được thiết kế mức trung để tiến hành thiết kế chi tiết.
+ 
+c. 
+Soạn thảo tài liệu hoặc cung cấp dữ liệu để thử nghiệm.
+ 
+d. 
+Liên hệ giữa dự án với bên ngoài.
+Phản hồi
+The correct answer is: Quản lý các hoạt động bên trong dự án.
+Câu hỏi 60
+Sai
+Đạt điểm 0,00 trên 1,00
+ Đặt cờ
+Đoạn văn câu hỏi
+Biểu đồ GANTT có nhiều tác dụng, TRỪ trường hợp nào sau đây?
+Câu hỏi 60 Trả lời
+ 
+a. 
+Dễ vẽ, dễ nhận biết tiến trình thực tế của từng công việc.
+ 
+b. 
+Không phản ánh mối quan hệ giữa các công việc.
+ 
+c. 
+Phản ánh chính xác mối quan hệ giữa các công việc của dự án phức tạp
+ 
+d. 
+Cho biết độ dài thời gian thực hiện từng công việc và toàn bộ dự án.
+Phản hồi
+The correct answer is: Phản ánh chính xác mối quan hệ giữa các công việc của dự án phức tạp

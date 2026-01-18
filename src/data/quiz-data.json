@@ -77,6 +77,48 @@
       "name": "QUẢN LÝ TÍCH HỢP",
       "totalQuestions": 9,
       "icon": "Link"
+    },
+    {
+      "id": 100,
+      "name": "EX 1 - ĐỀ LUYỆN TẬP",
+      "totalQuestions": 10,
+      "icon": "Star",
+      "isEx": true
+    },
+    {
+      "id": 101,
+      "name": "EX 2 - ĐỀ LUYỆN TẬP",
+      "totalQuestions": 10,
+      "icon": "Star",
+      "isEx": true
+    },
+    {
+      "id": 102,
+      "name": "EX 3 - ĐỀ LUYỆN TẬP",
+      "totalQuestions": 10,
+      "icon": "Star",
+      "isEx": true
+    },
+    {
+      "id": 103,
+      "name": "EX 4 - ĐỀ LUYỆN TẬP",
+      "totalQuestions": 10,
+      "icon": "Star",
+      "isEx": true
+    },
+    {
+      "id": 104,
+      "name": "EX 5 - ĐỀ LUYỆN TẬP",
+      "totalQuestions": 10,
+      "icon": "Star",
+      "isEx": true
+    },
+    {
+      "id": 105,
+      "name": "EX 6 - ĐỀ LUYỆN TẬP",
+      "totalQuestions": 10,
+      "icon": "Star",
+      "isEx": true
     }
   ],
   "questions": [
@@ -3654,6 +3696,1566 @@
       "correctAnswer": "C",
       "chapter": 13,
       "chapterName": "QUẢN LÝ TÍCH HỢP"
+    },
+    {
+      "id": 10000,
+      "question": "Mệnh đề nào sau đây về đường găng trong sơ đồ mạng là ĐÚNG?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Các công việc trên đường găng chứa đựng nhiều rủi ro nhất trong dự án."
+        },
+        {
+          "id": "B",
+          "text": "Các công việc trên đường găng không có thời gian dự trữ."
+        },
+        {
+          "id": "C",
+          "text": "Đường kết nối liên tục tính từ sự kiện đầu đến sự kiện cuối."
+        },
+        {
+          "id": "D",
+          "text": "Đường găng là đường ngắn nhất trong sơ đồ mạng."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10001,
+      "question": "Hãy cho biết công thức tính “độ dài thời gian thực hiện công việc”?",
+      "options": [
+        {
+          "id": "A",
+          "text": "CV) =EV-AC"
+        },
+        {
+          "id": "B",
+          "text": "CV =EV-AC"
+        },
+        {
+          "id": "C",
+          "text": "D=C x (G+J)"
+        },
+        {
+          "id": "D",
+          "text": "EV=PV* % thời gian hoàn thành."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10002,
+      "question": "Giai đoạn “đảm bảo chất lượng” là giai đoạn nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Đánh giá toàn bộ việc thực hiện dự án để chắc chắn dự án sẽ thoả mãn những vấn đề liên quan tới tiêu chuẩn chất lượng."
+        },
+        {
+          "id": "B",
+          "text": "Kiểm tra chi tiết những kết quả dự án để chắc chắn rằng chúng đã tuân thủ những tiêu chuẩn chất lượng có liên quan."
+        },
+        {
+          "id": "C",
+          "text": "Đánh giá có thể sử dụng để phát minh những sáng kiến cải tiến chất lượng."
+        },
+        {
+          "id": "D",
+          "text": "Nhận biết được tiêu chuẩn chất lượng nào có liên quan tới dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10003,
+      "question": "Bộ ba ràng buộc trong quản lý dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Khởi tạo, lập kế hoạch, triển khai."
+        },
+        {
+          "id": "B",
+          "text": "Phạm vi, thời gian, chi phí."
+        },
+        {
+          "id": "C",
+          "text": "Thống kê, Kiểm soát, Tổng hợp."
+        },
+        {
+          "id": "D",
+          "text": "Tổ chức, phân tích, lập lịch."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10004,
+      "question": "WBS (Work breakdown structure) là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ quan hệ liên tục giữa các công việc."
+        },
+        {
+          "id": "B",
+          "text": "Nhân tố tri thức về công việc đang xét trong dự án."
+        },
+        {
+          "id": "C",
+          "text": "Quy trình yêu cầu đảm bảo cho dự án được hoàn tất trong sự cho phép của ngân sách."
+        },
+        {
+          "id": "D",
+          "text": "Một danh sách chi tiết các bước cần để hoàn thánh một dự án."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10005,
+      "question": "Mệnh đề nào sau đây về biểu đồ GANTT là SAI?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phản ánh mối quan hệ giữa các công việc."
+        },
+        {
+          "id": "B",
+          "text": "Cho biết tiến trình chứa đựng nhiều rủi ro nhất trong dự án."
+        },
+        {
+          "id": "C",
+          "text": "Dễ vẽ, dễ nhận biết tiến trình thực tế của từng công việc."
+        },
+        {
+          "id": "D",
+          "text": "Cho biết độ dài thời gian thực hiện từng công việc và toàn bộ dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10006,
+      "question": "Hãy cho biết công thức tính chi phí phát sinh CV (Cost Variance)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "EV - AC"
+        },
+        {
+          "id": "B",
+          "text": "EV - PV"
+        },
+        {
+          "id": "C",
+          "text": "EV / PV"
+        },
+        {
+          "id": "D",
+          "text": "EV / AC"
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10007,
+      "question": "Một giai đoạn trong qui trình quản lý dự án mà “Yêu cầu thiết lập phạm vi công việc của dự án, điều chỉnh lại mục tiêu và xác định đường đi tới mục tiêu đó.”, được gọi là giai đoạn nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Triển khai."
+        },
+        {
+          "id": "B",
+          "text": "Giám sát và kiểm soát."
+        },
+        {
+          "id": "C",
+          "text": "Kết thúc."
+        },
+        {
+          "id": "D",
+          "text": "Lập kế hoạch dự án."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10008,
+      "question": "Công thức độ dài thời gian thực hiện công việc: D=C x (G+J). Vậy ký hiệu C có ý nghĩa gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhân tố tri thức về công việc đang xét."
+        },
+        {
+          "id": "B",
+          "text": "Nhân tố kinh nghiệm."
+        },
+        {
+          "id": "C",
+          "text": "Nhân tố độ phức tạp."
+        },
+        {
+          "id": "D",
+          "text": "Giá trị trù tính."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10009,
+      "question": "Để ước lượng dự án, công thức D=C x (G+J). Vậy ký hiệu D có ý nghĩa gì:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giá trị trù tính."
+        },
+        {
+          "id": "B",
+          "text": "Độ dài thời gian thực hiện công việc."
+        },
+        {
+          "id": "C",
+          "text": "Nhân tố độ phức tạp."
+        },
+        {
+          "id": "D",
+          "text": "Nhân tố tri thức về công việc đang xét."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 100,
+      "chapterName": "EX 1 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10010,
+      "question": "Một giai đoạn trong qui trình quản lý dự án mà “Thực hiện hoàn thành các công việc được xác định trong phần lập kế hoạch để đảm bảo các yêu cầu của dự án.”, được gọi là giai đoạn nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Kết thúc."
+        },
+        {
+          "id": "B",
+          "text": "Lập kế hoạch dự án."
+        },
+        {
+          "id": "C",
+          "text": "Giám sát và kiểm soát."
+        },
+        {
+          "id": "D",
+          "text": "Triển khai."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10011,
+      "question": "Hãy cho biết công thức tính biến động lịch SV (Schedule Variance)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "BAC / CPI"
+        },
+        {
+          "id": "B",
+          "text": "EV / AC"
+        },
+        {
+          "id": "C",
+          "text": "EV - PV"
+        },
+        {
+          "id": "D",
+          "text": "EV / PV"
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10012,
+      "question": "Một giai đoạn trong qui trình quản lý dự án mà “thực hiện để kết thúc tất cả các hoạt động của dự án để chính thức đóng lại dự án.”, được gọi là giai đoạn nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lập kế hoạch dự án."
+        },
+        {
+          "id": "B",
+          "text": "Kết thúc."
+        },
+        {
+          "id": "C",
+          "text": "Triển khai."
+        },
+        {
+          "id": "D",
+          "text": "Giám sát và kiểm soát."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10013,
+      "question": "Dự án phần mềm cần thực hiện các bước nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tổng thể công việc lặp đi, lặp lại."
+        },
+        {
+          "id": "B",
+          "text": "Xác định yêu cầu chung; Viết dự án"
+        },
+        {
+          "id": "C",
+          "text": "Chỉ thực hiện một bước là “Triển khai”."
+        },
+        {
+          "id": "D",
+          "text": "Tiêu chuẩn hóa mô hình chất lượng theo ISO (International Standart Organisation)."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10014,
+      "question": "ISO (International Standart Organisation) nghĩa là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Qui trình quản lý chất lượng."
+        },
+        {
+          "id": "B",
+          "text": "Tổ chức quốc tế về tiêu chuẩn hoá."
+        },
+        {
+          "id": "C",
+          "text": "Thước đo công việc thực hiện thể hiện bằng ngân sách."
+        },
+        {
+          "id": "D",
+          "text": "Kỹ thuật đo lường sự thực hiện dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10015,
+      "question": "Theo thống kê chung trên thế giới, “33% các dự án thất bại” vì lý do gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Người quản lý dự án không phân công rõ nhiệm vụ của từng người."
+        },
+        {
+          "id": "B",
+          "text": "Thiếu hoặc không hiểu rõ các công cụ hỗ trợ cho việc phát triển hệ thống cũng như cho việc quản lý - theo dõi dự án."
+        },
+        {
+          "id": "C",
+          "text": "Dự án có thể mắc sai lầm trong giai đoạn phân tích và thiết kế."
+        },
+        {
+          "id": "D",
+          "text": "Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10016,
+      "question": "Quản lý dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Một quá trình gồm nhiều công việc được thực hiện mà có tính lặp đi lặp lại, liên tục."
+        },
+        {
+          "id": "B",
+          "text": "Một quá trình gồm nhiều công việc, nhiệm vụ có liên quan với nhau, được thực hiện nhằm đạt mục tiêu đã đề ra, trong điều kiện ràng buột về thời gian, phạm vi và chi phí."
+        },
+        {
+          "id": "C",
+          "text": "Nổ lực ngắn hạn trong vài tuần, hoặc vài tháng được thực hiện bởi một tổ chức nào đó."
+        },
+        {
+          "id": "D",
+          "text": "Một kế hoạch dài hạn, tổng hợp, được thực hiện trên một phạm vi không gian rộng lớn, thời gian dài không xác định."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10017,
+      "question": "“Lập kế hoạch chất lượng” là giai đoạn nào sau đây?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhận biết được tiêu chuẩn chất lượng có liên quan tới dự án."
+        },
+        {
+          "id": "B",
+          "text": "Đánh giá toàn bộ việc thực hiện dự án để chắc chắn dự án sẽ thoả mãn những vấn đề liên quan tới tiêu chuẩn chất lượng."
+        },
+        {
+          "id": "C",
+          "text": "Kiểm tra chi tiết những kết quả dự án."
+        },
+        {
+          "id": "D",
+          "text": "Đánh giá có thể sử dụng để phát minh những sáng kiến cải tiến chất lượng."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10018,
+      "question": "Nguyên lý nào KHÔNG là nguyên lý cơ bản tạo WBS (Work breakdown structure)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Một mục WBS là nhiệm vụ của chỉ một người, ngay cả khi có nhiều người thực hiện công việc này."
+        },
+        {
+          "id": "B",
+          "text": "Những quy trình yêu cầu đảm bảo cho dự án được hoàn tất trong sự cho phép của ngân sách."
+        },
+        {
+          "id": "C",
+          "text": "Một đơn vị công việc chỉ xuất hiện một nơi trong WBS."
+        },
+        {
+          "id": "D",
+          "text": "Nội dung công việc trong một mục WBS bằng tổng các công việc dưới nó."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10019,
+      "question": "Qui trình quản lý chất lượng bao gồm các giai đoạn nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lập kế hoạch dự án; Triển khai; Kết thúc"
+        },
+        {
+          "id": "B",
+          "text": "Khởi tạo dự án; Lập kế hoạch dự án; Triển khai; Giám sát và kiểm soát; Kết thúc"
+        },
+        {
+          "id": "C",
+          "text": "Lập kế hoạch; Đảm bảo; Kiểm tra"
+        },
+        {
+          "id": "D",
+          "text": "Lập kế hoạch dự án; Triển khai; Kết thúc"
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 101,
+      "chapterName": "EX 2 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10020,
+      "question": "“Thả nổi hay đề chùng” trong sơ đồ mạng công việc là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Một khoảng thời gian mà các hoạt động đó có thể trượt mà vẫn không ảnh hưởng tới đường găng."
+        },
+        {
+          "id": "B",
+          "text": "Khoảng thời gian thả nổi mà một hoạt động có trước khi nó ảnh hưởng tới bất kì hoạt động nào khác (không găng)."
+        },
+        {
+          "id": "C",
+          "text": "Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ mối quan hệ liên tục giữa các công việc."
+        },
+        {
+          "id": "D",
+          "text": "Cho biết tiến trình chứa đựng nhiều rủi ro nhất trong dự án."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10021,
+      "question": "Trong quản lý dự án phần mềm việc lập kế hoạch thực hiện dự án là công việc gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hoạt động diễn ra chỉ trong quá trình giao sản phẩm."
+        },
+        {
+          "id": "B",
+          "text": "Hoạt động diễn ra chỉ trong quá trình khởi tạo dự án."
+        },
+        {
+          "id": "C",
+          "text": "Hoạt động diễn ra trong suốt quá trình từ khi bắt đầu thực hiện dự án đến khi bàn giao sản phẩm với nhiều loại."
+        },
+        {
+          "id": "D",
+          "text": "Hoạt động diễn ra chỉ trong quá trình hỗ trợ kế hoạch chính của dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10022,
+      "question": "“Ngày nghiệm thu dự án, ngày bàn giao dự án” là nội dung tài liệu mô tả đề án về nội dung nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ràng buộc thời gian thực hiện dự án ."
+        },
+        {
+          "id": "B",
+          "text": "Ràng buộc công nghệ phát triển."
+        },
+        {
+          "id": "C",
+          "text": "Ràng buộc kinh phí."
+        },
+        {
+          "id": "D",
+          "text": "Chữ ký các bên liên quan tới dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10023,
+      "question": "“Giám đốc dự án” có vai trò gì trong dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quản lý các hoạt động bên trong dự án."
+        },
+        {
+          "id": "B",
+          "text": "Nhận được thiết kế mức trung để tiến hành thiết kế chi tiết."
+        },
+        {
+          "id": "C",
+          "text": "Soạn thảo tài liệu hoặc cung cấp dữ liệu để thử nghiệm."
+        },
+        {
+          "id": "D",
+          "text": "Liên hệ giữa dự án với bên ngoài."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10024,
+      "question": "“Những người liên quan tới dự án, các hoạt động nghiệp vụ cần tin học hóa” là nội dung tài liệu mô tả đề án về nội dung nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nguồn nhân lực tham gia dự án."
+        },
+        {
+          "id": "B",
+          "text": "Ràng buộc kinh phí."
+        },
+        {
+          "id": "C",
+          "text": "Ràng buộc thời gian thực hiện dự án."
+        },
+        {
+          "id": "D",
+          "text": "Phạm vi dự án của một dự án."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10025,
+      "question": "Trình tự nào sau đây theo đúng “Qui trình quản lý dự án”?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Khởi tạo Dự Án -> Lập kế hoạch dự án -> (Kiểm tra & giám sát) <-> Triển khai dự án -> Kết thúc dự án."
+        },
+        {
+          "id": "B",
+          "text": "Khởi tạo Dự Án -> (Kiểm tra & giám sát) <-> Lập kế hoạch dự án -> Triển khai dự án -> Kết thúc dự án."
+        },
+        {
+          "id": "C",
+          "text": "Khởi tạo Dự Án -> Triển khai dự án -> (Kiểm tra & giám sát) <-> Lập kế hoạch dự án -> Kết thúc dự án."
+        },
+        {
+          "id": "D",
+          "text": "Khởi tạo Dự -> Lập kế hoạch dự án -> Kết thúc dự án ->(Kiểm tra & giám sát) <-> Triển khai dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10026,
+      "question": "Trong công cụ hỗ trợ kiểm tra chi phí, BAC (Budget At Completion) là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chi phí thực sự của công việc được thực hiện."
+        },
+        {
+          "id": "B",
+          "text": "Kỹ thuật đo lường sự thực hiện dự án thông qua tích hợp các dữ liệu về chi phí."
+        },
+        {
+          "id": "C",
+          "text": "Tổng ngân sách chi phí công việc đã lên lịch tới thời điểm hoàn thành."
+        },
+        {
+          "id": "D",
+          "text": "Chi phí ngân sách cho việc tiến hành công việc."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10027,
+      "question": "Qui trình nào để quản lý chi phí dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tổng kết về tất cả các sản phẩm trung gian của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Nhận biết điều gì có thể dẫn đến sai sót và vẫn trong kiểm soát khi có điều trục trặc."
+        },
+        {
+          "id": "C",
+          "text": "Lập kế hoạch cho nguồn tài nguyên."
+        },
+        {
+          "id": "D",
+          "text": "Cân bằng được các yêu cầu cạnh tranh trong dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10028,
+      "question": "“Căn cứ pháp lý để thực hiện dự án, hiện trạng công nghệ thông tin của khách hàng trước khi có dự án, nhu cầu ứng dụng phần mềm của khách hàng, đặc điểm và phạm vi của phần mềm sẽ xây dựng” là nội dung tài liệu mô tả đề án về vấn đề gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nguồn nhân lực tham gia dự án."
+        },
+        {
+          "id": "B",
+          "text": "Bối cảnh thực hiện dự án."
+        },
+        {
+          "id": "C",
+          "text": "Phạm vi dự án của một dự án."
+        },
+        {
+          "id": "D",
+          "text": "Mục đích và mục tiêu của dự án."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10029,
+      "question": "Phạm vi dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Kỹ thuật đánh giá và xem xét chương trình."
+        },
+        {
+          "id": "B",
+          "text": "Một danh sách tất cả những gì dự án phải làm."
+        },
+        {
+          "id": "C",
+          "text": "Quy trình yêu cầu đảm bảo cho dự án hoàn tất trong sự cho phép của ngân sách."
+        },
+        {
+          "id": "D",
+          "text": "Những qui trình bảo đảm hoàn tất dự án đúng hạn."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 102,
+      "chapterName": "EX 3 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10030,
+      "question": "Tuyên bố nào là thành phần chính trong bản tuyên bố phạm vi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Không bao giờ yêu cầu một người không có kinh nghiệm làm ước lượng."
+        },
+        {
+          "id": "B",
+          "text": "Quy trình yêu cầu đảm bảo cho dự án hoàn tất trong sự cho phép của ngân sách."
+        },
+        {
+          "id": "C",
+          "text": "Một danh sách tất cả những gì dự án phải làm."
+        },
+        {
+          "id": "D",
+          "text": "Tuyên bố về những yếu tố xác định thành công của dự án."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10031,
+      "question": "Theo thống kê chung trên thế giới, có các nguyên nhân dẫn đến 33% các dự án bị huỷ, NGOẠI TRỪ nguyên nhân nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Người quản lý dự án không phân công rõ nhiệm vụ của từng người."
+        },
+        {
+          "id": "B",
+          "text": "Vượt qua giới hạn về thời gian hoặc kinh phí."
+        },
+        {
+          "id": "C",
+          "text": "Người dùng hoặc khách hàng không cần tới nó nữa."
+        },
+        {
+          "id": "D",
+          "text": "Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10032,
+      "question": "Mệnh đề nào là ĐÚNG về đường găng trong sơ đồ mạng công việc?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Là đường nối các sự kiện găng."
+        },
+        {
+          "id": "B",
+          "text": "Các công việc trên đường găng chứa đựng nhiều rủi ro nhất trong dự án."
+        },
+        {
+          "id": "C",
+          "text": "Đường găng là đường ngắn nhất trong sơ đồ mạng."
+        },
+        {
+          "id": "D",
+          "text": "Đường kết nối liên tục tính từ sự kiện đầu đến sự kiện cuối."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10033,
+      "question": "Công thức độ dài thời gian thực hiện công việc: D=C x (G+J). Vậy ký hiệu J có ý nghĩa gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhân tố tri thức về công việc đang xét."
+        },
+        {
+          "id": "B",
+          "text": "Giá trị trù tính."
+        },
+        {
+          "id": "C",
+          "text": "Biến động lịch."
+        },
+        {
+          "id": "D",
+          "text": "Nhân tố kinh nghiệm."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10034,
+      "question": "Nguyên lý nào sau đây KHÔNG phải là nguyên lý tạo ra WBS (Work breakdown structure)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ mối quan hệ liên tục giữa các công việc."
+        },
+        {
+          "id": "B",
+          "text": "WBS phải nhất quán với cách thực hiện công việc; trước hết nó phải phục vụ nhóm dự án và các mục đích khác nếu thực tế cho phép."
+        },
+        {
+          "id": "C",
+          "text": "Mỗi mục WBS phải có tài liệu đi kèm để bảo đảm hiểu được chính xác phạm vi công việc."
+        },
+        {
+          "id": "D",
+          "text": "Các thành viên nhóm dự án phải tham gia phát triển WBS để bảo đảm tính nhất quán."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10035,
+      "question": "Số đường găng có trong sơ đồ mạng như thế nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mặc định là một găng."
+        },
+        {
+          "id": "B",
+          "text": "Trên hai đường găng."
+        },
+        {
+          "id": "C",
+          "text": "Mặc định là hai đường găng"
+        },
+        {
+          "id": "D",
+          "text": "Một đường găng hoặc nhiều hơn."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10036,
+      "question": "Trong công cụ hỗ trợ kiểm tra chi phí, PV (Planned Value) gọi là “Giá trị trù tính”, vậy giá trị trù tính là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chi phí ngân sách cho việc tiến hành công việc."
+        },
+        {
+          "id": "B",
+          "text": "Ngân sách chi phí công việc đã lên lịch."
+        },
+        {
+          "id": "C",
+          "text": "Chi phí thực sự của công việc được thực hiện."
+        },
+        {
+          "id": "D",
+          "text": "Kỹ thuật đo lường sự thực hiện dự án thông qua tích hợp các dữ liệu về chi phí."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10037,
+      "question": "WBS (Work breakdown structure) là công cụ hữu ích gì cho nhà quản lý dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tiến hành ước tính chi phí."
+        },
+        {
+          "id": "B",
+          "text": "Xác định sự bắt đầu của công việc."
+        },
+        {
+          "id": "C",
+          "text": "Xác định thời gian dự trữ của các công việc."
+        },
+        {
+          "id": "D",
+          "text": "Xác định các công việc cụ thể của dự án."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10038,
+      "question": "Một giai đoạn trong qui trình quản lý dự án mà “thực hiện để kết thúc tất cả các hoạt động của dự án để chính thức đóng lại dự án.”, được gọi là giai đoạn nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Giám sát và kiểm soát."
+        },
+        {
+          "id": "B",
+          "text": "Kết thúc."
+        },
+        {
+          "id": "C",
+          "text": "Lập kế hoạch dự án."
+        },
+        {
+          "id": "D",
+          "text": "Triển khai."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10039,
+      "question": "Yếu tố nào KHÔNG thuộc đặc trưng bộ ba ràng buộc trong quản lý dự án?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chất lượng (ISO)"
+        },
+        {
+          "id": "B",
+          "text": "Thời gian (Time)"
+        },
+        {
+          "id": "C",
+          "text": "Chi phí (Cost)"
+        },
+        {
+          "id": "D",
+          "text": "Phạm vi (Scope)"
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 103,
+      "chapterName": "EX 4 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10040,
+      "question": "Trong công cụ hỗ trợ kiểm tra chi phí, EV (Earned Value) gọi là “Giá trị thu được”, vậy giá trị thu được là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ngân sách chi phí công việc đã lên lịch."
+        },
+        {
+          "id": "B",
+          "text": "Chi phí ngân sách cho việc tiến hành công việc."
+        },
+        {
+          "id": "C",
+          "text": "Kỹ thuật đo lường sự thực hiện dự án thông qua tích hợp các dữ liệu về chi phí."
+        },
+        {
+          "id": "D",
+          "text": "Tổng cộng các chi phí trực tiếp hay gián tiếp trong việc hoàn tất công việc trong một giai đoạn định trước."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10041,
+      "question": "Hãy cho biết công thức tính chi phí thực sự AC (Actual Cost)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "EV - PV"
+        },
+        {
+          "id": "B",
+          "text": "EV - CV"
+        },
+        {
+          "id": "C",
+          "text": "EV / AC"
+        },
+        {
+          "id": "D",
+          "text": "EV / PV"
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10042,
+      "question": "Chi phí trong quản lý dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Những qui trình bảo đảm hoàn tất dự án đúng hạn."
+        },
+        {
+          "id": "B",
+          "text": "Những kết quả của dự án mà sẽ chuyển giao."
+        },
+        {
+          "id": "C",
+          "text": "Một danh sách tất cả những gì dự án phải làm."
+        },
+        {
+          "id": "D",
+          "text": "Tài nguyên được hy sinh hay tính trước để đạt được một mục tiêu rõ ràng hay để trao đổi cái gì đó, được đo bằng đơn vị tiền tệ."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10043,
+      "question": "Theo thống kê chung trên thế giới, có “50% - 100% các dự án bị hủy” nguyên nhân bởi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dự án có thể mắc sai lầm trong giai đoạn phân tích và thiết kế."
+        },
+        {
+          "id": "B",
+          "text": "Một dự án mà kéo dài quá 50% thời gian dự định."
+        },
+        {
+          "id": "C",
+          "text": "Công nghệ đã bị thay đổi quá nhiều so với hiệu quả mà dự án sẽ mang lại."
+        },
+        {
+          "id": "D",
+          "text": "Người quản lý dự án không phân công rõ nhiệm vụ của từng người."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10044,
+      "question": "Công việc: “mô tả các phương pháp, nguồn lực, lịch trình thẩm định hệ thống”, là loại kế hoạch nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Kế hoạch thẩm định."
+        },
+        {
+          "id": "B",
+          "text": "Kế hoạch phát triển đội ngũ."
+        },
+        {
+          "id": "C",
+          "text": "Kế hoạch quản lý cấu hình."
+        },
+        {
+          "id": "D",
+          "text": "Kế hoạch bảo trì."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10045,
+      "question": "Để quản lý chi phí dự án, cần qui trình nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tổng kết về tất cả các sản phẩm trung gian của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Cân bằng được các yêu cầu cạnh tranh trong dự án."
+        },
+        {
+          "id": "C",
+          "text": "Nhận biết điều gì có thể dẫn đến sai sót."
+        },
+        {
+          "id": "D",
+          "text": "Kiểm soát – Điều chỉnh chi phí: điều chỉnh thay đổi chi phí dự án"
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10046,
+      "question": "Trong quản lý chất lượng có “Chi phí ngăn ngừa”, nghĩa là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Chi phí liên quan đến tất cả lỗi không được nhận ra trước khi đưa đến cho khách hàng."
+        },
+        {
+          "id": "B",
+          "text": "Chi phí đánh giá quá trình và sản phẩm đưa ra đạt chất lượng."
+        },
+        {
+          "id": "C",
+          "text": "Chi phí dự tính và thực thi dự án có thể là không lỗi hay lỗi có thể chấp nhận được."
+        },
+        {
+          "id": "D",
+          "text": "Chi phí dùng để chỉ định chính xác thiếu xót được định ra trước khi khách hàng nhận được sản phẩm."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10047,
+      "question": "Theo thống kê chung trên thế giới, có “33% các dự án bị huỷ” bởi nguyên nhân?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dự án có thể mắc sai lầm trong giai đoạn phân tích và thiết kế."
+        },
+        {
+          "id": "B",
+          "text": "Người quản lý dự án không phân công rõ nhiệm vụ của từng người."
+        },
+        {
+          "id": "C",
+          "text": "Vượt qua giới hạn về thời gian hoặc kinh phí."
+        },
+        {
+          "id": "D",
+          "text": "Thiếu hoặc không hiểu rõ các công cụ hỗ trợ cho việc phát triển hệ thống."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10048,
+      "question": "Một số kỹ thuật và công cụ trong giai đoạn “Kiểm tra chất lượng dự án” bao gồm:",
+      "options": [
+        {
+          "id": "A",
+          "text": "phân tích Pareto, mẫu thống kê, độ lệch chuẩn."
+        },
+        {
+          "id": "B",
+          "text": "sơ đồ mạng, EMV (Earned value management)."
+        },
+        {
+          "id": "C",
+          "text": "biểu đồ GANTT, sơ đồ mạng."
+        },
+        {
+          "id": "D",
+          "text": "EMV (Earned value management). biểu đồ GANTT."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10049,
+      "question": "Nguyên tắc “80-20” thuộc kỹ thuật hay công cụ nào sau đây?",
+      "options": [
+        {
+          "id": "A",
+          "text": "EMV (Earned value management)."
+        },
+        {
+          "id": "B",
+          "text": "Phân tích Pareto."
+        },
+        {
+          "id": "C",
+          "text": "PERT (Program Evaluation and Review Technique)."
+        },
+        {
+          "id": "D",
+          "text": "ISO (International Organization for Standardization)."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 104,
+      "chapterName": "EX 5 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10050,
+      "question": "Mục tiêu của dự án là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Theo dõi, rà soát và điều chỉnh lại tiến độ và khả năng thực hiện của dự án"
+        },
+        {
+          "id": "B",
+          "text": "Một quá trình gồm nhiều công việc, nhiệm vụ có liên quan với nhau, được thực hiện nhằm đạt mục tiêu đã đề ra."
+        },
+        {
+          "id": "C",
+          "text": "Giải quyết được những yêu cầu được đặt ra trong thực tế khi bắt đầu dự án."
+        },
+        {
+          "id": "D",
+          "text": "Một danh sách tất cả những gì dự án phải làm (và cũng có thể là không phải làm)."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10051,
+      "question": "“Dự đoán rủi ro”, nghĩa là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bảo đảm các chiến lược đối phó rủi ro được lên kế hoạch."
+        },
+        {
+          "id": "B",
+          "text": "Chọn lựa chiến lược và phương pháp đối phó rủi ro."
+        },
+        {
+          "id": "C",
+          "text": "Xác định và chọn ra những rủi ro quan trọng cần giải quyết."
+        },
+        {
+          "id": "D",
+          "text": "Nhận biết điều gì có thể dẫn đến sai sót."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10052,
+      "question": "Loại dự án nào thuộc về “Xây dựng cơ sở hạ tầng công nghệ thông tin” (CNTT)?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Phát triển hệ thống mạng từ 4G lên 5G."
+        },
+        {
+          "id": "B",
+          "text": "Xây dựng Khu Công nghệ Phần mềm tại Thành phố ABC."
+        },
+        {
+          "id": "C",
+          "text": "Xây dựng cơ sở dữ liệu về căn cước công dân."
+        },
+        {
+          "id": "D",
+          "text": "Xây dựng cơ sở dữ liệu về căn cước công dân"
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10053,
+      "question": "Sơ đồ mạng PERT (Program Evaluation and Review Technique), là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Những qui trình bảo đảm hoàn tất dự án đúng hạn."
+        },
+        {
+          "id": "B",
+          "text": "Những quy trình yêu cầu đảm bảo cho dự án."
+        },
+        {
+          "id": "C",
+          "text": "Kỹ thuật đánh giá và xem xét chương trình."
+        },
+        {
+          "id": "D",
+          "text": "Một danh sách tất cả những gì dự án phải làm."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10054,
+      "question": "“Kinh phí trong từng giai đoạn thực hiện dự án” là nội dung tài liệu mô tả đề án về nội dung nào?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ràng buộc kinh phí."
+        },
+        {
+          "id": "B",
+          "text": "Nguồn nhân lực tham gia dự án."
+        },
+        {
+          "id": "C",
+          "text": "Ràng buộc công nghệ phát triển."
+        },
+        {
+          "id": "D",
+          "text": "Chữ ký các bên liên quan tới dự án."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10055,
+      "question": "“Thả nổi toàn bộ” trong sơ đồ mạng công việc là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhiệm vụ không có tính lặp lại, liên tục mà có tính chất mới mẻ."
+        },
+        {
+          "id": "B",
+          "text": "Quãng thời gian thả nổi mà một hoạt động có trước khi ảnh hưởng tới đường găng"
+        },
+        {
+          "id": "C",
+          "text": "Trình bày kế hoạch tiến độ, mô tả dưới dạng sơ đồ mối quan hệ liên tục giữa các công việc."
+        },
+        {
+          "id": "D",
+          "text": "Khoảng thời gian thả nổi mà một hoạt động có trước khi nó ảnh hưởng tới bất kì hoạt động nào khác."
+        }
+      ],
+      "correctAnswer": "B",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10056,
+      "question": "Trong quản lý chi phí dự án, qui trình nào để quản lý chi phí?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nhận biết điều gì có thể dẫn đến sai sót và vẫn trong kiểm soát khi có điều trục trặc."
+        },
+        {
+          "id": "B",
+          "text": "Cân bằng được các yêu cầu cạnh tranh trong dự án."
+        },
+        {
+          "id": "C",
+          "text": "Tổng kết về tất cả các sản phẩm trung gian của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Dự toán chi phí: phân bổ toàn bộ chi phí ước tính vào từng hạng mục công việc để thiết lập một đường mức cho việc đo lường việc thực hiện"
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10057,
+      "question": "Thành phần nào KHÔNG phải là thành phần chính của bản tuyên bố phạm vi?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Mô tả ngắn về sản phẩm của dự án."
+        },
+        {
+          "id": "B",
+          "text": "Tuyên bố về những yếu tố xác định thành công của dự án,"
+        },
+        {
+          "id": "C",
+          "text": "Tổng kết về tất cả các sản phẩm trung gian của dự án."
+        },
+        {
+          "id": "D",
+          "text": "Không bao giờ yêu cầu một người không có kinh nghiệm làm ước lượng."
+        }
+      ],
+      "correctAnswer": "D",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10058,
+      "question": "Vai trò của “Phó giám đốc kỹ thuật dự án” là gì?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Quản lý các hoạt động bên trong dự án."
+        },
+        {
+          "id": "B",
+          "text": "Nhận được thiết kế mức trung để tiến hành thiết kế chi tiết."
+        },
+        {
+          "id": "C",
+          "text": "Soạn thảo tài liệu hoặc cung cấp dữ liệu để thử nghiệm."
+        },
+        {
+          "id": "D",
+          "text": "Liên hệ giữa dự án với bên ngoài."
+        }
+      ],
+      "correctAnswer": "A",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
+    },
+    {
+      "id": 10059,
+      "question": "Biểu đồ GANTT có nhiều tác dụng, TRỪ trường hợp nào sau đây?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dễ vẽ, dễ nhận biết tiến trình thực tế của từng công việc."
+        },
+        {
+          "id": "B",
+          "text": "Không phản ánh mối quan hệ giữa các công việc."
+        },
+        {
+          "id": "C",
+          "text": "Phản ánh chính xác mối quan hệ giữa các công việc của dự án phức tạp"
+        },
+        {
+          "id": "D",
+          "text": "Cho biết độ dài thời gian thực hiện từng công việc và toàn bộ dự án."
+        }
+      ],
+      "correctAnswer": "C",
+      "chapter": 105,
+      "chapterName": "EX 6 - ĐỀ LUYỆN TẬP",
+      "isEx": true
     }
   ]
 }

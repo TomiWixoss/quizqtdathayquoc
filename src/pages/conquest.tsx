@@ -120,7 +120,7 @@ function ConquestPage() {
     return (
       <Page className="bg-background min-h-screen">
         {/* Header */}
-        <div className="pt-16 pb-2 px-4 bg-background sticky top-0 z-10">
+        <div className="pt-4 pb-2 px-4 bg-background sticky top-0 z-10">
           <div className="flex items-center justify-between">
             <button
               onClick={handleEnd}
@@ -206,7 +206,7 @@ function ConquestPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="pt-16 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      <div className="pt-4 pb-3 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/")}

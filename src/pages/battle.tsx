@@ -71,7 +71,7 @@ function BattlePage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header */}
-      <div className="pt-16 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
+      <div className="pt-4 pb-4 px-4 bg-[var(--card)] border-b-2 border-[var(--border)]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/")}

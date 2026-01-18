@@ -172,7 +172,7 @@ function ShopPage() {
   return (
     <Page className="bg-background min-h-screen">
       {/* Header - Fixed */}
-      <div className="fixed top-0 left-0 right-0 z-40 pt-12 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
+      <div className="fixed top-0 left-0 right-0 z-40 pt-4 pb-4 px-4 bg-gradient-to-r from-[var(--duo-purple)] to-[var(--duo-blue)]">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate("/settings")}

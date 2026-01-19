@@ -969,11 +969,8 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   hasUnlimitedHearts: () => {
-    const { user } = get();
-    if (!user?.unlimitedHeartsUntil) return false;
-
-    const until = new Date(user.unlimitedHeartsUntil).getTime();
-    return Date.now() < until;
+    // Luôn trả về true - vô hạn tim cho thi cử
+    return true;
   },
 
   getUnlimitedHeartsTimeLeft: () => {

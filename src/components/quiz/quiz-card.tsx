@@ -55,11 +55,12 @@ export function QuizCard() {
           colors: ["#58cc02", "#89e219", "#ffc800"],
         });
         setTimeout(() => setShowXP(false), 800);
-      } else if (quizMode === "chapter" && !hasUnlimitedHearts()) {
-        // Chỉ hiện mất tim ở chế độ học chương và không có tim vô hạn
-        setShowHeartLost(true);
-        setTimeout(() => setShowHeartLost(false), 800);
       }
+      // Không hiện mất tim vì đã có vô hạn tim
+      // else if (quizMode === "chapter" && !hasUnlimitedHearts()) {
+      //   setShowHeartLost(true);
+      //   setTimeout(() => setShowHeartLost(false), 800);
+      // }
     }
   }, [isAnswered, isCorrect, quizMode]);
 
@@ -73,8 +74,8 @@ export function QuizCard() {
   const handleCheckAnswer = async () => {
     if (!pendingAnswer || isAnswered) return;
 
-    // Chế độ luyện tập (battle) không cần tim, chỉ chế độ học chương mới cần
-    const isPracticeMode = quizMode !== "chapter";
+    // Chế độ luyện tập (practice/battle) không cần tim, chỉ chế độ học chương (flashcard) mới cần
+    const isPracticeMode = quizMode === "practice" || quizMode !== "chapter";
 
     // Check if user has hearts (bỏ qua nếu có unlimited hearts hoặc đang ở chế độ luyện tập)
     if (user && user.hearts <= 0 && !hasUnlimitedHearts() && !isPracticeMode) {
@@ -85,10 +86,10 @@ export function QuizCard() {
     selectAnswer(pendingAnswer);
     const correct = pendingAnswer === currentQ.correctAnswer;
 
-    // Chỉ trừ tim khi sai ở chế độ học chương
-    if (!correct && !isPracticeMode) {
-      await loseHeart();
-    }
+    // Không trừ tim ở bất kỳ chế độ nào vì đã có vô hạn tim
+    // if (!correct && !isPracticeMode) {
+    //   await loseHeart();
+    // }
 
     // Track daily correct for quests
     if (correct) {
@@ -147,7 +148,7 @@ export function QuizCard() {
           <div className="flex items-center gap-3">
             {/* Hearts - chỉ hiện ở chế độ học chương, không hiện ở luyện tập */}
             {user &&
-              quizMode === "chapter" &&
+              (quizMode === "chapter" || quizMode === "practice") &&
               (hasUnlimitedHearts() ? (
                 <div className="flex items-center gap-1 bg-gradient-to-r from-[var(--duo-red)] to-[var(--duo-pink)] px-2 py-0.5 rounded-full">
                   <img

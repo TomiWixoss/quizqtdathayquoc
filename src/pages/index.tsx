@@ -52,13 +52,8 @@ function HomePage() {
   }, [user?.lastStreakFreezeUsed]);
 
   const handleChapter = (id: number) => {
-    // Bỏ qua kiểm tra tim nếu có unlimited hearts
-    if (user && user.hearts <= 0 && !hasUnlimitedHearts()) {
-      setPendingChapterId(id);
-      setShowNoHeartsModal(true);
-      return;
-    }
-    useQuizStore.getState().selectChapter(id);
+    // Không cần kiểm tra tim vì đã có vô hạn tim
+    useQuizStore.getState().selectChapter(id, "flashcard");
     navigate("/quiz");
   };
 

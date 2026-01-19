@@ -448,12 +448,28 @@ export function QuizResult() {
 
       {/* Actions */}
       <div className="w-full max-w-xs space-y-2.5">
-        <button
-          onClick={handleRetry}
-          className="btn-3d btn-3d-green w-full py-3 flex items-center justify-center gap-2"
-        >
-          <RotateCcw className="w-4 h-4" /> Làm lại
-        </button>
+        {/* Nút luyện tập - chỉ hiện khi hoàn thành flashcard */}
+        {quizMode === "flashcard" && currentChapter && (
+          <button
+            onClick={() => {
+              selectChapter(currentChapter, "practice");
+            }}
+            className="btn-3d btn-3d-green w-full py-3 flex items-center justify-center gap-2"
+          >
+            <Target className="w-4 h-4" /> Luyện tập trắc nghiệm
+          </button>
+        )}
+        
+        {/* Nút làm lại - chỉ hiện khi không phải flashcard */}
+        {quizMode !== "flashcard" && (
+          <button
+            onClick={handleRetry}
+            className="btn-3d btn-3d-green w-full py-3 flex items-center justify-center gap-2"
+          >
+            <RotateCcw className="w-4 h-4" /> Làm lại
+          </button>
+        )}
+        
         <button
           onClick={() => {
             const isBattleMode = !currentChapter;

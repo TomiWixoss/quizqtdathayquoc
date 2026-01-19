@@ -13,13 +13,13 @@ interface QuizState {
   score: number;
   correctCount: number;
   wrongCount: number;
-  quizMode: "chapter" | "random" | "all" | "timeattack" | "survival";
+  quizMode: "chapter" | "random" | "all" | "timeattack" | "survival" | "flashcard" | "practice";
   timeLimit: number | null;
   maxWrong: number | null;
 
   // Actions
   loadQuiz: () => void;
-  selectChapter: (chapterId: number) => void;
+  selectChapter: (chapterId: number, mode?: "flashcard" | "practice") => void;
   startRandomQuiz: (count?: number) => void;
   startAllQuiz: () => void;
   startTimeAttack: (seconds: number) => void;
@@ -59,7 +59,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     set({ chapters: data.chapters, questions: data.questions });
   },
 
-  selectChapter: (chapterId) => {
+  selectChapter: (chapterId, mode = "flashcard") => {
     const { questions } = get();
     const chapterQuestions = shuffleArray(
       questions.filter((q) => q.chapter === chapterId)
@@ -73,7 +73,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       score: 0,
       correctCount: 0,
       wrongCount: 0,
-      quizMode: "chapter",
+      quizMode: mode,
       timeLimit: null,
       maxWrong: null,
     });

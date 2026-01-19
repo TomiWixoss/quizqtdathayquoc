@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { Page } from "@/components/ui/page";
 import { X, Clock, Skull } from "lucide-react";
 import { QuizCard } from "@/components/quiz/quiz-card";
+import { Flashcard } from "@/components/quiz/flashcard";
 import { QuizResult } from "@/components/quiz/quiz-result";
+import { FlashcardResult } from "@/components/quiz/flashcard-result";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import { useEffect, useState, useRef } from "react";
@@ -60,6 +62,10 @@ function QuizPage() {
     ? "Time Attack"
     : quizMode === "survival"
     ? "Sinh Tồn"
+    : quizMode === "flashcard"
+    ? "Học Flashcard"
+    : quizMode === "practice"
+    ? "Luyện Tập"
     : "Trắc nghiệm";
 
   // Redirect to home only on initial load if no questions (user accessed /quiz directly)
@@ -151,7 +157,17 @@ function QuizPage() {
         className={`px-4 pb-24 ${isFinished ? "pt-4" : "pt-24"} max-w-2xl mx-auto`}
         style={{ minHeight: "calc(100vh - 100px)" }}
       >
-        {isFinished ? <QuizResult /> : <QuizCard />}
+        {isFinished ? (
+          quizMode === "flashcard" ? (
+            <FlashcardResult />
+          ) : (
+            <QuizResult />
+          )
+        ) : quizMode === "flashcard" ? (
+          <Flashcard />
+        ) : (
+          <QuizCard />
+        )}
       </div>
     </Page>
   );

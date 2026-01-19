@@ -156,6 +156,34 @@ function GachaPage() {
     }
   }, [collections, inventory, activeTab, collectionCardCounts]);
 
+  // Calculate counts for each tab
+  const tabCounts = useMemo(() => {
+    if (!inventory) {
+      return {
+        all: collections.length,
+        bookmarked: 0,
+        spinning: 0,
+        completed: 0,
+      };
+    }
+
+    const bookmarked = inventory.bookmarked || [];
+    const bookmarkedCount = collections.filter((c) =>
+      bookmarked.includes(c.id)
+    ).length;
+    const spinningCount = collections.filter((c) => isSpinning(c.id)).length;
+    const completedCount = collections.filter((c) => isCompleted(c.id)).length;
+    const allCount =
+      collections.length - bookmarkedCount - spinningCount - completedCount;
+
+    return {
+      all: allCount,
+      bookmarked: bookmarkedCount,
+      spinning: spinningCount,
+      completed: completedCount,
+    };
+  }, [collections, inventory, collectionCardCounts]);
+
   const totalPages = Math.ceil(filteredCollections.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentItems = filteredCollections.slice(
@@ -268,6 +296,15 @@ function GachaPage() {
           >
             <List className="w-4 h-4" />
             Tất cả
+            <span
+              className={`ml-1 px-2 py-0.5 rounded-full text-xs font-bold ${
+                activeTab === "all"
+                  ? "bg-white/20 text-white"
+                  : "bg-[var(--muted)] text-[var(--muted-foreground)]"
+              }`}
+            >
+              {tabCounts.all}
+            </span>
           </button>
           <button
             onClick={() => handleTabChange("bookmarked")}
@@ -279,6 +316,15 @@ function GachaPage() {
           >
             <Bookmark className="w-4 h-4" />
             Đã lưu
+            <span
+              className={`ml-1 px-2 py-0.5 rounded-full text-xs font-bold ${
+                activeTab === "bookmarked"
+                  ? "bg-white/20 text-white"
+                  : "bg-[var(--muted)] text-[var(--muted-foreground)]"
+              }`}
+            >
+              {tabCounts.bookmarked}
+            </span>
           </button>
           <button
             onClick={() => handleTabChange("spinning")}
@@ -290,6 +336,15 @@ function GachaPage() {
           >
             <RotateCw className="w-4 h-4" />
             Đang quay
+            <span
+              className={`ml-1 px-2 py-0.5 rounded-full text-xs font-bold ${
+                activeTab === "spinning"
+                  ? "bg-white/20 text-white"
+                  : "bg-[var(--muted)] text-[var(--muted-foreground)]"
+              }`}
+            >
+              {tabCounts.spinning}
+            </span>
           </button>
           <button
             onClick={() => handleTabChange("completed")}
@@ -301,6 +356,15 @@ function GachaPage() {
           >
             <CheckCircle2 className="w-4 h-4" />
             Hoàn thành
+            <span
+              className={`ml-1 px-2 py-0.5 rounded-full text-xs font-bold ${
+                activeTab === "completed"
+                  ? "bg-white/20 text-white"
+                  : "bg-[var(--muted)] text-[var(--muted-foreground)]"
+              }`}
+            >
+              {tabCounts.completed}
+            </span>
           </button>
         </div>
       </div>

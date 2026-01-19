@@ -59,7 +59,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
     set({ chapters: data.chapters, questions: data.questions });
   },
 
-  selectChapter: (chapterId, mode = "flashcard") => {
+  selectChapter: (chapterId, mode = "practice") => {
     const { questions } = get();
     const chapterQuestions = shuffleArray(
       questions.filter((q) => q.chapter === chapterId)

@@ -53,7 +53,7 @@ function HomePage() {
 
   const handleChapter = (id: number) => {
     // Không cần kiểm tra tim vì đã có vô hạn tim
-    useQuizStore.getState().selectChapter(id, "flashcard");
+    useQuizStore.getState().selectChapter(id, "practice");
     navigate("/quiz");
   };
 

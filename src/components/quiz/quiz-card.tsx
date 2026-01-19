@@ -1,4 +1,4 @@
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, XCircle, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
@@ -18,6 +18,7 @@ export function QuizCard() {
     nextQuestion,
     score,
     quizMode,
+    currentChapter,
   } = useQuizStore();
   const {
     user,
@@ -31,6 +32,12 @@ export function QuizCard() {
   const [showXP, setShowXP] = useState(false);
   const [showNoHeartsModal, setShowNoHeartsModal] = useState(false);
   const [pendingAnswer, setPendingAnswer] = useState<string | null>(null);
+
+  const handleSwitchToFlashcard = () => {
+    if (currentChapter) {
+      useQuizStore.getState().selectChapter(currentChapter, "flashcard");
+    }
+  };
 
   const currentQ = currentQuestions[currentIndex];
   const progress = ((currentIndex + 1) / currentQuestions.length) * 100;
@@ -140,9 +147,22 @@ export function QuizCard() {
           />
         </div>
         <div className="flex justify-between items-center mt-2 text-sm">
-          <span className="text-[var(--muted-foreground)]">
-            Câu {currentIndex + 1}/{currentQuestions.length}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-[var(--muted-foreground)]">
+              Câu {currentIndex + 1}/{currentQuestions.length}
+            </span>
+            {/* Switch to Flashcard button - only show in chapter practice mode */}
+            {currentChapter && quizMode === "practice" && (
+              <button
+                onClick={handleSwitchToFlashcard}
+                className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--duo-blue)]/10 hover:bg-[var(--duo-blue)]/20 transition-colors"
+                title="Chuyển sang chế độ Flashcard"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-[var(--duo-blue)]" />
+                <span className="text-xs font-semibold text-[var(--duo-blue)]">Flashcard</span>
+              </button>
+            )}
+          </div>
           <div className="flex items-center gap-3">
             {/* Hearts - chỉ hiện ở chế độ học chương, không hiện ở luyện tập */}
             {user &&

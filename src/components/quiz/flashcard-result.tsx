@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Home, Target, CheckCircle } from "lucide-react";
+import { BookOpen, Home, CheckCircle } from "lucide-react";
 import { useQuizStore } from "@/stores/quiz-store";
 import { useUserStore } from "@/stores/user-store";
 import confetti from "canvas-confetti";
@@ -11,7 +11,6 @@ export function FlashcardResult() {
     currentQuestions,
     currentChapter,
     resetQuiz,
-    selectChapter,
     chapters,
   } = useQuizStore();
   const { user } = useUserStore();
@@ -44,12 +43,6 @@ export function FlashcardResult() {
     };
     frame();
   }, []);
-
-  const handlePractice = () => {
-    if (currentChapter) {
-      selectChapter(currentChapter, "practice");
-    }
-  };
 
   const handleHome = () => {
     resetQuiz();
@@ -117,36 +110,13 @@ export function FlashcardResult() {
         )}
       </div>
 
-      {/* Info Box */}
-      <div className="w-full max-w-xs bg-[var(--duo-blue)]/10 border-2 border-[var(--duo-blue)] rounded-2xl p-4 mb-6">
-        <div className="flex items-start gap-3">
-          <Target className="w-6 h-6 text-[var(--duo-blue)] shrink-0 mt-0.5" />
-          <div>
-            <p className="font-bold text-foreground mb-1">
-              Sẵn sàng kiểm tra?
-            </p>
-            <p className="text-sm text-[var(--muted-foreground)]">
-              Bấm "Luyện tập trắc nghiệm" để kiểm tra kiến thức bạn vừa học!
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Actions */}
       <div className="w-full max-w-xs space-y-2.5">
-        {currentChapter && (
-          <button
-            onClick={handlePractice}
-            className="btn-3d btn-3d-green w-full py-3.5 flex items-center justify-center gap-2"
-          >
-            <Target className="w-5 h-5" /> Luyện tập trắc nghiệm
-          </button>
-        )}
         <button
           onClick={handleHome}
-          className="btn-3d btn-3d-blue w-full py-3 flex items-center justify-center gap-2"
+          className="btn-3d btn-3d-green w-full py-3.5 flex items-center justify-center gap-2"
         >
-          <Home className="w-4 h-4" /> Trang chủ
+          <Home className="w-5 h-5" /> Về trang chủ
         </button>
       </div>
     </div>
